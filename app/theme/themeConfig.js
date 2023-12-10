@@ -1,7 +1,8 @@
 const theme = {
 	token: {
 		fontSize: 16,
-		colorPrimary: "#52c41a",
+		colorPrimary: "#0091ce",
+		colorSecondary: "#fc205c",
 	},
 };
 

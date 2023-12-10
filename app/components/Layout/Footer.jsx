@@ -2,7 +2,8 @@ import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import "./style.modules.scss";
+import classNames from "classnames";
+import styles from "./styles.module.scss";
 
 const companyInfo = {
 	logo: "/logo.png",
@@ -146,8 +147,13 @@ const forEmployerInfo = {
 
 const InfoList = ({ info }) => {
 	return (
-		<div className="list">
-			<div className="font-bold relative pb-2.5 mb-4 text-base title-list">
+		<div className={styles.list}>
+			<div
+				className={classNames([
+					"font-bold relative pb-2.5 mb-4 text-base",
+					styles.titleList,
+				])}
+			>
 				{info.title}
 			</div>
 			{info.links.map((item, i) => (
@@ -161,60 +167,53 @@ const InfoList = ({ info }) => {
 
 const FooterLayout = () => {
 	return (
-		<div className="p-8">
-			<Row gutter={[16, 16]} className="w-full text-footer">
-				<Row justify="center" align="top" style={{ width: "100%" }}>
-					<Col span={4}>
-						<div className="mb-6">
-							<Image
-								src={companyInfo.logo}
-								alt="logo"
-								width={112}
-								height={41}
-							/>
-						</div>
-						<strong clas>{companyInfo.name}</strong>
-						<div className="mt-1">
-							<EnvironmentFilled />
-							<strong> Địa chỉ: </strong>
-							<span>{companyInfo.address}</span>
-						</div>
-						<div className="mt-1">
-							<PhoneFilled />
-							<strong> Số điện thoại: </strong>
-							<span>{companyInfo.phone}</span>
-						</div>
-						<div className="mt-1">
-							<MailFilled />
-							<strong> Email: </strong>
-							<span>{companyInfo.email}</span>
-						</div>
-					</Col>
-					<Col span={16}>
-						<Row gutter={[16, 16]}>
-							<Col span={6}>
-								<InfoList info={websiteInfo} />
-							</Col>
-							<Col span={6}>
-								<InfoList info={candidateInfo} />
-							</Col>
-							<Col span={6}></Col>
-							<Col span={6}></Col>
-							<Col span={6}>
-								<InfoList info={jobByLocation} />
-							</Col>
-							<Col span={6}>
-								<InfoList info={majorInfo} />
-							</Col>
-							<Col span={6}>
-								<InfoList info={toolInfo} />
-							</Col>
-							<Col span={6}>
-								<InfoList info={forEmployerInfo} />
-							</Col>
-						</Row>
-					</Col>
-				</Row>
+		<div className="p-8 w-full text-footer">
+			<Row gutter={[16, 16]} justify="center">
+				<Col span={4}>
+					<div className="mb-6">
+						<Image src={companyInfo.logo} alt="logo" width={112} height={41} />
+					</div>
+					<strong clas>{companyInfo.name}</strong>
+					<div className="mt-1">
+						<EnvironmentFilled />
+						<strong> Địa chỉ: </strong>
+						<span>{companyInfo.address}</span>
+					</div>
+					<div className="mt-1">
+						<PhoneFilled />
+						<strong> Số điện thoại: </strong>
+						<span>{companyInfo.phone}</span>
+					</div>
+					<div className="mt-1">
+						<MailFilled />
+						<strong> Email: </strong>
+						<span>{companyInfo.email}</span>
+					</div>
+				</Col>
+				<Col span={16}>
+					<Row gutter={[16, 16]}>
+						<Col span={6}>
+							<InfoList info={websiteInfo} />
+						</Col>
+						<Col span={6}>
+							<InfoList info={candidateInfo} />
+						</Col>
+						<Col span={6}></Col>
+						<Col span={6}></Col>
+						<Col span={6}>
+							<InfoList info={jobByLocation} />
+						</Col>
+						<Col span={6}>
+							<InfoList info={majorInfo} />
+						</Col>
+						<Col span={6}>
+							<InfoList info={toolInfo} />
+						</Col>
+						<Col span={6}>
+							<InfoList info={forEmployerInfo} />
+						</Col>
+					</Row>
+				</Col>
 			</Row>
 		</div>
 	);

@@ -1,10 +1,9 @@
-import React from "react";
-import { Inter, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 
 import "@/globals.css";
-import LayoutContent from "./layout/LayoutContent";
+import LayoutContent from "./components/layout/LayoutContent";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],

@@ -14,7 +14,14 @@ module.exports = {
 			},
 			colors: {
 				footer: "#666",
-				primary: "#1677ff",
+				bgContainer: "#f5f5f5",
+				primary: "#0091ce",
+				secondary: "#fc205c",
+				f0: "#f0f0f0",
+				f0Blur: "rgb(240, 240, 240, 0.5)",
+			},
+			width: {
+				content: "1170px",
 			},
 		},
 	},
