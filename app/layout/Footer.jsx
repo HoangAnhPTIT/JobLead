@@ -1,0 +1,223 @@
+import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
+import { Col, Row } from "antd";
+import Image from "next/image";
+import Link from "next/link";
+import "./style.modules.scss";
+
+const companyInfo = {
+	logo: "/logo.png",
+	name: "Coong ty TNHH Xyz",
+	address: "Thong tin dia chi cong ty",
+	phone: "123 2323",
+	email: "abc@xyz.com",
+};
+
+const websiteInfo = {
+	title: "Thông tin",
+	links: [
+		{
+			title: "Giới thiệu",
+			link: "/introduce",
+		},
+		{
+			title: "Liên hệ",
+			link: "/contact",
+		},
+		{
+			title: "Câu hỏi thường gặp",
+			link: "/common-questions",
+		},
+		{
+			title: "Chính sách bảo mật",
+			link: "/policies",
+		},
+		{
+			title: "Điều khoản sử dụng",
+			link: "/terms",
+		},
+		{
+			title: "Quy chế hoạt động",
+			link: "/rules",
+		},
+	],
+};
+
+const candidateInfo = {
+	title: "Ứng viên",
+	links: [
+		{
+			title: "Tìm việc làm",
+			link: "/finding-job",
+		},
+		{
+			title: "Quản lý CV",
+			link: "/cv",
+		},
+	],
+};
+
+const jobByLocation = {
+	title: "Việc làm theo địa điểm",
+	links: [
+		{
+			title: "Hà Nội",
+			link: "/job-by-location?at=hanoi",
+		},
+		{
+			title: "TP HCM",
+			link: "/job-by-location?at=hcm",
+		},
+		{
+			title: "Đà Nẵng",
+			link: "/job-by-location?at=danang",
+		},
+		{
+			title: "Cần Thơ",
+			link: "/job-by-location?at=cantho",
+		},
+		{
+			title: "Cần Thơ",
+			link: "/job-by-location?at=cantho",
+		},
+		{
+			title: "Cần Thơ",
+			link: "/job-by-location?at=cantho",
+		},
+		{
+			title: "Cần Thơ",
+			link: "/job-by-location?at=cantho",
+		},
+	],
+};
+
+const majorInfo = {
+	title: "Việc làm theo ngành nghề",
+	links: [
+		{
+			title: "Việc làm Kinh Doanh",
+			link: "/major?type=business",
+		},
+		{
+			title: "Việc làm Kế Toán",
+			link: "/major?type=accountant",
+		},
+		{
+			title: "Việc làm IT",
+			link: "/major?type=it",
+		},
+		{
+			title: "Việc làm Marketing",
+			link: "/major?type=marketing",
+		},
+	],
+};
+
+const toolInfo = {
+	title: "Hồ sơ & Công cụ",
+	links: [
+		{
+			title: "Tạo CV",
+			link: "/1",
+		},
+		{
+			title: "Khám phá mức lương",
+			link: "/2",
+		},
+	],
+};
+
+const forEmployerInfo = {
+	title: "Dành cho Nhà Tuyển Dụng",
+	links: [
+		{
+			title: "Đăng tin tuyển dụng",
+			link: "/1",
+		},
+		{
+			title: "Tìm ứng viên",
+			link: "/2",
+		},
+		{
+			title: "Bảng giá lọc hồ sơ",
+			link: "/2",
+		},
+	],
+};
+
+const InfoList = ({ info }) => {
+	return (
+		<div className="list">
+			<div className="font-bold relative pb-2.5 mb-4 text-base title-list">
+				{info.title}
+			</div>
+			{info.links.map((item, i) => (
+				<p key={i}>
+					<Link href={item.link}>{item.title}</Link>
+				</p>
+			))}
+		</div>
+	);
+};
+
+const FooterLayout = () => {
+	return (
+		<div className="p-8">
+			<Row gutter={[16, 16]} className="w-full text-footer">
+				<Row justify="center" align="top" style={{ width: "100%" }}>
+					<Col span={4}>
+						<div className="mb-6">
+							<Image
+								src={companyInfo.logo}
+								alt="logo"
+								width={112}
+								height={41}
+							/>
+						</div>
+						<strong clas>{companyInfo.name}</strong>
+						<div className="mt-1">
+							<EnvironmentFilled />
+							<strong> Địa chỉ: </strong>
+							<span>{companyInfo.address}</span>
+						</div>
+						<div className="mt-1">
+							<PhoneFilled />
+							<strong> Số điện thoại: </strong>
+							<span>{companyInfo.phone}</span>
+						</div>
+						<div className="mt-1">
+							<MailFilled />
+							<strong> Email: </strong>
+							<span>{companyInfo.email}</span>
+						</div>
+					</Col>
+					<Col span={16}>
+						<Row gutter={[16, 16]}>
+							<Col span={6}>
+								<InfoList info={websiteInfo} />
+							</Col>
+							<Col span={6}>
+								<InfoList info={candidateInfo} />
+							</Col>
+							<Col span={6}></Col>
+							<Col span={6}></Col>
+							<Col span={6}>
+								<InfoList info={jobByLocation} />
+							</Col>
+							<Col span={6}>
+								<InfoList info={majorInfo} />
+							</Col>
+							<Col span={6}>
+								<InfoList info={toolInfo} />
+							</Col>
+							<Col span={6}>
+								<InfoList info={forEmployerInfo} />
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+			</Row>
+		</div>
+	);
+};
+
+export default FooterLayout;

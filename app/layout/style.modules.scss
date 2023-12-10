@@ -1,0 +1,18 @@
+.list {
+	p > a {
+		@apply text-footer;
+	}
+}
+
+.title-list {
+	&::after {
+		content: "";
+		position: absolute;
+		border: none;
+		border-top: 1px solid #999;
+		bottom: 0;
+		width: 40px;
+		height: 1px;
+		left: 0;
+	}
+}
