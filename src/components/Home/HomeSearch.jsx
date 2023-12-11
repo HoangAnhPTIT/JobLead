@@ -25,7 +25,7 @@ const HomeSearch = () => {
 
 	return (
 		<div className={styles.search}>
-			<h2 class="text-5xl text-center w-full text-white mb-30 font-bold">
+			<h2 className="text-5xl text-center w-full text-white mb-30 font-bold">
 				Công nghệ AI - đón đầu xu hướng tìm việc mới
 				<br />
 				<strong

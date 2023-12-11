@@ -173,7 +173,7 @@ const FooterLayout = () => {
 					<div className="mb-6">
 						<Image src={companyInfo.logo} alt="logo" width={112} height={41} />
 					</div>
-					<strong clas>{companyInfo.name}</strong>
+					<strong>{companyInfo.name}</strong>
 					<div className="mt-1">
 						<EnvironmentFilled />
 						<strong> Địa chỉ: </strong>

@@ -2,8 +2,10 @@ import { Roboto } from "next/font/google";
 
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 
-import "@/globals.css";
-import LayoutContent from "./components/layout/LayoutContent";
+import "@/app/globals.css";
+import "swiper/css";
+
+import LayoutContent from "@/src/components/layout/LayoutContent";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],

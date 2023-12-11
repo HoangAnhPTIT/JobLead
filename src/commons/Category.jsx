@@ -22,7 +22,7 @@ const Category = ({ title, icon, extra, children }) => {
 					</Link>
 				</Col>
 			</Row>
-			{children}
+			<div className="border border-f0 p-3 pb-0 bg-white">{children}</div>
 		</div>
 	);
 };

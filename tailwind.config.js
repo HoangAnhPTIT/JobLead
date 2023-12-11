@@ -2,7 +2,7 @@
 module.exports = {
 	content: [
 		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
-		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./src/**/*.{js,ts,jsx,tsx,mdx}",
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
@@ -19,6 +19,10 @@ module.exports = {
 				secondary: "#fc205c",
 				f0: "#f0f0f0",
 				f0Blur: "rgb(240, 240, 240, 0.5)",
+				55: "#555",
+				99: "#999",
+				33: "#333",
+				bgBody: "#f0f0f0",
 			},
 			width: {
 				content: "1170px",
