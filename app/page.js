@@ -1,11 +1,17 @@
-import { FireFilled, StarFilled } from "@ant-design/icons";
+import { EditFilled, FireFilled, StarFilled } from "@ant-design/icons";
 import Image from "next/image";
-import Category from "@/src/commons/Category";
-import HomeSearch from "@/src/components/Home/HomeSearch";
-import { WIDTH_CONTENT } from "@/src/constants/screen";
-import GroupItem from "src/components/Home/GroupItem";
+import Category from "src/commons/Category";
+import HomeSearch from "src/components/Home/HomeSearch";
+import { WIDTH_CONTENT } from "src/constants/screen";
 import { JOB_PRIORITY } from "src/constants/job";
 import { Col, Row } from "antd";
+import ItemSlider from "src/commons/ItemSlider";
+import {
+	COMPONENT_LAYOUT,
+	COMPONENT_SIZE,
+	COMPONENT_TYPE,
+} from "src/constants/common";
+import ItemList from "src/commons/ItemList";
 
 const fakeData = {
 	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",
@@ -44,7 +50,12 @@ const HomePage = () => {
 						className="my-5"
 					/>
 					<Category title="Việc làm hot" icon={<FireFilled />} extra="/more">
-						<GroupItem items={data} />
+						<ItemSlider
+							items={data}
+							col={3}
+							size={COMPONENT_SIZE.SMALL}
+							pageSize={18}
+						/>
 					</Category>
 					<Row gutter={16} className="my-5">
 						<Col span={12}>
@@ -71,7 +82,44 @@ const HomePage = () => {
 								icon={<StarFilled />}
 								extra="/more"
 							>
-								<GroupItem items={data} span={12} size={10} />
+								<ItemSlider
+									items={data}
+									size={COMPONENT_SIZE.NORMAL}
+									pageSize={10}
+								/>
+							</Category>
+						</Col>
+						<Col span={6}>
+							<Image src="/banner1.jpg" width={280} height={550} alt="" />
+						</Col>
+					</Row>
+					<Row gutter={26} className="my-5">
+						<Col span={18}>
+							<Category
+								title="Việc làm lương cao"
+								icon={<StarFilled />}
+								extra="/more"
+							>
+								<ItemSlider
+									items={data}
+									size={COMPONENT_SIZE.NORMAL}
+									pageSize={10}
+								/>
+							</Category>
+						</Col>
+						<Col span={6}>
+							<Category
+								title="Việc làm tiêu điểm"
+								icon={<EditFilled />}
+								contentClass="p-0"
+								layout={COMPONENT_LAYOUT.vertical}
+								extra="/more"
+							>
+								<ItemList
+									items={data}
+									size={COMPONENT_SIZE.SMALL}
+									pageSize={7}
+								/>
 							</Category>
 						</Col>
 					</Row>
