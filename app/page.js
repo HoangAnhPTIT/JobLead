@@ -1,4 +1,4 @@
-import { FireFilled } from "@ant-design/icons";
+import { FireFilled, StarFilled } from "@ant-design/icons";
 import Image from "next/image";
 import Category from "@/src/commons/Category";
 import HomeSearch from "@/src/components/Home/HomeSearch";
@@ -62,6 +62,17 @@ const HomePage = () => {
 								height={220}
 								alt=""
 							/>
+						</Col>
+					</Row>
+					<Row gutter={26}>
+						<Col span={18}>
+							<Category
+								title="Việc làm hấp dẫn"
+								icon={<StarFilled />}
+								extra="/more"
+							>
+								<GroupItem items={data} span={12} size={10} />
+							</Category>
 						</Col>
 					</Row>
 				</div>

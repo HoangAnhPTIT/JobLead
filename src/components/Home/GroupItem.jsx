@@ -6,11 +6,12 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import classNames from "classnames";
 import { JOB_PRIORITY } from "src/constants/job";
 import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { concat } from "lodash";
 
-const SwiperItem = ({ items }) => (
+const SwiperItem = ({ items, span, size }) => (
 	<Row gutter={[12, 12]}>
 		{items?.map((item, i) => (
-			<Col span={8} key={i}>
+			<Col span={span} key={i}>
 				<div className="border rounded p-1">
 					<Flex gap={12}>
 						<Image
@@ -54,7 +55,13 @@ const SwiperItem = ({ items }) => (
 	</Row>
 );
 
-const GroupItem = ({ items }) => {
+const GroupItem = ({ items, span = 8, size = 18 }) => {
+	const page = items?.length / size;
+	let data = [];
+	for (let i = 0; i < page; i++) {
+		data[i] = items?.slice(i * size, (i + 1) * size);
+	}
+
 	return (
 		<Swiper
 			modules={[Pagination]}
@@ -65,12 +72,11 @@ const GroupItem = ({ items }) => {
 			onSwiper={(swiper) => console.log(swiper)}
 			className="pb-9"
 		>
-			<SwiperSlide>
-				<SwiperItem items={items.slice(0, 18)} />
-			</SwiperSlide>
-			<SwiperSlide>
-				<SwiperItem items={items.slice(18, items.length)} />
-			</SwiperSlide>
+			{data?.map((item, i) => (
+				<SwiperSlide key={i}>
+					<SwiperItem items={item} span={span} size={size} />
+				</SwiperSlide>
+			))}
 		</Swiper>
 	);
 };
