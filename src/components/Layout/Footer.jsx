@@ -1,5 +1,5 @@
 import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
-import { Col, Row } from "antd";
+import { Col, Flex, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames";
@@ -167,9 +167,9 @@ const InfoList = ({ info }) => {
 
 const FooterLayout = () => {
 	return (
-		<div className="p-8 w-full text-footer">
-			<Row gutter={[16, 16]} justify="center">
-				<Col span={4}>
+		<div className="py-8 w-content m-auto text-footer">
+			<div className="grid px-4 grid-cols-[20%_80%]">
+				<div>
 					<div className="mb-6">
 						<Image src={companyInfo.logo} alt="logo" width={112} height={41} />
 					</div>
@@ -189,8 +189,8 @@ const FooterLayout = () => {
 						<strong> Email: </strong>
 						<span>{companyInfo.email}</span>
 					</div>
-				</Col>
-				<Col span={16}>
+				</div>
+				<div>
 					<Row gutter={[16, 16]}>
 						<Col span={6}>
 							<InfoList info={websiteInfo} />
@@ -213,8 +213,8 @@ const FooterLayout = () => {
 							<InfoList info={forEmployerInfo} />
 						</Col>
 					</Row>
-				</Col>
-			</Row>
+				</div>
+			</div>
 		</div>
 	);
 };

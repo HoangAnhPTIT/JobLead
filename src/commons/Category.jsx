@@ -22,7 +22,7 @@ const Category = ({
 				<Col>
 					{icon} {title}
 				</Col>
-				{layout === COMPONENT_LAYOUT.horizolical && (
+				{extra && layout === COMPONENT_LAYOUT.horizolical && (
 					<Col>
 						<Link
 							href={extra}
@@ -40,7 +40,7 @@ const Category = ({
 				])}
 			>
 				{children}
-				{layout === COMPONENT_LAYOUT.vertical && (
+				{extra && layout === COMPONENT_LAYOUT.vertical && (
 					<div className="text-right px-2 py-1">
 						<Link
 							href={extra}

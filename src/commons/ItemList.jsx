@@ -1,6 +1,4 @@
 "use client";
-import { Row } from "antd";
-import JobItem from "./JobItem";
 import JobItemList from "./JobItemList";
 
 const ItemList = ({ items, size, pageSize }) => {

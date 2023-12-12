@@ -1,6 +1,5 @@
 "use client";
-import { Col, Row } from "antd";
-import classNames from "classnames";
+import { Row } from "antd";
 import JobItem from "src/commons/JobItem";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,8 +25,6 @@ const ItemSlider = ({ items, col = 2, size, pageSize = 18 }) => {
 			spaceBetween={50}
 			slidesPerView={1}
 			pagination={{ clickable: true }}
-			onSlideChange={() => console.log("slide change")}
-			onSwiper={(swiper) => console.log(swiper)}
 			className="pb-9"
 		>
 			{data?.map((item, i) => (

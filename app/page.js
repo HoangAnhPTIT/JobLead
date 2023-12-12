@@ -1,17 +1,26 @@
-import { EditFilled, FireFilled, StarFilled } from "@ant-design/icons";
-import Image from "next/image";
-import Category from "src/commons/Category";
-import HomeSearch from "src/components/Home/HomeSearch";
-import { WIDTH_CONTENT } from "src/constants/screen";
-import { JOB_PRIORITY } from "src/constants/job";
-import { Col, Row } from "antd";
-import ItemSlider from "src/commons/ItemSlider";
 import {
-	COMPONENT_LAYOUT,
-	COMPONENT_SIZE,
-	COMPONENT_TYPE,
-} from "src/constants/common";
+	ApartmentOutlined,
+	EditFilled,
+	EnvironmentOutlined,
+	FireFilled,
+	StarFilled,
+	UserOutlined,
+} from "@ant-design/icons";
+import { Col, Row } from "antd";
+import Image from "next/image";
+import EnhanceSearch from "src/commons/Candidate.jsx/EnhanceSearch";
+import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
+import ItemSlider from "src/commons/ItemSlider";
+import CompanyList from "src/components/Home/CompanyList";
+import ContactInfo from "src/components/Home/ContactInfo";
+import Counter from "src/components/Home/Counter";
+import HomeSearch from "src/components/Home/HomeSearch";
+import ListCate from "src/components/Home/ListCate";
+import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
+import { COMPONENT_LAYOUT, COMPONENT_SIZE } from "src/constants/common";
+import { JOB_PRIORITY } from "src/constants/job";
+import { WIDTH_CONTENT } from "src/constants/screen";
 
 const fakeData = {
 	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",
@@ -35,6 +44,87 @@ for (let i = 0; i < 20; i++) {
 				: JOB_PRIORITY.NORMAL,
 	};
 }
+
+const employers = [
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+	{
+		companyName: "Manulife Viet Nam",
+		image: "/company.png",
+		link: "/more",
+	},
+];
+
+const categoryJobList = [
+	{
+		title: "Kinh doanh",
+		amount: "1091",
+		link: "/more",
+	},
+	{
+		title: "Kinh doanh",
+		amount: "1091",
+		link: "/more",
+	},
+	{
+		title: "Bans hang",
+		amount: "10991",
+		link: "/more",
+	},
+	{
+		title: "Sinh viên / Mới tốt nghiệp / Thực tập",
+		amount: "10991",
+		link: "/more",
+	},
+	{
+		title: "Sinh viên / Mới tốt nghiệp / Thực tập / hihi",
+		amount: "10991",
+		link: "/more",
+	},
+	{
+		title: "Sinh viên / Mới tốt nghiệp / Thực tập",
+		amount: "10991",
+		link: "/more",
+	},
+];
 
 const HomePage = () => {
 	return (
@@ -111,7 +201,7 @@ const HomePage = () => {
 							<Category
 								title="Việc làm tiêu điểm"
 								icon={<EditFilled />}
-								contentClass="p-0"
+								contentClass="!p-0"
 								layout={COMPONENT_LAYOUT.vertical}
 								extra="/more"
 							>
@@ -123,7 +213,48 @@ const HomePage = () => {
 							</Category>
 						</Col>
 					</Row>
+					<Category title="Nhà tuyển dụng hàng đầu" icon={<UserOutlined />}>
+						<CompanyList items={employers} />
+					</Category>
+					<Row gutter={16} className="my-5">
+						<Col span={18}>
+							<Category
+								title="Việc làm theo ngành nghề"
+								icon={<ApartmentOutlined />}
+								layout={COMPONENT_LAYOUT.vertical}
+								extra="/more"
+								contentClass="!pb-3"
+							>
+								{<ListCate items={categoryJobList} />}
+							</Category>
+							<div className="pb-5" />
+							<Category
+								title="Việc làm theo tỉnh thành"
+								icon={<EnvironmentOutlined />}
+								layout={COMPONENT_LAYOUT.vertical}
+								extra="/more"
+								contentClass="!pb-3"
+							>
+								{<ListCate items={categoryJobList} />}
+							</Category>
+							<div className="pb-5" />
+							<Image
+								src="/cv-banner-home-new.png"
+								width={873}
+								height={225}
+								alt=""
+							/>
+							<div className="pb-5" />
+							<RecruitmentSupport />
+							<div className="pb-5" />
+							<ContactInfo />
+						</Col>
+						<Col span={6}>
+							<EnhanceSearch />
+						</Col>
+					</Row>
 				</div>
+				<Counter />
 			</div>
 		</div>
 	);
