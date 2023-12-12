@@ -1,18 +1,25 @@
 "use client";
+import theme from "@/theme/themeConfig";
 import {
 	Col,
 	ConfigProvider,
+	Flex,
 	Layout,
-	Menu,
 	Row,
 	theme as themeAntd,
 } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import theme from "@/theme/themeConfig";
 import FooterLayout from "./Footer";
+import Link from "next/link";
 
 const { Header, Content } = Layout;
+
+const menuItems = [
+	{ label: "Việc làm", link: "/viec-lam" },
+	{ label: "Công ty", link: "/cong-ty" },
+	{ label: "Ứng viên", link: "/ung-vien" },
+];
 
 const LayoutContent = ({ children }) => {
 	const {
@@ -26,8 +33,13 @@ const LayoutContent = ({ children }) => {
 			<Layout className="layout">
 				<Header>
 					<Row justify="space-between" align="middle">
-						<Col>
-							<Row align="middle" gutter={16}>
+						<Col span={12}>
+							<Row
+								align="middle"
+								justify="start"
+								gutter={16}
+								className="w-full"
+							>
 								<Col
 									className="cursor-pointer"
 									onClick={() => router.push("/")}
@@ -35,18 +47,18 @@ const LayoutContent = ({ children }) => {
 									<Image src="/logo.png" alt="logo" width={112} height={41} />
 								</Col>
 								<Col>
-									<Menu
-										theme="dark"
-										mode="horizontal"
-										defaultSelectedKeys={["2"]}
-										items={new Array(5).fill(null).map((_, index) => {
-											const key = index + 1;
-											return {
-												key,
-												label: `nav ${key}`,
-											};
-										})}
-									/>
+									<Flex gap={10}>
+										{menuItems?.map((item, i) => (
+											<Link href={item?.link} key={i}>
+												<div
+													key={i}
+													className="hover:bg-primary hover:text-white px-2 uppercase font-semibold text-primary cursor-pointer"
+												>
+													{item?.label}
+												</div>
+											</Link>
+										))}
+									</Flex>
 								</Col>
 							</Row>
 						</Col>
