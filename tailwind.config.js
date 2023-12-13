@@ -30,6 +30,10 @@ module.exports = {
 			},
 			width: {
 				content: "1170px",
+				userForm: "975px",
+			},
+			boxShadow: {
+				custom1: "1px 1px 1px 1px rgba(0,0,0,.01)",
 			},
 		},
 	},

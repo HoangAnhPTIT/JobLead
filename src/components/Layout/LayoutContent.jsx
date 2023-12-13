@@ -1,5 +1,5 @@
 "use client";
-import theme from "@/theme/themeConfig";
+import theme from "theme/themeConfig";
 import {
 	Col,
 	ConfigProvider,
@@ -8,6 +8,7 @@ import {
 	Row,
 	theme as themeAntd,
 } from "antd";
+import locale from "antd/es/locale/vi_VN";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import FooterLayout from "./Footer";
@@ -29,62 +30,46 @@ const LayoutContent = ({ children }) => {
 	const router = useRouter();
 
 	return (
-		<ConfigProvider theme={theme}>
+		<ConfigProvider theme={theme} locale={locale}>
 			<Layout className="layout">
 				<Header>
-					<Row justify="space-between" align="middle">
-						<Col span={12}>
-							<Row
-								align="middle"
-								justify="start"
-								gutter={16}
-								className="w-full"
-							>
-								<Col
-									className="cursor-pointer"
-									onClick={() => router.push("/")}
-								>
-									<Image src="/logo.png" alt="logo" width={112} height={41} />
-								</Col>
-								<Col>
-									<Flex gap={10}>
-										{menuItems?.map((item, i) => (
-											<Link href={item?.link} key={i}>
-												<div
-													key={i}
-													className="hover:bg-primary hover:text-white px-2 uppercase font-semibold text-primary cursor-pointer"
-												>
-													{item?.label}
-												</div>
-											</Link>
-										))}
-									</Flex>
-								</Col>
-							</Row>
-						</Col>
-						<Col span={4}>
-							<Row
-								className="text-white font-bold text-center"
-								align="middle"
-								justify="center"
-							>
-								<Col
-									span={12}
-									className="text-sm cursor-pointer hover:bg-primary"
-									onClick={() => router.push("/signin")}
-								>
-									Đăng ký
-								</Col>
-								<Col
-									span={12}
-									className="text-sm cursor-pointer hover:bg-primary"
-									onClick={() => router.push("/login")}
-								>
-									Đăng nhập
-								</Col>
-							</Row>
-						</Col>
-					</Row>
+					<Flex justify="space-between" align="middle">
+						<Row align="middle" justify="start" gutter={16} className="w-full">
+							<Col className="cursor-pointer" onClick={() => router.push("/")}>
+								<Image src="/logo.png" alt="logo" width={112} height={41} />
+							</Col>
+							<Col>
+								<Flex gap={10}>
+									{menuItems?.map((item, i) => (
+										<Link href={item?.link} key={i}>
+											<div
+												key={i}
+												className="hover:bg-primary hover:text-white px-2 uppercase font-semibold text-primary cursor-pointer"
+											>
+												{item?.label}
+											</div>
+										</Link>
+									))}
+								</Flex>
+							</Col>
+						</Row>
+						<Flex
+							className="text-white font-semibold text-center"
+							align="middle"
+							justify="center"
+						>
+							<Link href="/signin">
+								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<span className="text-sm">Đăng ký</span>
+								</div>
+							</Link>
+							<Link href="/login">
+								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<span className="text-sm">Đăng nhập</span>
+								</div>
+							</Link>
+						</Flex>
+					</Flex>
 				</Header>
 				<Content>
 					<div

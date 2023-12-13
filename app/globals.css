@@ -40,3 +40,7 @@ body {
 	border: 1px solid rgba(0, 0, 0, 0.05);
 	border-radius: 5px;
 }
+
+.ant-form-item {
+	margin-bottom: 20px;
+}

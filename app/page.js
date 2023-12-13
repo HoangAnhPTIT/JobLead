@@ -14,7 +14,6 @@ import ItemList from "src/commons/ItemList";
 import ItemSlider from "src/commons/ItemSlider";
 import CompanyList from "src/components/Home/CompanyList";
 import ContactInfo from "src/components/Home/ContactInfo";
-import Counter from "src/components/Home/Counter";
 import HomeSearch from "src/components/Home/HomeSearch";
 import ListCate from "src/components/Home/ListCate";
 import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
@@ -254,7 +253,6 @@ const HomePage = () => {
 						</Col>
 					</Row>
 				</div>
-				<Counter />
 			</div>
 		</div>
 	);

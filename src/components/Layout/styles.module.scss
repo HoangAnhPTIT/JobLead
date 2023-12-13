@@ -3,7 +3,6 @@
 		@apply text-footer;
 	}
 }
-
 .titleList {
 	&::after {
 		content: "";
@@ -15,4 +14,8 @@
 		height: 1px;
 		left: 0;
 	}
+}
+.counter {
+	background-image: url("../../../public/bg-counter.jpg");
+	height: 170px;
 }
