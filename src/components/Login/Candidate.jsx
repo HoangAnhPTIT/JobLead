@@ -1,9 +1,11 @@
 "use client";
 import { CheckOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Flex, Form, Image, Input, Row } from "antd";
+import { Button, Checkbox, Col, Form, Image, Input, Row } from "antd";
+import { login } from "lib/features/userSlice";
+import { useAppDispatch } from "lib/hooks";
 import Link from "next/link";
-import React from "react";
-import { USER_TYPE } from "src/constants/common";
+import { useRouter } from "next/navigation";
+import { USER_ROLE } from "src/constants/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -14,9 +16,20 @@ const candidateIntro = [
 
 const Candidate = ({ setLoginType }) => {
 	const [form] = Form.useForm();
+	const dispatch = useAppDispatch();
+	const router = useRouter();
 
-	const onSubmit = () => {
-		console.log("values", form.getFieldsValue());
+	const onSubmit = async () => {
+		try {
+			const values = await form.validateFields();
+			const storeValues = { email: values.email, role: "candidate" };
+			dispatch(login({ userInfo: storeValues, isLogin: true }));
+			router.push("/");
+			document.cookie = `userInfo=${JSON.stringify(storeValues)}`;
+			document.cookie = `isLogin=true`;
+		} catch (error) {
+			console.log("error", error);
+		}
 	};
 
 	return (
@@ -65,7 +78,7 @@ const Candidate = ({ setLoginType }) => {
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
 				Bạn chưa có tài khoản ? <Link href="/signin">Đăng ký</Link> |
 				<span
-					onClick={() => setLoginType(USER_TYPE.employer)}
+					onClick={() => setLoginType(USER_ROLE.employer)}
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng nhập nhà tuyển dụng

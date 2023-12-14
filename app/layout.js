@@ -6,6 +6,7 @@ import "@/app/globals.css";
 import "swiper/css";
 
 import LayoutContent from "src/components/layout/LayoutContent";
+import StoreProvider from "./StoreProvider";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],
@@ -20,11 +21,15 @@ export const metadata = {
 const RootLayout = ({ children }) => (
 	<html>
 		<body className={roboto.className}>
-			<StyledComponentsRegistry>
-				<LayoutContent>{children}</LayoutContent>
-			</StyledComponentsRegistry>
+			<StoreProvider>
+				<StyledComponentsRegistry>
+					<LayoutContent>{children}</LayoutContent>
+				</StyledComponentsRegistry>
+			</StoreProvider>
 		</body>
 	</html>
 );
+
+export const dynamic = "force-dynamic";
 
 export default RootLayout;

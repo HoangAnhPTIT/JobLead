@@ -9,7 +9,7 @@ export const COMPONENT_LAYOUT = {
 	horizolical: "horizontal",
 };
 
-export const USER_TYPE = {
+export const USER_ROLE = {
 	guest: "guest",
 	candidate: "candidate",
 	employer: "employer",

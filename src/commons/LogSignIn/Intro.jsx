@@ -3,7 +3,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { Button, Flex, Image } from "antd";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
-import { USER_TYPE } from "src/constants/common";
+import { USER_ROLE } from "src/constants/common";
 
 const candidateIntro = {
 	label: "ứng viên",
@@ -33,7 +33,7 @@ const InfoWithImage = ({ info, type, setType }) => {
 		<div
 			className={classNames([
 				"w-[370px] p-5 shadow-custom1 rounded-md relative",
-				type === USER_TYPE.candidate ? "bg-white" : "bg-primary",
+				type === USER_ROLE.candidate ? "bg-white" : "bg-primary",
 			])}
 		>
 			<div className="absolute -top-[70px] left-1/2 -translate-x-1/2">
@@ -48,7 +48,7 @@ const InfoWithImage = ({ info, type, setType }) => {
 			<div
 				className={classNames([
 					"pt-24 pb-10",
-					type === USER_TYPE.candidate ? "text-black" : "text-white",
+					type === USER_ROLE.candidate ? "text-black" : "text-white",
 				])}
 			>
 				{info?.intro?.map((item, i) => (
@@ -59,17 +59,17 @@ const InfoWithImage = ({ info, type, setType }) => {
 			</div>
 			<Button
 				size="large"
-				type={type === USER_TYPE.candidate ? "primary" : "default"}
+				type={type === USER_ROLE.candidate ? "primary" : "default"}
 				className={classNames([
 					"w-full uppercase",
-					type !== USER_TYPE.candidate ? "bg-primary" : "bg-whi",
+					type !== USER_ROLE.candidate ? "bg-primary" : "bg-whi",
 				])}
 				onClick={() => setType(type)}
 			>
 				<span
 					className={classNames([
 						"font-semibold",
-						type === USER_TYPE.candidate ? "text-white" : "text-primary",
+						type === USER_ROLE.candidate ? "text-white" : "text-primary",
 					])}
 				>
 					{path === "/login" && "Đăng nhập"}
@@ -85,12 +85,12 @@ const Intro = ({ setType }) => {
 		<Flex justify="center" gap={40} className="bg-bgBody pb-10 pt-24">
 			<InfoWithImage
 				info={candidateIntro}
-				type={USER_TYPE.candidate}
+				type={USER_ROLE.candidate}
 				setType={setType}
 			/>
 			<InfoWithImage
 				info={employerIntro}
-				type={USER_TYPE.employer}
+				type={USER_ROLE.employer}
 				setType={setType}
 			/>
 		</Flex>

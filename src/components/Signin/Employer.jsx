@@ -13,7 +13,7 @@ import {
 } from "antd";
 import Link from "next/link";
 import React from "react";
-import { USER_TYPE } from "src/constants/common";
+import { USER_ROLE } from "src/constants/common";
 
 const employerIntro = [
 	"+4,000,000 ứng viên tiếp cận thông tin tuyển dụng",
@@ -146,7 +146,7 @@ const Employer = ({ setSigninType }) => {
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
 				Bạn đã có tài khoản ? <Link href="/login">Đăng nhập</Link> |
 				<span
-					onClick={() => setSigninType(USER_TYPE.candidate)}
+					onClick={() => setSigninType(USER_ROLE.candidate)}
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng ký ứng viên

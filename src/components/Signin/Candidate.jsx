@@ -2,7 +2,7 @@
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Image, Input, Row } from "antd";
 import Link from "next/link";
-import { USER_TYPE } from "src/constants/common";
+import { USER_ROLE } from "src/constants/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -111,7 +111,7 @@ const Candidate = ({ setSigninType }) => {
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
 				Bạn đã có tài khoản ? <Link href="/login">Đăng nhập</Link> |
 				<span
-					onClick={() => setSigninType(USER_TYPE.employer)}
+					onClick={() => setSigninType(USER_ROLE.employer)}
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng ký nhà tuyển dụng

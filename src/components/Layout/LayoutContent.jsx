@@ -1,18 +1,22 @@
 "use client";
-import theme from "theme/themeConfig";
 import {
 	Col,
 	ConfigProvider,
+	Dropdown,
 	Flex,
 	Layout,
 	Row,
 	theme as themeAntd,
 } from "antd";
 import locale from "antd/es/locale/vi_VN";
+import { login, logout } from "lib/features/userSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import FooterLayout from "./Footer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import theme from "theme/themeConfig";
+import FooterLayout from "./Footer";
 
 const { Header, Content } = Layout;
 
@@ -22,12 +26,44 @@ const menuItems = [
 	{ label: "Ứng viên", link: "/ung-vien" },
 ];
 
+function getCookie(cname) {
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(";");
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == " ") {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
 const LayoutContent = ({ children }) => {
 	const {
 		token: { colorBgContainer },
 	} = themeAntd.useToken();
 
 	const router = useRouter();
+	const { userInfo, isLogin } = useAppSelector((state) => state.user);
+	const dispatch = useAppDispatch();
+
+	console.log("userInfo", userInfo);
+	const items = [
+		{
+			key: "1",
+			label: <div onClick={() => dispatch(logout())}>Đăng xuất</div>,
+		},
+	];
+
+	useEffect(() => {
+		const isLogin = JSON.parse(getCookie("isLogin"));
+		const userInfo = JSON.parse(getCookie("userInfo"));
+		dispatch(login({ isLogin, userInfo }));
+	}, []);
 
 	return (
 		<ConfigProvider theme={theme} locale={locale}>
@@ -53,22 +89,30 @@ const LayoutContent = ({ children }) => {
 								</Flex>
 							</Col>
 						</Row>
-						<Flex
-							className="text-white font-semibold text-center"
-							align="middle"
-							justify="center"
-						>
-							<Link href="/signin">
-								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-									<span className="text-sm">Đăng ký</span>
+						{!isLogin ? (
+							<Flex
+								className="text-white font-semibold text-center"
+								align="middle"
+								justify="center"
+							>
+								<Link href="/signin">
+									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+										<span className="text-sm">Đăng ký</span>
+									</div>
+								</Link>
+								<Link href="/login">
+									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+										<span className="text-sm">Đăng nhập</span>
+									</div>
+								</Link>
+							</Flex>
+						) : (
+							<Dropdown menu={{ items }} placement="bottom">
+								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase">
+									<span className="text-sm">{userInfo?.email}</span>
 								</div>
-							</Link>
-							<Link href="/login">
-								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-									<span className="text-sm">Đăng nhập</span>
-								</div>
-							</Link>
-						</Flex>
+							</Dropdown>
+						)}
 					</Flex>
 				</Header>
 				<Content>
