@@ -8,8 +8,6 @@ import { USER_TYPE } from "src/constants/common";
 const SigninPage = () => {
 	const [signinType, setSigninType] = useState(USER_TYPE.guest);
 
-	console.log("signinType", signinType);
-
 	switch (signinType) {
 		case USER_TYPE.guest:
 			return <Intro setType={setSigninType} />;

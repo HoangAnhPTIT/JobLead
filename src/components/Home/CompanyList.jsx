@@ -6,7 +6,6 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const CompanyList = ({ items }) => {
-	console.log("items", items);
 	return (
 		<Swiper
 			modules={[Pagination]}

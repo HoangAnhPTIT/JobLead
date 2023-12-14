@@ -1,5 +1,5 @@
 "use client";
-import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Collapse, Flex, Form, Input, Row, Select } from "antd";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
