@@ -1,13 +1,25 @@
 "use client";
-import { Row } from "antd";
+import { Col, Row } from "antd";
+import classNames from "classnames";
 import JobItem from "src/commons/JobItem";
+import { COMPONENT_SIZE } from "src/constants/common";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+const padding = {
+	[COMPONENT_SIZE.SMALL]: "p-1",
+	[COMPONENT_SIZE.NORMAL]: "p-2",
+	[COMPONENT_SIZE.LARGE]: "p-3",
+};
 
 const SwiperItem = ({ items, col, size }) => (
 	<Row gutter={[12, 12]}>
 		{items?.map((item, i) => (
-			<JobItem item={item} col={col} key={i} bordered size={size} />
+			<Col span={24 / col} key={i}>
+				<div className={classNames(["rounded border", padding[size]])}>
+					<JobItem item={item} col={col} key={i} bordered size={size} />
+				</div>
+			</Col>
 		))}
 	</Row>
 );

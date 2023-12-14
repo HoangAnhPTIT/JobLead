@@ -1,10 +1,10 @@
 import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
-import { Col, Flex, Row } from "antd";
+import { Col, Row } from "antd";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import classNames from "classnames";
-import styles from "./styles.module.scss";
 import Counter from "./Counter";
+import styles from "./styles.module.scss";
 
 const companyInfo = {
 	logo: "/logo.png",

@@ -2,7 +2,7 @@ import { Roboto } from "next/font/google";
 
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 
-import "app/globals.css";
+import "@/app/globals.css";
 import "swiper/css";
 
 import LayoutContent from "src/components/layout/LayoutContent";

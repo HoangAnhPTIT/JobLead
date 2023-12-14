@@ -1,8 +1,7 @@
 "use client";
 import { CheckOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Flex, Form, Image, Input, Row } from "antd";
+import { Button, Col, Form, Image, Input, Row } from "antd";
 import Link from "next/link";
-import React from "react";
 import { USER_TYPE } from "src/constants/common";
 
 const candidateIntro = [

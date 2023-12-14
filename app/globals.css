@@ -41,6 +41,6 @@ body {
 	border-radius: 5px;
 }
 
-.ant-form-item {
+.ant-col .ant-form-item {
 	margin-bottom: 20px;
 }
