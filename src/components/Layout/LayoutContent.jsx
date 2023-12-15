@@ -60,8 +60,12 @@ const LayoutContent = ({ children }) => {
 	];
 
 	useEffect(() => {
-		const isLogin = JSON.parse(getCookie("isLogin"));
-		const userInfo = JSON.parse(getCookie("userInfo"));
+		const isLogin = getCookie("isLogin")
+			? JSON?.parse(getCookie("isLogin"))
+			: false;
+		const userInfo = getCookie("userInfo")
+			? JSON?.parse(getCookie("userInfo"))
+			: null;
 		dispatch(login({ isLogin, userInfo }));
 	}, []);
 

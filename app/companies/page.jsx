@@ -1,7 +1,19 @@
-import React from "react";
+import CompanySearch from "src/components/Companies/CompanySearch";
+import OtherCompanies from "src/components/Companies/OtherCompanies";
+import TopCompanies from "src/components/Companies/TopCompanies";
 
 const CompaniesPage = () => {
-	return <div>CompaniesPage</div>;
+	return (
+		<div>
+			<CompanySearch />
+			<div className="bg-bgBody">
+				<div className="w-content mx-auto py-8">
+					<TopCompanies />
+					<OtherCompanies />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default CompaniesPage;
