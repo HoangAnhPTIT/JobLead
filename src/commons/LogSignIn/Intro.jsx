@@ -7,7 +7,7 @@ import { USER_ROLE } from "src/constants/common";
 
 const candidateIntro = {
 	label: "ứng viên",
-	image: "/dangky-uv-ct.png",
+	avatar: "/dangky-uv-ct.png",
 	intro: [
 		"Công việc được cập nhật thường xuyên",
 		"Ứng tuyển công việc yêu thích HOÀN TOÀN MIỄN PHÍ",
@@ -17,7 +17,7 @@ const candidateIntro = {
 };
 const employerIntro = {
 	label: "nhà tuyển dụng",
-	image: "/dangky-ntd-ct.png",
+	avatar: "/dangky-ntd-ct.png",
 	intro: [
 		"Ứng viên sẵn sàng tiếp cận thông tin tuyển dụng",
 		"Không giới hạn tương tác với ứng viên qua hệ thống nhắn tin nội bộ MIỄN PHÍ",
@@ -38,7 +38,7 @@ const InfoWithImage = ({ info, type, setType }) => {
 		>
 			<div className="absolute -top-[70px] left-1/2 -translate-x-1/2">
 				<Image
-					src={info.image}
+					src={info.avatar}
 					width={166}
 					height={166}
 					alt={info.type}

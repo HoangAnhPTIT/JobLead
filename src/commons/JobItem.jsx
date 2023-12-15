@@ -11,7 +11,12 @@ import { JOB_PRIORITY } from "src/constants/job";
 const JobItem = ({ item, showExpire = false }) => {
 	return (
 		<Flex gap={12}>
-			<Image src={item?.image} width={60} height={60} alt={item?.companyName} />
+			<Image
+				src={item?.avatar}
+				width={60}
+				height={60}
+				alt={item?.companyName}
+			/>
 			<div className="text-sm w-[calc(100%-72px)]">
 				<div
 					className={classNames([

@@ -9,7 +9,7 @@ const JobItemList = ({ item }) => {
 		<div className={classNames(["pl-2 py-1"])}>
 			<Flex gap={12}>
 				<Image
-					src={item?.image}
+					src={item?.avatar}
 					width={45}
 					height={45}
 					alt={item?.companyName}

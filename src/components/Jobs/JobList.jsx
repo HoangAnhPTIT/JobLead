@@ -10,7 +10,7 @@ import ItemCate from "../Home/ItemCate";
 
 const jobInfo = {
 	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",
-	image: "/cpn2.png",
+	avatar: "/cpn2.png",
 	companyName: "Công ty TNHH South Sea Leatherwares Việt Nam",
 	price: "12 triệu - 15 triệu",
 	location: "Hà Nội",

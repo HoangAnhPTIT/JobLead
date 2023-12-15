@@ -23,7 +23,7 @@ import { WIDTH_CONTENT } from "src/constants/screen";
 
 const jobInfo = {
 	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",
-	image: "/thumb-80x80.png",
+	avatar: "/thumb-80x80.png",
 	companyName: "Công ty TNHH South Sea Leatherwares Việt Nam",
 	price: "12 triệu - 15 triệu",
 	location: "Hà Nội",
@@ -48,47 +48,47 @@ for (let i = 0; i < 20; i++) {
 const employers = [
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 	{
 		companyName: "Manulife Viet Nam",
-		image: "/company.png",
+		avatar: "/company.png",
 		link: "/more",
 	},
 ];

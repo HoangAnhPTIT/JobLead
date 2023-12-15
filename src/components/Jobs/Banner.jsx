@@ -7,9 +7,9 @@ import "swiper/scss/autoplay";
 import "swiper/scss/navigation";
 
 const items = [
-	{ image: "/banner-1.jpg", link: "/more" },
-	{ image: "/banner-2.jpg", link: "/more" },
-	{ image: "/banner-3.jpg", link: "/more" },
+	{ avatar: "/banner-1.jpg", link: "/more" },
+	{ avatar: "/banner-2.jpg", link: "/more" },
+	{ avatar: "/banner-3.jpg", link: "/more" },
 ];
 
 const Banner = () => {
@@ -29,7 +29,7 @@ const Banner = () => {
 					<Link href={item?.link}>
 						<div className="image-shadow">
 							<Image
-								src={item?.image}
+								src={item?.avatar}
 								width="100%"
 								alt={item?.companyName}
 								preview={false}

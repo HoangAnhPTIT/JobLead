@@ -7,52 +7,7 @@ import Category from "src/commons/Category";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const items = [
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-	{
-		name: "Tài chính Ngân hàng SHB (SHB Finance)",
-		avatar: "/cpn3.png",
-		profile: "/profile1.jpg",
-		location: "Toà nhà 171 Trần Phú, p. Văn Quán, q. Hà Đông, Hà Nội",
-		link: "/companies",
-	},
-];
-
-const TopCompanies = () => {
+const TopCompanies = ({ items }) => {
 	return (
 		<Category
 			icon={<RiseOutlined />}
