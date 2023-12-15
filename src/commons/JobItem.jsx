@@ -12,10 +12,10 @@ const JobItem = ({ item, showExpire = false }) => {
 	return (
 		<Flex gap={12}>
 			<Image
-				src={item?.avatar}
+				src={item?.company?.avatarUrl || "/"}
 				width={60}
 				height={60}
-				alt={item?.companyName}
+				alt={item?.company?.name || ""}
 			/>
 			<div className="text-sm w-[calc(100%-72px)]">
 				<div
@@ -27,17 +27,17 @@ const JobItem = ({ item, showExpire = false }) => {
 					{item?.type === JOB_PRIORITY.URGENT && (
 						<i className="text-secondary ">(Gấp) </i>
 					)}
-					<span>{item?.jobName}</span>
+					<span>{item?.company?.name}</span>
 				</div>
 				<div className="uppercase text-99 three-dot">{item?.companyName}</div>
 				<Row className="text-primary">
 					<Col span={!showExpire ? 14 : 8}>
 						<DollarOutlined />
-						<span className="text-55 ml-1 mr-3">{item?.price}</span>
+						<span className="text-55 ml-1 mr-3">{item?.salary?.name}</span>
 					</Col>
 					<Col span={!showExpire ? 10 : 8}>
 						<EnvironmentOutlined />
-						<span className="text-55 ml-1">{item?.location}</span>
+						<span className="text-55 ml-1">{item?.workLocation?.name}</span>
 					</Col>
 					{showExpire && (
 						<Col span={8}>

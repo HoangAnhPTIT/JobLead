@@ -8,6 +8,8 @@ import {
 } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
+import { httpGet, httpPost } from "src/apis/apiCaller";
+import { apiHome } from "src/apis/apiEndpoint";
 import EnhanceSearch from "src/commons/Candidate.jsx/EnhanceSearch";
 import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
@@ -31,10 +33,10 @@ const jobInfo = {
 	expireDate: "31/12/2023",
 };
 
-const data = [];
+const fakeData = [];
 
 for (let i = 0; i < 20; i++) {
-	data[i] = {
+	fakeData[i] = {
 		...jobInfo,
 		type:
 			i % 4 === 0
@@ -126,7 +128,10 @@ const categoryJobList = [
 	},
 ];
 
-const HomePage = () => {
+const HomePage = async () => {
+	const jobResponse = await httpGet(apiHome);
+	const jobData = jobResponse?.data || [];
+
 	return (
 		<div className="Home">
 			<div className="introduce bg-bgBody">
@@ -139,9 +144,13 @@ const HomePage = () => {
 						alt="Nhân viên kinh doanh"
 						className="my-5"
 					/>
-					<Category title="Việc làm hot" icon={<FireFilled />} extra="/more">
+					<Category
+						title={jobData?.[0]?.serviceName}
+						icon={<FireFilled />}
+						extra="/more"
+					>
 						<ItemSlider
-							items={data}
+							items={jobData?.[0]?.jobs}
 							col={3}
 							size={COMPONENT_SIZE.SMALL}
 							pageSize={18}
@@ -168,12 +177,12 @@ const HomePage = () => {
 					<Row gutter={26}>
 						<Col span={18}>
 							<Category
-								title="Việc làm hấp dẫn"
+								title={jobData?.[1]?.serviceName}
 								icon={<StarFilled />}
 								extra="/more"
 							>
 								<ItemSlider
-									items={data}
+									items={jobData?.[1]?.jobs}
 									size={COMPONENT_SIZE.NORMAL}
 									pageSize={10}
 								/>
@@ -186,12 +195,12 @@ const HomePage = () => {
 					<Row gutter={26} className="my-5">
 						<Col span={18}>
 							<Category
-								title="Việc làm lương cao"
+								title={jobData?.[2]?.serviceName}
 								icon={<StarFilled />}
 								extra="/more"
 							>
 								<ItemSlider
-									items={data}
+									title={jobData?.[2]?.jobs}
 									size={COMPONENT_SIZE.NORMAL}
 									pageSize={10}
 								/>
@@ -199,14 +208,14 @@ const HomePage = () => {
 						</Col>
 						<Col span={6}>
 							<Category
-								title="Việc làm tiêu điểm"
+								title={jobData?.[3]?.serviceName}
 								icon={<EditFilled />}
 								contentClass="!p-0"
 								layout={COMPONENT_LAYOUT.vertical}
 								extra="/more"
 							>
 								<ItemList
-									items={data}
+									title={jobData?.[3]?.jobs}
 									size={COMPONENT_SIZE.SMALL}
 									pageSize={7}
 								/>
@@ -258,7 +267,5 @@ const HomePage = () => {
 		</div>
 	);
 };
-
-export const dynamic = "force-dynamic";
 
 export default HomePage;
