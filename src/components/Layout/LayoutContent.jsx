@@ -21,9 +21,9 @@ import FooterLayout from "./Footer";
 const { Header, Content } = Layout;
 
 const menuItems = [
-	{ label: "Việc làm", link: "/viec-lam" },
-	{ label: "Công ty", link: "/cong-ty" },
-	{ label: "Ứng viên", link: "/ung-vien" },
+	{ label: "Việc làm", link: "/jobs" },
+	{ label: "Công ty", link: "/companies" },
+	{ label: "Ứng viên", link: "/candidates" },
 ];
 
 function getCookie(cname) {

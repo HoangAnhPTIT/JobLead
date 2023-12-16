@@ -5,16 +5,6 @@ const nextConfig = {
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],
 	},
-	exportPathMap: async function (
-		defaultPathMap,
-		{ dev, dir, outDir, distDir, buildId }
-	) {
-		return {
-			"/viec-lam": { page: "/jobs" },
-			"/cong-ty": { page: "/companies" },
-			"/ung-vien": { page: "/candidates" },
-		};
-	},
 };
 
 module.exports = nextConfig;
