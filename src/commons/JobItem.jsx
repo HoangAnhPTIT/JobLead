@@ -6,7 +6,7 @@ import {
 import { Col, Flex, Row } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
-import { JOB_PRIORITY } from "src/constants/job";
+import { JOB_PRIORITY } from "@/src/constants/job";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (

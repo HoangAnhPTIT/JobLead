@@ -8,18 +8,18 @@ import {
 } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
-import EnhanceSearch from "src/commons/Candidate.jsx/EnhanceSearch";
-import Category from "src/commons/Category";
-import ItemList from "src/commons/ItemList";
-import ItemSlider from "src/commons/ItemSlider";
-import CompanyList from "src/components/Home/CompanyList";
-import ContactInfo from "src/components/Home/ContactInfo";
-import HomeSearch from "src/components/Home/HomeSearch";
-import ListCate from "src/components/Home/ListCate";
-import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
-import { COMPONENT_LAYOUT, COMPONENT_SIZE } from "src/constants/common";
-import { JOB_PRIORITY } from "src/constants/job";
-import { WIDTH_CONTENT } from "src/constants/screen";
+import EnhanceSearch from "@/src/commons/Candidate.jsx/EnhanceSearch";
+import Category from "@/src/commons/Category";
+import ItemList from "@/src/commons/ItemList";
+import ItemSlider from "@/src/commons/ItemSlider";
+import CompanyList from "@/src/components/Home/CompanyList";
+import ContactInfo from "@/src/components/Home/ContactInfo";
+import HomeSearch from "@/src/components/Home/HomeSearch";
+import ListCate from "@/src/components/Home/ListCate";
+import RecruitmentSupport from "@/src/components/Home/RecruitmentSupport";
+import { COMPONENT_LAYOUT, COMPONENT_SIZE } from "@/src/constants/common";
+import { JOB_PRIORITY } from "@/src/constants/job";
+import { WIDTH_CONTENT } from "@/src/constants/screen";
 
 const jobInfo = {
 	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",

@@ -9,13 +9,13 @@ import {
 	theme as themeAntd,
 } from "antd";
 import locale from "antd/es/locale/vi_VN";
-import { login, logout } from "lib/features/userSlice";
-import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { login, logout } from "@/lib/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import theme from "theme/themeConfig";
+import theme from "@/theme/themeConfig";
 import FooterLayout from "./Footer";
 
 const { Header, Content } = Layout;

@@ -2,7 +2,7 @@ import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Col, Flex, Row } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
-import { JOB_PRIORITY } from "src/constants/job";
+import { JOB_PRIORITY } from "@/src/constants/job";
 
 const JobItemList = ({ item }) => {
 	return (
