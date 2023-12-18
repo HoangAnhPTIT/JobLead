@@ -5,7 +5,7 @@ const nextConfig = {
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],
 	},
-	exportPathMap: async function (
+	generateStaticParams: async function (
 		defaultPathMap,
 		{ dev, dir, outDir, distDir, buildId }
 	) {
