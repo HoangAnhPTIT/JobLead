@@ -9,14 +9,16 @@ import {
 	theme as themeAntd,
 } from "antd";
 import locale from "antd/es/locale/vi_VN";
-import { login, logout } from "lib/features/userSlice";
-import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { login, logout } from "@/lib/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import theme from "theme/themeConfig";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import theme from "@/theme/themeConfig";
 import FooterLayout from "./Footer";
+import Loading from "./Loading";
+import classNames from "classnames";
 
 const { Header, Content } = Layout;
 
@@ -48,10 +50,10 @@ const LayoutContent = ({ children }) => {
 	} = themeAntd.useToken();
 
 	const router = useRouter();
+	const pathname = usePathname();
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
 
-	console.log("userInfo", userInfo);
 	const items = [
 		{
 			key: "1",
@@ -79,12 +81,15 @@ const LayoutContent = ({ children }) => {
 								<Image src="/logo.png" alt="logo" width={112} height={41} />
 							</Col>
 							<Col>
-								<Flex gap={10}>
+								<Flex>
 									{menuItems?.map((item, i) => (
 										<Link href={item?.link} key={i}>
 											<div
 												key={i}
-												className="hover:bg-primary hover:text-white px-2 uppercase font-semibold text-primary cursor-pointer"
+												className={classNames([
+													"hover:bg-primary hover:text-white px-4 uppercase font-semibold text-primary cursor-pointer",
+													item?.link === pathname && "bg-primary text-white",
+												])}
 											>
 												{item?.label}
 											</div>
@@ -119,16 +124,18 @@ const LayoutContent = ({ children }) => {
 						)}
 					</Flex>
 				</Header>
-				<Content>
-					<div
-						className="site-layout-content"
-						style={{
-							background: colorBgContainer,
-						}}
-					>
-						{children}
-					</div>
-				</Content>
+				<Suspense fallback={<Loading />}>
+					<Content>
+						<div
+							className="site-layout-content"
+							style={{
+								background: colorBgContainer,
+							}}
+						>
+							{children}
+						</div>
+					</Content>
+				</Suspense>
 				<FooterLayout />
 			</Layout>
 		</ConfigProvider>

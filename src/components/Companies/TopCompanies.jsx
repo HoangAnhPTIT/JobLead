@@ -3,7 +3,7 @@ import { EnvironmentFilled, RiseOutlined } from "@ant-design/icons";
 import { Flex, Image } from "antd";
 import Link from "next/link";
 import React from "react";
-import Category from "src/commons/Category";
+import Category from "@/src/commons/Category";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 

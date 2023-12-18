@@ -1,11 +1,11 @@
 "use client";
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Image, Input, Row } from "antd";
-import { login } from "lib/features/userSlice";
-import { useAppDispatch } from "lib/hooks";
+import { login } from "@/lib/features/userSlice";
+import { useAppDispatch } from "@/lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { USER_ROLE } from "src/constants/common";
+import { USER_ROLE } from "@/src/constants/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",

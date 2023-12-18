@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
-import { COMPONENT_SIZE } from "src/constants/common";
+import { COMPONENT_SIZE } from "@/src/constants/common";
 
 const sizeCss = {
 	[COMPONENT_SIZE.SMALL]: "text-sm after:text-xs",

@@ -2,9 +2,9 @@ import { Roboto } from "next/font/google";
 
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 
-import "@/app/globals.css";
+import "app/globals.css";
 
-import LayoutContent from "src/components/layout/LayoutContent";
+import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
 
 const roboto = Roboto({

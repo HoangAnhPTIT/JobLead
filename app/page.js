@@ -8,9 +8,9 @@ import {
 } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
-import { httpGet, httpPost } from "src/apis/apiCaller";
+import { httpGet } from "src/apis/apiCaller";
 import { apiHome } from "src/apis/apiEndpoint";
-import EnhanceSearch from "src/commons/Candidate.jsx/EnhanceSearch";
+import EnhanceSearch from "src/commons/Candidate/EnhanceSearch";
 import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
 import ItemSlider from "src/commons/ItemSlider";

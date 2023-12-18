@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Intro from "src/commons/LogSignIn/Intro";
-import Candidate from "src/components/Signin/Candidate";
-import Employer from "src/components/Signin/Employer";
-import { USER_ROLE } from "src/constants/common";
+import Intro from "@/src/commons/LogSignIn/Intro";
+import Candidate from "@/src/components/Signin/Candidate";
+import Employer from "@/src/components/Signin/Employer";
+import { USER_ROLE } from "@/src/constants/common";
 
 const SigninPage = () => {
 	const [signinType, setSigninType] = useState(USER_ROLE.guest);

@@ -1,11 +1,12 @@
 "use client";
 import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Form, Select } from "antd";
+import classNames from "classnames";
 import React from "react";
 
 const { Option } = Select;
 
-const EnhanceSearch = () => {
+const EnhanceSearch = ({ classTitle = "" }) => {
 	const [form] = Form.useForm();
 
 	const onSubmit = () => {
@@ -16,7 +17,12 @@ const EnhanceSearch = () => {
 		<div>
 			<div className="bg-primary p-2">
 				<SearchOutlined className="text-2xl" style={{ color: "#fff" }} />
-				<span className="text-white ml-2 uppercase text-2xl">
+				<span
+					className={classNames([
+						"text-white ml-2 uppercase text-2xl",
+						classTitle,
+					])}
+				>
 					Tìm kiếm nâng cao
 				</span>
 			</div>

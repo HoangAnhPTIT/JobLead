@@ -3,9 +3,9 @@ import { ApartmentOutlined, SearchOutlined } from "@ant-design/icons";
 import { Col, Image, Pagination, Row } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import Category from "src/commons/Category";
-import JobItem from "src/commons/JobItem";
-import { JOB_PRIORITY } from "src/constants/job";
+import Category from "@/src/commons/Category";
+import JobItem from "@/src/commons/JobItem";
+import { JOB_PRIORITY } from "@/src/constants/job";
 import ItemCate from "../Home/ItemCate";
 
 const jobInfo = {

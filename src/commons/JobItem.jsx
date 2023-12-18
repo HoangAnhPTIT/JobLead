@@ -6,13 +6,13 @@ import {
 import { Col, Flex, Row } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
-import { JOB_PRIORITY } from "src/constants/job";
+import { JOB_PRIORITY } from "@/src/constants/job";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (
 		<Flex gap={12}>
 			<Image
-				src={item?.company?.avatarUrl || "/"}
+				src={item?.company?.avatarUrl || "/thumb-80x80.png"}
 				width={60}
 				height={60}
 				alt={item?.company?.name || ""}

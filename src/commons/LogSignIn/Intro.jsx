@@ -3,7 +3,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { Button, Flex, Image } from "antd";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
-import { USER_ROLE } from "src/constants/common";
+import { USER_ROLE } from "@/src/constants/common";
 
 const candidateIntro = {
 	label: "ứng viên",

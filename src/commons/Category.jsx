@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
-import { COMPONENT_LAYOUT } from "src/constants/common";
+import { COMPONENT_LAYOUT } from "@/src/constants/common";
 
 const Category = ({
 	title,

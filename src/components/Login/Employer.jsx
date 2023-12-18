@@ -2,7 +2,7 @@
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Image, Input, Row } from "antd";
 import Link from "next/link";
-import { USER_ROLE } from "src/constants/common";
+import { USER_ROLE } from "@/src/constants/common";
 
 const employerIntro = [
 	"+4,000,000 ứng viên tiếp cận thông tin tuyển dụng",

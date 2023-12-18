@@ -2,7 +2,7 @@
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Image, Input, Row } from "antd";
 import Link from "next/link";
-import { USER_ROLE } from "src/constants/common";
+import { USER_ROLE } from "@/src/constants/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",

@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Col, Row, Statistic } from "antd";
 import classNames from "classnames";
-import { formatNumber } from "src/helper/format";
+import { formatNumber } from "@/src/helper/format";
 
 const counts = [
 	{

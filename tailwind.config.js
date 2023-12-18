@@ -20,6 +20,7 @@ module.exports = {
 				third: "#d00",
 				f0: "#f0f0f0",
 				f0Blur: "rgb(240, 240, 240, 0.5)",
+				54: "#545454",
 				55: "#555",
 				99: "#999",
 				33: "#333",
@@ -27,6 +28,7 @@ module.exports = {
 				bgPhone: "#d9e6ee",
 				red1: "#dd0000",
 				yellow1: "#f3c01a",
+				555552: "#555552",
 			},
 			width: {
 				content: "1170px",
