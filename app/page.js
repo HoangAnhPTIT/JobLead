@@ -9,7 +9,12 @@ import {
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { httpGet } from "src/apis/apiCaller";
-import { apiHome } from "src/apis/apiEndpoint";
+import {
+	apiGetCompanies,
+	apiHome,
+	apiJobByCareer,
+	apiJobByLocation,
+} from "src/apis/apiEndpoint";
 import EnhanceSearch from "src/commons/Candidate/EnhanceSearch";
 import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
@@ -33,104 +38,16 @@ const jobInfo = {
 	expireDate: "31/12/2023",
 };
 
-const fakeData = [];
-
-for (let i = 0; i < 20; i++) {
-	fakeData[i] = {
-		...jobInfo,
-		type:
-			i % 4 === 0
-				? JOB_PRIORITY.HOT
-				: i % 4 === 1
-				? JOB_PRIORITY.URGENT
-				: JOB_PRIORITY.NORMAL,
-	};
-}
-
-const employers = [
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Công Ty Cổ Phần Tập Đoàn Nhà Phố Việt Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-	{
-		companyName: "Manulife Viet Nam",
-		avatar: "/company.png",
-		link: "/more",
-	},
-];
-
-const categoryJobList = [
-	{
-		title: "Kinh doanh",
-		amount: "1091",
-		link: "/more",
-	},
-	{
-		title: "Kinh doanh",
-		amount: "1091",
-		link: "/more",
-	},
-	{
-		title: "Bans hang",
-		amount: "10991",
-		link: "/more",
-	},
-	{
-		title: "Sinh viên / Mới tốt nghiệp / Thực tập",
-		amount: "10991",
-		link: "/more",
-	},
-	{
-		title: "Sinh viên / Mới tốt nghiệp / Thực tập / hihi",
-		amount: "10991",
-		link: "/more",
-	},
-	{
-		title: "Sinh viên / Mới tốt nghiệp / Thực tập",
-		amount: "10991",
-		link: "/more",
-	},
-];
-
 const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);
+	const jobByLocationResponse = await httpGet(apiJobByLocation);
+	const jobByCareerResponse = await httpGet(apiJobByCareer);
+	const companiesResponse = await httpGet(apiGetCompanies);
+
 	const jobData = jobResponse?.data || [];
+	const jobByLocationData = jobByLocationResponse?.data || [];
+	const jobByCareerData = jobByCareerResponse?.data || [];
+	const companiesData = companiesResponse?.data || [];
 
 	return (
 		<div className="Home">
@@ -180,6 +97,7 @@ const HomePage = async () => {
 								title={jobData?.[1]?.serviceName}
 								icon={<StarFilled />}
 								extra="/more"
+								contentClass="min-h-[487px]"
 							>
 								<ItemSlider
 									items={jobData?.[1]?.jobs}
@@ -198,9 +116,10 @@ const HomePage = async () => {
 								title={jobData?.[2]?.serviceName}
 								icon={<StarFilled />}
 								extra="/more"
+								contentClass="min-h-[475px]"
 							>
 								<ItemSlider
-									title={jobData?.[2]?.jobs}
+									items={jobData?.[2]?.jobs}
 									size={COMPONENT_SIZE.NORMAL}
 									pageSize={10}
 								/>
@@ -210,12 +129,12 @@ const HomePage = async () => {
 							<Category
 								title={jobData?.[3]?.serviceName}
 								icon={<EditFilled />}
-								contentClass="!p-0"
+								contentClass="!p-0 min-h-[475px]"
 								layout={COMPONENT_LAYOUT.vertical}
 								extra="/more"
 							>
 								<ItemList
-									title={jobData?.[3]?.jobs}
+									items={jobData?.[3]?.jobs}
 									size={COMPONENT_SIZE.SMALL}
 									pageSize={7}
 								/>
@@ -223,7 +142,7 @@ const HomePage = async () => {
 						</Col>
 					</Row>
 					<Category title="Nhà tuyển dụng hàng đầu" icon={<UserOutlined />}>
-						<CompanyList items={employers} />
+						<CompanyList items={companiesData} />
 					</Category>
 					<Row gutter={16} className="my-5">
 						<Col span={18}>
@@ -234,7 +153,7 @@ const HomePage = async () => {
 								extra="/more"
 								contentClass="!pb-3"
 							>
-								{<ListCate items={categoryJobList} />}
+								{<ListCate items={jobByCareerData} titleKey="career" />}
 							</Category>
 							<div className="pb-5" />
 							<Category
@@ -244,7 +163,7 @@ const HomePage = async () => {
 								extra="/more"
 								contentClass="!pb-3"
 							>
-								{<ListCate items={categoryJobList} />}
+								{<ListCate items={jobByLocationData} titleKey="workLocation" />}
 							</Category>
 							<div className="pb-5" />
 							<Image

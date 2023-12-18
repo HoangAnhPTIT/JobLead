@@ -1,8 +1,8 @@
 "use client";
 import { Col, Row } from "antd";
 import classNames from "classnames";
-import JobItem from "@/src/commons/JobItem";
-import { COMPONENT_SIZE } from "@/src/constants/common";
+import JobItem from "src/commons/JobItem";
+import { COMPONENT_SIZE } from "src/constants/common";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 

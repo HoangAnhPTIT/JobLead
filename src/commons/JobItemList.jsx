@@ -9,7 +9,7 @@ const JobItemList = ({ item }) => {
 		<div className={classNames(["pl-2 py-1"])}>
 			<Flex gap={12}>
 				<Image
-					src={item?.avatar}
+					src={item?.company?.avatarUrl}
 					width={45}
 					height={45}
 					alt={item?.companyName}
@@ -24,16 +24,20 @@ const JobItemList = ({ item }) => {
 						{item?.type === JOB_PRIORITY.URGENT && (
 							<i className="text-secondary ">(Gấp) </i>
 						)}
-						<span>{item?.jobName}</span>
+						<span>{item?.name}</span>
 					</div>
 					<Row className="text-primary">
 						<Col span={14}>
 							<DollarOutlined className="text-xs" />
-							<span className="text-55 ml-1 mr-3 text-xs">{item?.price}</span>
+							<span className="text-55 ml-1 mr-3 text-xs">
+								{item?.salary?.name}
+							</span>
 						</Col>
 						<Col span={10}>
 							<EnvironmentOutlined className="text-xs" />
-							<span className="text-55 ml-1 text-xs">{item?.location}</span>
+							<span className="text-55 ml-1 text-xs">
+								{item?.workLocation?.name}
+							</span>
 						</Col>
 					</Row>
 				</div>

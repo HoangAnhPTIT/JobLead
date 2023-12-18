@@ -6,7 +6,7 @@ import {
 import { Col, Flex, Row } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
-import { JOB_PRIORITY } from "@/src/constants/job";
+import { JOB_PRIORITY } from "src/constants/job";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (
@@ -27,9 +27,9 @@ const JobItem = ({ item, showExpire = false }) => {
 					{item?.type === JOB_PRIORITY.URGENT && (
 						<i className="text-secondary ">(Gấp) </i>
 					)}
-					<span>{item?.company?.name}</span>
+					<span>{item?.name}</span>
 				</div>
-				<div className="uppercase text-99 three-dot">{item?.companyName}</div>
+				<div className="uppercase text-99 three-dot">{item?.company?.name}</div>
 				<Row className="text-primary">
 					<Col span={!showExpire ? 14 : 8}>
 						<DollarOutlined />

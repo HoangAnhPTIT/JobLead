@@ -16,17 +16,17 @@ const CompanyList = ({ items }) => {
 		>
 			{items?.map((item, i) => (
 				<SwiperSlide key={i}>
-					<Link href={item?.link}>
+					<Link href={item?.id}>
 						<div className="image-shadow p-2">
 							<Image
-								src={item?.avatar}
+								src={item?.avatarUrl || "/"}
 								width={200}
 								height={200}
-								alt={item?.companyName}
+								alt={item?.name}
 							/>
 						</div>
 						<div className="text-center text-sm mt-2 text-primary">
-							{item?.companyName}
+							{item?.name}
 						</div>
 					</Link>
 				</SwiperSlide>
