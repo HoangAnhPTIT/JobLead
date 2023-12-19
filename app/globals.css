@@ -54,3 +54,10 @@ body {
 	display: inline-block;
 	border-radius: 100%;
 }
+
+.ant-form-item-extra {
+	font-size: 13px !important;
+	color: red !important;
+	font-style: italic;
+	margin-top: 5px !important;
+}

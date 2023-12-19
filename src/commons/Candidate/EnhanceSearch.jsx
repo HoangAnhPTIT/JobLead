@@ -18,7 +18,7 @@ const staticEntities = [
 	"Gender",
 ];
 
-const EnhanceSearch = ({ classTitle = "", isServer }) => {
+const EnhanceSearch = ({ classTitle = "" }) => {
 	const [form] = Form.useForm();
 	const [searchOptions, setSearchOptions] = useState();
 
@@ -51,8 +51,6 @@ const EnhanceSearch = ({ classTitle = "", isServer }) => {
 		};
 		getOptionValues();
 	}, []);
-
-	// console.log("searchOptions", searchOptions);
 
 	return (
 		<div>
