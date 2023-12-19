@@ -1,9 +1,10 @@
 "use client";
-import { Col, Form, Input, Row, Select } from "antd";
+import { Button, Col, DatePicker, Form, Image, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
 import { apiGetEntities } from "src/apis/apiEndpoint";
 import styles from "./styles.module.scss";
+import ApproveRule from "./ApproveRule";
 
 const staticEntities = [
 	"Level",
@@ -14,6 +15,8 @@ const staticEntities = [
 	"Experience",
 
 	"Gender",
+	"Degree",
+	"Language",
 ];
 
 const CreateJobContent = () => {
@@ -56,7 +59,7 @@ const CreateJobContent = () => {
 	}, []);
 
 	return (
-		<Row gutter={16}>
+		<Row gutter={20}>
 			<Col span={16}>
 				<Form
 					form={form}
@@ -72,7 +75,7 @@ const CreateJobContent = () => {
 						<Row gutter={16}>
 							<Col span={24}>
 								<Form.Item
-									name="position"
+									name={["jobInfo", "position"]}
 									label="Vị trí tuyển dụng"
 									extra="(Lưu ý: Vị trí tuyển dụng sẽ không được chỉnh sửa sau khi tin tuyển dụng được duyệt)"
 									required
@@ -84,17 +87,25 @@ const CreateJobContent = () => {
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item name="code" label="Mã số tuyển dụng">
+								<Form.Item name={["jobInfo", "code"]} label="Mã số tuyển dụng">
 									<Input size="large" />
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item name="amount" label="Số lượng tuyển dụng" required>
+								<Form.Item
+									name={["jobInfo", "amount"]}
+									label="Số lượng tuyển dụng"
+									required
+								>
 									<Input size="large" />
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item name="Level" label="Cấp bậc" required>
+								<Form.Item
+									name={["jobInfo", "levelId"]}
+									label="Cấp bậc"
+									required
+								>
 									<Select size="large">
 										{optionValues?.Level?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
@@ -106,7 +117,7 @@ const CreateJobContent = () => {
 							</Col>
 							<Col span={12}>
 								<Form.Item
-									name="TypeOfWork"
+									name={["jobInfo", "typeOfWorkId"]}
 									label="Loại hình công việc"
 									required
 								>
@@ -120,7 +131,11 @@ const CreateJobContent = () => {
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item name="Salary" label="Mức lương" required>
+								<Form.Item
+									name={["jobInfo", "salaryId"]}
+									label="Mức lương"
+									required
+								>
 									<Select size="large">
 										{optionValues?.Salary?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
@@ -132,7 +147,7 @@ const CreateJobContent = () => {
 							</Col>
 							<Col span={12}>
 								<Form.Item
-									name="WorkLocation"
+									name={["jobInfo", "workLocationId"]}
 									label="Địa điểm làm việc"
 									required
 								>
@@ -146,7 +161,11 @@ const CreateJobContent = () => {
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item name="Career" label="Ngành nghề" required>
+								<Form.Item
+									name={["jobInfo", "careerId"]}
+									label="Ngành nghề"
+									required
+								>
 									<Select size="large">
 										{optionValues?.Career?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
@@ -158,7 +177,7 @@ const CreateJobContent = () => {
 							</Col>
 							<Col span={24}>
 								<Form.Item
-									name="description"
+									name={["jobInfo", "description"]}
 									label="Mô tả công việc"
 									required
 									extra={
@@ -180,7 +199,11 @@ const CreateJobContent = () => {
 								</Form.Item>
 							</Col>
 							<Col span={24}>
-								<Form.Item name="benefit" label="Quyền lợi được hưởng" required>
+								<Form.Item
+									name={["jobInfo", "benefit"]}
+									label="Quyền lợi được hưởng"
+									required
+								>
 									<Input.TextArea
 										rows={10}
 										placeholder={`Gợi ý:
@@ -201,20 +224,177 @@ const CreateJobContent = () => {
 							Yêu cầu công việc
 						</div>
 						<div>
-							<Row>
+							<Row gutter={16}>
 								<Col span={24}>
 									<Form.Item
-										name="experienceId"
+										name={["jobRequirement", "experienceId"]}
 										label="Kinh nghiệm"
 										required
-									></Form.Item>
+									>
+										<Select size="large">
+											{optionValues?.Experience?.map((item, i) => (
+												<Select.Option key={i} value={item?.id}>
+													{item?.name}
+												</Select.Option>
+											))}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["jobRequirement", "degreeId"]}
+										label="Bằng cấp"
+										required
+									>
+										<Select size="large">
+											{optionValues?.Degree?.map((item, i) => (
+												<Select.Option key={i} value={item?.id}>
+													{item?.name}
+												</Select.Option>
+											))}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["jobRequirement", "genderId"]}
+										label="Giới tính"
+										required
+									>
+										<Select size="large">
+											{optionValues?.Gender?.map((item, i) => (
+												<Select.Option key={i} value={item?.id}>
+													{item?.name}
+												</Select.Option>
+											))}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["jobRequirement", "expireDate"]}
+										label="Hạn nộp hồ sơ"
+										required
+									>
+										<DatePicker size="large" className="w-full" />
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["jobRequirement", "languageId"]}
+										label="Ngôn ngữ hồ sơ"
+										required
+									>
+										<Select size="large">
+											{optionValues?.Language?.map((item, i) => (
+												<Select.Option key={i} value={item?.id}>
+													{item?.name}
+												</Select.Option>
+											))}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										name={["jobRequirement", "jobRequirement"]}
+										label="Yêu cầu công việc"
+										required
+									>
+										<Input.TextArea
+											rows={8}
+											placeholder={`Gợi ý:
+- Có kinh nghiệm là một lợi thế.
+- Nhanh nhẹn, trung thực, giao tiếp tốt. Có tinh thần hòa đồng, cầu tiến, chịu áp lực và có trách nhiệm trong công việc.
+- Biết sử dụng kỹ năng văn phòng như: word, excel...
+- Độ tuổi từ 18-35 tuổi.
+- Chăm chỉ, cẩn thận và sức khỏe tốt.
+- Giao tiếp tốt, năng động.`}
+										/>
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										name={["jobRequirement", "cvRequirement"]}
+										label="Yêu cầu hồ sơ"
+										required
+									>
+										<Input.TextArea
+											rows={8}
+											placeholder={`Gợi ý:
+- Đơn xin việc hoặc CV xin việc.
+- Sơ yếu lý lịch (có dán ảnh)
+- Hộ khẩu.
+- Chứng minh nhân dân.
+- Giấy khám sức khỏe.
+- Các bằng cấp có liên quan.`}
+										/>
+									</Form.Item>
 								</Col>
 							</Row>
 						</div>
 					</div>
+					<div className="p-5 mt-5 bg-white">
+						<div className="uppercase text-primary font-semibold">
+							Thông tin liên hệ
+						</div>
+						<div>
+							<Row gutter={16}>
+								<Col span={24}>
+									<Form.Item
+										name={["contact", "fullname"]}
+										label="Người liên hệ"
+										required
+									>
+										<Input size="large" />
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["contact", "email"]}
+										label="Email liên hệ"
+										required
+									>
+										<Input size="large" />
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										name={["contact", "phone"]}
+										label="Số điện thoại liên hệ"
+										required
+									>
+										<Input size="large" />
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										name={["contact", "address"]}
+										label="Địa điểm làm việc"
+										required
+									>
+										<Input size="large" />
+									</Form.Item>
+								</Col>
+							</Row>
+						</div>
+					</div>
+					<div className="text-right">
+						<Button type="primary" onClick={onSubmit} className="mt-5">
+							Đăng tuyển
+						</Button>
+					</div>
 				</Form>
 			</Col>
-			<Col span={8}></Col>
+			<Col span={8}>
+				<ApproveRule />
+				<Image
+					src="/kp2.jpg"
+					alt="KPI"
+					width="100%"
+					preview={false}
+					className="mt-5"
+				/>
+			</Col>
 		</Row>
 	);
 };

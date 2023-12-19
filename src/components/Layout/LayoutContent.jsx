@@ -1,31 +1,25 @@
 "use client";
-import {
-	Col,
-	ConfigProvider,
-	Dropdown,
-	Flex,
-	Layout,
-	Row,
-	theme as themeAntd,
-} from "antd";
-import locale from "antd/es/locale/vi_VN";
 import { login, logout } from "@/lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import theme from "theme/themeConfig";
+import { Col, ConfigProvider, Dropdown, Flex, Layout, Row } from "antd";
+import locale from "antd/es/locale/vi_VN";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import theme from "@/theme/themeConfig";
 import FooterLayout from "./Footer";
 import Loading from "./Loading";
-import classNames from "classnames";
 
 const { Header, Content } = Layout;
 
+const PageHideFooter = ["/employer/create-job"];
+
 const menuItems = [
-	{ label: "Việc làm", link: "/viec-lam" },
-	{ label: "Công ty", link: "/cong-ty" },
-	{ label: "Ứng viên", link: "/ung-vien" },
+	{ label: "Việc làm", link: "/jobs" },
+	{ label: "Công ty", link: "/companies" },
+	{ label: "Ứng viên", link: "/candidates" },
 ];
 
 function getCookie(cname) {
@@ -45,10 +39,6 @@ function getCookie(cname) {
 }
 
 const LayoutContent = ({ children }) => {
-	const {
-		token: { colorBgContainer },
-	} = themeAntd.useToken();
-
 	const router = useRouter();
 	const pathname = usePathname();
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
@@ -61,6 +51,8 @@ const LayoutContent = ({ children }) => {
 		},
 	];
 
+	const hideFooter = PageHideFooter.includes(pathname);
+
 	useEffect(() => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
@@ -71,8 +63,13 @@ const LayoutContent = ({ children }) => {
 		dispatch(login({ isLogin, userInfo }));
 	}, []);
 
+	const [loading, setLoading] = useState(false);
+	useEffect(() => {
+		setLoading(true);
+	}, []);
+
 	return (
-		<ConfigProvider theme={theme} locale={locale}>
+		<ConfigProvider locale={locale}>
 			<Layout className="layout">
 				<Header>
 					<Flex justify="space-between" align="middle">
@@ -126,17 +123,14 @@ const LayoutContent = ({ children }) => {
 				</Header>
 				<Suspense fallback={<Loading />}>
 					<Content>
-						<div
-							className="site-layout-content"
-							style={{
-								background: colorBgContainer,
-							}}
-						>
-							{children}
-						</div>
+						{!loading ? (
+							<Loading />
+						) : (
+							<div className="site-layout-content">{children}</div>
+						)}
 					</Content>
 				</Suspense>
-				<FooterLayout />
+				{!hideFooter && <FooterLayout />}
 			</Layout>
 		</ConfigProvider>
 	);

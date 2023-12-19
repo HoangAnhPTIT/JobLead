@@ -5,7 +5,7 @@ import EmployerMenu from "src/components/Employer/Menu";
 const EmployerLayout = ({ children }) => {
 	return (
 		<div className="py-5 bg-bgBody">
-			<Row gutter={16} className="w-content !mx-auto">
+			<Row gutter={20} className="w-content !mx-auto">
 				<Col span={5}>
 					<EmployerMenu />
 				</Col>
