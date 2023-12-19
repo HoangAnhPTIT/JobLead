@@ -25,18 +25,7 @@ import HomeSearch from "src/components/Home/HomeSearch";
 import ListCate from "src/components/Home/ListCate";
 import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
 import { COMPONENT_LAYOUT, COMPONENT_SIZE } from "src/constants/common";
-import { JOB_PRIORITY } from "src/constants/job";
 import { WIDTH_CONTENT } from "src/constants/screen";
-
-const jobInfo = {
-	jobName: "NHÂN VIÊN KẾ TOÁN TỔNG HỢP - THU NHẬP TỪ 12 TRIỆU",
-	avatar: "/thumb-80x80.png",
-	companyName: "Công ty TNHH South Sea Leatherwares Việt Nam",
-	price: "12 triệu - 15 triệu",
-	location: "Hà Nội",
-	type: JOB_PRIORITY.HOT,
-	expireDate: "31/12/2023",
-};
 
 const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);

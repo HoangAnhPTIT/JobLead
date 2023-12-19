@@ -1,17 +1,58 @@
 "use client";
-import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Form, Select } from "antd";
 import classNames from "classnames";
-import React from "react";
+import { useEffect, useState } from "react";
+import { httpGet } from "src/apis/apiCaller";
+import { apiGetEntities } from "src/apis/apiEndpoint";
 
 const { Option } = Select;
 
-const EnhanceSearch = ({ classTitle = "" }) => {
+const staticEntities = [
+	"Career",
+	"WorkLocation",
+	"Level",
+	"Experience",
+	"Salary",
+	"TypeOfWork",
+	"Gender",
+];
+
+const EnhanceSearch = ({ classTitle = "", isServer }) => {
 	const [form] = Form.useForm();
+	const [searchOptions, setSearchOptions] = useState();
 
 	const onSubmit = () => {
 		console.log(form.getFieldsValue());
 	};
+
+	useEffect(() => {
+		const getOptionValues = async () => {
+			try {
+				Promise.all(
+					staticEntities?.map(
+						async (item) =>
+							await httpGet(apiGetEntities, {
+								entityType: item,
+							})
+					)
+				).then((responses) => {
+					responses?.forEach((element, i) => {
+						element?.status === 200 &&
+							setSearchOptions((prev) => ({
+								...prev,
+								[staticEntities[i]]: element?.data,
+							}));
+					});
+				});
+			} catch (error) {
+				console.error("getEntityError", error);
+			}
+		};
+		getOptionValues();
+	}, []);
+
+	// console.log("searchOptions", searchOptions);
 
 	return (
 		<div>
@@ -28,67 +69,67 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 			</div>
 			<div className="p-4 bg-white">
 				<Form form={form} onFinish={onSubmit}>
-					<Form.Item name="major">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Ngành nghề"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="Career">
+						<Select size="large" placeholder="Ngành nghề">
+							{searchOptions?.Career?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="location">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Địa điểm"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="WorkLocation">
+						<Select size="large" placeholder="Địa điểm">
+							{searchOptions?.WorkLocation?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="rank">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Cấp bậc"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="Level">
+						<Select size="large" placeholder="Cấp bậc">
+							{searchOptions?.Level?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="experience">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Năm kinh nghiệm"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="Experience">
+						<Select size="large" placeholder="Năm kinh nghiệm">
+							{searchOptions?.Experience?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="salary">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Mức lương"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="Salary">
+						<Select size="large" placeholder="Mức lương">
+							{searchOptions?.Salary?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="jobType">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Loại hình công việc"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="TypeOfWork">
+						<Select size="large" placeholder="Loại hình công việc">
+							{searchOptions?.TypeOfWork?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
-					<Form.Item name="sex">
-						<Select
-							suffixIcon={<CaretDownOutlined />}
-							size="large"
-							placeholder="Giới tính"
-						>
-							<Option value="1">123</Option>
+					<Form.Item name="Gender">
+						<Select size="large" placeholder="Giới tính">
+							{searchOptions?.Gender?.map((item, i) => (
+								<Option value={item?.id} key={i}>
+									{item?.name}
+								</Option>
+							))}
 						</Select>
 					</Form.Item>
 				</Form>

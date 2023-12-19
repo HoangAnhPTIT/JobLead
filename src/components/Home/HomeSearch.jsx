@@ -1,9 +1,12 @@
 "use client";
 import { Button, Col, Form, Input, Row, Select, Space } from "antd";
 import classNames from "classnames";
-import { useRouter } from "next/navigation";
-import styles from "./styles.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
+import { httpGet } from "src/apis/apiCaller";
+import { apiGetEntities } from "src/apis/apiEndpoint";
 
 const commonSearch = [
 	{ title: "Nhân viên bán hàng", link: "/sale" },
@@ -12,9 +15,12 @@ const commonSearch = [
 	{ title: "Việc làm Đà Nẵng", link: "/da-nang" },
 ];
 
+const { Option } = Select;
+
 const HomeSearch = () => {
 	const router = useRouter();
 	const [form] = Form.useForm();
+	const [searchOptions, setSearchOptions] = useState({});
 
 	const onSubmit = () => {
 		const values = form.getFieldsValue();
@@ -22,6 +28,26 @@ const HomeSearch = () => {
 			`/search?q=${values.q}&major=${values.major}&locations=${values.locations}`
 		);
 	};
+
+	useEffect(() => {
+		const getOptionValues = async () => {
+			try {
+				const locationList = await httpGet(apiGetEntities, {
+					entityType: "WorkLocation",
+				});
+				const majorList = await httpGet(apiGetEntities, {
+					entityType: "TypeOfWork",
+				});
+				setSearchOptions({
+					WorkLocation: locationList?.data,
+					TypeOfWork: majorList?.data,
+				});
+			} catch (error) {
+				console.error("getEntityError", error);
+			}
+		};
+		getOptionValues();
+	}, []);
 
 	return (
 		<div className={styles.search}>
@@ -57,12 +83,24 @@ const HomeSearch = () => {
 						</Col>
 						<Col span={6}>
 							<Form.Item name="major" className="!m-0">
-								<Select size="large" placeholder="Ngành nghề" />
+								<Select size="large" placeholder="Ngành nghề">
+									{searchOptions?.TypeOfWork?.map((item, i) => (
+										<Option key={i} value={item?.id}>
+											{item?.name}
+										</Option>
+									))}
+								</Select>
 							</Form.Item>
 						</Col>
 						<Col span={6}>
 							<Form.Item name="location" className="!m-0">
-								<Select size="large" placeholder="Địa điểm" />
+								<Select size="large" placeholder="Địa điểm">
+									{searchOptions?.WorkLocation?.map((item, i) => (
+										<Option key={i} value={item?.id}>
+											{item?.name}
+										</Option>
+									))}
+								</Select>
 							</Form.Item>
 						</Col>
 						<Col span={4}>
