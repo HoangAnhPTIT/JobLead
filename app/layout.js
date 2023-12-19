@@ -1,8 +1,6 @@
-import { Roboto } from "next/font/google";
-
-import StyledComponentsRegistry from "../lib/AntdRegistry";
-
 import "app/globals.css";
+import { Roboto } from "next/font/google";
+import StyledComponentsRegistry from "../lib/AntdRegistry";
 
 import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
@@ -17,17 +15,19 @@ export const metadata = {
 	description: "Tìm việc làm",
 };
 
-const RootLayout = ({ children }) => (
-	<html>
-		<body className={roboto.className}>
-			<StoreProvider>
-				<StyledComponentsRegistry>
-					<LayoutContent>{children}</LayoutContent>
-				</StyledComponentsRegistry>
-			</StoreProvider>
-		</body>
-	</html>
-);
+const RootLayout = ({ children }) => {
+	return (
+		<html>
+			<body className={roboto.className}>
+				<StoreProvider>
+					<StyledComponentsRegistry>
+						<LayoutContent>{children}</LayoutContent>
+					</StyledComponentsRegistry>
+				</StoreProvider>
+			</body>
+		</html>
+	);
+};
 
 export const dynamic = "force-dynamic";
 

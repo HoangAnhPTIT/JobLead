@@ -135,7 +135,7 @@ const Employer = ({ setSigninType }) => {
 								type="primary"
 								size="large"
 								htmlType="submit"
-								className="uppercase !px-10"
+								className="uppercase !px-10 bg-primary"
 							>
 								Đăng ký
 							</Button>

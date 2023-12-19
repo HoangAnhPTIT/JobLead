@@ -42,7 +42,7 @@ const CandidateSearch = () => {
 							type="primary"
 							htmlType="submit"
 							onClick={onSubmit}
-							className="w-36"
+							className="w-36 bg-primary"
 							icon={<SearchOutlined />}
 						>
 							Tìm kiếm

@@ -1,8 +1,7 @@
 "use client";
-
-import React, { useMemo, useRef } from "react";
-import { createCache, extractStyle, StyleProvider } from "@ant-design/cssinjs";
+import { StyleProvider, createCache, extractStyle } from "@ant-design/cssinjs";
 import { useServerInsertedHTML } from "next/navigation";
+import { useMemo, useRef } from "react";
 
 const StyledComponentsRegistry = ({ children }) => {
 	const cache = useMemo(() => createCache(), []);

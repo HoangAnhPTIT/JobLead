@@ -105,10 +105,10 @@ const HomeSearch = () => {
 						</Col>
 						<Col span={4}>
 							<Button
-								type="primary"
 								htmlType="submit"
+								type="primary"
 								size="large"
-								className="w-full !rounded-full"
+								className="w-full !rounded-full bg-primary"
 							>
 								Tìm kiếm
 							</Button>

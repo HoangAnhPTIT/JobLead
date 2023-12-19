@@ -65,7 +65,7 @@ const Candidate = ({ setLoginType }) => {
 							type="primary"
 							size="large"
 							htmlType="submit"
-							className="w-full uppercase"
+							className="w-full uppercase bg-primary"
 						>
 							Đăng nhập
 						</Button>

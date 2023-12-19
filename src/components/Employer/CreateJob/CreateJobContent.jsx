@@ -379,7 +379,11 @@ const CreateJobContent = () => {
 						</div>
 					</div>
 					<div className="text-right">
-						<Button type="primary" onClick={onSubmit} className="mt-5">
+						<Button
+							type="primary"
+							onClick={onSubmit}
+							className="mt-5 bg-primary"
+						>
 							Đăng tuyển
 						</Button>
 					</div>

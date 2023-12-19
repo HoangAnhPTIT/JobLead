@@ -133,7 +133,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 				</Form>
 				<Button
 					type="primary"
-					className="w-full"
+					className="w-full bg-primary"
 					size="large"
 					icon={<SearchOutlined />}
 					onClick={onSubmit}

@@ -2,7 +2,15 @@
 import { login, logout } from "@/lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import theme from "theme/themeConfig";
-import { Col, ConfigProvider, Dropdown, Flex, Layout, Row } from "antd";
+import {
+	Col,
+	ConfigProvider,
+	Dropdown,
+	Flex,
+	Layout,
+	Row,
+	theme as themeAntd,
+} from "antd";
 import locale from "antd/es/locale/vi_VN";
 import classNames from "classnames";
 import Image from "next/image";
@@ -39,6 +47,10 @@ function getCookie(cname) {
 }
 
 const LayoutContent = ({ children }) => {
+	const {
+		token: { colorBgContainer },
+	} = themeAntd.useToken();
+
 	const router = useRouter();
 	const pathname = usePathname();
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
@@ -69,7 +81,7 @@ const LayoutContent = ({ children }) => {
 	}, []);
 
 	return (
-		<ConfigProvider locale={locale}>
+		<ConfigProvider theme={theme} locale={locale}>
 			<Layout className="layout">
 				<Header>
 					<Flex justify="space-between" align="middle">
@@ -126,7 +138,14 @@ const LayoutContent = ({ children }) => {
 						{!loading ? (
 							<Loading />
 						) : (
-							<div className="site-layout-content">{children}</div>
+							<div
+								className="site-layout-content"
+								style={{
+									background: colorBgContainer,
+								}}
+							>
+								{children}
+							</div>
 						)}
 					</Content>
 				</Suspense>
