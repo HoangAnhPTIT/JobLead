@@ -54,11 +54,11 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 
 	return (
 		<div>
-			<div className="bg-primary p-2">
+			<div className="bg-primary p-2 h-12" style={{ lineHeight: "40px" }}>
 				<SearchOutlined className="text-2xl" style={{ color: "#fff" }} />
 				<span
 					className={classNames([
-						"text-white ml-2 uppercase text-2xl",
+						"text-white ml-2 uppercase text-xl",
 						classTitle,
 					])}
 				>

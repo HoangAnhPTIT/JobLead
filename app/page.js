@@ -1,12 +1,12 @@
 import {
-	ApartmentOutlined,
-	EditFilled,
-	EnvironmentOutlined,
-	FireFilled,
-	StarFilled,
-	UserOutlined,
-} from "@ant-design/icons";
-import { Col, Row } from "antd";
+	BorderColor,
+	LocalFireDepartment,
+	Person,
+	Place,
+	Work,
+} from "@mui/icons-material";
+import Stars from "@mui/icons-material/Stars";
+import { Grid } from "@mui/material";
 import Image from "next/image";
 import { httpGet } from "src/apis/apiCaller";
 import {
@@ -15,7 +15,7 @@ import {
 	apiJobByCareer,
 	apiJobByLocation,
 } from "src/apis/apiEndpoint";
-import EnhanceSearch from "src/commons/Candidate/EnhanceSearch";
+import EnhanceSearch from "src/components/Home/EnhanceSearch";
 import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
 import ItemSlider from "src/commons/ItemSlider";
@@ -39,20 +39,20 @@ const HomePage = async () => {
 	const companiesData = companiesResponse?.data || [];
 
 	return (
-		<div className="Home">
-			<div className="introduce bg-bgBody">
-				<HomeSearch />
-				<div className="w-content mx-auto">
-					<Image
-						src="/banner_doc_quyen.jpg"
-						width={WIDTH_CONTENT}
-						height={220}
-						alt="Nhân viên kinh doanh"
-						className="my-5"
-					/>
+		<div className="introduce pb-5 bg-bgBody">
+			<HomeSearch />
+			<div className="w-content mx-auto">
+				<Image
+					src="/banner_doc_quyen.jpg"
+					width={WIDTH_CONTENT}
+					height={220}
+					alt="Nhân viên kinh doanh"
+					className="my-5"
+				/>
+				<div className="mb-5">
 					<Category
 						title={jobData?.[0]?.serviceName}
-						icon={<FireFilled />}
+						icon={<LocalFireDepartment />}
 						extra="/more"
 					>
 						<ItemSlider
@@ -62,115 +62,117 @@ const HomePage = async () => {
 							pageSize={18}
 						/>
 					</Category>
-					<Row gutter={16} className="my-5">
-						<Col span={12}>
-							<Image
-								src="/banner_gioi_han1.jpg"
-								width={WIDTH_CONTENT / 2 - 8}
-								height={220}
-								alt=""
+				</div>
+				<Grid container spacing={2} className="mb-5">
+					<Grid item xs={6}>
+						<Image
+							src="/banner_gioi_han1.jpg"
+							width={WIDTH_CONTENT / 2 - 8}
+							height={220}
+							alt=""
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<Image
+							src="/banner_gioi_han2.jpg"
+							width={WIDTH_CONTENT / 2 - 8}
+							height={220}
+							alt=""
+						/>
+					</Grid>
+				</Grid>
+				<Grid container spacing={3} className="mb-5">
+					<Grid item xs={9}>
+						<Category
+							title={jobData?.[1]?.serviceName}
+							icon={<Stars />}
+							extra="/more"
+							contentClass="min-h-[487px]"
+						>
+							<ItemSlider
+								items={jobData?.[1]?.jobs}
+								size={COMPONENT_SIZE.NORMAL}
+								pageSize={10}
 							/>
-						</Col>
-						<Col span={12}>
-							<Image
-								src="/banner_gioi_han2.jpg"
-								width={WIDTH_CONTENT / 2 - 8}
-								height={220}
-								alt=""
+						</Category>
+					</Grid>
+					<Grid item xs={3}>
+						<Image src="/banner1.jpg" width={280} height={550} alt="" />
+					</Grid>
+				</Grid>
+				<Grid container spacing={3} className="mb-5">
+					<Grid item xs={9}>
+						<Category
+							title={jobData?.[2]?.serviceName}
+							icon={<Stars />}
+							extra="/more"
+							contentClass="min-h-[475px]"
+						>
+							<ItemSlider
+								items={jobData?.[2]?.jobs}
+								size={COMPONENT_SIZE.NORMAL}
+								pageSize={10}
 							/>
-						</Col>
-					</Row>
-					<Row gutter={26}>
-						<Col span={18}>
-							<Category
-								title={jobData?.[1]?.serviceName}
-								icon={<StarFilled />}
-								extra="/more"
-								contentClass="min-h-[487px]"
-							>
-								<ItemSlider
-									items={jobData?.[1]?.jobs}
-									size={COMPONENT_SIZE.NORMAL}
-									pageSize={10}
-								/>
-							</Category>
-						</Col>
-						<Col span={6}>
-							<Image src="/banner1.jpg" width={280} height={550} alt="" />
-						</Col>
-					</Row>
-					<Row gutter={26} className="my-5">
-						<Col span={18}>
-							<Category
-								title={jobData?.[2]?.serviceName}
-								icon={<StarFilled />}
-								extra="/more"
-								contentClass="min-h-[475px]"
-							>
-								<ItemSlider
-									items={jobData?.[2]?.jobs}
-									size={COMPONENT_SIZE.NORMAL}
-									pageSize={10}
-								/>
-							</Category>
-						</Col>
-						<Col span={6}>
-							<Category
-								title={jobData?.[3]?.serviceName}
-								icon={<EditFilled />}
-								contentClass="!p-0 min-h-[475px]"
-								layout={COMPONENT_LAYOUT.vertical}
-								extra="/more"
-							>
-								<ItemList
-									items={jobData?.[3]?.jobs}
-									size={COMPONENT_SIZE.SMALL}
-									pageSize={7}
-								/>
-							</Category>
-						</Col>
-					</Row>
-					<Category title="Nhà tuyển dụng hàng đầu" icon={<UserOutlined />}>
+						</Category>
+					</Grid>
+					<Grid item xs={3}>
+						<Category
+							title={jobData?.[3]?.serviceName}
+							icon={<BorderColor />}
+							contentClass="!p-0 min-h-[475px]"
+							layout={COMPONENT_LAYOUT.vertical}
+							extra="/more"
+						>
+							<ItemList
+								items={jobData?.[3]?.jobs}
+								size={COMPONENT_SIZE.SMALL}
+								pageSize={7}
+							/>
+						</Category>
+					</Grid>
+				</Grid>
+				<div className="mb-5">
+					<Category title="Nhà tuyển dụng hàng đầu" icon={<Person />}>
 						<CompanyList items={companiesData} />
 					</Category>
-					<Row gutter={16} className="my-5">
-						<Col span={18}>
-							<Category
-								title="Việc làm theo ngành nghề"
-								icon={<ApartmentOutlined />}
-								layout={COMPONENT_LAYOUT.vertical}
-								extra="/more"
-								contentClass="!pb-3"
-							>
-								{<ListCate items={jobByCareerData} titleKey="career" />}
-							</Category>
-							<div className="pb-5" />
-							<Category
-								title="Việc làm theo tỉnh thành"
-								icon={<EnvironmentOutlined />}
-								layout={COMPONENT_LAYOUT.vertical}
-								extra="/more"
-								contentClass="!pb-3"
-							>
-								{<ListCate items={jobByLocationData} titleKey="workLocation" />}
-							</Category>
-							<div className="pb-5" />
-							<Image
-								src="/cv-banner-home-new.png"
-								width={873}
-								height={225}
-								alt=""
-							/>
-							<div className="pb-5" />
-							<RecruitmentSupport />
-							<div className="pb-5" />
-							<ContactInfo />
-						</Col>
-						<Col span={6}>
-							<EnhanceSearch />
-						</Col>
-					</Row>
 				</div>
+				<Grid container spacing={3} className="mb-5">
+					<Grid item xs={9}>
+						<Category
+							title="Việc làm theo ngành nghề"
+							icon={<Work />}
+							layout={COMPONENT_LAYOUT.vertical}
+							extra="/more"
+							contentClass="!pb-3"
+						>
+							{<ListCate items={jobByCareerData} titleKey="career" />}
+						</Category>
+						<div className="pb-5" />
+						<Category
+							title="Việc làm theo tỉnh thành"
+							icon={<Place />}
+							layout={COMPONENT_LAYOUT.vertical}
+							extra="/more"
+							contentClass="!pb-3"
+						>
+							{<ListCate items={jobByLocationData} titleKey="workLocation" />}
+						</Category>
+						<div className="pb-5" />
+						<Image
+							src="/cv-banner-home-new.png"
+							width={873}
+							height={225}
+							alt=""
+						/>
+						<div className="pb-5" />
+						<RecruitmentSupport />
+						<div className="pb-5" />
+						<ContactInfo />
+					</Grid>
+					<Grid item xs={3}>
+						<EnhanceSearch />
+					</Grid>
+				</Grid>
 			</div>
 		</div>
 	);

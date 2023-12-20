@@ -29,6 +29,9 @@ module.exports = {
 				red1: "#dd0000",
 				yellow1: "#f3c01a",
 				555552: "#555552",
+				placeholder: "#BBBBBB",
+				bgHeader: "#001529",
+				ff: "#fff",
 			},
 			width: {
 				content: "1170px",

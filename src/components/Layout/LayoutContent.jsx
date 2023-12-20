@@ -1,26 +1,17 @@
 "use client";
 import { login, logout } from "@/lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import theme from "theme/themeConfig";
-import {
-	Col,
-	ConfigProvider,
-	Dropdown,
-	Flex,
-	Layout,
-	Row,
-	theme as themeAntd,
-} from "antd";
-import locale from "antd/es/locale/vi_VN";
+import { Grid } from "@mui/material";
+import { Dropdown } from "antd";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import FooterLayout from "./Footer";
 import Loading from "./Loading";
 
-const { Header, Content } = Layout;
+import styles from "./styles.module.scss";
 
 const PageHideFooter = ["/employer/create-job"];
 
@@ -47,10 +38,6 @@ function getCookie(cname) {
 }
 
 const LayoutContent = ({ children }) => {
-	const {
-		token: { colorBgContainer },
-	} = themeAntd.useToken();
-
 	const router = useRouter();
 	const pathname = usePathname();
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
@@ -75,25 +62,30 @@ const LayoutContent = ({ children }) => {
 		dispatch(login({ isLogin, userInfo }));
 	}, []);
 
-	const [loading, setLoading] = useState(false);
-	useEffect(() => {
-		setLoading(true);
-	}, []);
-
 	return (
-		<ConfigProvider theme={theme} locale={locale}>
-			<Layout className="layout">
-				<Header>
-					<Flex justify="space-between" align="middle">
-						<Row align="middle" justify="start" gutter={16} className="w-full">
-							<Col className="cursor-pointer" onClick={() => router.push("/")}>
+		<div className="layout">
+			<div
+				className={classNames([
+					"h-16 flex content-center px-10 bg-bgHeader",
+					styles.header,
+				])}
+			>
+				<Grid container justifyContent="space-between" alignContent="center">
+					<Grid item>
+						<Grid container alignItems="center" spacing={2} className="h-full">
+							<Grid
+								item
+								className="cursor-pointer"
+								onClick={() => router.push("/")}
+							>
 								<Image src="/logo.png" alt="logo" width={112} height={41} />
-							</Col>
-							<Col>
-								<Flex>
+							</Grid>
+							<Grid item>
+								<Grid container>
 									{menuItems?.map((item, i) => (
 										<Link href={item?.link} key={i}>
-											<div
+											<Grid
+												item
 												key={i}
 												className={classNames([
 													"hover:bg-primary hover:text-white px-4 uppercase font-semibold text-primary cursor-pointer",
@@ -101,57 +93,45 @@ const LayoutContent = ({ children }) => {
 												])}
 											>
 												{item?.label}
-											</div>
+											</Grid>
 										</Link>
 									))}
-								</Flex>
-							</Col>
-						</Row>
-						{!isLogin ? (
-							<Flex
-								className="text-white font-semibold text-center"
-								align="middle"
-								justify="center"
-							>
-								<Link href="/signin">
-									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-										<span className="text-sm">Đăng ký</span>
-									</div>
-								</Link>
-								<Link href="/login">
-									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-										<span className="text-sm">Đăng nhập</span>
-									</div>
-								</Link>
-							</Flex>
-						) : (
-							<Dropdown menu={{ items }} placement="bottom">
-								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase">
-									<span className="text-sm">{userInfo?.email}</span>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+					{!isLogin ? (
+						<Grid
+							item
+							className="text-white font-semibold text-center flex"
+							align="middle"
+							justify="center"
+						>
+							<Link href="/signin">
+								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<span className="text-sm">Đăng ký</span>
 								</div>
-							</Dropdown>
-						)}
-					</Flex>
-				</Header>
-				<Suspense fallback={<Loading />}>
-					<Content>
-						{!loading ? (
-							<Loading />
-						) : (
-							<div
-								className="site-layout-content"
-								style={{
-									background: colorBgContainer,
-								}}
-							>
-								{children}
+							</Link>
+							<Link href="/login">
+								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<span className="text-sm">Đăng nhập</span>
+								</div>
+							</Link>
+						</Grid>
+					) : (
+						<Dropdown menu={{ items }} placement="bottom">
+							<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase">
+								<span className="text-sm">{userInfo?.email}</span>
 							</div>
-						)}
-					</Content>
-				</Suspense>
-				{!hideFooter && <FooterLayout />}
-			</Layout>
-		</ConfigProvider>
+						</Dropdown>
+					)}
+				</Grid>
+			</div>
+			<Suspense fallback={<Loading />}>
+				<div>{children}</div>
+			</Suspense>
+			{!hideFooter && <FooterLayout />}
+		</div>
 	);
 };
 export default LayoutContent;

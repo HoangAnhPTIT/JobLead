@@ -1,0 +1,36 @@
+import { FormControl, MenuItem, Select } from "@mui/material";
+
+const SelectWithoutLabel = ({
+	name,
+	placeholder,
+	register,
+	list,
+	classname,
+}) => {
+	return (
+		<FormControl fullWidth>
+			<Select
+				size="small"
+				displayEmpty
+				renderValue={(selected) =>
+					selected ? (
+						<span>{list?.find((item) => item?.id === selected)?.name}</span>
+					) : (
+						<span className="text-placeholder">{placeholder}</span>
+					)
+				}
+				className={classname}
+				defaultValue=""
+				{...register(name)}
+			>
+				{list?.map((item, i) => (
+					<MenuItem key={i} value={item?.id}>
+						{item?.name}
+					</MenuItem>
+				))}
+			</Select>
+		</FormControl>
+	);
+};
+
+export default SelectWithoutLabel;

@@ -1,12 +1,14 @@
 "use client";
-import { Button, Col, Form, Input, Row, Select, Space } from "antd";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
+import { useForm } from "react-hook-form";
 import { httpGet } from "src/apis/apiCaller";
 import { apiGetEntities } from "src/apis/apiEndpoint";
+import SelectWithoutLabel from "src/commons/Input/SelectWithoutLabel";
+import styles from "./styles.module.scss";
 
 const commonSearch = [
 	{ title: "Nhân viên bán hàng", link: "/sale" },
@@ -15,17 +17,14 @@ const commonSearch = [
 	{ title: "Việc làm Đà Nẵng", link: "/da-nang" },
 ];
 
-const { Option } = Select;
-
 const HomeSearch = () => {
 	const router = useRouter();
-	const [form] = Form.useForm();
+	const { register, handleSubmit } = useForm();
 	const [searchOptions, setSearchOptions] = useState({});
 
-	const onSubmit = () => {
-		const values = form.getFieldsValue();
+	const onSubmit = (values) => {
 		router.push(
-			`/search?q=${values.q}&major=${values.major}&locations=${values.locations}`
+			`/search?q=${values.q}&typeOfWork=${values.typeOfWorkId}&workLocation=${values.workLocationId}`
 		);
 	};
 
@@ -64,70 +63,74 @@ const HomeSearch = () => {
 				</strong>{" "}
 				dành cho bạn
 			</h2>
-			<Form form={form} onFinish={onSubmit}>
+			<form>
 				<div
 					className={classNames([
 						"bg-f0Blur rounded-full mx-auto w-content p-3 z",
-						styles.searchInput,
+						styles.searchForm,
 					])}
 				>
-					<Row gutter={16} className="!w-full">
-						<Col span={8}>
-							<Form.Item name="q" className="!m-0">
-								<Input
-									size="large"
-									className="!rounded-full !px-6 !text-base"
-									placeholder="Từ khóa, chức danh"
-								/>
-							</Form.Item>
-						</Col>
-						<Col span={6}>
-							<Form.Item name="major" className="!m-0">
-								<Select size="large" placeholder="Ngành nghề">
-									{searchOptions?.TypeOfWork?.map((item, i) => (
-										<Option key={i} value={item?.id}>
-											{item?.name}
-										</Option>
-									))}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col span={6}>
-							<Form.Item name="location" className="!m-0">
-								<Select size="large" placeholder="Địa điểm">
-									{searchOptions?.WorkLocation?.map((item, i) => (
-										<Option key={i} value={item?.id}>
-											{item?.name}
-										</Option>
-									))}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col span={4}>
+					<Grid container spacing={2} className="!w-full">
+						<Grid item xs={4}>
+							<TextField
+								size="small"
+								placeholder="Từ khóa, chức danh"
+								variant="outlined"
+								fullWidth
+								className={classNames([
+									"rounded-full bg-white",
+									styles.searchInput,
+								])}
+								defaultValue=""
+								{...register("q")}
+							/>
+						</Grid>
+						<Grid item xs={3}>
+							<SelectWithoutLabel
+								name="typeOfWorkId"
+								placeholder="Ngành nghề"
+								register={register}
+								list={searchOptions?.TypeOfWork}
+								classname={"bg-white !rounded-full"}
+							/>
+						</Grid>
+						<Grid item xs={3}>
+							<SelectWithoutLabel
+								name="workLocationId"
+								placeholder="Địa điểm"
+								register={register}
+								list={searchOptions?.WorkLocation}
+								classname={"bg-white !rounded-full"}
+							/>
+						</Grid>
+						<Grid item xs={2}>
 							<Button
-								htmlType="submit"
-								type="primary"
-								size="large"
-								className="w-full !rounded-full bg-primary"
+								fullWidth
+								variant="contained"
+								className="!rounded-full h-10"
+								onClick={handleSubmit((data) => onSubmit(data))}
 							>
-								Tìm kiếm
+								<div className="h-5">Tìm kiếm</div>
 							</Button>
-						</Col>
-					</Row>
+						</Grid>
+					</Grid>
 				</div>
-			</Form>
-			<Space className="text-white mx-auto">
+			</form>
+			<Box className="text-white mx-auto">
 				<strong>Tìm kiếm phổ biến</strong>
 				{commonSearch.map((item, i) => (
 					<Link
 						href={item.link}
 						key={i}
-						className={classNames(i === 0 ? "text-primary" : "text-white")}
+						className={classNames(
+							"ml-4",
+							i === 0 ? "text-primary" : "text-white"
+						)}
 					>
 						{item.title}
 					</Link>
 				))}
-			</Space>
+			</Box>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 "use client";
-import { Col, Row } from "antd";
+import { Grid } from "@mui/material";
 
 const contacts = [
 	{
@@ -18,19 +18,19 @@ const ContactInfo = () => {
 	return (
 		<div className="text-center">
 			<div className="text-lg bg-primary text-white p-2">THÔNG TIN LIÊN HỆ</div>
-			<Row className="bg-white py-4 px-2">
+			<Grid container className="bg-white py-4 px-2">
 				{contacts?.map((item, i) => (
-					<Col span={12} key={i}>
-						<div className="font-bold">{item?.title}:</div>
-						<div>
+					<Grid item xs={6} key={i}>
+						<div className="font-bold text-base">{item?.title}:</div>
+						<div className="text-[15px]">
 							Hotline: <span className="text-primary">{item?.phone}</span>
 						</div>
-						<div>
+						<div className="text-[15px]">
 							Email: <span>{item?.email}</span>
 						</div>
-					</Col>
+					</Grid>
 				))}
-			</Row>
+			</Grid>
 		</div>
 	);
 };
