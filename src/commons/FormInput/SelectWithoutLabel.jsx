@@ -22,6 +22,13 @@ const SelectWithoutLabel = ({
 				className={classname}
 				defaultValue=""
 				{...register(name)}
+				MenuProps={{
+					PaperProps: {
+						style: {
+							maxHeight: 500,
+						},
+					},
+				}}
 			>
 				{list?.map((item, i) => (
 					<MenuItem key={i} value={item?.id}>

@@ -1,16 +1,20 @@
 "use client";
-import { EnvironmentFilled, RiseOutlined } from "@ant-design/icons";
+import Category from "@/src/commons/Category";
+import { EnvironmentFilled } from "@ant-design/icons";
+import {
+	ApartmentOutlined,
+	LocationCityOutlined,
+	LocationOnOutlined,
+} from "@mui/icons-material";
 import { Flex, Image } from "antd";
 import Link from "next/link";
-import React from "react";
-import Category from "@/src/commons/Category";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const TopCompanies = ({ items }) => {
 	return (
 		<Category
-			icon={<RiseOutlined />}
+			icon={<ApartmentOutlined />}
 			title="Các công ty hàng đầu"
 			extra="/companies"
 			contentClass="px-0"
@@ -48,7 +52,8 @@ const TopCompanies = ({ items }) => {
 									<div className="font-semibold">{item?.name}</div>
 								</Flex>
 								<div className="p-2">
-									<EnvironmentFilled /> Địa chỉ: {item?.location}
+									<LocationOnOutlined fontSize="small" /> Địa chỉ:{" "}
+									{item?.location}
 								</div>
 							</div>
 						</Link>
