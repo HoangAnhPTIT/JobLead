@@ -1,16 +1,7 @@
-import { Image } from "antd";
-import React from "react";
+import ImageFull from "src/commons/Image";
 
 const Banner = () => {
-	return (
-		<Image
-			width="100%"
-			height="auto"
-			src="/Banner5.png"
-			alt="Top việc làm"
-			preview={false}
-		/>
-	);
+	return <ImageFull src="/Banner5.png" alt="Top việc làm" />;
 };
 
 export default Banner;

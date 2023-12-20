@@ -1,9 +1,10 @@
 "use client";
 import { CheckOutlined } from "@ant-design/icons";
-import { Button, Flex, Image } from "antd";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
-import { USER_ROLE } from "@/src/constants/common";
+import { USER_ROLE } from "src/constants/common";
+import Image from "next/image";
+import { Button } from "@mui/material";
 
 const candidateIntro = {
 	label: "ứng viên",
@@ -58,20 +59,15 @@ const InfoWithImage = ({ info, type, setType }) => {
 				))}
 			</div>
 			<Button
-				size="large"
-				type={type === USER_ROLE.candidate ? "primary" : "default"}
+				fullWidth
+				variant={type === USER_ROLE.candidate ? "contained" : "outlined"}
 				className={classNames([
-					"w-full uppercase",
-					type !== USER_ROLE.candidate ? "bg-primary" : "bg-whi",
+					"uppercase",
+					type === USER_ROLE.candidate ? "bg-primary" : "!bg-white",
 				])}
 				onClick={() => setType(type)}
 			>
-				<span
-					className={classNames([
-						"font-semibold",
-						type === USER_ROLE.candidate ? "text-white" : "text-primary",
-					])}
-				>
+				<span className={classNames(["font-semibold"])}>
 					{path === "/login" && "Đăng nhập"}
 					{path === "/signin" && "Đăng ký"} {info.label}
 				</span>
@@ -82,7 +78,7 @@ const InfoWithImage = ({ info, type, setType }) => {
 
 const Intro = ({ setType }) => {
 	return (
-		<Flex justify="center" gap={40} className="bg-bgBody pb-10 pt-24">
+		<div gap={40} className="flex gap-10 justify-center bg-bgBody pb-10 pt-24">
 			<InfoWithImage
 				info={candidateIntro}
 				type={USER_ROLE.candidate}
@@ -93,7 +89,7 @@ const Intro = ({ setType }) => {
 				type={USER_ROLE.employer}
 				setType={setType}
 			/>
-		</Flex>
+		</div>
 	);
 };
 

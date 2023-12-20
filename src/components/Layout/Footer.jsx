@@ -1,5 +1,5 @@
 import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
-import { Col, Row } from "antd";
+import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -199,28 +199,28 @@ const FooterLayout = () => {
 						</div>
 					</div>
 					<div>
-						<Row gutter={[16, 16]}>
-							<Col span={6}>
+						<Grid container spacing={[2, 2]}>
+							<Grid item xs={3}>
 								<InfoList info={websiteInfo} />
-							</Col>
-							<Col span={6}>
+							</Grid>
+							<Grid item xs={3}>
 								<InfoList info={candidateInfo} />
-							</Col>
-							<Col span={6}></Col>
-							<Col span={6}></Col>
-							<Col span={6}>
+							</Grid>
+							<Grid item xs={3}></Grid>
+							<Grid item xs={3}></Grid>
+							<Grid item xs={3}>
 								<InfoList info={jobByLocation} />
-							</Col>
-							<Col span={6}>
+							</Grid>
+							<Grid item xs={3}>
 								<InfoList info={majorInfo} />
-							</Col>
-							<Col span={6}>
+							</Grid>
+							<Grid item xs={3}>
 								<InfoList info={toolInfo} />
-							</Col>
-							<Col span={6}>
+							</Grid>
+							<Grid item xs={3}>
 								<InfoList info={forEmployerInfo} />
-							</Col>
-						</Row>
+							</Grid>
+						</Grid>
 					</div>
 				</div>
 			</div>

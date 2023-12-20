@@ -1,13 +1,12 @@
 "use client";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { httpGet } from "src/apis/apiCaller";
-import { apiGetEntities } from "src/apis/apiEndpoint";
-import SelectWithoutLabel from "src/commons/Input/SelectWithoutLabel";
+import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
+import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
+import useEntities from "src/hooks/useEntities";
 import styles from "./styles.module.scss";
 
 const commonSearch = [
@@ -20,33 +19,13 @@ const commonSearch = [
 const HomeSearch = () => {
 	const router = useRouter();
 	const { register, handleSubmit } = useForm();
-	const [searchOptions, setSearchOptions] = useState({});
+	const entities = useEntities();
 
 	const onSubmit = (values) => {
 		router.push(
 			`/search?q=${values.q}&typeOfWork=${values.typeOfWorkId}&workLocation=${values.workLocationId}`
 		);
 	};
-
-	useEffect(() => {
-		const getOptionValues = async () => {
-			try {
-				const locationList = await httpGet(apiGetEntities, {
-					entityType: "WorkLocation",
-				});
-				const majorList = await httpGet(apiGetEntities, {
-					entityType: "TypeOfWork",
-				});
-				setSearchOptions({
-					WorkLocation: locationList?.data,
-					TypeOfWork: majorList?.data,
-				});
-			} catch (error) {
-				console.error("getEntityError", error);
-			}
-		};
-		getOptionValues();
-	}, []);
 
 	return (
 		<div className={styles.search}>
@@ -72,17 +51,14 @@ const HomeSearch = () => {
 				>
 					<Grid container spacing={2} className="!w-full">
 						<Grid item xs={4}>
-							<TextField
-								size="small"
+							<InputWithoutLabel
+								name="q"
 								placeholder="Từ khóa, chức danh"
-								variant="outlined"
-								fullWidth
-								className={classNames([
+								classname={classNames([
 									"rounded-full bg-white",
 									styles.searchInput,
 								])}
-								defaultValue=""
-								{...register("q")}
+								register={register}
 							/>
 						</Grid>
 						<Grid item xs={3}>
@@ -90,7 +66,7 @@ const HomeSearch = () => {
 								name="typeOfWorkId"
 								placeholder="Ngành nghề"
 								register={register}
-								list={searchOptions?.TypeOfWork}
+								list={entities?.TypeOfWork}
 								classname={"bg-white !rounded-full"}
 							/>
 						</Grid>
@@ -99,7 +75,7 @@ const HomeSearch = () => {
 								name="workLocationId"
 								placeholder="Địa điểm"
 								register={register}
-								list={searchOptions?.WorkLocation}
+								list={entities?.WorkLocation}
 								classname={"bg-white !rounded-full"}
 							/>
 						</Grid>

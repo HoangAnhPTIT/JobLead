@@ -3,14 +3,14 @@ import {
 	DollarOutlined,
 	EnvironmentOutlined,
 } from "@ant-design/icons";
-import { Col, Flex, Row } from "antd";
+import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import { JOB_PRIORITY } from "src/constants/job";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (
-		<Flex gap={12}>
+		<div className="flex gap-3">
 			<Image
 				src={item?.company?.avatarUrl || "/thumb-80x80.png"}
 				width={60}
@@ -30,24 +30,24 @@ const JobItem = ({ item, showExpire = false }) => {
 					<span>{item?.name}</span>
 				</div>
 				<div className="uppercase text-99 three-dot">{item?.company?.name}</div>
-				<Row className="text-primary">
-					<Col span={!showExpire ? 14 : 8}>
+				<Grid container className="text-primary">
+					<Grid item xs={!showExpire ? 7 : 4}>
 						<DollarOutlined />
 						<span className="text-55 ml-1 mr-3">{item?.salary?.name}</span>
-					</Col>
-					<Col span={!showExpire ? 10 : 8}>
+					</Grid>
+					<Grid item xs={!showExpire ? 5 : 4}>
 						<EnvironmentOutlined />
 						<span className="text-55 ml-1">{item?.workLocation?.name}</span>
-					</Col>
+					</Grid>
 					{showExpire && (
-						<Col span={8}>
+						<Grid item xs={4}>
 							<CalendarOutlined />
 							<span className="text-55 ml-1">{item?.expireDate}</span>
-						</Col>
+						</Grid>
 					)}
-				</Row>
+				</Grid>
 			</div>
-		</Flex>
+		</div>
 	);
 };
 

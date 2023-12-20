@@ -1,5 +1,5 @@
 "use client";
-import { Col, Row } from "antd";
+import { Grid } from "@mui/material";
 import classNames from "classnames";
 import JobItem from "src/commons/JobItem";
 import { COMPONENT_SIZE } from "src/constants/common";
@@ -13,15 +13,15 @@ const padding = {
 };
 
 const SwiperItem = ({ items, col, size }) => (
-	<Row gutter={[12, 12]}>
+	<Grid container spacing={[2, 2]}>
 		{items?.map((item, i) => (
-			<Col span={24 / col} key={i}>
+			<Grid item xs={12 / col} key={i}>
 				<div className={classNames(["rounded border", padding[size]])}>
 					<JobItem item={item} col={col} key={i} bordered size={size} />
 				</div>
-			</Col>
+			</Grid>
 		))}
-	</Row>
+	</Grid>
 );
 
 const ItemSlider = ({ items, col = 2, size, pageSize = 18 }) => {

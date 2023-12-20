@@ -19,7 +19,7 @@ const Category = ({
 				alignItems="center"
 				className="h-12 px-2.5 bg-primary text-white uppercase"
 			>
-				<Grid item className="!text-lg flex gap-1">
+				<Grid item className="!text-lg flex items-center gap-1">
 					{icon}
 					{title}
 				</Grid>

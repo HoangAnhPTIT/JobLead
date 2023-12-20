@@ -1,13 +1,13 @@
+import { JOB_PRIORITY } from "@/src/constants/job";
 import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
-import { Col, Flex, Row } from "antd";
+import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
-import { JOB_PRIORITY } from "@/src/constants/job";
 
 const JobItemList = ({ item }) => {
 	return (
 		<div className={classNames(["pl-2 py-1"])}>
-			<Flex gap={12}>
+			<div className="flex gap-3">
 				<Image
 					src={item?.company?.avatarUrl}
 					width={45}
@@ -26,22 +26,22 @@ const JobItemList = ({ item }) => {
 						)}
 						<span>{item?.name}</span>
 					</div>
-					<Row className="text-primary">
-						<Col span={14}>
+					<Grid container className="text-primary">
+						<Grid item xs={7}>
 							<DollarOutlined className="text-xs" />
 							<span className="text-55 ml-1 mr-3 text-xs">
 								{item?.salary?.name}
 							</span>
-						</Col>
-						<Col span={10}>
+						</Grid>
+						<Grid item xs={5}>
 							<EnvironmentOutlined className="text-xs" />
 							<span className="text-55 ml-1 text-xs">
 								{item?.workLocation?.name}
 							</span>
-						</Col>
-					</Row>
+						</Grid>
+					</Grid>
 				</div>
-			</Flex>
+			</div>
 		</div>
 	);
 };

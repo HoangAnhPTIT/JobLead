@@ -1,13 +1,13 @@
 "use client";
 import {
-	BranchesOutlined,
-	CrownOutlined,
-	EnvironmentOutlined,
-	SearchOutlined,
-	StarOutlined,
-	UserOutlined,
-} from "@ant-design/icons";
-import { Col, Row } from "antd";
+	AccountTreeOutlined,
+	LocationOnOutlined,
+	SchoolOutlined,
+	Search,
+	StarBorderOutlined,
+	WorkOutline,
+} from "@mui/icons-material";
+import { Grid } from "@mui/material";
 import Category from "src/commons/Category";
 
 const color = "#f19a2c";
@@ -21,8 +21,8 @@ const Item = () => {
 					Đang tìm việc
 				</span>
 			</div>
-			<Row gutter={16}>
-				<Col span={18} className="text-54">
+			<Grid container spacing={3}>
+				<Grid item xs={9} className="text-54">
 					<div className="text-[15px]">
 						<span>Nhân viên quản lý</span>
 						<span className="dot-ce"></span>
@@ -33,32 +33,52 @@ const Item = () => {
 					<div className="text-sm">
 						<p className="my-1">
 							<span className="mr-5">
-								<EnvironmentOutlined style={{ color }} className="mr-1" />
+								<LocationOnOutlined
+									fontSize="small"
+									style={{ color }}
+									className="mr-1"
+								/>
 								Địa điểm: Hà Nội
 							</span>
 							<span>
-								<BranchesOutlined style={{ color }} className="mr-1" />
+								<AccountTreeOutlined
+									fontSize="small"
+									style={{ color }}
+									className="mr-1"
+								/>
 								Nhân viên
 							</span>
 						</p>
 						<p className="my-1">
-							<StarOutlined style={{ color }} className="mr-1" />
+							<StarBorderOutlined
+								fontSize="small"
+								style={{ color }}
+								className="mr-1"
+							/>
 							Ngành nghề: Sinh viên / Mới tốt nghiệp / Thực tập
 						</p>
 						<p className="my-1">
-							<CrownOutlined style={{ color }} className="mr-1" />
+							<WorkOutline
+								fontSize="small"
+								style={{ color }}
+								className="mr-1"
+							/>
 							Nhân viên thủ khoa
 						</p>
 						<p className="my-1">
-							<UserOutlined style={{ color }} className="mr-1" />
+							<SchoolOutlined
+								fontSize="small"
+								style={{ color }}
+								className="mr-1"
+							/>
 							Cử nhân bách hóa xanh
 						</p>
 					</div>
-				</Col>
-				<Col span={6} className="font-bold text-base text-555552">
+				</Grid>
+				<Grid item xs={3} className="font-bold text-base text-555552">
 					12 - 15 triệu
-				</Col>
-			</Row>
+				</Grid>
+			</Grid>
 		</div>
 	);
 };
@@ -67,7 +87,7 @@ const CandidateList = () => {
 	return (
 		<Category
 			title="Danh sách ứng viên"
-			icon={<SearchOutlined />}
+			icon={<Search />}
 			contentClass="p-5 !py-5"
 		>
 			<Item />

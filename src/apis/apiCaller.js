@@ -1,8 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://api.tuyendung247.vn/api/v1";
-// axios.defaults.baseURL =
-// 	"https://5cfc-2401-d800-20d1-2e2d-8ef-f71e-d3b1-6e8a.ngrok-free.app/api/v1";
+// axios.defaults.baseURL = "https://api.tuyendung247.vn/api/v1";
+axios.defaults.baseURL = "https://4627-1-55-112-17.ngrok-free.app/api/v1";
 
 export const httpPost = async (endpoint, data = {}, callback) => {
 	try {

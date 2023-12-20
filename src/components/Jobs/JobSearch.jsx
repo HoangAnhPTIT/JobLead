@@ -1,95 +1,126 @@
 "use client";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Col, Collapse, Flex, Form, Input, Row, Select } from "antd";
-import classNames from "classnames";
-import styles from "./styles.module.scss";
-
-const { Option } = Select;
+import {
+	KeyboardArrowDownOutlined,
+	KeyboardArrowUpOutlined,
+} from "@mui/icons-material";
+import { Button, Collapse, Grid } from "@mui/material";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
+import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
+import useEntities from "src/hooks/useEntities";
 
 const JobSearch = () => {
-	const [form] = Form.useForm();
+	const { register, handleSubmit } = useForm();
+	const entities = useEntities();
+	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
 
-	const onSubmit = () => {
-		console.log("search job values", form.getFieldsValue());
+	const onSubmit = (values) => {
+		console.log("search job values", values);
 	};
 
 	return (
 		<div>
-			<Form form={form} onFinish={onSubmit}>
-				<Row gutter={16} className="w-content !mx-auto pt-7">
-					<Col flex={1}>
-						<Form.Item name="q">
-							<Input size="large" placeholder="Tiêu đề công việc..." />
-						</Form.Item>
-					</Col>
-					<Col span={5}>
-						<Form.Item name="major">
-							<Select size="large" placeholder="Ngành nghề">
-								<Option value="IT">IT</Option>
-							</Select>
-						</Form.Item>
-					</Col>
-					<Col span={5}>
-						<Form.Item name="location" placeholder="Địa điểm">
-							<Select size="large">
-								<Select.Option value="hanoi">Hà Nội</Select.Option>
-							</Select>
-						</Form.Item>
-					</Col>
-					<Col>
-						<Button
-							size="large"
-							type="primary"
-							htmlType="submit"
-							onClick={onSubmit}
-							className="w-36 bg-primary"
-							icon={<SearchOutlined />}
-						>
-							Tìm kiếm
-						</Button>
-					</Col>
-				</Row>
-				<Collapse
-					className={classNames(["w-content !mx-auto", styles.enhanceSearch])}
-					defaultActiveKey={["1"]}
-					ghost
-					items={[
-						{
-							key: "1",
-							label: "Tìm kiếm nâng cao",
-							children: (
-								<Flex gap={16}>
-									<Form.Item name="rank" className="w-1/5">
-										<Select size="large" placeholder="Cấp bậc">
-											<Option value="1">123</Option>
-										</Select>
-									</Form.Item>
-									<Form.Item name="experience" className="w-1/5">
-										<Select size="large" placeholder="Năm kinh nghiệm">
-											<Option value="1">123</Option>
-										</Select>
-									</Form.Item>
-									<Form.Item name="salary" className="w-1/5">
-										<Select size="large" placeholder="Mức lương">
-											<Option value="1">123</Option>
-										</Select>
-									</Form.Item>
-									<Form.Item name="jobType" className="w-1/5">
-										<Select size="large" placeholder="Loại hình công việc">
-											<Option value="1">123</Option>
-										</Select>
-									</Form.Item>
-									<Form.Item name="sex" className="w-1/5">
-										<Select size="large" placeholder="Giới tính">
-											<Option value="1">123</Option>
-										</Select>
-									</Form.Item>
-								</Flex>
-							),
-						},
-					]}
-				/>
-			</Form>
+			<form>
+				<div className="!w-content !mx-auto pt-7">
+					<Grid container spacing={2}>
+						<Grid item flex={1}>
+							<InputWithoutLabel
+								name="q"
+								placeholder="Tiêu đề công việc..."
+								register={register}
+							/>
+						</Grid>
+						<Grid item xs={3}>
+							<SelectWithoutLabel
+								name="careerId"
+								placeholder="Ngành nghề"
+								list={entities?.Career}
+								register={register}
+							/>
+						</Grid>
+						<Grid item xs={3}>
+							<SelectWithoutLabel
+								name="workLocationId"
+								placeholder="Địa điểm"
+								list={entities?.WorkLocation}
+								register={register}
+							/>
+						</Grid>
+						<Grid item>
+							<Button
+								fullWidth
+								variant="contained"
+								onClick={handleSubmit((data) => onSubmit(data))}
+								className="w-36 bg-primary"
+								icon={<SearchOutlined />}
+							>
+								Tìm kiếm
+							</Button>
+						</Grid>
+					</Grid>
+				</div>
+				<div className="w-content mx-auto mt-1 mb-5">
+					<div
+						className="cursor-pointer my-3 text-right flex justify-end"
+						onClick={() => setShowEnhanceSearch(!showEnhanceSearch)}
+					>
+						{showEnhanceSearch ? (
+							<KeyboardArrowDownOutlined />
+						) : (
+							<KeyboardArrowUpOutlined />
+						)}
+						Tìm kiếm nâng cao
+					</div>
+					<div>
+						<Collapse in={showEnhanceSearch}>
+							<div className="flex gap-3">
+								<div className="w-1/5">
+									<SelectWithoutLabel
+										name="levelId"
+										placeholder="Vị trí"
+										register={register}
+										list={entities?.Level}
+									/>
+								</div>
+								<div className="w-1/5">
+									<SelectWithoutLabel
+										name="experienceId"
+										placeholder="Kinh nghiệm"
+										register={register}
+										list={entities?.Experience}
+									/>
+								</div>
+								<div className="w-1/5">
+									<SelectWithoutLabel
+										name="salaryId"
+										placeholder="Mức lương"
+										register={register}
+										list={entities?.Salary}
+									/>
+								</div>
+								<div className="w-1/5">
+									<SelectWithoutLabel
+										name="typeOfWorkId"
+										placeholder="Loại hình công việc"
+										list={entities?.TypeOfWork}
+										register={register}
+									/>
+								</div>
+								<div className="w-1/5">
+									<SelectWithoutLabel
+										name="genderId"
+										placeholder="Giới tính"
+										register={register}
+										list={entities?.Gender}
+									/>
+								</div>
+							</div>
+						</Collapse>
+					</div>
+				</div>
+			</form>
 		</div>
 	);
 };

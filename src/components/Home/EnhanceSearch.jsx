@@ -1,58 +1,19 @@
 "use client";
 import { SearchOutlined } from "@ant-design/icons";
 import { Search } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { httpGet } from "src/apis/apiCaller";
-import { apiGetEntities } from "src/apis/apiEndpoint";
-import SelectWithoutLabel from "src/commons/Input/SelectWithoutLabel";
-
-const staticEntities = [
-	"Career",
-	"WorkLocation",
-	"Level",
-	"Experience",
-	"Salary",
-	"TypeOfWork",
-	"Gender",
-];
+import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
+import useEntities from "src/hooks/useEntities";
 
 const EnhanceSearch = ({ classTitle = "" }) => {
 	const { register, handleSubmit } = useForm();
-
-	const [searchOptions, setSearchOptions] = useState();
+	const entities = useEntities();
 
 	const onSubmit = (values) => {
 		console.log("values", values);
 	};
-
-	useEffect(() => {
-		const getOptionValues = async () => {
-			try {
-				Promise.all(
-					staticEntities?.map(
-						async (item) =>
-							await httpGet(apiGetEntities, {
-								entityType: item,
-							})
-					)
-				).then((responses) => {
-					responses?.forEach((element, i) => {
-						element?.status === 200 &&
-							setSearchOptions((prev) => ({
-								...prev,
-								[staticEntities[i]]: element?.data,
-							}));
-					});
-				});
-			} catch (error) {
-				console.error("getEntityError", error);
-			}
-		};
-		getOptionValues();
-	}, []);
 
 	return (
 		<div>
@@ -68,49 +29,51 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 				</span>
 			</div>
 			<div className="p-4 bg-white">
-				<form className="flex flex-col gap-4 mb-5">
-					<SelectWithoutLabel
-						name="careerId"
-						placeholder="Ngành nghề"
-						register={register}
-						list={searchOptions?.Career}
-					/>
-					<SelectWithoutLabel
-						name="workLocationId"
-						register={register}
-						placeholder="Địa điểm"
-						list={searchOptions?.WorkLocation}
-					/>
-					<SelectWithoutLabel
-						name="levelId"
-						placeholder="Cấp bậc"
-						register={register}
-						list={searchOptions?.Level}
-					/>
-					<SelectWithoutLabel
-						name="experienceId"
-						placeholder="Năm kinh nghiệm"
-						register={register}
-						list={searchOptions?.Experience}
-					/>
-					<SelectWithoutLabel
-						name="salaryId"
-						placeholder="Mức lương"
-						register={register}
-						list={searchOptions?.Salary}
-					/>
-					<SelectWithoutLabel
-						name="typeOfWorkId"
-						placeholder="Loại hình công việc"
-						register={register}
-						list={searchOptions?.TypeOfWork}
-					/>
-					<SelectWithoutLabel
-						name="genderId"
-						placeholder="Giới tính"
-						register={register}
-						list={searchOptions?.Gender}
-					/>
+				<form className="mb-5">
+					<Stack spacing={2}>
+						<SelectWithoutLabel
+							name="careerId"
+							placeholder="Ngành nghề"
+							register={register}
+							list={entities?.Career}
+						/>
+						<SelectWithoutLabel
+							name="workLocationId"
+							register={register}
+							placeholder="Địa điểm"
+							list={entities?.WorkLocation}
+						/>
+						<SelectWithoutLabel
+							name="levelId"
+							placeholder="Cấp bậc"
+							register={register}
+							list={entities?.Level}
+						/>
+						<SelectWithoutLabel
+							name="experienceId"
+							placeholder="Năm kinh nghiệm"
+							register={register}
+							list={entities?.Experience}
+						/>
+						<SelectWithoutLabel
+							name="salaryId"
+							placeholder="Mức lương"
+							register={register}
+							list={entities?.Salary}
+						/>
+						<SelectWithoutLabel
+							name="typeOfWorkId"
+							placeholder="Loại hình công việc"
+							register={register}
+							list={entities?.TypeOfWork}
+						/>
+						<SelectWithoutLabel
+							name="genderId"
+							placeholder="Giới tính"
+							register={register}
+							list={entities?.Gender}
+						/>
+					</Stack>
 				</form>
 				<Button
 					fullWidth

@@ -5,6 +5,7 @@ import { httpGet } from "src/apis/apiCaller";
 import { apiGetEntities } from "src/apis/apiEndpoint";
 import styles from "./styles.module.scss";
 import ApproveRule from "./ApproveRule";
+import useEntities from "src/hooks/useEntities";
 
 const staticEntities = [
 	"Level",
@@ -21,7 +22,7 @@ const staticEntities = [
 
 const CreateJobContent = () => {
 	const [form] = Form.useForm();
-	const [optionValues, setOptionValues] = useState();
+	const entities = useEntities();
 
 	const onSubmit = async () => {
 		try {
@@ -31,32 +32,6 @@ const CreateJobContent = () => {
 			console.log(error);
 		}
 	};
-
-	useEffect(() => {
-		const getOptionValues = async () => {
-			try {
-				Promise.all(
-					staticEntities?.map(
-						async (item) =>
-							await httpGet(apiGetEntities, {
-								entityType: item,
-							})
-					)
-				).then((responses) => {
-					responses?.forEach((element, i) => {
-						element?.status === 200 &&
-							setOptionValues((prev) => ({
-								...prev,
-								[staticEntities[i]]: element?.data,
-							}));
-					});
-				});
-			} catch (error) {
-				console.error("getEntityError", error);
-			}
-		};
-		getOptionValues();
-	}, []);
 
 	return (
 		<Row gutter={20}>
@@ -107,7 +82,7 @@ const CreateJobContent = () => {
 									required
 								>
 									<Select size="large">
-										{optionValues?.Level?.map((item, i) => (
+										{entities?.Level?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
 												{item?.name}
 											</Select.Option>
@@ -122,7 +97,7 @@ const CreateJobContent = () => {
 									required
 								>
 									<Select size="large">
-										{optionValues?.TypeOfWork?.map((item, i) => (
+										{entities?.TypeOfWork?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
 												{item?.name}
 											</Select.Option>
@@ -137,7 +112,7 @@ const CreateJobContent = () => {
 									required
 								>
 									<Select size="large">
-										{optionValues?.Salary?.map((item, i) => (
+										{entities?.Salary?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
 												{item?.name}
 											</Select.Option>
@@ -152,7 +127,7 @@ const CreateJobContent = () => {
 									required
 								>
 									<Select size="large">
-										{optionValues?.WorkLocation?.map((item, i) => (
+										{entities?.WorkLocation?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
 												{item?.name}
 											</Select.Option>
@@ -167,7 +142,7 @@ const CreateJobContent = () => {
 									required
 								>
 									<Select size="large">
-										{optionValues?.Career?.map((item, i) => (
+										{entities?.Career?.map((item, i) => (
 											<Select.Option key={i} value={item?.id}>
 												{item?.name}
 											</Select.Option>
@@ -232,7 +207,7 @@ const CreateJobContent = () => {
 										required
 									>
 										<Select size="large">
-											{optionValues?.Experience?.map((item, i) => (
+											{entities?.Experience?.map((item, i) => (
 												<Select.Option key={i} value={item?.id}>
 													{item?.name}
 												</Select.Option>
@@ -247,7 +222,7 @@ const CreateJobContent = () => {
 										required
 									>
 										<Select size="large">
-											{optionValues?.Degree?.map((item, i) => (
+											{entities?.Degree?.map((item, i) => (
 												<Select.Option key={i} value={item?.id}>
 													{item?.name}
 												</Select.Option>
@@ -262,7 +237,7 @@ const CreateJobContent = () => {
 										required
 									>
 										<Select size="large">
-											{optionValues?.Gender?.map((item, i) => (
+											{entities?.Gender?.map((item, i) => (
 												<Select.Option key={i} value={item?.id}>
 													{item?.name}
 												</Select.Option>
@@ -286,7 +261,7 @@ const CreateJobContent = () => {
 										required
 									>
 										<Select size="large">
-											{optionValues?.Language?.map((item, i) => (
+											{entities?.Language?.map((item, i) => (
 												<Select.Option key={i} value={item?.id}>
 													{item?.name}
 												</Select.Option>

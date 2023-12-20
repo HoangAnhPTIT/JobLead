@@ -1,5 +1,7 @@
 "use client";
-import { Col, Image, Row } from "antd";
+import { Grid } from "@mui/material";
+import Image from "next/image";
+import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
 import CandidateList from "src/components/Candidates/CandidateList";
 import CandidateSearch from "src/components/Candidates/CandidateSearch";
@@ -8,23 +10,19 @@ const CandidatesPage = () => {
 	return (
 		<div>
 			<CandidateSearch />
-			<Banner />
+			<div className="mb-10">
+				<Banner />
+			</div>
 			<div className="bg-bgBody py-11 -my-1.5">
 				<div className=" w-content mx-auto">
-					<Row gutter={32}>
-						<Col span={18}>
+					<Grid container spacing={4}>
+						<Grid item xs={9}>
 							<CandidateList />
-						</Col>
-						<Col span={6}>
-							<Image
-								src="/banner2.jpg"
-								width="100%"
-								height="auto"
-								preview={false}
-								alt="Dịch vụ đăng tin"
-							/>
-						</Col>
-					</Row>
+						</Grid>
+						<Grid item xs={3}>
+							<ImageFull alt="Dịch vụ đăng tin" src="/banner2.jpg" />
+						</Grid>
+					</Grid>
 				</div>
 			</div>
 		</div>
