@@ -1,29 +1,80 @@
 "use client";
 import {
 	Button,
+	Checkbox,
 	FormControl,
+	FormControlLabel,
 	FormHelperText,
 	Grid,
 	TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useAppSelector } from "lib/hooks";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { httpGet, httpPost } from "src/apis/apiCaller";
+import { apiCompany, apiJob } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
+import MultipleSelectWithLabel from "src/commons/FormInput/MultipleSelectWithLabel";
 import SelectWithLabel from "src/commons/FormInput/SelectWithLabel";
 import ImageFull from "src/commons/Image";
-import useEntities from "src/hooks/useEntities";
+import { companyId } from "src/constants/common";
 import ApproveRule from "./ApproveRule";
+import { toast } from "react-toastify";
+import moment from "moment";
 
 const CreateJobContent = () => {
-	const { register, handleSubmit } = useForm();
-	const entities = useEntities();
+	const { register, control, handleSubmit, reset } = useForm();
+	const { entities } = useAppSelector((state) => state.entity);
+	const [serviceList, setServiceList] = useState([]);
 
 	const onSubmit = async (values) => {
 		try {
 			console.log("values", values);
+			const bodyData = {
+				serviceIds: values.services,
+				job: {
+					...values?.jobInfo,
+					companyId: companyId,
+					jobRequirement: {
+						...values?.jobRequirement,
+						submitDeadline: moment(
+							values?.jobRequirement?.submitDeadline
+						).format("YYYY-MM-DD"),
+					},
+					contactInfo: values?.contact,
+				},
+			};
+			const response = await httpPost(apiJob, bodyData);
+			if (response?.status === 200) {
+				toast("Đăng tin tuyển dụng thành công", {
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
+				reset();
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	useEffect(() => {
+		const getServices = async () => {
+			const response = await httpGet(
+				`${apiCompany}/${companyId}/services/available`
+			);
+			response?.status === 200 && setServiceList(response?.data || []);
+		};
+		getServices();
+	}, []);
 
 	return (
 		<div>
@@ -54,7 +105,7 @@ const CreateJobContent = () => {
 								</Grid>
 								<Grid iGrid item xs={6}>
 									<InputForm
-										name={"jobInfo.amount"}
+										name={"jobInfo.numOfRecruitment"}
 										label="Số lượng tuyển dụng"
 										required
 										register={register}
@@ -85,6 +136,13 @@ const CreateJobContent = () => {
 										required
 										register={register}
 										list={entities?.Salary}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<FormControlLabel
+										control={<Checkbox />}
+										label="Phần trăm hoa hồng"
+										{...register("jobInfo.isHasCommission")}
 									/>
 								</Grid>
 								<Grid iGrid item xs={6}>
@@ -135,7 +193,7 @@ const CreateJobContent = () => {
 								<Grid item xs={12}>
 									<TextField
 										fullWidth
-										name={"jobInfo.benefit"}
+										name={"jobInfo.benifitDescription"}
 										label="Quyền lợi được hưởng"
 										multiline
 										minRows={10}
@@ -155,7 +213,7 @@ const CreateJobContent = () => {
 							<div className="uppercase text-primary font-semibold">
 								Yêu cầu công việc
 							</div>
-							<div>
+							<div className="my-5">
 								<Grid container spacing={2}>
 									<Grid item xs={12}>
 										<SelectWithLabel
@@ -177,85 +235,77 @@ const CreateJobContent = () => {
 									</Grid>
 									<Grid item xs={6}>
 										<SelectWithLabel
-											name={"jobRequirement.experienceId"}
-											label="Kinh nghiệm"
-											required
-											list={entities?.Experience}
-											register={register}
-										/>
-										<Form.Item
-											name={["jobRequirement", "genderId"]}
+											name={"jobRequirement.genderId"}
 											label="Giới tính"
 											required
-										>
-											<Select size="large">
-												{entities?.Gender?.map((item, i) => (
-													<Select.Option key={i} value={item?.id}>
-														{item?.name}
-													</Select.Option>
-												))}
-											</Select>
-										</Form.Item>
+											list={entities?.Gender}
+											register={register}
+										/>
 									</Grid>
 									<Grid item xs={6}>
-										<Form.Item
-											name={["jobRequirement", "expireDate"]}
-											label="Hạn nộp hồ sơ"
-											required
-										>
-											<DatePicker size="large" className="w-full" />
-										</Form.Item>
+										<LocalizationProvider dateAdapter={AdapterMoment}>
+											<Controller
+												name={"jobRequirement.submitDeadline"}
+												control={control}
+												rules={{ required: true }}
+												defaultValue={null}
+												render={({ field }) => (
+													<DatePicker
+														{...field}
+														label="Hạn nộp hồ sơ"
+														format="DD/MM/YYYY"
+														slotProps={{
+															textField: {
+																size: "small",
+																fullWidth: true,
+																required: true,
+															},
+														}}
+													/>
+												)}
+											/>
+										</LocalizationProvider>
 									</Grid>
 									<Grid item xs={6}>
-										<Form.Item
-											name={["jobRequirement", "languageId"]}
+										<SelectWithLabel
+											name={"jobRequirement.languageId"}
 											label="Ngôn ngữ hồ sơ"
 											required
-										>
-											<Select size="large">
-												{entities?.Language?.map((item, i) => (
-													<Select.Option key={i} value={item?.id}>
-														{item?.name}
-													</Select.Option>
-												))}
-											</Select>
-										</Form.Item>
+											list={entities?.Language}
+											register={register}
+										/>
 									</Grid>
 									<Grid item xs={12}>
-										<Form.Item
-											name={["jobRequirement", "jobRequirement"]}
+										<TextField
+											fullWidth
+											name={"jobRequirement.requestDescription"}
 											label="Yêu cầu công việc"
-											required
-										>
-											<Input.TextArea
-												rows={8}
-												placeholder={`Gợi ý:
-	- Có kinh nghiệm là một lợi thế.
-	- Nhanh nhẹn, trung thực, giao tiếp tốt. Có tinh thần hòa đồng, cầu tiến, chịu áp lực và có trách nhiệm trong công việc.
-	- Biết sử dụng kỹ năng văn phòng như: word, excel...
-	- Độ tuổi từ 18-35 tuổi.
-	- Chăm chỉ, cẩn thận và sức khỏe tốt.
-	- Giao tiếp tốt, năng động.`}
-											/>
-										</Form.Item>
+											multiline
+											minRows={8}
+											placeholder={`Gợi ý:
+- Có kinh nghiệm là một lợi thế.
+- Nhanh nhẹn, trung thực, giao tiếp tốt. Có tinh thần hòa đồng, cầu tiến, chịu áp lực và có trách nhiệm trong công việc.
+- Biết sử dụng kỹ năng văn phòng như: word, excel...
+- Độ tuổi từ 18-35 tuổi.
+- Chăm chỉ, cẩn thận và sức khỏe tốt.
+- Giao tiếp tốt, năng động.`}
+										/>
 									</Grid>
 									<Grid item xs={12}>
-										<Form.Item
-											name={["jobRequirement", "cvRequirement"]}
+										<TextField
+											fullWidth
+											name={"jobRequirement.requestDocumentAttachment"}
 											label="Yêu cầu hồ sơ"
-											required
-										>
-											<Input.TextArea
-												rows={8}
-												placeholder={`Gợi ý:
-	- Đơn xin việc hoặc CV xin việc.
-	- Sơ yếu lý lịch (có dán ảnh)
-	- Hộ khẩu.
-	- Chứng minh nhân dân.
-	- Giấy khám sức khỏe.
-	- Các bằng cấp có liên quan.`}
-											/>
-										</Form.Item>
+											multiline
+											minRows={8}
+											placeholder={`Gợi ý:
+- Đơn xin việc hoặc CV xin việc.
+- Sơ yếu lý lịch (có dán ảnh)
+- Hộ khẩu.
+- Chứng minh nhân dân.
+- Giấy khám sức khỏe.
+- Các bằng cấp có liên quan.`}
+										/>
 									</Grid>
 								</Grid>
 							</div>
@@ -264,48 +314,59 @@ const CreateJobContent = () => {
 							<div className="uppercase text-primary font-semibold">
 								Thông tin liên hệ
 							</div>
-							<div>
+							<div className="my-5">
 								<Grid container spacing={2}>
 									<Grid item xs={12}>
-										<Form.Item
-											name={["contact", "fullname"]}
+										<InputForm
+											name={"contact.fullname"}
 											label="Người liên hệ"
 											required
-										>
-											<Input size="large" />
-										</Form.Item>
+											register={register}
+										/>
 									</Grid>
 									<Grid item xs={6}>
-										<Form.Item
-											name={["contact", "email"]}
+										<InputForm
+											name={"contact.email"}
 											label="Email liên hệ"
 											required
-										>
-											<Input size="large" />
-										</Form.Item>
+											register={register}
+										/>
 									</Grid>
 									<Grid item xs={6}>
-										<Form.Item
-											name={["contact", "phone"]}
+										<InputForm
+											name={"contact.phone"}
 											label="Số điện thoại liên hệ"
 											required
-										>
-											<Input size="large" />
-										</Form.Item>
+											register={register}
+										/>
 									</Grid>
 									<Grid item xs={12}>
-										<Form.Item
-											name={["contact", "address"]}
+										<InputForm
+											name={"contact.address"}
 											label="Địa điểm làm việc"
 											required
-										>
-											<Input size="large" />
-										</Form.Item>
+											register={register}
+										/>
 									</Grid>
 								</Grid>
 							</div>
 						</div>
-						<div className="text-right">
+						<div className="p-5 mt-5 bg-white">
+							<div className="uppercase text-primary font-semibold">
+								Chọn services
+							</div>
+							<div className="my-5">
+								<div className="w-full">
+									<MultipleSelectWithLabel
+										name="services"
+										label="Services"
+										list={serviceList}
+										register={register}
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="text-right mt-5">
 							<Button
 								variant="contained"
 								onClick={handleSubmit((data) => onSubmit(data))}

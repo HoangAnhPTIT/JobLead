@@ -10,7 +10,7 @@ import { Grid } from "@mui/material";
 import Image from "next/image";
 import { httpGet } from "src/apis/apiCaller";
 import {
-	apiGetCompanies,
+	apiCompany,
 	apiHome,
 	apiJobByCareer,
 	apiJobByLocation,
@@ -31,7 +31,7 @@ const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);
 	const jobByLocationResponse = await httpGet(apiJobByLocation);
 	const jobByCareerResponse = await httpGet(apiJobByCareer);
-	const companiesResponse = await httpGet(apiGetCompanies);
+	const companiesResponse = await httpGet(apiCompany);
 
 	const jobData = jobResponse?.data || [];
 	const jobByLocationData = jobByLocationResponse?.data || [];

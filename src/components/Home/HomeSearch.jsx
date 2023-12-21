@@ -1,12 +1,12 @@
 "use client";
 import { Box, Button, Grid } from "@mui/material";
 import classNames from "classnames";
+import { useAppSelector } from "lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
 import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
-import useEntities from "src/hooks/useEntities";
 import styles from "./styles.module.scss";
 
 const commonSearch = [
@@ -19,7 +19,7 @@ const commonSearch = [
 const HomeSearch = () => {
 	const router = useRouter();
 	const { register, handleSubmit } = useForm();
-	const entities = useEntities();
+	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {
 		router.push(

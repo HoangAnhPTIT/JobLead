@@ -4,10 +4,6 @@ import StyledComponentsRegistry from "../lib/AntdRegistry";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],

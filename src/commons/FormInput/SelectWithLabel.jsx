@@ -11,7 +11,11 @@ const SelectWithLabel = ({
 }) => {
 	return (
 		<FormControl fullWidth>
-			<InputLabel size="small" id="demo-simple-select-label">
+			<InputLabel
+				size="small"
+				required={required}
+				id="demo-simple-select-label"
+			>
 				{label}
 			</InputLabel>
 			<Select

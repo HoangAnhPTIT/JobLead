@@ -5,15 +5,15 @@ import {
 	KeyboardArrowUpOutlined,
 } from "@mui/icons-material";
 import { Button, Collapse, Grid } from "@mui/material";
+import { useAppSelector } from "lib/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
 import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
-import useEntities from "src/hooks/useEntities";
 
 const JobSearch = () => {
 	const { register, handleSubmit } = useForm();
-	const entities = useEntities();
+	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
 
 	const onSubmit = (values) => {

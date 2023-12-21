@@ -77,7 +77,6 @@ const Candidate = ({ setLoginType }) => {
 									{...register("email")}
 								/>
 								<InputPassword register={register} />
-
 								<div className="-mt-2 mb-2">
 									<FormControlLabel
 										control={<Checkbox />}

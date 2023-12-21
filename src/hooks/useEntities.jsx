@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
-import { apiGetEntities } from "src/apis/apiEndpoint";
+import { apiEntity } from "src/apis/apiEndpoint";
 
 const convertEntitiesData = (entitiesObject) => {
 	const newObj =
@@ -17,7 +17,7 @@ const useEntities = () => {
 	useEffect(() => {
 		const getOptionValues = async () => {
 			try {
-				const data = await httpGet(apiGetEntities);
+				const data = await httpGet(apiEntity);
 				const dataConverted = await convertEntitiesData(data?.data);
 				setEntities(dataConverted);
 			} catch (error) {

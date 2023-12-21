@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
-import { apiGetCompanies } from "src/apis/apiEndpoint";
+import { apiCompany } from "src/apis/apiEndpoint";
 import Category from "src/commons/Category";
 import { primaryColor } from "src/constants/common";
 
@@ -14,7 +14,7 @@ const OtherCompanies = () => {
 
 	useEffect(() => {
 		const getCompanies = async () => {
-			const response = await httpGet(apiGetCompanies);
+			const response = await httpGet(apiCompany);
 			setCompanyList(response?.data);
 		};
 		getCompanies();

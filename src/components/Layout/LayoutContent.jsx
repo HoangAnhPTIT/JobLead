@@ -1,5 +1,5 @@
 "use client";
-import { login, logout } from "@/lib/features/userSlice";
+import { login, logout } from "lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Menu, MenuItem } from "@mui/material";
 import classNames from "classnames";
@@ -11,6 +11,10 @@ import FooterLayout from "./Footer";
 
 import Loading from "./Loading";
 import styles from "./styles.module.scss";
+import useEntities from "src/hooks/useEntities";
+import { isEmpty } from "lodash";
+import { setEntities } from "lib/features/entitySlice";
+import { ToastContainer } from "react-toastify";
 
 const PageHideFooter = ["/employer/create-job"];
 
@@ -41,6 +45,7 @@ const LayoutContent = ({ children }) => {
 	const pathname = usePathname();
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
+	const entities = useEntities();
 
 	const hideFooter = PageHideFooter.includes(pathname);
 	const [anchorEl, setAnchorEl] = useState(false);
@@ -55,6 +60,10 @@ const LayoutContent = ({ children }) => {
 		dispatch(login({ isLogin, userInfo }));
 	}, []);
 
+	useEffect(() => {
+		!isEmpty(entities) && dispatch(setEntities(entities));
+	}, [entities]);
+
 	return (
 		<div className="layout">
 			<div
@@ -63,6 +72,8 @@ const LayoutContent = ({ children }) => {
 					styles.header,
 				])}
 			>
+				{" "}
+				<ToastContainer />
 				<Grid container justifyContent="space-between" alignContent="center">
 					<Grid item>
 						<Grid container alignItems="center" spacing={2} className="h-full">

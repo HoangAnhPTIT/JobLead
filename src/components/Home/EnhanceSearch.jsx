@@ -3,13 +3,13 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Search } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import classNames from "classnames";
+import { useAppSelector } from "lib/hooks";
 import { useForm } from "react-hook-form";
 import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
-import useEntities from "src/hooks/useEntities";
 
 const EnhanceSearch = ({ classTitle = "" }) => {
 	const { register, handleSubmit } = useForm();
-	const entities = useEntities();
+	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {
 		console.log("values", values);
