@@ -1,6 +1,5 @@
 import "app/globals.css";
 import { Roboto } from "next/font/google";
-import StyledComponentsRegistry from "../lib/AntdRegistry";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
@@ -20,11 +19,9 @@ const RootLayout = ({ children }) => {
 		<html>
 			<body className={roboto.className}>
 				<StoreProvider>
-					<StyledComponentsRegistry>
-						<AppRouterCacheProvider>
-							<LayoutContent>{children}</LayoutContent>
-						</AppRouterCacheProvider>
-					</StyledComponentsRegistry>
+					<AppRouterCacheProvider>
+						<LayoutContent>{children}</LayoutContent>
+					</AppRouterCacheProvider>
 				</StoreProvider>
 			</body>
 		</html>
