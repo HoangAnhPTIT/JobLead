@@ -1,11 +1,12 @@
 "use client";
-import { ApartmentOutlined, SearchOutlined } from "@ant-design/icons";
-import { Col, Image, Pagination, Row } from "antd";
-import Link from "next/link";
-import { useState } from "react";
 import Category from "@/src/commons/Category";
 import JobItem from "@/src/commons/JobItem";
 import { JOB_PRIORITY } from "@/src/constants/job";
+import { ApartmentOutlined, SearchOutlined } from "@ant-design/icons";
+import { Grid, Pagination } from "@mui/material";
+import Link from "next/link";
+import { useState } from "react";
+import ImageFull from "src/commons/Image";
 import ItemCate from "../Home/ItemCate";
 
 const jobInfo = {
@@ -161,8 +162,8 @@ const JobList = () => {
 
 	return (
 		<div className="w-content mx-auto my-5">
-			<Row gutter={32}>
-				<Col span={18}>
+			<Grid container spacing={4}>
+				<Grid item xs={9}>
 					<Category
 						icon={<SearchOutlined />}
 						title="Việc làm hot"
@@ -175,14 +176,13 @@ const JobList = () => {
 						))}
 					</Category>
 					<Pagination
-						current={currentPage}
-						pageSize={10}
-						total={data?.length}
-						onChange={setCurrentPage}
-						className="text-center py-5 bg-white"
+						count={Math.ceil(data?.length / 10)}
+						page={currentPage}
+						onChange={(e, page) => setCurrentPage(page)}
+						className="flex justify-center py-5 bg-white"
 					/>
-				</Col>
-				<Col span={6}>
+				</Grid>
+				<Grid item xs={3}>
 					<Category
 						icon={<ApartmentOutlined />}
 						title="Việc làm theo ngành"
@@ -194,16 +194,13 @@ const JobList = () => {
 							</div>
 						))}
 					</Category>
-					<Link href="/">
-						<Image
-							src="/cv-banner-2.png"
-							alt=""
-							preview={false}
-							className="my-7"
-						/>
-					</Link>
-				</Col>
-			</Row>
+					<div>
+						<Link href="/">
+							<ImageFull src="/cv-banner-2.png" alt="" classname="mt-7" />
+						</Link>
+					</div>
+				</Grid>
+			</Grid>
 		</div>
 	);
 };

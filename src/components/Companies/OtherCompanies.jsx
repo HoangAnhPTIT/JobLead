@@ -27,7 +27,7 @@ const OtherCompanies = () => {
 					<Grid container spacing={2}>
 						{companyList?.map((item, i) => (
 							<Grid item xs={6} key={i}>
-								<Link href={item?.id}>
+								<Link href={`/companyies/${item?.id}`}>
 									<div className="flex gap-2.5 border-b p-2">
 										<Image
 											src={item?.avatarUrl}

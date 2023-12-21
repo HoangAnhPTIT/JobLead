@@ -1,16 +1,20 @@
 "use client";
-import { Col, Row } from "antd";
+import { Grid } from "@mui/material";
 import EmployerMenu from "src/components/Employer/Menu";
 
 const EmployerLayout = ({ children }) => {
 	return (
 		<div className="py-5 bg-bgBody">
-			<Row gutter={20} className="w-content !mx-auto">
-				<Col span={5}>
-					<EmployerMenu />
-				</Col>
-				<Col span={19}>{children}</Col>
-			</Row>
+			<div className="w-content !mx-auto">
+				<Grid container spacing={2}>
+					<Grid item xs={3}>
+						<EmployerMenu />
+					</Grid>
+					<Grid item xs={9}>
+						{children}
+					</Grid>
+				</Grid>
+			</div>
 		</div>
 	);
 };

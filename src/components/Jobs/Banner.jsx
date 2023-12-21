@@ -1,6 +1,6 @@
 "use client";
-import { Image } from "antd";
 import Link from "next/link";
+import ImageFull from "src/commons/Image";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss/autoplay";
@@ -28,12 +28,7 @@ const Banner = () => {
 				<SwiperSlide key={i}>
 					<Link href={item?.link}>
 						<div className="image-shadow">
-							<Image
-								src={item?.avatar}
-								width="100%"
-								alt={item?.companyName}
-								preview={false}
-							/>
+							<ImageFull src={item?.avatar} alt={item?.companyName} />
 						</div>
 					</Link>
 				</SwiperSlide>

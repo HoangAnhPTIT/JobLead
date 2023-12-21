@@ -1,11 +1,12 @@
+import classNames from "classnames";
 import Image from "next/image";
 
-const ImageFull = ({ src, alt, ...props }) => {
+const ImageFull = ({ src, alt, classname, ...props }) => {
 	return (
 		<div className="relative w-full">
 			<Image
 				layout="fill"
-				className="w-full !h-auto"
+				className={classNames(["w-full !h-auto !relative", classname])}
 				src={src}
 				alt={alt}
 				{...props}

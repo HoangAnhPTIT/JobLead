@@ -1,24 +1,55 @@
 import { SettingOutlined, UploadOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
+import { FileUploadOutlined, Upload } from "@mui/icons-material";
+import {
+	Box,
+	List,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+} from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const items = [
 	{
-		key: 1,
-		label: "Quản lý chung",
+		link: "/general",
+		name: "Quản lý chung",
 		icon: <SettingOutlined />,
 	},
 	{
-		key: 2,
-		label: "Đăng tin tuyển dụng",
-		icon: <UploadOutlined />,
+		link: "/create-job",
+		name: "Đăng tin tuyển dụng",
+		icon: <FileUploadOutlined />,
 	},
 ];
 
 const EmployerMenu = () => {
+	const router = useRouter();
+	const pathname = usePathname();
+
+	const handleClick = (link) => {
+		router.push(`/employer${link}`);
+	};
+
 	return (
 		<div>
-			<Menu items={items} />
+			<Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+				<List component="nav" aria-label="main mailbox folders">
+					{items?.map((item, i) => (
+						<ListItemButton
+							selected={pathname.includes(item?.link)}
+							onClick={() => handleClick(item?.link || "/")}
+							key={i}
+							className="h-10 gap-3"
+						>
+							<ListItemIcon className="w-6 !min-w-0 justify-center">
+								{item?.icon}
+							</ListItemIcon>
+							<ListItemText primary={item?.name} />
+						</ListItemButton>
+					))}
+				</List>
+			</Box>
 		</div>
 	);
 };

@@ -1,6 +1,5 @@
 import { HeadsetMicOutlined } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import { Col, Row } from "antd";
 
 const supporters = [
 	{ name: "John", phone: "123 2324 3434" },

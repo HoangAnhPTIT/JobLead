@@ -1,16 +1,15 @@
 "use client";
 import { login, logout } from "@/lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { Grid } from "@mui/material";
-import { Dropdown } from "antd";
+import { Grid, Menu, MenuItem } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import FooterLayout from "./Footer";
-import Loading from "./Loading";
 
+import Loading from "./Loading";
 import styles from "./styles.module.scss";
 
 const PageHideFooter = ["/employer/create-job"];
@@ -43,14 +42,8 @@ const LayoutContent = ({ children }) => {
 	const { userInfo, isLogin } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
 
-	const items = [
-		{
-			key: "1",
-			label: <div onClick={() => dispatch(logout())}>Đăng xuất</div>,
-		},
-	];
-
 	const hideFooter = PageHideFooter.includes(pathname);
+	const [anchorEl, setAnchorEl] = useState(false);
 
 	useEffect(() => {
 		const isLogin = getCookie("isLogin")
@@ -119,11 +112,31 @@ const LayoutContent = ({ children }) => {
 							</Link>
 						</Grid>
 					) : (
-						<Dropdown menu={{ items }} placement="bottom">
-							<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase">
+						<div>
+							<div
+								className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase"
+								onClick={(e) => setAnchorEl(e.currentTarget)}
+							>
 								<span className="text-sm">{userInfo?.email}</span>
 							</div>
-						</Dropdown>
+							<Menu
+								id="basic-menu"
+								anchorEl={anchorEl}
+								open={Boolean(anchorEl)}
+								MenuListProps={{
+									"aria-labelledby": "basic-button",
+								}}
+							>
+								<MenuItem
+									onClick={() => {
+										dispatch(logout());
+										setAnchorEl(null);
+									}}
+								>
+									Đăng xuất
+								</MenuItem>
+							</Menu>
+						</div>
 					)}
 				</Grid>
 			</div>

@@ -1,14 +1,10 @@
 "use client";
 import Category from "@/src/commons/Category";
-import { EnvironmentFilled } from "@ant-design/icons";
-import {
-	ApartmentOutlined,
-	LocationCityOutlined,
-	LocationOnOutlined,
-} from "@mui/icons-material";
-import { Flex, Image } from "antd";
+import { ApartmentOutlined, LocationOnOutlined } from "@mui/icons-material";
+import Image from "next/image";
 import Link from "next/link";
-import { Autoplay, Pagination } from "swiper/modules";
+import ImageFull from "src/commons/Image";
+import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const TopCompanies = ({ items }) => {
@@ -20,7 +16,7 @@ const TopCompanies = ({ items }) => {
 			contentClass="px-0"
 		>
 			<Swiper
-				modules={[Pagination, Autoplay]}
+				modules={[Pagination]}
 				spaceBetween={20}
 				slidesPerView={3}
 				slidesPerGroup={3}
@@ -31,29 +27,30 @@ const TopCompanies = ({ items }) => {
 			>
 				{items?.map((item, i) => (
 					<SwiperSlide key={i}>
-						<Link href={item?.link}>
+						<Link href={`/companyies/${item?.id}`}>
 							<div className="text-33 border">
-								<Image
-									src={item?.profile}
-									alt={item?.name}
-									width="100%"
-									preview={false}
-								/>
-								<Flex gap={10} className="px-5">
-									<div className="relative">
+								<ImageFull src={item?.profile} alt={item?.name} />
+								<div className="flex gap-2.5 px-5">
+									<div className="relative w-20 h-10">
 										<Image
-											src={item?.avatar}
+											src={item?.avatarUrl}
 											alt={item.name}
 											width={80}
-											className="absolute -top-14 left-0"
-											preview={false}
+											height={80}
+											className="absolute -top-7 left-0"
 										/>
 									</div>
-									<div className="font-semibold">{item?.name}</div>
-								</Flex>
+									<div className={"flex-1 font-semibold max-two-line"}>
+										{item?.name}
+									</div>
+								</div>
 								<div className="p-2">
-									<LocationOnOutlined fontSize="small" /> Địa chỉ:{" "}
-									{item?.location}
+									<LocationOnOutlined
+										fontSize="small"
+										style={{ fontSize: 18 }}
+										className="mr-1 -mt-0.5"
+									/>
+									Địa chỉ: {item?.address}
 								</div>
 							</div>
 						</Link>

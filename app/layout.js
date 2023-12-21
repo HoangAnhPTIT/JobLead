@@ -25,9 +25,9 @@ const RootLayout = ({ children }) => {
 			<body className={roboto.className}>
 				<StoreProvider>
 					<StyledComponentsRegistry>
-						<LayoutContent>
-							<AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-						</LayoutContent>
+						<AppRouterCacheProvider>
+							<LayoutContent>{children}</LayoutContent>
+						</AppRouterCacheProvider>
 					</StyledComponentsRegistry>
 				</StoreProvider>
 			</body>

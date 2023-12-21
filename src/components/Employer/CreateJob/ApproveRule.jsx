@@ -1,6 +1,4 @@
 import { CheckCircleOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
-import React from "react";
 import { primaryColor } from "src/constants/common";
 import RuleIndex from "./RuleIndex";
 
@@ -18,47 +16,47 @@ const ApproveRule = () => {
 				bảo tin đăng hợp lệ
 			</p>
 			<div className="my-5 text-33">
-				<Flex gap={10} className="my-2">
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={1} />
 					<div>
 						<strong>KHÔNG</strong> viết in hoa hoặc không dấu toàn bộ nội dung
 						tin tuyển dụng.
 					</div>
-				</Flex>
-				<Flex gap={10} className="my-2">
+				</div>
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={2} />
 					<div>Tên, địa chỉ công ty phải ghi rõ ràng, đầy đủ.</div>
-				</Flex>
-				<Flex gap={10} className="my-2">
+				</div>
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={3} />
 					<div>
 						<strong>KHÔNG</strong> để cả nội dung tuyển dụng trong thông tin
 						giới thiệu về công ty.
 					</div>
-				</Flex>
-				<Flex gap={10} className="my-2">
+				</div>
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={4} />
 					<div>
 						Tiêu đề tin tuyển dụng: KHÔNG chứa các nội dung như: Tuyển gấp, hot,
 						cần gấp, lương cao. <strong>KHÔNG</strong> sử dụng các ký tự đặc
 						biệt: %@ $*...
 					</div>
-				</Flex>
-				<Flex gap={10} className="my-2">
+				</div>
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={5} />
 					<div>
 						Tin <strong>KHÔNG</strong> được trùng với tin đăng trước còn hạn,
 						hoặc ở một tài khoản khác của cùng một doanh nghiệp đã đăng trước
 						đó.
 					</div>
-				</Flex>
-				<Flex gap={10} className="my-2">
+				</div>
+				<div className="flex gap-2.5 my-2">
 					<RuleIndex index={6} />
 					<div>
 						<strong>KHÔNG</strong> để email liên hệ, số điện thoại liên hệ,
 						website công ty ở các phần nội dung yêu cầu hay mô tả công việc.
 					</div>
-				</Flex>
+				</div>
 			</div>
 		</div>
 	);

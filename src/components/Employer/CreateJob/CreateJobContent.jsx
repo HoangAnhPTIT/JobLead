@@ -1,24 +1,8 @@
 "use client";
 import { Button, Col, DatePicker, Form, Image, Input, Row, Select } from "antd";
-import { useEffect, useState } from "react";
-import { httpGet } from "src/apis/apiCaller";
-import { apiGetEntities } from "src/apis/apiEndpoint";
 import styles from "./styles.module.scss";
 import ApproveRule from "./ApproveRule";
 import useEntities from "src/hooks/useEntities";
-
-const staticEntities = [
-	"Level",
-	"TypeOfWork",
-	"Salary",
-	"WorkLocation",
-	"Career",
-	"Experience",
-
-	"Gender",
-	"Degree",
-	"Language",
-];
 
 const CreateJobContent = () => {
 	const [form] = Form.useForm();
