@@ -1,6 +1,13 @@
 import { FormControl, FormHelperText, TextField } from "@mui/material";
 
-const InputForm = ({ name, label, helper, required = false, register }) => {
+const InputForm = ({
+	name,
+	label,
+	helper,
+	helperClass = "",
+	required = false,
+	register,
+}) => {
 	return (
 		<FormControl fullWidth>
 			<TextField
@@ -9,7 +16,7 @@ const InputForm = ({ name, label, helper, required = false, register }) => {
 				required={required}
 				{...register(name, { required })}
 			/>
-			<FormHelperText>{helper}</FormHelperText>
+			<FormHelperText className={helperClass}>{helper}</FormHelperText>
 		</FormControl>
 	);
 };

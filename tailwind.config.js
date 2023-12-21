@@ -27,6 +27,7 @@ module.exports = {
 				bgBody: "#f0f0f0",
 				bgPhone: "#d9e6ee",
 				red1: "#dd0000",
+				red2: "#ff0000",
 				yellow1: "#f3c01a",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
