@@ -12,7 +12,7 @@ const JobItem = ({ item, showExpire = false }) => {
 	return (
 		<div className="flex gap-3">
 			<Image
-				src={item?.company?.avatarUrl || "/thumb-80x80.png"}
+				src={item?.company?.avatar}
 				width={60}
 				height={60}
 				alt={item?.company?.name || ""}
@@ -27,20 +27,20 @@ const JobItem = ({ item, showExpire = false }) => {
 					{item?.type === JOB_PRIORITY.URGENT && (
 						<i className="text-secondary ">(Gấp) </i>
 					)}
-					<span>{item?.name}</span>
+					<span>{item?.jobName}</span>
 				</div>
 				<div className="uppercase text-99 three-dot">{item?.company?.name}</div>
 				<Grid container className="text-primary">
-					<Grid item xs={!showExpire ? 7 : 4}>
+					<Grid item xs={!showExpire ? 7 : 4} className="flex items-center">
 						<DollarOutlined />
-						<span className="text-55 ml-1 mr-3">{item?.salary?.name}</span>
+						<span className="text-55 ml-1 mr-3">{item?.salary}</span>
 					</Grid>
-					<Grid item xs={!showExpire ? 5 : 4}>
+					<Grid item xs={!showExpire ? 5 : 4} className="flex items-center">
 						<EnvironmentOutlined />
-						<span className="text-55 ml-1">{item?.workLocation?.name}</span>
+						<span className="text-55 ml-1">{item?.location}</span>
 					</Grid>
 					{showExpire && (
-						<Grid item xs={4}>
+						<Grid item xs={4} className="flex items-center">
 							<CalendarOutlined />
 							<span className="text-55 ml-1">{item?.expireDate}</span>
 						</Grid>

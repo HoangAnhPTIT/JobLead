@@ -9,7 +9,7 @@ const JobItemList = ({ item }) => {
 		<div className={classNames(["pl-2 py-1"])}>
 			<div className="flex gap-3">
 				<Image
-					src={item?.company?.avatarUrl}
+					src={item?.company?.avatar}
 					width={45}
 					height={45}
 					alt={item?.companyName}
@@ -24,20 +24,16 @@ const JobItemList = ({ item }) => {
 						{item?.type === JOB_PRIORITY.URGENT && (
 							<i className="text-secondary ">(Gấp) </i>
 						)}
-						<span>{item?.name}</span>
+						<span>{item?.jobName}</span>
 					</div>
 					<Grid container className="text-primary">
 						<Grid item xs={7}>
 							<DollarOutlined className="text-xs" />
-							<span className="text-55 ml-1 mr-3 text-xs">
-								{item?.salary?.name}
-							</span>
+							<span className="text-55 ml-1 mr-3 text-xs">{item?.salary}</span>
 						</Grid>
 						<Grid item xs={5}>
 							<EnvironmentOutlined className="text-xs" />
-							<span className="text-55 ml-1 text-xs">
-								{item?.workLocation?.name}
-							</span>
+							<span className="text-55 ml-1 text-xs">{item?.location}</span>
 						</Grid>
 					</Grid>
 				</div>
