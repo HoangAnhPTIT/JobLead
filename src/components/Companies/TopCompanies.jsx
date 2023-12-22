@@ -1,6 +1,6 @@
 "use client";
 import Category from "@/src/commons/Category";
-import { ApartmentOutlined, LocationOnOutlined } from "@mui/icons-material";
+import { ApartmentOutlined, PlaceOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import ImageFull from "src/commons/Image";
@@ -33,7 +33,7 @@ const TopCompanies = ({ items }) => {
 								<div className="flex gap-2.5 px-5">
 									<div className="relative w-20 h-10">
 										<Image
-											src={item?.avatarUrl}
+											src={item?.avatar}
 											alt={item.name}
 											width={80}
 											height={80}
@@ -45,7 +45,7 @@ const TopCompanies = ({ items }) => {
 									</div>
 								</div>
 								<div className="p-2">
-									<LocationOnOutlined
+									<PlaceOutlined
 										fontSize="small"
 										style={{ fontSize: 18 }}
 										className="mr-1 -mt-0.5"

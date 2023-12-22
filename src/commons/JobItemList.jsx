@@ -1,5 +1,5 @@
 import { JOB_PRIORITY } from "@/src/constants/job";
-import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { PaidOutlined, PlaceOutlined } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
@@ -28,11 +28,11 @@ const JobItemList = ({ item }) => {
 					</div>
 					<Grid container className="text-primary">
 						<Grid item xs={7}>
-							<DollarOutlined className="text-xs" />
+							<PaidOutlined fontSize="inherit" className="text-xs" />
 							<span className="text-55 ml-1 mr-3 text-xs">{item?.salary}</span>
 						</Grid>
 						<Grid item xs={5}>
-							<EnvironmentOutlined className="text-xs" />
+							<PlaceOutlined fontSize="inherit" className="text-xs" />
 							<span className="text-55 ml-1 text-xs">{item?.location}</span>
 						</Grid>
 					</Grid>

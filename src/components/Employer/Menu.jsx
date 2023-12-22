@@ -1,5 +1,4 @@
-import { SettingOutlined, UploadOutlined } from "@ant-design/icons";
-import { FileUploadOutlined, Upload } from "@mui/icons-material";
+import { FileUploadOutlined, SettingsOutlined } from "@mui/icons-material";
 import {
 	Box,
 	List,
@@ -8,13 +7,12 @@ import {
 	ListItemText,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 
 const items = [
 	{
 		link: "/general",
 		name: "Quản lý chung",
-		icon: <SettingOutlined />,
+		icon: <SettingsOutlined />,
 	},
 	{
 		link: "/create-job",
@@ -42,9 +40,7 @@ const EmployerMenu = () => {
 							key={i}
 							className="h-10 gap-3"
 						>
-							<ListItemIcon className="w-6 !min-w-0 justify-center">
-								{item?.icon}
-							</ListItemIcon>
+							<ListItemIcon className="w-6 !min-w-0">{item?.icon}</ListItemIcon>
 							<ListItemText primary={item?.name} />
 						</ListItemButton>
 					))}

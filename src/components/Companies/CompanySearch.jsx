@@ -10,6 +10,7 @@ const CompanySearch = () => {
 					<TextField
 						fullWidth
 						size="small"
+						autoComplete="off"
 						placeholder="Nhập tên công ty muốn tìm kiếm"
 					/>
 				</Grid>

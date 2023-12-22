@@ -1,10 +1,10 @@
 "use client";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckOutlined } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import classNames from "classnames";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { USER_ROLE } from "src/constants/common";
-import Image from "next/image";
-import { Button } from "@mui/material";
 
 const candidateIntro = {
 	label: "ứng viên",
@@ -54,7 +54,8 @@ const InfoWithImage = ({ info, type, setType }) => {
 			>
 				{info?.intro?.map((item, i) => (
 					<div key={i} className="my-1">
-						<CheckOutlined /> <span className="ml-2">{item}</span>
+						<CheckOutlined fontSize="small" />{" "}
+						<span className="ml-2">{item}</span>
 					</div>
 				))}
 			</div>

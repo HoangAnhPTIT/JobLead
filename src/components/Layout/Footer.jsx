@@ -1,4 +1,4 @@
-import { EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
+import { Email, FmdGood, PhoneEnabled } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
@@ -183,17 +183,17 @@ const FooterLayout = () => {
 						</div>
 						<strong>{companyInfo.name}</strong>
 						<div className="mt-1">
-							<EnvironmentFilled />
+							<FmdGood style={{ fontSize: 18 }} />
 							<strong> Địa chỉ: </strong>
 							<span>{companyInfo.address}</span>
 						</div>
 						<div className="mt-1">
-							<PhoneFilled />
+							<PhoneEnabled style={{ fontSize: 18 }} />
 							<strong> Số điện thoại: </strong>
 							<span>{companyInfo.phone}</span>
 						</div>
 						<div className="mt-1">
-							<MailFilled />
+							<Email style={{ fontSize: 18 }} />
 							<strong> Email: </strong>
 							<span>{companyInfo.email}</span>
 						</div>

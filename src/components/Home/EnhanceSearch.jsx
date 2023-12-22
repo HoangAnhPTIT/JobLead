@@ -1,6 +1,5 @@
 "use client";
-import { SearchOutlined } from "@ant-design/icons";
-import { Search } from "@mui/icons-material";
+import { Search, SearchOutlined } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import classNames from "classnames";
 import { useAppSelector } from "lib/hooks";
@@ -17,8 +16,11 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 
 	return (
 		<div>
-			<div className="bg-primary p-2 h-12" style={{ lineHeight: "40px" }}>
-				<SearchOutlined className="text-2xl" style={{ color: "#fff" }} />
+			<div
+				className="bg-primary p-2 h-12 flex items-center"
+				style={{ lineHeight: "40px" }}
+			>
+				<SearchOutlined fontSize="medium" style={{ color: "#fff" }} />
 				<span
 					className={classNames([
 						"text-white ml-2 uppercase text-xl",

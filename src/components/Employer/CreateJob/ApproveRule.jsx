@@ -1,12 +1,12 @@
-import { CheckCircleOutlined } from "@ant-design/icons";
 import { primaryColor } from "src/constants/common";
 import RuleIndex from "./RuleIndex";
+import { CheckCircleOutlined } from "@mui/icons-material";
 
 const ApproveRule = () => {
 	return (
 		<div className="bg-white p-5">
 			<div className="text-center">
-				<CheckCircleOutlined style={{ color: primaryColor, fontSize: 40 }} />
+				<CheckCircleOutlined style={{ color: primaryColor, fontSize: 46 }} />
 			</div>
 			<h4 className="uppercase text-xl text-center font-semibold my-2">
 				Quy định duyệt tin

@@ -19,7 +19,7 @@ const CompanyList = ({ items }) => {
 					<Link href={item?.id}>
 						<div className="image-shadow p-2">
 							<Image
-								src={item?.avatarUrl || "/"}
+								src={item?.avatar}
 								width={200}
 								height={200}
 								alt={item?.name}

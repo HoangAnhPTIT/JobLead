@@ -1,8 +1,8 @@
 "use client";
-import { SearchOutlined } from "@ant-design/icons";
 import {
 	KeyboardArrowDownOutlined,
 	KeyboardArrowUpOutlined,
+	SearchOutlined,
 } from "@mui/icons-material";
 import { Button, Collapse, Grid } from "@mui/material";
 import { useAppSelector } from "lib/hooks";
@@ -54,9 +54,8 @@ const JobSearch = () => {
 								variant="contained"
 								onClick={handleSubmit((data) => onSubmit(data))}
 								className="w-36 bg-primary"
-								icon={<SearchOutlined />}
 							>
-								Tìm kiếm
+								<SearchOutlined /> Tìm kiếm
 							</Button>
 						</Grid>
 					</Grid>

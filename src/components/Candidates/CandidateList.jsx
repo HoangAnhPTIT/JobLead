@@ -2,6 +2,7 @@
 import {
 	AccountTreeOutlined,
 	LocationOnOutlined,
+	PlaceOutlined,
 	SchoolOutlined,
 	Search,
 	StarBorderOutlined,
@@ -33,7 +34,7 @@ const Item = () => {
 					<div className="text-sm">
 						<p className="my-1">
 							<span className="mr-5">
-								<LocationOnOutlined
+								<PlaceOutlined
 									fontSize="small"
 									style={{ color }}
 									className="mr-1"

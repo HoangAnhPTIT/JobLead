@@ -1,6 +1,6 @@
 "use client";
 import { USER_ROLE } from "@/src/constants/common";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +39,8 @@ const Employer = ({ setSigninType }) => {
 						<div className="pt-5 pb-6">
 							{employerIntro?.map((item, i) => (
 								<div key={i}>
-									<CheckOutlined /> <span className="ml-2">{item}</span>
+									<CheckOutlined fontSize="small" />{" "}
+									<span className="ml-2">{item}</span>
 								</div>
 							))}
 						</div>

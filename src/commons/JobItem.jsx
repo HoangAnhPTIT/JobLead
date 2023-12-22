@@ -1,8 +1,8 @@
 import {
-	CalendarOutlined,
-	DollarOutlined,
-	EnvironmentOutlined,
-} from "@ant-design/icons";
+	PaidOutlined,
+	PlaceOutlined,
+	TodayOutlined,
+} from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
@@ -32,16 +32,16 @@ const JobItem = ({ item, showExpire = false }) => {
 				<div className="uppercase text-99 three-dot">{item?.company?.name}</div>
 				<Grid container className="text-primary">
 					<Grid item xs={!showExpire ? 7 : 4} className="flex items-center">
-						<DollarOutlined />
+						<PaidOutlined style={{ fontSize: 16 }} />
 						<span className="text-55 ml-1 mr-3">{item?.salary}</span>
 					</Grid>
 					<Grid item xs={!showExpire ? 5 : 4} className="flex items-center">
-						<EnvironmentOutlined />
+						<PlaceOutlined style={{ fontSize: 16 }} />
 						<span className="text-55 ml-1">{item?.location}</span>
 					</Grid>
 					{showExpire && (
 						<Grid item xs={4} className="flex items-center">
-							<CalendarOutlined />
+							<TodayOutlined style={{ fontSize: 16 }} />
 							<span className="text-55 ml-1">{item?.expireDate}</span>
 						</Grid>
 					)}
