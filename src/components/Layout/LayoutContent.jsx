@@ -15,13 +15,14 @@ import useEntities from "src/hooks/useEntities";
 import { isEmpty } from "lodash";
 import { setEntities } from "lib/features/entitySlice";
 import { ToastContainer } from "react-toastify";
+import routeMap from "src/constants/routeMap";
 
 const PageHideFooter = ["/employer/create-job"];
 
 const menuItems = [
-	{ label: "Việc làm", link: "/jobs" },
-	{ label: "Công ty", link: "/companies" },
-	{ label: "Ứng viên", link: "/candidates" },
+	{ label: "Việc làm", link: routeMap.job },
+	{ label: "Công ty", link: routeMap.company },
+	{ label: "Ứng viên", link: routeMap.candidate },
 ];
 
 function getCookie(cname) {
@@ -111,12 +112,12 @@ const LayoutContent = ({ children }) => {
 							align="middle"
 							justify="center"
 						>
-							<Link href="/signin">
+							<Link href={routeMap.signin}>
 								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
 									<span className="text-sm">Đăng ký</span>
 								</div>
 							</Link>
-							<Link href="/login">
+							<Link href={routeMap.login}>
 								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
 									<span className="text-sm">Đăng nhập</span>
 								</div>
