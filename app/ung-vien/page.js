@@ -1,6 +1,5 @@
 "use client";
 import { Grid } from "@mui/material";
-import Image from "next/image";
 import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
 import CandidateList from "src/components/Candidates/CandidateList";
@@ -20,7 +19,10 @@ const CandidatesPage = () => {
 							<CandidateList />
 						</Grid>
 						<Grid item xs={3}>
-							<ImageFull alt="Dịch vụ đăng tin" src="/banner2.jpg" />
+							<ImageFull
+								alt="Dịch vụ đăng tin"
+								src="https://placehold.co/270x525.png"
+							/>
 						</Grid>
 					</Grid>
 				</div>

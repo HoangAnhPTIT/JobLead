@@ -7,7 +7,7 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const padding = {
-	[COMPONENT_SIZE.SMALL]: "p-1",
+	[COMPONENT_SIZE.SMALL]: "p-[5px]",
 	[COMPONENT_SIZE.NORMAL]: "p-2",
 	[COMPONENT_SIZE.LARGE]: "p-3",
 };

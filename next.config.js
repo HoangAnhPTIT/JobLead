@@ -11,6 +11,10 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "timviec.com.vn",
 			},
+			{
+				protocol: "https",
+				hostname: "placehold.co",
+			},
 		],
 	},
 };

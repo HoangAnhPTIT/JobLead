@@ -26,6 +26,7 @@ import ListCate from "src/components/Home/ListCate";
 import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
 import { COMPONENT_LAYOUT, COMPONENT_SIZE } from "src/constants/common";
 import { WIDTH_CONTENT } from "src/constants/screen";
+import routeMap, { jobTypeRouteMap } from "src/constants/routeMap";
 
 const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);
@@ -43,7 +44,7 @@ const HomePage = async () => {
 			<HomeSearch />
 			<div className="w-content mx-auto">
 				<Image
-					src="/banner_doc_quyen.jpg"
+					src="https://placehold.co/1170x220.png"
 					width={WIDTH_CONTENT}
 					height={220}
 					alt="Nhân viên kinh doanh"
@@ -53,7 +54,9 @@ const HomePage = async () => {
 					<Category
 						title={jobData?.[0]?.serviceName}
 						icon={<LocalFireDepartment />}
-						extra="/more"
+						extra={`${routeMap.job}${
+							jobTypeRouteMap?.[jobData?.[0]?.serviceCode || "SEARCH"]
+						}`}
 					>
 						<ItemSlider
 							items={jobData?.[0]?.jobs}
@@ -66,7 +69,7 @@ const HomePage = async () => {
 				<Grid container spacing={2} className="mb-5">
 					<Grid item xs={6}>
 						<Image
-							src="/banner_gioi_han1.jpg"
+							src="https://placehold.co/577x220.png"
 							width={WIDTH_CONTENT / 2 - 8}
 							height={220}
 							alt=""
@@ -74,7 +77,7 @@ const HomePage = async () => {
 					</Grid>
 					<Grid item xs={6}>
 						<Image
-							src="/banner_gioi_han2.jpg"
+							src="https://placehold.co/577x220.png"
 							width={WIDTH_CONTENT / 2 - 8}
 							height={220}
 							alt=""
@@ -86,7 +89,9 @@ const HomePage = async () => {
 						<Category
 							title={jobData?.[1]?.serviceName}
 							icon={<Stars />}
-							extra="/more"
+							extra={`${routeMap.job}${
+								jobTypeRouteMap?.[jobData?.[1]?.serviceCode || "SEARCH"]
+							}`}
 							contentClass="min-h-[487px]"
 						>
 							<ItemSlider
@@ -97,7 +102,12 @@ const HomePage = async () => {
 						</Category>
 					</Grid>
 					<Grid item xs={3}>
-						<Image src="/banner1.jpg" width={280} height={550} alt="" />
+						<Image
+							src="https://placehold.co/280x550.png"
+							width={280}
+							height={550}
+							alt=""
+						/>
 					</Grid>
 				</Grid>
 				<Grid container spacing={3} className="mb-5">
@@ -105,7 +115,9 @@ const HomePage = async () => {
 						<Category
 							title={jobData?.[2]?.serviceName}
 							icon={<Stars />}
-							extra="/more"
+							extra={`${routeMap.job}${
+								jobTypeRouteMap?.[jobData?.[2]?.serviceCode || "SEARCH"]
+							}`}
 							contentClass="min-h-[475px]"
 						>
 							<ItemSlider
@@ -121,7 +133,9 @@ const HomePage = async () => {
 							icon={<BorderColor />}
 							contentClass="!p-0 min-h-[475px]"
 							layout={COMPONENT_LAYOUT.vertical}
-							extra="/more"
+							extra={`${routeMap.job}${
+								jobTypeRouteMap?.[jobData?.[3]?.serviceCode || "SEARCH"]
+							}`}
 						>
 							<ItemList
 								items={jobData?.[3]?.jobs}
@@ -159,7 +173,7 @@ const HomePage = async () => {
 						</Category>
 						<div className="pb-5" />
 						<Image
-							src="/cv-banner-home-new.png"
+							src="https://placehold.co/873x225.png"
 							width={873}
 							height={225}
 							alt=""

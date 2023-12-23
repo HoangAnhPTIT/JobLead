@@ -88,7 +88,7 @@ const CreateJobContent = () => {
 							<Grid container spacing={2} className="py-5">
 								<Grid item xs={12}>
 									<InputForm
-										name={"jobInfo.position"}
+										name={"jobInfo.name"}
 										label="Vị trí tuyển dụng"
 										helper="(Lưu ý: Vị trí tuyển dụng sẽ không được chỉnh sửa sau khi tin tuyển dụng được duyệt)"
 										helperClass="!text-red2 italic"

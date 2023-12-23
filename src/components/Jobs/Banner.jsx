@@ -7,9 +7,9 @@ import "swiper/scss/autoplay";
 import "swiper/scss/navigation";
 
 const items = [
-	{ avatar: "/banner-1.jpg", link: "/more" },
-	{ avatar: "/banner-2.jpg", link: "/more" },
-	{ avatar: "/banner-3.jpg", link: "/more" },
+	{ avatar: "https://placehold.co/1170x220.png", link: "/more" },
+	{ avatar: "https://placehold.co/1170x220.png", link: "/more" },
+	{ avatar: "https://placehold.co/1170x220.png", link: "/more" },
 ];
 
 const Banner = () => {

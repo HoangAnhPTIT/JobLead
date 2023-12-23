@@ -5,6 +5,7 @@ import {
 } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
+import moment from "moment";
 import Image from "next/image";
 import { JOB_PRIORITY } from "src/constants/job";
 
@@ -42,7 +43,9 @@ const JobItem = ({ item, showExpire = false }) => {
 					{showExpire && (
 						<Grid item xs={4} className="flex items-center">
 							<TodayOutlined style={{ fontSize: 16 }} />
-							<span className="text-55 ml-1">{item?.expireDate}</span>
+							<span className="text-55 ml-1">
+								{moment(item?.submissionDeadline).format("DD-MM-YYYY")}
+							</span>
 						</Grid>
 					)}
 				</Grid>

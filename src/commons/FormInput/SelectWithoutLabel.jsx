@@ -6,6 +6,7 @@ const SelectWithoutLabel = ({
 	register,
 	list,
 	classname,
+	valueKey = "id",
 }) => {
 	return (
 		<FormControl fullWidth>
@@ -31,7 +32,7 @@ const SelectWithoutLabel = ({
 				}}
 			>
 				{list?.map((item, i) => (
-					<MenuItem key={i} value={item?.id}>
+					<MenuItem key={i} value={item?.[valueKey]}>
 						{item?.name}
 					</MenuItem>
 				))}

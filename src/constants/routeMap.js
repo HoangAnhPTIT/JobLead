@@ -9,3 +9,11 @@ const routeMap = {
 };
 
 export default routeMap;
+
+export const jobTypeRouteMap = {
+	JOB_HOT: "/viec-lam-hot",
+	JOB_ATTRACTIVE: "/viec-lam-hap-dan",
+	JOB_HIGH_SALARY: "/viec-lam-luong-cao",
+	JOB_OUTSTANDING: "/viec-lam-tieu-diem",
+	SEARCH: "/tim-kiem",
+};

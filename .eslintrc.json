@@ -1,7 +1,6 @@
 {
 	"extends": ["eslint:recommended", "next"],
 	"rules": {
-		"react-hooks/exhaustive-deps": "off",
 		"no-unused-vars": "warn"
 	},
 	"env": {

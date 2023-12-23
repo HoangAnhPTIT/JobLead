@@ -20,7 +20,7 @@ import routeMap from "src/constants/routeMap";
 const PageHideFooter = ["/employer/create-job"];
 
 const menuItems = [
-	{ label: "Việc làm", link: routeMap.job },
+	{ label: "Việc làm", link: `${routeMap.job}/viec-lam-hot` },
 	{ label: "Công ty", link: routeMap.company },
 	{ label: "Ứng viên", link: routeMap.candidate },
 ];
