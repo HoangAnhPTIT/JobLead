@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import ItemCate from "./ItemCate";
+import routeMap from "src/constants/routeMap";
 
 const ListCate = ({ items, titleKey = "name" }) => {
 	return (
@@ -10,7 +11,9 @@ const ListCate = ({ items, titleKey = "name" }) => {
 						<ItemCate
 							title={item?.[titleKey]?.name}
 							amount={item?.jobCount}
-							link="/"
+							link={`${routeMap.searchJob}/${
+								titleKey === "career" ? item?.[titleKey].slug : 0
+							}/${titleKey === "workLocation" ? item?.[titleKey].slug : 0}`}
 						/>
 					</Grid>
 				))}

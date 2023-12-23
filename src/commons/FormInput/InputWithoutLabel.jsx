@@ -9,6 +9,7 @@ const InputWithoutLabel = ({ name, placeholder, register, classname }) => {
 			placeholder={placeholder}
 			className={classname}
 			defaultValue=""
+			autoComplete="off"
 			{...register(name)}
 		/>
 	);

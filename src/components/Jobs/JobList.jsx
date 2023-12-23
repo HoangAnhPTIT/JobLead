@@ -17,10 +17,12 @@ import JobItem from "src/commons/JobItem";
 import Nodata from "src/commons/Nodata";
 import { JOB_TYPE_MAP_ROUTE } from "src/constants/job";
 import ItemCate from "../Home/ItemCate";
+import { paramValue } from "src/helper/format";
+import routeMap from "src/constants/routeMap";
 
 const JobList = ({ jobList, majorList }) => {
 	const router = useRouter();
-	const { type, career, loction } = useParams();
+	const { type, career, location } = useParams();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const [currentPage, setCurrentPage] = useState(1);
@@ -37,7 +39,7 @@ const JobList = ({ jobList, majorList }) => {
 		if (!firstLoad) {
 			const getCurrentPage = searchParams.get("page");
 			setCurrentPage(getCurrentPage ? Number(getCurrentPage) : 1);
-			if (career || loction) {
+			if (career || location) {
 				let payload = {};
 				for (const [key, value] of searchParams.entries()) {
 					payload[key] = value;
@@ -45,8 +47,12 @@ const JobList = ({ jobList, majorList }) => {
 				const searchData = async () => {
 					const responseData = await httpPost(`${apiJob}/filter`, {
 						...payload,
-						workLocation: location,
-						career: career,
+						workLocationId: paramValue(location),
+						careerId: paramValue(career),
+						paging: {
+							page: getCurrentPage,
+							size: 10,
+						},
 					});
 					setJobsInfo(responseData?.data);
 				};
@@ -58,7 +64,6 @@ const JobList = ({ jobList, majorList }) => {
 							searchParams?.page || 1
 						}&size=10`
 					);
-					console.log("responseData", responseData);
 					setJobsInfo(responseData?.data);
 				};
 				searchData();
@@ -66,7 +71,7 @@ const JobList = ({ jobList, majorList }) => {
 		} else {
 			setFirstLoad(false);
 		}
-	}, [type, searchParams, career, loction]);
+	}, [type, searchParams, career, location]);
 
 	return (
 		<div className="w-content mx-auto my-5">
@@ -107,14 +112,18 @@ const JobList = ({ jobList, majorList }) => {
 								<ItemCate
 									title={item?.career?.name}
 									amount={item?.jobCount}
-									link="/"
+									link={`${routeMap.searchJob}/${item?.career?.slug}/0`}
 								/>
 							</div>
 						))}
 					</Category>
 					<div>
 						<Link href="/">
-							<ImageFull src="/cv-banner-2.png" alt="" classname="mt-7" />
+							<ImageFull
+								src="https://placehold.co/170x325.png"
+								alt=""
+								classname="mt-7"
+							/>
 						</Link>
 					</div>
 				</Grid>

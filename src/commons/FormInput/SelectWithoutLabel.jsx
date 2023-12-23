@@ -15,7 +15,9 @@ const SelectWithoutLabel = ({
 				displayEmpty
 				renderValue={(selected) =>
 					selected ? (
-						<span>{list?.find((item) => item?.id === selected)?.name}</span>
+						<span>
+							{list?.find((item) => item?.[valueKey] === selected)?.name}
+						</span>
 					) : (
 						<span className="text-placeholder">{placeholder}</span>
 					)

@@ -3,6 +3,7 @@ import React from "react";
 import { httpGet, httpPost } from "src/apis/apiCaller";
 import { apiJob, apiJobByCareer, apiJobByLocation } from "src/apis/apiEndpoint";
 import JobLayout from "src/components/Jobs/JobLayout";
+import { paramValue } from "src/helper/format";
 
 export const generateStaticParams = async () => {
 	const jobByLocationResponse = await httpGet(apiJobByLocation);
@@ -13,8 +14,8 @@ export const generateStaticParams = async () => {
 
 	const getParams = jobByCareerData?.reduce((list, career) => {
 		const getLocations = jobByLocationData?.map((item) => ({
-			career: career?.career?.id,
-			location: item?.workLocation?.id,
+			career: career?.career?.slug,
+			location: item?.workLocation?.slug,
 		}));
 		return concat(list, ...getLocations);
 	}, []);
@@ -27,10 +28,9 @@ const JobFilterPage = async ({ params, searchParams }) => {
 	const { page } = searchParams;
 
 	const payload = {
-		career,
-		location,
-		page,
-		size: 10,
+		careerId: paramValue(career),
+		workLocationId: paramValue(location),
+		paging: { page, size: 10 },
 	};
 
 	const hotJobResponse = await httpPost(`${apiJob}/filter`, payload);

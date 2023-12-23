@@ -7,13 +7,14 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
 import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
+import routeMap from "src/constants/routeMap";
 import styles from "./styles.module.scss";
 
 const commonSearch = [
-	{ title: "Nhân viên bán hàng", link: "/sale" },
-	{ title: "Việc làm Hà Nội", link: "/ha-noi" },
-	{ title: "Việc làm Hồ Chí Minh", link: "/ho-chi-minh" },
-	{ title: "Việc làm Đà Nẵng", link: "/da-nang" },
+	// { title: "Nhân viên bán hàng", link: "/sale" },
+	{ title: "Việc làm Hà Nội", link: "/0/ha-noi" },
+	{ title: "Việc làm Hồ Chí Minh", link: "/0/ho-chi-minh" },
+	{ title: "Việc làm Đà Nẵng", link: "/0/da-nang" },
 ];
 
 const HomeSearch = () => {
@@ -23,7 +24,9 @@ const HomeSearch = () => {
 
 	const onSubmit = (values) => {
 		router.push(
-			`/search?q=${values.q}&typeOfWork=${values.typeOfWorkId}&workLocation=${values.workLocationId}`
+			`${routeMap.searchJob}/${values?.career || 0}/${
+				values?.workLocation || 0
+			}?q=${values?.q}`
 		);
 	};
 
@@ -63,20 +66,22 @@ const HomeSearch = () => {
 						</Grid>
 						<Grid item xs={3}>
 							<SelectWithoutLabel
-								name="typeOfWorkId"
+								name="career"
 								placeholder="Ngành nghề"
 								register={register}
-								list={entities?.TypeOfWork}
+								list={entities?.Career}
 								classname={"bg-white !rounded-full"}
+								valueKey="slug"
 							/>
 						</Grid>
 						<Grid item xs={3}>
 							<SelectWithoutLabel
-								name="workLocationId"
+								name="workLocation"
 								placeholder="Địa điểm"
 								register={register}
 								list={entities?.WorkLocation}
 								classname={"bg-white !rounded-full"}
+								valueKey="slug"
 							/>
 						</Grid>
 						<Grid item xs={2}>

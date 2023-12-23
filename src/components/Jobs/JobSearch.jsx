@@ -10,8 +10,9 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
-import SelectControllerWithoutLabel from "src/commons/FormInput/SelectControllerWithoutLabel";
+import SelectForm from "src/commons/FormInput/SelectForm";
 import routeMap from "src/constants/routeMap";
+import { paramValue } from "src/helper/format";
 
 const JobSearch = () => {
 	const router = useRouter();
@@ -19,7 +20,7 @@ const JobSearch = () => {
 	const searchParams = useSearchParams();
 	const params = new URLSearchParams(searchParams);
 
-	const { register, handleSubmit, setValue, control } = useForm();
+	const { register, handleSubmit, setValue, getValues, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
 
@@ -44,8 +45,8 @@ const JobSearch = () => {
 
 	useEffect(() => {
 		const initValue = async () => {
-			setValue("career", career !== "0" ? career : "");
-			setValue("workLocation", location !== "0" ? location : "");
+			setValue("career", paramValue(career));
+			setValue("workLocation", paramValue(location));
 			for (const [key, value] of searchParams.entries()) {
 				setValue(key, value);
 			}
@@ -66,21 +67,27 @@ const JobSearch = () => {
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectControllerWithoutLabel
+							<SelectForm
 								name="career"
 								placeholder="Ngành nghề"
 								list={entities?.Career}
+								allowClear
+								valueKey="slug"
 								control={control}
 								Controller={Controller}
+								getValues={getValues}
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectControllerWithoutLabel
+							<SelectForm
 								name="workLocation"
 								placeholder="Địa điểm"
+								allowClear
 								list={entities?.WorkLocation}
+								valueKey="slug"
 								control={control}
 								Controller={Controller}
+								getValues={getValues}
 							/>
 						</Grid>
 						<Grid item>
@@ -113,47 +120,57 @@ const JobSearch = () => {
 						<Collapse in={showEnhanceSearch}>
 							<div className="flex gap-3">
 								<div className="w-1/5">
-									<SelectControllerWithoutLabel
+									<SelectForm
 										name="levelId"
 										placeholder="Vị trí"
+										allowClear
 										control={control}
 										Controller={Controller}
+										getValues={getValues}
 										list={entities?.Level}
 									/>
 								</div>
 								<div className="w-1/5">
-									<SelectControllerWithoutLabel
+									<SelectForm
 										name="experienceId"
 										placeholder="Kinh nghiệm"
+										allowClear
 										control={control}
 										Controller={Controller}
+										getValues={getValues}
 										list={entities?.Experience}
 									/>
 								</div>
 								<div className="w-1/5">
-									<SelectControllerWithoutLabel
+									<SelectForm
 										name="salaryId"
 										placeholder="Mức lương"
+										allowClear
 										control={control}
 										Controller={Controller}
+										getValues={getValues}
 										list={entities?.Salary}
 									/>
 								</div>
 								<div className="w-1/5">
-									<SelectControllerWithoutLabel
+									<SelectForm
 										name="typeOfWorkId"
 										placeholder="Loại hình công việc"
+										allowClear
 										list={entities?.TypeOfWork}
 										control={control}
 										Controller={Controller}
+										getValues={getValues}
 									/>
 								</div>
 								<div className="w-1/5">
-									<SelectControllerWithoutLabel
+									<SelectForm
 										name="genderId"
 										placeholder="Giới tính"
+										allowClear
 										control={control}
 										Controller={Controller}
+										getValues={getValues}
 										list={entities?.Gender}
 									/>
 								</div>
