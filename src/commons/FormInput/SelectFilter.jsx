@@ -14,7 +14,7 @@ const SelectFilter = ({
 		<Controller
 			name={name}
 			control={control}
-			defaultValue={{}}
+			defaultValue=""
 			onChange={([event, data]) => {
 				return data;
 			}}

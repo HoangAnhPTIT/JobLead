@@ -52,7 +52,7 @@ const JobSearch = () => {
 			}
 		};
 		initValue();
-	}, [searchParams, career, location, setValue]);
+	}, [searchParams, career, location]);
 
 	return (
 		<div>
@@ -63,6 +63,7 @@ const JobSearch = () => {
 							<InputSearch
 								name="q"
 								placeholder="Tiêu đề công việc..."
+								setValue={setValue}
 								control={control}
 								Controller={Controller}
 							/>

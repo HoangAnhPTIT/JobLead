@@ -3,41 +3,46 @@ import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
 import { apiJob } from "src/apis/apiEndpoint";
 
-const InputSearch = ({ name, placeholder, classname, Controller, control }) => {
-	const [valueInput, setValueInput] = useState("");
+const InputSearch = ({
+	name,
+	placeholder,
+	classname,
+	setValue,
+	Controller,
+	control,
+}) => {
 	const [suggestList, setSuggestList] = useState([]);
 
 	useEffect(() => {
 		const getSuggest = async () => {
-			const response = await httpGet(`${apiJob}/suggestion?q=${valueInput}`);
+			const response = await httpGet(`${apiJob}/suggestion?q='`);
 			setSuggestList(response?.data);
 		};
 		getSuggest();
-	}, [valueInput]);
+	}, []);
 
 	return (
 		<Controller
 			control={control}
 			name={name}
-			defaultValue={{}}
+			defaultValue=""
 			render={({ field }) => {
-				const { onChange, value } = field;
+				const { onChange, value, ref } = field;
 				return (
 					<FormControl fullWidth>
 						<Autocomplete
 							freeSolo
 							size="small"
-							{...field}
+							ref={ref}
 							options={suggestList || []}
 							getOptionLabel={(option) => option?.name || ""}
 							value={
 								value
-									? suggestList?.find((option) => value === option?.name) ??
-									  null
-									: null
+									? suggestList?.find((option) => value === option?.name) ?? ""
+									: ""
 							}
 							onChange={(e, newValue) => {
-								const resolvedValue = newValue ? newValue?.name : null;
+								const resolvedValue = newValue ? newValue?.name : "";
 								onChange(resolvedValue);
 							}}
 							renderInput={(params) => (
@@ -48,8 +53,8 @@ const InputSearch = ({ name, placeholder, classname, Controller, control }) => {
 										...params.inputProps,
 										autoComplete: "disabled", // disable autocomplete and autofill
 									}}
+									onBlur={(e) => setValue("q", e.target.value)}
 									placeholder={placeholder}
-									onChange={(e) => setValueInput(e.target.value)}
 								/>
 							)}
 						/>
