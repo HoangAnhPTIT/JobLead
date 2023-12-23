@@ -79,7 +79,7 @@ const JobList = ({ jobList, majorList }) => {
 				<Grid item xs={9}>
 					<Category
 						icon={<SearchOutlined />}
-						title="Việc làm hot"
+						title={jobsInfo?.title}
 						contentClass="border-b-0"
 					>
 						{jobsInfo?.count > 0 ? (
@@ -105,7 +105,7 @@ const JobList = ({ jobList, majorList }) => {
 					<Category
 						icon={<ApartmentOutlined />}
 						title="Việc làm theo ngành"
-						contentClass="pt-0"
+						contentClass="pt-0 max-h-[600px] overflow-y-auto"
 					>
 						{majorList?.map((item, i) => (
 							<div key={i} className="my-2">

@@ -3,11 +3,24 @@ import Category from "@/src/commons/Category";
 import { ApartmentOutlined, PlaceOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { httpGet } from "src/apis/apiCaller";
+import { apiCompany } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const TopCompanies = ({ items }) => {
+const TopCompanies = () => {
+	const [companyList, setCompanyList] = useState();
+
+	useEffect(() => {
+		const getCompanies = async () => {
+			const response = await httpGet(`${apiCompany}/service-top`);
+			setCompanyList(response?.data);
+		};
+		getCompanies();
+	}, []);
+
 	return (
 		<Category
 			icon={<ApartmentOutlined />}
@@ -25,11 +38,15 @@ const TopCompanies = ({ items }) => {
 				autoplay={{ delay: 5000 }}
 				className="pt-2 pb-9 px-5"
 			>
-				{items?.map((item, i) => (
+				{companyList?.map((item, i) => (
 					<SwiperSlide key={i}>
 						<Link href={`/companyies/${item?.id}`}>
 							<div className="text-33 border">
-								<ImageFull src={item?.profile} alt={item?.name} />
+								<ImageFull
+									src={item?.profile}
+									alt={item?.name}
+									classname="min-h-[132px]"
+								/>
 								<div className="flex gap-2.5 px-5">
 									<div className="relative w-20 h-10">
 										<Image
@@ -40,11 +57,11 @@ const TopCompanies = ({ items }) => {
 											className="absolute -top-7 left-0"
 										/>
 									</div>
-									<div className={"flex-1 font-semibold max-two-line"}>
+									<div className={"flex-1 font-semibold max-two-line !h-12"}>
 										{item?.name}
 									</div>
 								</div>
-								<div className="p-2">
+								<div className="p-2 !h-14 overflow-hidden">
 									<PlaceOutlined
 										fontSize="small"
 										style={{ fontSize: 18 }}

@@ -15,8 +15,10 @@ const OtherCompanies = () => {
 
 	useEffect(() => {
 		const getCompanies = async () => {
-			const response = await httpGet(apiCompany);
-			setCompanyList(response?.data);
+			const response = await httpGet(
+				`${apiCompany}/non-service?page=1&size=40`
+			);
+			setCompanyList(response?.data?.companies);
 		};
 		getCompanies();
 	}, []);
@@ -26,13 +28,13 @@ const OtherCompanies = () => {
 			<Category icon={<WorkOutline />} title="Các công ty khác">
 				{companyList?.length > 0 ? (
 					<div className="max-h-[calc(100vh-200px)] overflow-y-auto">
-						<Grid container spacing={2}>
+						<Grid container>
 							{companyList?.map((item, i) => (
-								<Grid item xs={6} key={i}>
+								<Grid item xs={6} key={i} className="px-2">
 									<Link href={`/companyies/${item?.id}`}>
 										<div className="flex gap-2.5 border-b p-2">
 											<Image
-												src={item?.avatarUrl}
+												src={item?.avatar}
 												alt={item?.name}
 												width={60}
 												height={60}

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useAppSelector } from "lib/hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
-import SelectForm from "src/commons/FormInput/SelectForm";
+import SelectFilter from "src/commons/FormInput/SelectFilter";
 import routeMap from "src/constants/routeMap";
 
 const EnhanceSearch = ({ classTitle = "" }) => {
@@ -53,7 +53,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 			<div className="p-4 bg-white">
 				<form className="mb-5">
 					<Stack spacing={2}>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="career"
@@ -62,7 +62,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							list={entities?.Career}
 							valueKey="slug"
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="workLocation"
@@ -71,7 +71,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							list={entities?.WorkLocation}
 							valueKey="slug"
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="levelId"
@@ -79,7 +79,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							register={register}
 							list={entities?.Level}
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="experienceId"
@@ -87,7 +87,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							register={register}
 							list={entities?.Experience}
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="salaryId"
@@ -95,7 +95,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							register={register}
 							list={entities?.Salary}
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="typeOfWorkId"
@@ -103,7 +103,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							register={register}
 							list={entities?.TypeOfWork}
 						/>
-						<SelectForm
+						<SelectFilter
 							control={control}
 							Controller={Controller}
 							name="genderId"

@@ -4,11 +4,13 @@ import classNames from "classnames";
 import { useAppSelector } from "lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
 import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
 import routeMap from "src/constants/routeMap";
 import styles from "./styles.module.scss";
+import InputSearch from "src/commons/FormInput/InputSearch";
+import SelectFilter from "src/commons/FormInput/SelectFilter";
 
 const commonSearch = [
 	// { title: "Nhân viên bán hàng", link: "/sale" },
@@ -19,7 +21,7 @@ const commonSearch = [
 
 const HomeSearch = () => {
 	const router = useRouter();
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {
@@ -54,34 +56,37 @@ const HomeSearch = () => {
 				>
 					<Grid container spacing={2} className="!w-full">
 						<Grid item xs={4}>
-							<InputWithoutLabel
+							<InputSearch
 								name="q"
-								placeholder="Từ khóa, chức danh"
+								placeholder="Tiêu đề công việc..."
+								control={control}
+								Controller={Controller}
 								classname={classNames([
 									"rounded-full bg-white",
 									styles.searchInput,
 								])}
-								register={register}
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectWithoutLabel
+							<SelectFilter
 								name="career"
 								placeholder="Ngành nghề"
-								register={register}
 								list={entities?.Career}
 								classname={"bg-white !rounded-full"}
 								valueKey="slug"
+								control={control}
+								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectWithoutLabel
+							<SelectFilter
 								name="workLocation"
 								placeholder="Địa điểm"
-								register={register}
 								list={entities?.WorkLocation}
 								classname={"bg-white !rounded-full"}
 								valueKey="slug"
+								control={control}
+								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item xs={2}>
