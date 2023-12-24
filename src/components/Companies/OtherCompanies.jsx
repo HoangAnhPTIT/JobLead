@@ -47,7 +47,9 @@ const OtherCompanies = () => {
 													<Place
 														style={{ color: primaryColor, fontSize: 16 }}
 													/>
-													<span className="text-99 ml-1">{item?.address}</span>
+													<span className="text-99 ml-1">
+														Địa chỉ: {item?.address}
+													</span>
 												</div>
 											</div>
 										</div>
