@@ -3,7 +3,7 @@ import { CheckOutlined } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { USER_ROLE } from "src/constants/common";
 
 const candidateIntro = {
@@ -27,8 +27,9 @@ const employerIntro = {
 	],
 };
 
-const InfoWithImage = ({ info, type, setType }) => {
+const InfoWithImage = ({ info, type }) => {
 	const path = usePathname();
+	const router = useRouter();
 
 	return (
 		<div
@@ -66,30 +67,26 @@ const InfoWithImage = ({ info, type, setType }) => {
 					"uppercase",
 					type === USER_ROLE.candidate ? "bg-primary" : "!bg-white",
 				])}
-				onClick={() => setType(type)}
+				onClick={() =>
+					USER_ROLE.candidate
+						? router.push(`${path}/ung-vien`)
+						: router.push(`${path}/nha-tuyen-dung`)
+				}
 			>
 				<span className={classNames(["font-semibold"])}>
-					{path === "/login" && "Đăng nhập"}
-					{path === "/signin" && "Đăng ký"} {info.label}
+					{path === "/dang-nhap" && "Đăng nhập"}
+					{path === "/dang-ky" && "Đăng ký"} {info.label}
 				</span>
 			</Button>
 		</div>
 	);
 };
 
-const Intro = ({ setType }) => {
+const Intro = () => {
 	return (
 		<div gap={40} className="flex gap-10 justify-center bg-bgBody pb-10 pt-24">
-			<InfoWithImage
-				info={candidateIntro}
-				type={USER_ROLE.candidate}
-				setType={setType}
-			/>
-			<InfoWithImage
-				info={employerIntro}
-				type={USER_ROLE.employer}
-				setType={setType}
-			/>
+			<InfoWithImage info={candidateIntro} type={USER_ROLE.candidate} />
+			<InfoWithImage info={employerIntro} type={USER_ROLE.employer} />
 		</div>
 	);
 };

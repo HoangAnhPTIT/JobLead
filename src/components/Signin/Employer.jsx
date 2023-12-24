@@ -15,7 +15,7 @@ const employerIntro = [
 	"+2,000 lượt xem trung bình cho 1 việc làm",
 ];
 
-const Employer = ({ setSigninType }) => {
+const Employer = () => {
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = (values) => {
@@ -114,13 +114,13 @@ const Employer = ({ setSigninType }) => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn đã có tài khoản ? <Link href="/login">Đăng nhập</Link> |
-				<span
-					onClick={() => setSigninType(USER_ROLE.candidate)}
+				Bạn đã có tài khoản ? <Link href="/dang-nhap">Đăng nhập</Link> |
+				<Link
+					href="/dang-ky/ung-vien"
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng ký ứng viên
-				</span>
+				</Link>
 			</div>
 		</div>
 	);

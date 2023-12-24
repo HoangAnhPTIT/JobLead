@@ -21,7 +21,7 @@ const employerIntro = [
 	"+2,000 lượt xem trung bình cho 1 việc làm",
 ];
 
-const Employer = ({ setLoginType }) => {
+const Employer = () => {
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = async (values) => {
@@ -53,7 +53,7 @@ const Employer = ({ setLoginType }) => {
 					<Grid item xs={8} className="bg-white py-10">
 						<form autoComplete="off" className="w-[360px] m-auto">
 							<h1 className="text-center font-semibold text-3xl my-10">
-								Đăng nhập ứng viên
+								Đăng nhập nhà tuyển dụng
 							</h1>
 							<Stack gap={3}>
 								<TextField
@@ -89,13 +89,13 @@ const Employer = ({ setLoginType }) => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn chưa có tài khoản ? <Link href="/signin">Đăng ký</Link> |
-				<span
-					onClick={() => setLoginType(USER_ROLE.candidate)}
+				Bạn chưa có tài khoản ? <Link href="/dang-ky">Đăng ký</Link> |
+				<Link
+					href={"/dang-nhap/ung-vien"}
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng nhập ứng viên
-				</span>
+				</Link>
 			</div>
 		</div>
 	);

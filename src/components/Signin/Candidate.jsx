@@ -88,13 +88,13 @@ const Candidate = ({ setSigninType }) => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn đã có tài khoản ? <Link href="/login">Đăng nhập</Link> |
-				<span
-					onClick={() => setSigninType(USER_ROLE.employer)}
+				Bạn đã có tài khoản ? <Link href="/dang-nhap">Đăng nhập</Link> |
+				<Link
+					href={"/dang-ky/nha-tuyen-dung"}
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng ký nhà tuyển dụng
-				</span>
+				</Link>
 			</div>
 		</div>
 	);

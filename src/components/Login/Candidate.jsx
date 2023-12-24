@@ -1,7 +1,6 @@
 "use client";
 import { login } from "@/lib/features/userSlice";
 import { useAppDispatch } from "@/lib/hooks";
-import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
 import {
 	Button,
@@ -24,7 +23,7 @@ const candidateIntro = [
 	"Nâng cao cơ hội tìm việc với chương trình ứng viên năng động",
 ];
 
-const Candidate = ({ setLoginType }) => {
+const Candidate = () => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -101,13 +100,13 @@ const Candidate = ({ setLoginType }) => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn chưa có tài khoản ? <Link href="/signin">Đăng ký</Link> |
-				<span
-					onClick={() => setLoginType(USER_ROLE.employer)}
+				Bạn chưa có tài khoản ? <Link href="/dang-ky">Đăng ký</Link> |
+				<Link
+					href="/dang-nhap/nha-tuyen-dung"
 					className="ml-1 hover:text-primary cursor-pointer"
 				>
 					Đăng nhập nhà tuyển dụng
-				</span>
+				</Link>
 			</div>
 		</div>
 	);
