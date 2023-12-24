@@ -1,21 +1,22 @@
 "use client";
-import { login, logout } from "lib/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Menu, MenuItem } from "@mui/material";
 import classNames from "classnames";
+import { login, logout } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import FooterLayout from "./Footer";
 
-import Loading from "./Loading";
-import styles from "./styles.module.scss";
-import useEntities from "src/hooks/useEntities";
-import { isEmpty } from "lodash";
 import { setEntities } from "lib/features/entitySlice";
+import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
 import routeMap from "src/constants/routeMap";
+import useEntities from "src/hooks/useEntities";
+import SuspenseLoading from "./SuspenseLoading";
+import styles from "./styles.module.scss";
+import Loading from "./Loading";
 
 const PageHideFooter = ["/employer/create-job"];
 
@@ -67,14 +68,14 @@ const LayoutContent = ({ children }) => {
 
 	return (
 		<div className="layout">
+			<Loading />
 			<div
 				className={classNames([
 					"h-16 flex content-center px-10 bg-bgHeader",
 					styles.header,
 				])}
 			>
-				{" "}
-				<ToastContainer />
+				<ToastContainer position="top-center" autoClose={5000} />
 				<Grid container justifyContent="space-between" alignContent="center">
 					<Grid item>
 						<Grid container alignItems="center" spacing={2} className="h-full">
@@ -157,7 +158,7 @@ const LayoutContent = ({ children }) => {
 					)}
 				</Grid>
 			</div>
-			<Suspense fallback={<Loading />}>
+			<Suspense fallback={<SuspenseLoading />}>
 				<div>{children}</div>
 			</Suspense>
 			{!hideFooter && <FooterLayout />}

@@ -1,13 +1,15 @@
-import { CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useAppSelector } from "lib/hooks";
 
 const Loading = () => {
+	const { isLoading } = useAppSelector((state) => state.loading);
 	return (
-		<div className="h-[90vh] flex relative bg-bgContainer">
-			<CircularProgress
-				color="primary"
-				className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-			/>
-		</div>
+		<Backdrop
+			sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+			open={isLoading}
+		>
+			<CircularProgress color="inherit" />
+		</Backdrop>
 	);
 };
 

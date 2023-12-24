@@ -2,11 +2,17 @@
 import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { httpPost } from "src/apis/apiCaller";
+import { apiRegister } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
+import { toastError, toastSuccess } from "src/commons/Toast";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -15,11 +21,27 @@ const candidateIntro = [
 	"Nâng cao cơ hội tìm việc với chương trình ứng viên năng động",
 ];
 
-const Candidate = ({ setSigninType }) => {
+const Candidate = () => {
 	const { register, handleSubmit } = useForm();
+	const dispatch = useAppDispatch();
+	const router = useRouter();
 
-	const onSubmit = (values) => {
-		console.log("values", values);
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
+		try {
+			const response = await httpPost(apiRegister, { values });
+			if (response?.status === 200) {
+				toastSuccess("Đăng kí tài khoản thành công");
+				router.push("/dang-nhap");
+			} else {
+				toastError(response?.message);
+			}
+		} catch (error) {
+			toastError("Có lỗi xảy ra vui lòng thử lại");
+			console.error("register error", error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
 
 	return (
@@ -46,10 +68,10 @@ const Candidate = ({ setSigninType }) => {
 					</Grid>
 					<Grid item xs={8} className="bg-white py-7 px-10">
 						<h1 className="font-semibold text-2xl">Đăng ký ứng viên</h1>
-						<form className="my-5">
+						<form className="my-5" autoComplete="off">
 							<Stack gap={3}>
 								<InputForm
-									name="fullname"
+									name="fullName"
 									label="Họ và tên"
 									required
 									register={register}
@@ -79,6 +101,7 @@ const Candidate = ({ setSigninType }) => {
 									variant="contained"
 									size="medium"
 									className="uppercase !px-10 bg-primary"
+									onClick={handleSubmit((data) => onSubmit(data))}
 								>
 									Đăng ký
 								</Button>

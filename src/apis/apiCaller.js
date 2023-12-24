@@ -6,25 +6,19 @@ axios.defaults.baseURL = "https://api.tuyendung247.vn/api/v1";
 export const httpPost = async (endpoint, data = {}, callback) => {
 	try {
 		const response = await axios.post(endpoint, data);
-		if (response.status === 200) {
-			return response?.data;
-		} else {
-			console.error(endpoint, response);
-		}
+		return response?.data || response;
 	} catch (error) {
 		console.error(error);
+		return error?.response?.data || error?.response;
 	}
 };
 
 export const httpGet = async (endpoint, params, callback) => {
 	try {
 		const response = await axios.get(endpoint, { params });
-		if (response.status === 200) {
-			return response?.data;
-		} else {
-			console.error(endpoint, response?.data);
-		}
+		return response?.data || response;
 	} catch (error) {
 		console.error(error);
+		return error?.response?.data || error?.response;
 	}
 };
