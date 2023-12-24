@@ -83,7 +83,12 @@ const LayoutContent = ({ children }) => {
 								className="cursor-pointer"
 								onClick={() => router.push("/")}
 							>
-								<Image src="/logo.png" alt="logo" width={112} height={41} />
+								<Image
+									src="https://placehold.co/112x41.png"
+									alt="logo"
+									width={112}
+									height={41}
+								/>
 							</Grid>
 							<Grid item>
 								<Grid container>

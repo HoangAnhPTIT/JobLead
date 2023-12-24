@@ -31,7 +31,7 @@ const JobItemList = ({ item }) => {
 							<PaidOutlined fontSize="inherit" className="text-xs" />
 							<span className="text-55 ml-1 mr-3 text-xs">{item?.salary}</span>
 						</Grid>
-						<Grid item xs={5}>
+						<Grid item xs={5} className="three-dot">
 							<PlaceOutlined fontSize="inherit" className="text-xs" />
 							<span className="text-55 ml-1 text-xs">{item?.location}</span>
 						</Grid>
