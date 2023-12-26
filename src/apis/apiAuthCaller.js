@@ -109,9 +109,9 @@ export async function apiCaller({
 	responseType = "json",
 }) {
 	let headers = {
-		Accept: "*",
+		// Accept: "*",
 		"Content-Type": "application/json",
-		"Access-Control-Allow-Origin": "*",
+		// "Access-Control-Allow-Origin": "*",
 	};
 
 	// Lấy token từ localStorage hoặc nơi lưu trữ tương tự
@@ -143,6 +143,7 @@ export async function apiCaller({
 		) {
 			await refreshTokenAndRetry();
 		} else if (err?.errorCode === "TOKEN_INVALID") {
+			deleteAllCookies();
 			window.location.href = routeMap.login;
 		}
 		return err;
@@ -162,11 +163,12 @@ const refreshTokenAndRetry = async () => {
 				headers: {
 					Accept: "*",
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
+					// "Access-Control-Allow-Origin": "*",
 					"Accept-Language": "*",
 					refreshToken,
 				},
 				withCredentials: false,
+				data: { accessToken: `Bearer ${getCookie(token)}`, refreshToken },
 			};
 			try {
 				const response = await instance(axiosConfigRefesh);
