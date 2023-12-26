@@ -14,6 +14,7 @@ import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
 import { toastError, toastSuccess } from "src/commons/Toast";
+import { imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const employerIntro = [
@@ -54,7 +55,7 @@ const Employer = () => {
 					<Grid item xs={4} className="bg-primary text-white py-7 px-5">
 						<div>
 							<Image
-								src="/bg-dangki-uv-in.png"
+								src={"/bg-dangki-uv-in.png" || imageError}
 								alt="Ung vien"
 								width={162}
 								height={145}

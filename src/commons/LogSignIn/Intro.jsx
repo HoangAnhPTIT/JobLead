@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { USER_ROLE } from "src/constants/common";
+import { USER_ROLE, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const candidateIntro = {
@@ -41,10 +41,10 @@ const InfoWithImage = ({ info, type }) => {
 		>
 			<div className="absolute -top-[70px] left-1/2 -translate-x-1/2">
 				<Image
-					src={info.avatar}
+					src={info.avatar || imageError}
 					width={166}
 					height={166}
-					alt={info.type}
+					alt={info.type || ""}
 					className="rounded-full"
 				/>
 			</div>

@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const JobItemList = ({ item }) => {
@@ -11,10 +12,10 @@ const JobItemList = ({ item }) => {
 		<div className={classNames(["pl-2 py-1"])}>
 			<div className="flex gap-3">
 				<Image
-					src={item?.company?.avatar}
+					src={item?.company?.avatar || imageError}
 					width={45}
 					height={45}
-					alt={item?.companyName}
+					alt={item?.companyName || ""}
 				/>
 				<div className="text-sm w-[175px]">
 					<Link href={`${routeMap.job}${routeMap.detail}/${item?.jobId}`}>

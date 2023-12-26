@@ -7,13 +7,14 @@ import { Grid } from "@mui/material";
 import classNames from "classnames";
 import moment from "moment";
 import Image from "next/image";
+import { imageError } from "src/constants/common";
 import { JOB_PRIORITY } from "src/constants/job";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (
 		<div className="flex gap-3">
 			<Image
-				src={item?.company?.avatar}
+				src={item?.company?.avatar || imageError}
 				width={60}
 				height={60}
 				alt={item?.company?.name || ""}

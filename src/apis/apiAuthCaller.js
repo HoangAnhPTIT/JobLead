@@ -26,7 +26,6 @@ instance.interceptors.request.use(
 		if (config.url?.includes(apiRefreshToken)) {
 			if (config.headers) {
 				delete config.headers.Authorization;
-				config.headers.accessToken = `Bearer ${accessToken}`;
 			}
 		}
 		return config;
@@ -46,6 +45,7 @@ instance.interceptors.response.use(
 
 	async (error) => {
 		const originalRequest = error.config;
+		console.log("originalRequest", originalRequest);
 		// Kiểm tra mã lỗi xác thực
 		if (
 			error.response?.status === 401 &&
@@ -144,7 +144,7 @@ export async function apiCaller({
 			await refreshTokenAndRetry();
 		} else if (err?.errorCode === "TOKEN_INVALID") {
 			deleteAllCookies();
-			window.location.href = routeMap.login;
+			window.location.replace = routeMap.login;
 		}
 		return err;
 	}
@@ -154,6 +154,7 @@ export async function apiCaller({
 const refreshTokenAndRetry = async () => {
 	try {
 		// Lấy refreshToken từ localStorage hoặc nơi lưu trữ tương tự
+		const accessToken = getLocalAccessToken();
 		const refreshToken = getLocalRefeshToken();
 		if (refreshToken) {
 			// Gọi API để lấy token mới
@@ -165,38 +166,29 @@ const refreshTokenAndRetry = async () => {
 					"Content-Type": "application/json",
 					// "Access-Control-Allow-Origin": "*",
 					"Accept-Language": "*",
-					refreshToken,
 				},
 				withCredentials: false,
-				data: { accessToken: `Bearer ${getCookie(token)}`, refreshToken },
+				data: { accessToken, refreshToken },
 			};
 			try {
 				const response = await instance(axiosConfigRefesh);
-				if (response?.data?.message === "SUCCESS") {
-					setCookie(token, response?.data?.tokenLogin?.token);
-					setCookie(refreshToken, response?.data?.tokenLogin?.refreshToken);
+				if (response?.status === 200) {
+					const newDataToken = response.data.tokenModel;
+					setCookie(token, newDataToken.accessToken);
+					setCookie(refreshToken, newDataToken.refreshToken);
 				} else {
-					// Chuyển hướng người dùng đến trang login
 					deleteAllCookies();
-					window.location.href = routeMap.login;
+					window.location.href = "/";
 				}
 			} catch (error) {
-				// const loginData = JSON.parse(localStorage.getItem(LOGINDATA) || "null");
-				// localStorage.clear();
-				// if (loginData) {
-				// 	localStorage.setItem(LOGINDATA, JSON.stringify(loginData));
-				// }
-				// Chuyển hướng người dùng đến trang login
 				deleteAllCookies();
-				window.location.href = routeMap.login;
+				window.location.href = "/";
 			}
 
 			// Cập nhật token mới vào localStorage
 		} else {
-			// Xử lý lỗi khi không thể lấy token mới
 			deleteAllCookies();
-			// Chuyển hướng người dùng đến trang login
-			window.location.href = routeMap.login;
+			window.location.href = "/";
 		}
 	} catch (error) {
 		console.error("Lỗi khi gọi lại token:", error);

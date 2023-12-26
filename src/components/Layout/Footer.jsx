@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Counter from "./Counter";
 import styles from "./styles.module.scss";
+import { imageError } from "src/constants/common";
 
 const companyInfo = {
 	logo: "/logo.png",
@@ -175,7 +176,7 @@ const FooterLayout = () => {
 					<div>
 						<div className="mb-6">
 							<Image
-								src={companyInfo.logo}
+								src={companyInfo.logo || imageError}
 								alt="logo"
 								width={112}
 								height={41}

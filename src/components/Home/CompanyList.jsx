@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { imageError } from "src/constants/common";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -20,10 +21,10 @@ const CompanyList = ({ items }) => {
 						<div className="image-shadow p-2">
 							{item?.avatar && (
 								<Image
-									src={item?.avatar}
+									src={item?.avatar || imageError}
 									width={200}
 									height={200}
-									alt={item?.name}
+									alt={item?.name || ""}
 								/>
 							)}
 						</div>

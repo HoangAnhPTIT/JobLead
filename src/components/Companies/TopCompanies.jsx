@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
 import { apiCompany } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
+import { imageError } from "src/constants/common";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -50,8 +51,8 @@ const TopCompanies = () => {
 								<div className="flex gap-2.5 px-5">
 									<div className="relative w-20 h-10">
 										<Image
-											src={item?.avatar}
-											alt={item.name}
+											src={item?.avatar || imageError}
+											alt={item.name || ""}
 											width={80}
 											height={80}
 											className="absolute -top-7 left-0"

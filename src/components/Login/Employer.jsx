@@ -20,7 +20,7 @@ import { httpPost } from "src/apis/apiCaller";
 import { apiLoginEmployer } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import { toastError } from "src/commons/Toast";
-import { refreshToken, token } from "src/constants/common";
+import { imageError, refreshToken, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { setCookie } from "src/helper/common";
 
@@ -64,7 +64,7 @@ const Employer = () => {
 					<Grid item xs={4} className="bg-primary text-white py-7 px-5">
 						<div>
 							<Image
-								src="/bg-dangki-uv-in.png"
+								src={"/bg-dangki-uv-in.png" || imageError}
 								alt="Ung vien"
 								width={162}
 								height={145}

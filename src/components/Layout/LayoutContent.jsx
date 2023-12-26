@@ -17,8 +17,9 @@ import useEntities from "src/hooks/useEntities";
 import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
-import { token } from "src/constants/common";
+import { imageError, token } from "src/constants/common";
 import { jwtDecode } from "jwt-decode";
+import { deleteAllCookies, getCookie } from "src/helper/common";
 
 const PageHideFooter = ["/nha-tuyen-dung/create-job"];
 const PageOutSide = [
@@ -36,22 +37,6 @@ const menuItems = [
 	{ label: "Ứng viên", link: routeMap.candidate },
 ];
 
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(";");
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) == " ") {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-
 const LayoutContent = ({ children }) => {
 	const router = useRouter();
 	const pathname = usePathname();
@@ -66,9 +51,10 @@ const LayoutContent = ({ children }) => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
-		const tokenCookie = getCookie(token);
-		console.log("tokenData", jwtDecode(tokenCookie));
+		// const tokenCookie = getCookie(token);
+		// console.log("tokenData", tokenCookie);
 		dispatch(setIsLogin(isLogin));
+		deleteAllCookies();
 	}, []);
 
 	useEffect(() => {
@@ -98,7 +84,7 @@ const LayoutContent = ({ children }) => {
 								onClick={() => router.push("/")}
 							>
 								<Image
-									src="https://placehold.co/112x41.png"
+									src={"https://placehold.co/112x41.png" || imageError}
 									alt="logo"
 									width={112}
 									height={41}

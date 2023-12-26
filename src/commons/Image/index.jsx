@@ -9,7 +9,7 @@ const ImageFull = ({ src, alt, classname, ...props }) => {
 				layout="fill"
 				className={classNames(["w-full !h-auto !relative", classname])}
 				src={src || imageError}
-				alt={alt}
+				alt={alt || ""}
 				{...props}
 			/>
 		</div>

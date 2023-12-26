@@ -4,6 +4,7 @@ import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
 import CandidateList from "src/components/Candidates/CandidateList";
 import CandidateSearch from "src/components/Candidates/CandidateSearch";
+import { imageError } from "src/constants/common";
 
 const CandidatesPage = () => {
 	return (
@@ -21,7 +22,7 @@ const CandidatesPage = () => {
 						<Grid item xs={3}>
 							<ImageFull
 								alt="Dịch vụ đăng tin"
-								src="https://placehold.co/270x525.png"
+								src={"https://placehold.co/270x525.png" || imageError}
 							/>
 						</Grid>
 					</Grid>
