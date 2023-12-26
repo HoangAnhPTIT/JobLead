@@ -8,7 +8,7 @@ import { httpGet } from "src/apis/apiCaller";
 import { apiCompany } from "src/apis/apiEndpoint";
 import Category from "src/commons/Category";
 import Nodata from "src/commons/Nodata";
-import { primaryColor } from "src/constants/common";
+import { imageError, primaryColor } from "src/constants/common";
 
 const OtherCompanies = () => {
 	const [companyList, setCompanyList] = useState();
@@ -34,7 +34,7 @@ const OtherCompanies = () => {
 									<Link href={`/companyies/${item?.id}`}>
 										<div className="flex gap-2.5 border-b p-2">
 											<Image
-												src={item?.avatar}
+												src={item?.avatar || imageError}
 												alt={item?.name}
 												width={60}
 												height={60}

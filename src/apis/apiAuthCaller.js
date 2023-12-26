@@ -1,5 +1,5 @@
 import axios from "axios";
-import { token } from "src/constants/common";
+import { refreshToken, token } from "src/constants/common";
 import { deleteAllCookies, getCookie, setCookie } from "src/helper/common";
 import {
 	apiLoginCandidate,
@@ -205,13 +205,13 @@ const refreshTokenAndRetry = async () => {
 };
 
 export const getLocalAccessToken = () => {
-	const token = getCookie("token");
-	return token?.accessToken || "";
+	const tokenCookie = getCookie(token);
+	return tokenCookie || "";
 };
 
 export const getLocalRefeshToken = () => {
-	const token = JSON.parse(window.localStorage.getItem(token) ?? "null");
-	return token?.refreshToken || "";
+	const rTokenCookie = getCookie(refreshToken);
+	return rTokenCookie || "";
 };
 
 export function httpAuthPost(options) {

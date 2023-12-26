@@ -158,6 +158,7 @@ const LayoutContent = ({ children }) => {
 								<MenuItem
 									onClick={() => {
 										dispatch(logout());
+										router.push("/");
 										setAnchorEl(null);
 									}}
 								>

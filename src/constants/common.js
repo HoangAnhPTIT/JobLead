@@ -21,3 +21,4 @@ export const companyId = "5a6f2e96-c4bd-4e62-9a07-ccbdc63636e2";
 
 export const token = "token";
 export const refreshToken = "refreshToken";
+export const imageError = "/image-error.png";
