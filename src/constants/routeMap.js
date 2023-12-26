@@ -6,6 +6,7 @@ const routeMap = {
 	login: "/dang-nhap",
 	signin: "/dang-ky",
 	searchJob: "/tim-viec-lam",
+	detail: "/chi-tiet",
 };
 
 export default routeMap;

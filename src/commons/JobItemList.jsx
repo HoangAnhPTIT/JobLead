@@ -3,6 +3,8 @@ import { PaidOutlined, PlaceOutlined } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
+import Link from "next/link";
+import routeMap from "src/constants/routeMap";
 
 const JobItemList = ({ item }) => {
 	return (
@@ -15,17 +17,19 @@ const JobItemList = ({ item }) => {
 					alt={item?.companyName}
 				/>
 				<div className="text-sm w-[175px]">
-					<div
-						className={classNames([
-							"three-dot font-bold",
-							item?.type === JOB_PRIORITY.HOT ? "text-secondary" : "text-55",
-						])}
-					>
-						{item?.type === JOB_PRIORITY.URGENT && (
-							<i className="text-secondary ">(Gấp) </i>
-						)}
-						<span>{item?.jobName}</span>
-					</div>
+					<Link href={`${routeMap.job}${routeMap.detail}/${item?.jobId}`}>
+						<div
+							className={classNames([
+								"three-dot font-bold",
+								item?.type === JOB_PRIORITY.HOT ? "text-secondary" : "text-55",
+							])}
+						>
+							{item?.type === JOB_PRIORITY.URGENT && (
+								<i className="text-secondary ">(Gấp) </i>
+							)}
+							<span>{item?.jobName}</span>
+						</div>
+					</Link>
 					<Grid container className="text-primary">
 						<Grid item xs={7}>
 							<PaidOutlined fontSize="inherit" className="text-xs" />

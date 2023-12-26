@@ -17,6 +17,8 @@ import useEntities from "src/hooks/useEntities";
 import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
+import { token } from "src/constants/common";
+import { jwtDecode } from "jwt-decode";
 
 const PageHideFooter = ["/nha-tuyen-dung/create-job"];
 const PageOutSide = [
@@ -64,6 +66,8 @@ const LayoutContent = ({ children }) => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
+		const tokenCookie = getCookie(token);
+		console.log("tokenData", jwtDecode(tokenCookie));
 		dispatch(setIsLogin(isLogin));
 	}, []);
 

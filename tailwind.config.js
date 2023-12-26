@@ -33,6 +33,8 @@ module.exports = {
 				placeholder: "#BBBBBB",
 				bgHeader: "#001529",
 				ff: "#fff",
+				hlBlue: "#0091ce",
+				hlRed: "#ed145b",
 			},
 			width: {
 				content: "1170px",
@@ -40,6 +42,7 @@ module.exports = {
 			},
 			boxShadow: {
 				custom1: "1px 1px 1px 1px rgba(0,0,0,.01)",
+				ccc: "0px 0px 5px #cccc",
 			},
 		},
 	},

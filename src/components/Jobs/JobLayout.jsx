@@ -1,7 +1,7 @@
 import React from "react";
-import JobSearch from "./JobSearch";
 import Banner from "./Banner";
 import JobList from "./JobList";
+import JobSearch from "src/commons/Jobs/JobSearch";
 
 const JobLayout = ({ jobInfo, majorList }) => {
 	return (

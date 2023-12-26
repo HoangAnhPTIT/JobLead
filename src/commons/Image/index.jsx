@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Image from "next/image";
+import { imageError } from "src/constants/common";
 
 const ImageFull = ({ src, alt, classname, ...props }) => {
 	return (
@@ -7,7 +8,7 @@ const ImageFull = ({ src, alt, classname, ...props }) => {
 			<Image
 				layout="fill"
 				className={classNames(["w-full !h-auto !relative", classname])}
-				src={src}
+				src={src || imageError}
 				alt={alt}
 				{...props}
 			/>
