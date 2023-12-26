@@ -1,9 +1,8 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://api.tuyendung247.vn/api/v1";
-// axios.defaults.baseURL = "https://38b3-1-55-112-17.ngrok-free.app/api/v1";
 
-export const httpPost = async (endpoint, data = {}, callback) => {
+export const httpPost = async (endpoint, data = {}) => {
 	try {
 		const response = await axios.post(endpoint, data);
 		return response?.data || response;
@@ -13,7 +12,7 @@ export const httpPost = async (endpoint, data = {}, callback) => {
 	}
 };
 
-export const httpGet = async (endpoint, params, callback) => {
+export const httpGet = async (endpoint, params) => {
 	try {
 		const response = await axios.get(endpoint, { params });
 		return response?.data || response;

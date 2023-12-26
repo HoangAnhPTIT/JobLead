@@ -1,5 +1,4 @@
 "use client";
-import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
@@ -13,6 +12,7 @@ import { apiRegister } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import { toastError, toastSuccess } from "src/commons/Toast";
+import routeMap from "src/constants/routeMap";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -29,10 +29,10 @@ const Candidate = () => {
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
 		try {
-			const response = await httpPost(apiRegister, { values });
+			const response = await httpPost(apiRegister, values);
 			if (response?.status === 200) {
 				toastSuccess("Đăng kí tài khoản thành công");
-				router.push("/dang-nhap");
+				router.push(routeMap.login);
 			} else {
 				toastError(response?.message);
 			}
@@ -111,7 +111,7 @@ const Candidate = () => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn đã có tài khoản ? <Link href="/dang-nhap">Đăng nhập</Link> |
+				Bạn đã có tài khoản ? <Link href={routeMap.login}>Đăng nhập</Link> |
 				<Link
 					href={"/dang-ky/nha-tuyen-dung"}
 					className="ml-1 hover:text-primary cursor-pointer"

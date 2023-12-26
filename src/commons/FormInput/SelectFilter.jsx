@@ -1,11 +1,17 @@
-import { Autocomplete, FormControl, TextField } from "@mui/material";
+import {
+	Autocomplete,
+	FormControl,
+	InputLabel,
+	TextField,
+} from "@mui/material";
 
 const SelectFilter = ({
+	label,
 	name,
 	required,
-	placeholder,
+	placeholder = "",
 	list,
-	classname,
+	classname = "",
 	valueKey = "id",
 	Controller,
 	control,
@@ -40,15 +46,26 @@ const SelectFilter = ({
 								onChange(resolvedValue);
 							}}
 							renderInput={(params) => (
-								<TextField
-									className={classname}
-									{...params}
-									placeholder={placeholder}
-									inputProps={{
-										...params.inputProps,
-										autoComplete: "disabled", // disable autocomplete and autofill
-									}}
-								/>
+								<>
+									{/* {label && (
+										<InputLabel
+											size="small"
+											required={required}
+											id="demo-simple-select-label"
+										>
+											{label}
+										</InputLabel>
+									)} */}
+									<TextField
+										className={classname}
+										{...params}
+										placeholder={placeholder}
+										inputProps={{
+											...params.inputProps,
+											autoComplete: "disabled", // disable autocomplete and autofill
+										}}
+									/>
+								</>
 							)}
 						/>
 					</FormControl>

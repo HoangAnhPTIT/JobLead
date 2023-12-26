@@ -9,10 +9,20 @@ import {
 	Stack,
 	TextField,
 } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { setIsLogin } from "lib/features/userSlice";
+import { useAppDispatch } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { httpPost } from "src/apis/apiCaller";
+import { apiLoginEmployer } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
+import { toastError } from "src/commons/Toast";
+import { refreshToken, token } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
+import { setCookie } from "src/helper/common";
 
 const employerIntro = [
 	"+4,000,000 ứng viên tiếp cận thông tin tuyển dụng",
@@ -22,10 +32,29 @@ const employerIntro = [
 ];
 
 const Employer = () => {
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = async (values) => {
-		console.log("values", values);
+		dispatch(updateLoading(true));
+		try {
+			const response = await httpPost(apiLoginEmployer, values);
+			if (response?.status === 200) {
+				setCookie(token, response?.tokenLogin?.token);
+				setCookie(refreshToken, response?.tokenLogin?.refreshToken);
+				setCookie("isLogin", true);
+				dispatch(setIsLogin(true));
+				router.push("/");
+			} else {
+				toastError(response?.messages[0]);
+			}
+		} catch (error) {
+			console.error("errorLogin", error);
+			toastError();
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
 
 	return (
@@ -65,18 +94,18 @@ const Employer = () => {
 								/>
 								<InputPassword register={register} />
 
-								<div className="-mt-2 mb-2">
+								{/* <div className="-mt-2 mb-2">
 									<FormControlLabel
 										control={<Checkbox />}
 										label="Nhớ mật khẩu"
 										{...register("remember")}
 									/>
-								</div>
+								</div> */}
 							</Stack>
 							<Button
 								variant="contained"
 								size="medium"
-								className="w-full uppercase bg-primary"
+								className="w-full uppercase bg-primary !mt-5"
 								onClick={handleSubmit((data) => onSubmit(data))}
 							>
 								Đăng nhập
@@ -89,7 +118,7 @@ const Employer = () => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn chưa có tài khoản ? <Link href="/dang-ky">Đăng ký</Link> |
+				Bạn chưa có tài khoản ? <Link href={routeMap.signin}>Đăng ký</Link> |
 				<Link
 					href={"/dang-nhap/ung-vien"}
 					className="ml-1 hover:text-primary cursor-pointer"

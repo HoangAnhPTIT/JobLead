@@ -1,20 +1,19 @@
 "use client";
-import { login } from "@/lib/features/userSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { CheckOutlined } from "@mui/icons-material";
-import {
-	Button,
-	Checkbox,
-	FormControlLabel,
-	Grid,
-	Stack,
-	TextField,
-} from "@mui/material";
+import { Button, Grid, Stack, TextField } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { setIsLogin } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { httpPost } from "src/apis/apiCaller";
+import { apiLoginCandidate } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
+import { toastError } from "src/commons/Toast";
+import routeMap from "src/constants/routeMap";
+import { setCookie } from "src/helper/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -29,14 +28,23 @@ const Candidate = () => {
 	const router = useRouter();
 
 	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
 		try {
-			const storeValues = { email: values.email, role: "candidate" };
-			dispatch(login({ userInfo: storeValues, isLogin: true }));
-			router.push("/");
-			document.cookie = `userInfo=${JSON.stringify(storeValues)}`;
-			document.cookie = `isLogin=true`;
+			const response = await httpPost(apiLoginCandidate, values);
+			if (response?.status === 200) {
+				setCookie("token", response?.tokenLogin?.token);
+				setCookie("refreshToken", response?.tokenLogin?.refreshToken);
+				setCookie("isLogin", true);
+				dispatch(setIsLogin(true));
+				router.push("/");
+			} else {
+				toastError(response?.messages[0]);
+			}
 		} catch (error) {
-			console.log("error", error);
+			console.error("errorLogin", error);
+			toastError();
+		} finally {
+			dispatch(updateLoading(false));
 		}
 	};
 
@@ -76,18 +84,18 @@ const Candidate = () => {
 									{...register("email")}
 								/>
 								<InputPassword register={register} />
-								<div className="-mt-2 mb-2">
+								{/* <div className="-mt-2">
 									<FormControlLabel
 										control={<Checkbox />}
 										label="Nhớ mật khẩu"
 										{...register("remember")}
 									/>
-								</div>
+								</div> */}
 							</Stack>
 							<Button
 								variant="contained"
 								size="medium"
-								className="w-full uppercase bg-primary"
+								className="w-full uppercase bg-primary !mt-5 "
 								onClick={handleSubmit((data) => onSubmit(data))}
 							>
 								Đăng nhập
@@ -100,7 +108,7 @@ const Candidate = () => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn chưa có tài khoản ? <Link href="/dang-ky">Đăng ký</Link> |
+				Bạn chưa có tài khoản ? <Link href={routeMap.signin}>Đăng ký</Link> |
 				<Link
 					href="/dang-nhap/nha-tuyen-dung"
 					className="ml-1 hover:text-primary cursor-pointer"

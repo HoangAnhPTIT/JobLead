@@ -5,6 +5,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { USER_ROLE } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 
 const candidateIntro = {
 	label: "ứng viên",
@@ -68,14 +69,14 @@ const InfoWithImage = ({ info, type }) => {
 					type === USER_ROLE.candidate ? "bg-primary" : "!bg-white",
 				])}
 				onClick={() =>
-					USER_ROLE.candidate
+					type === USER_ROLE.candidate
 						? router.push(`${path}/ung-vien`)
 						: router.push(`${path}/nha-tuyen-dung`)
 				}
 			>
 				<span className={classNames(["font-semibold"])}>
-					{path === "/dang-nhap" && "Đăng nhập"}
-					{path === "/dang-ky" && "Đăng ký"} {info.label}
+					{path === routeMap.login && "Đăng nhập"}
+					{path === routeMap.signin && "Đăng ký"} {info.label}
 				</span>
 			</Button>
 		</div>

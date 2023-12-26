@@ -2,11 +2,19 @@
 import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
+import { httpPost } from "src/apis/apiCaller";
+import { apiRegisterCompany } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
+import SelectFilter from "src/commons/FormInput/SelectFilter";
+import { toastError, toastSuccess } from "src/commons/Toast";
+import routeMap from "src/constants/routeMap";
 
 const employerIntro = [
 	"+4,000,000 ứng viên tiếp cận thông tin tuyển dụng",
@@ -16,10 +24,27 @@ const employerIntro = [
 ];
 
 const Employer = () => {
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, control } = useForm();
+	const { entities } = useAppSelector((state) => state.entity);
+	const dispatch = useAppDispatch();
+	const router = useRouter();
 
-	const onSubmit = (values) => {
-		console.log("values", values);
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
+		try {
+			const response = await httpPost(apiRegisterCompany, values);
+			if (response?.status === 200) {
+				toastSuccess("Đăng kí tài khoản thành công");
+				router.push(routeMap.login);
+			} else {
+				toastError(response?.message);
+			}
+		} catch (error) {
+			toastError("Có lỗi xảy ra vui lòng thử lại");
+			console.error("register error", error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
 
 	return (
@@ -57,7 +82,7 @@ const Employer = () => {
 								/>
 								<InputPassword required register={register} />
 								<InputForm
-									name="fullname"
+									name="fullName"
 									label="Họ và tên"
 									required
 									register={register}
@@ -80,17 +105,12 @@ const Employer = () => {
 									required
 									register={register}
 								/>
-								<InputForm
-									name="city"
+								<SelectFilter
+									name="companyCityId"
 									label="Tỉnh/Thành phố"
-									required
-									register={register}
-								/>
-								<InputForm
-									name="companyName"
-									label="Tên công ty"
-									required
-									register={register}
+									list={entities?.WorkLocation}
+									control={control}
+									Controller={Controller}
 								/>
 							</Stack>
 
@@ -114,7 +134,7 @@ const Employer = () => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn đã có tài khoản ? <Link href="/dang-nhap">Đăng nhập</Link> |
+				Bạn đã có tài khoản ? <Link href={routeMap.login}>Đăng nhập</Link> |
 				<Link
 					href="/dang-ky/ung-vien"
 					className="ml-1 hover:text-primary cursor-pointer"

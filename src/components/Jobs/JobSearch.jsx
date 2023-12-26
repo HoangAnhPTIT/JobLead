@@ -73,7 +73,6 @@ const JobSearch = () => {
 								name="career"
 								placeholder="Ngành nghề"
 								list={entities?.Career}
-								allowClear
 								valueKey="slug"
 								control={control}
 								Controller={Controller}
@@ -83,7 +82,6 @@ const JobSearch = () => {
 							<SelectFilter
 								name="workLocation"
 								placeholder="Địa điểm"
-								allowClear
 								list={entities?.WorkLocation}
 								valueKey="slug"
 								control={control}
@@ -123,7 +121,6 @@ const JobSearch = () => {
 									<SelectFilter
 										name="levelId"
 										placeholder="Vị trí"
-										allowClear
 										control={control}
 										Controller={Controller}
 										list={entities?.Level}
@@ -133,7 +130,6 @@ const JobSearch = () => {
 									<SelectFilter
 										name="experienceId"
 										placeholder="Kinh nghiệm"
-										allowClear
 										control={control}
 										Controller={Controller}
 										list={entities?.Experience}
@@ -143,7 +139,6 @@ const JobSearch = () => {
 									<SelectFilter
 										name="salaryId"
 										placeholder="Mức lương"
-										allowClear
 										control={control}
 										Controller={Controller}
 										list={entities?.Salary}
@@ -153,7 +148,6 @@ const JobSearch = () => {
 									<SelectFilter
 										name="typeOfWorkId"
 										placeholder="Loại hình công việc"
-										allowClear
 										list={entities?.TypeOfWork}
 										control={control}
 										Controller={Controller}
@@ -163,7 +157,6 @@ const JobSearch = () => {
 									<SelectFilter
 										name="genderId"
 										placeholder="Giới tính"
-										allowClear
 										control={control}
 										Controller={Controller}
 										list={entities?.Gender}

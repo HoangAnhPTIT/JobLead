@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Menu, MenuItem } from "@mui/material";
 import classNames from "classnames";
-import { login, logout } from "lib/features/userSlice";
+import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -14,11 +14,19 @@ import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
 import routeMap from "src/constants/routeMap";
 import useEntities from "src/hooks/useEntities";
+import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
-import Loading from "./Loading";
 
-const PageHideFooter = ["/employer/create-job"];
+const PageHideFooter = ["/nha-tuyen-dung/create-job"];
+const PageOutSide = [
+	routeMap.login,
+	"/dang-nhap/ung-vien",
+	"/dang-nhap/nha-tuyen-dung",
+	routeMap.signin,
+	"/dang-ky/ung-vien",
+	"/dang-ky/nha-tuyen-dung",
+];
 
 const menuItems = [
 	{ label: "Việc làm", link: `${routeMap.job}/viec-lam-hot` },
@@ -45,7 +53,7 @@ function getCookie(cname) {
 const LayoutContent = ({ children }) => {
 	const router = useRouter();
 	const pathname = usePathname();
-	const { userInfo, isLogin } = useAppSelector((state) => state.user);
+	const { isLogin } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
 	const entities = useEntities();
 
@@ -56,11 +64,12 @@ const LayoutContent = ({ children }) => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
-		const userInfo = getCookie("userInfo")
-			? JSON?.parse(getCookie("userInfo"))
-			: null;
-		dispatch(login({ isLogin, userInfo }));
+		dispatch(setIsLogin(isLogin));
 	}, []);
+
+	useEffect(() => {
+		isLogin && PageOutSide.includes(pathname) && router.push("/");
+	}, [pathname, isLogin]);
 
 	useEffect(() => {
 		!isEmpty(entities) && dispatch(setEntities(entities));
@@ -75,7 +84,7 @@ const LayoutContent = ({ children }) => {
 					styles.header,
 				])}
 			>
-				<ToastContainer position="top-center" autoClose={5000} />
+				<ToastContainer position="top-center" autoClose={3000} />
 				<Grid container justifyContent="space-between" alignContent="center">
 					<Grid item>
 						<Grid container alignItems="center" spacing={2} className="h-full">
@@ -111,7 +120,7 @@ const LayoutContent = ({ children }) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					{!isLogin ? (
+					{isLogin === false && (
 						<Grid
 							item
 							className="text-white font-semibold text-center flex"
@@ -129,13 +138,14 @@ const LayoutContent = ({ children }) => {
 								</div>
 							</Link>
 						</Grid>
-					) : (
+					)}
+					{isLogin && (
 						<div>
 							<div
 								className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase"
 								onClick={(e) => setAnchorEl(e.currentTarget)}
 							>
-								<span className="text-sm">{userInfo?.email}</span>
+								<span className="text-sm">Tài khoản</span>
 							</div>
 							<Menu
 								id="basic-menu"

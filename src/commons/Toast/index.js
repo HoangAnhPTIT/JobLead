@@ -5,7 +5,7 @@ export const toastSuccess = (text) => {
 		theme: "light",
 	});
 };
-export const toastError = (text) => {
+export const toastError = (text = "Có lỗi xảy ra, vui lòng thử lại") => {
 	toast(<div className="text-primary">{text}</div>, {
 		theme: "light",
 	});

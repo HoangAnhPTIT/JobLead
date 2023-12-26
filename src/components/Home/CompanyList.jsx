@@ -18,12 +18,14 @@ const CompanyList = ({ items }) => {
 				<SwiperSlide key={i}>
 					<Link href={item?.id}>
 						<div className="image-shadow p-2">
-							<Image
-								src={item?.avatar}
-								width={200}
-								height={200}
-								alt={item?.name}
-							/>
+							{item?.avatar && (
+								<Image
+									src={item?.avatar}
+									width={200}
+									height={200}
+									alt={item?.name}
+								/>
+							)}
 						</div>
 						<div className="text-center text-sm mt-2 text-primary">
 							{item?.name}

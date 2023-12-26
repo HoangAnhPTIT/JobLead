@@ -58,7 +58,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="career"
 							placeholder="Ngành nghề"
-							register={register}
 							list={entities?.Career}
 							valueKey="slug"
 						/>
@@ -66,7 +65,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							control={control}
 							Controller={Controller}
 							name="workLocation"
-							register={register}
 							placeholder="Địa điểm"
 							list={entities?.WorkLocation}
 							valueKey="slug"
@@ -76,7 +74,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="levelId"
 							placeholder="Cấp bậc"
-							register={register}
 							list={entities?.Level}
 						/>
 						<SelectFilter
@@ -84,7 +81,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="experienceId"
 							placeholder="Năm kinh nghiệm"
-							register={register}
 							list={entities?.Experience}
 						/>
 						<SelectFilter
@@ -92,7 +88,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="salaryId"
 							placeholder="Mức lương"
-							register={register}
 							list={entities?.Salary}
 						/>
 						<SelectFilter
@@ -100,7 +95,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="typeOfWorkId"
 							placeholder="Loại hình công việc"
-							register={register}
 							list={entities?.TypeOfWork}
 						/>
 						<SelectFilter
@@ -108,7 +102,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 							Controller={Controller}
 							name="genderId"
 							placeholder="Giới tính"
-							register={register}
 							list={entities?.Gender}
 						/>
 					</Stack>
