@@ -1,31 +1,47 @@
 import { Business } from "@mui/icons-material";
+import moment from "moment";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { apiCompany } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
+import { imageError } from "src/constants/common";
 
-function JobGeneralInfo() {
+function JobGeneralInfo({ data }) {
 	return (
 		<div className="shadow-ccc p-5 bg-white">
 			<div className="flex gap-8">
 				<div>
-					<ImageFull src={"https://placehold.co/160.png"} alt={""} />
+					<Image
+						width={160}
+						height={160}
+						src={data?.company?.avatar || imageError}
+						alt={data?.company?.name}
+					/>
 				</div>
-				<div className="flex-1">
-					<h1 className="text-33 text-xl font-semibold ">Cộng tác viên</h1>
-					<div className="text-hlBlue">
-						<Business /> Công ty xzo
-					</div>
+				<div className="flex-1 flex flex-col gap-1">
+					<h1 className="text-33 text-xl font-semibold ">{data?.name}</h1>
+					<Link href={`${apiCompany}/${data?.company?.id}`}>
+						<div className="text-hlBlue">
+							<Business /> {data?.company?.name}
+						</div>
+					</Link>
 					<div className="text-sm">
 						<span className="font-semibold text-33 mr-1">
 							Khu vực tuyển dụng:
 						</span>
-						<span className="text-hlBlue">Hà nội</span>
+						<span className="text-hlBlue">{data?.workLocation}</span>
 					</div>
 					<div className="text-sm">
 						<span className="font-semibold text-33 mr-1">Mức lương:</span>
-						<span className="text-hlRed">15 - 20 trẹo</span>
+						<span className="text-hlRed">
+							{data?.salary?.name || data?.salary}
+						</span>
 					</div>
 					<div className="font-light text-sm">
-						Lượt xem: 80 . Hạn nộp hồ sơ: 01/01/2024 . Ngày duyệt: 18/12/2023{" "}
+						Lượt xem: 0 . Hạn nộp hồ sơ:{" "}
+						{moment(data?.submissionDeadline).format("DD/MM/YYYY")} . Ngày
+						duyệt: {moment(data?.approvalDate).format("DD/MM/YYYY")}
 					</div>
 				</div>
 			</div>

@@ -11,13 +11,13 @@ import {
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { useAppSelector } from "lib/hooks";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { httpGet, httpPost } from "src/apis/apiCaller";
+import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpGet } from "src/apis/apiCaller";
 import { apiCompany, apiCompanyInfo, apiJob } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import MultipleSelectWithLabel from "src/commons/FormInput/MultipleSelectWithLabel";
@@ -25,20 +25,22 @@ import SelectWithLabel from "src/commons/FormInput/SelectWithLabel";
 import ImageFull from "src/commons/Image";
 import { companyId } from "src/constants/common";
 import ApproveRule from "./ApproveRule";
+import { updateLoading } from "lib/features/loadingSlice";
+import { toastSuccess } from "src/commons/Toast";
 
 const CreateJobContent = () => {
 	const { register, control, handleSubmit, reset, setValue } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [serviceList, setServiceList] = useState([]);
+	const dispatch = useAppDispatch();
 
 	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
 		try {
-			console.log("values", values);
 			const bodyData = {
 				serviceIds: values.services,
 				job: {
 					...values?.jobInfo,
-					companyId: companyId,
 					jobRequirement: {
 						...values?.jobRequirement,
 						submitDeadline: moment(
@@ -48,22 +50,15 @@ const CreateJobContent = () => {
 					contactInfo: values?.contact,
 				},
 			};
-			const response = await httpPost(apiJob, bodyData);
+			const response = await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
-				toast("Đăng tin tuyển dụng thành công", {
-					position: "top-center",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
+				toastSuccess("Đăng tin tuyển dụng thành công");
 				reset();
 			}
 		} catch (error) {
 			console.log(error);
+		} finally {
+			dispatch(updateLoading(false));
 		}
 	};
 

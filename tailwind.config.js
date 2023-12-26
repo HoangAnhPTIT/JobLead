@@ -33,6 +33,7 @@ module.exports = {
 				placeholder: "#BBBBBB",
 				bgHeader: "#001529",
 				ff: "#fff",
+				dd: "#ddd",
 				hlBlue: "#0091ce",
 				hlRed: "#ed145b",
 			},

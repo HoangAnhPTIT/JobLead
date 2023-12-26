@@ -45,7 +45,6 @@ instance.interceptors.response.use(
 
 	async (error) => {
 		const originalRequest = error.config;
-		console.log("originalRequest", originalRequest);
 		// Kiểm tra mã lỗi xác thực
 		if (
 			error.response?.status === 401 &&
