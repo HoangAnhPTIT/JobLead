@@ -3,10 +3,12 @@ import JobSearch from "src/commons/Jobs/JobSearch";
 import JobGeneralInfo from "./JobGeneralInfo";
 import JobDetailInfo from "./JobDetailInfo";
 import JobCompanyInfo from "./JobCompanyInfo";
+import JobSticky from "./JobSticky";
 
 const JobDetailContent = ({ data }) => {
 	return (
 		<div>
+			<JobSticky data={data} />
 			<JobSearch />
 			<div className="bg-bgBody py-5">
 				<div className="w-content mx-auto">

@@ -7,12 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiRegister } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
-import { toastError, toastSuccess } from "src/commons/Toast";
-import { imageError } from "src/constants/common";
+import { errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const candidateIntro = [
@@ -32,13 +32,13 @@ const Candidate = () => {
 		try {
 			const response = await httpPost(apiRegister, values);
 			if (response?.status === 200) {
-				toastSuccess("Đăng kí tài khoản thành công");
+				toast.success("Đăng kí tài khoản thành công");
 				router.push(routeMap.login);
 			} else {
-				toastError(response?.message);
+				toast.error(response?.message);
 			}
 		} catch (error) {
-			toastError("Có lỗi xảy ra vui lòng thử lại");
+			toast.error(errorMessage);
 			console.error("register error", error);
 		} finally {
 			dispatch(updateLoading(false));

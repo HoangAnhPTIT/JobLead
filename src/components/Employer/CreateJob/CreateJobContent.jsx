@@ -11,6 +11,7 @@ import {
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -25,8 +26,6 @@ import SelectWithLabel from "src/commons/FormInput/SelectWithLabel";
 import ImageFull from "src/commons/Image";
 import { companyId } from "src/constants/common";
 import ApproveRule from "./ApproveRule";
-import { updateLoading } from "lib/features/loadingSlice";
-import { toastSuccess } from "src/commons/Toast";
 
 const CreateJobContent = () => {
 	const { register, control, handleSubmit, reset, setValue } = useForm();
@@ -52,7 +51,7 @@ const CreateJobContent = () => {
 			};
 			const response = await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
-				toastSuccess("Đăng tin tuyển dụng thành công");
+				toast.success("Đăng tin tuyển dụng thành công");
 				reset();
 			}
 		} catch (error) {

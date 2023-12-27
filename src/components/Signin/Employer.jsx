@@ -1,5 +1,4 @@
 "use client";
-import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
@@ -8,13 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiRegisterCompany } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
-import { toastError, toastSuccess } from "src/commons/Toast";
-import { imageError } from "src/constants/common";
+import { errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const employerIntro = [
@@ -35,13 +34,13 @@ const Employer = () => {
 		try {
 			const response = await httpPost(apiRegisterCompany, values);
 			if (response?.status === 200) {
-				toastSuccess("Đăng kí tài khoản thành công");
+				toast.success("Đăng kí tài khoản thành công");
 				router.push(routeMap.login);
 			} else {
-				toastError(response?.message);
+				toast.error(response?.message);
 			}
 		} catch (error) {
-			toastError("Có lỗi xảy ra vui lòng thử lại");
+			toast.error(errorMessage);
 			console.error("register error", error);
 		} finally {
 			dispatch(updateLoading(false));

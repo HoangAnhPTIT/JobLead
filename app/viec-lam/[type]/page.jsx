@@ -16,9 +16,8 @@ const JobsPage = async ({ params, searchParams }) => {
 	const { page } = searchParams;
 
 	const hotJobResponse = await httpGet(
-		`${apiJob}/filter/service/${JOB_TYPE_MAP_ROUTE[type]}?page=${
-			page || 1
-		}&size=10`
+		`${apiJob}/filter/service/${JOB_TYPE_MAP_ROUTE[type]}`,
+		{ page: page || 1, size: 10 }
 	);
 
 	const majorResponse = await httpGet(`${apiJob}/count/career`);

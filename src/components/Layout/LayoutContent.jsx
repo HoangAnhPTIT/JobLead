@@ -74,7 +74,12 @@ const LayoutContent = ({ children }) => {
 					styles.header,
 				])}
 			>
-				<ToastContainer position="top-center" autoClose={3000} />
+				<ToastContainer
+					position="top-center"
+					autoClose={2000}
+					bodyClassName="h-12"
+					theme="light"
+				/>
 				<Grid container justifyContent="space-between" alignContent="center">
 					<Grid item>
 						<Grid container alignItems="center" spacing={2} className="h-full">
