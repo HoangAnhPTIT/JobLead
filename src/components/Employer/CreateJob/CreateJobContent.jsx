@@ -38,7 +38,7 @@ const CreateJobContent = () => {
 		dispatch(updateLoading(true));
 		try {
 			const bodyData = {
-				serviceIds: values.services,
+				serviceIds: values.services || [],
 				job: {
 					...values?.jobInfo,
 					jobRequirement: {

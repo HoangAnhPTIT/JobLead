@@ -2,9 +2,9 @@ import ImageFull from "src/commons/Image";
 import JobSearch from "src/commons/Jobs/JobSearch";
 import JobGeneralInfo from "./JobGeneralInfo";
 import JobDetailInfo from "./JobDetailInfo";
+import JobCompanyInfo from "./JobCompanyInfo";
 
 const JobDetailContent = ({ data }) => {
-	console.log(data);
 	return (
 		<div>
 			<JobSearch />
@@ -16,9 +16,8 @@ const JobDetailContent = ({ data }) => {
 					<div className="mb-3">
 						<JobGeneralInfo data={data} />
 					</div>
-					<div>
-						<JobDetailInfo data={data} />
-					</div>
+					<JobDetailInfo data={data} />
+					<JobCompanyInfo data={data?.company} />
 				</div>
 			</div>
 		</div>

@@ -7,17 +7,21 @@ import {
 	PinDrop,
 	WorkHistory,
 } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, TextareaAutosize } from "@mui/material";
 
 const Description = ({ title, content }) => {
 	return (
-		<div className="p-5">
+		<div className="px-5">
 			<div className="border-b border-dd">
 				<span className="text-hlBlue text-lg uppercase font-semibold border-b-2 border-hlBlue pb-0.5">
 					{title}
 				</span>
 			</div>
-			<div className="px-2 py-4">{content}</div>
+			<div className="px-2 pt-4">
+				<TextareaAutosize className="w-full resize-none outline-none" readOnly>
+					{content}
+				</TextareaAutosize>
+			</div>
 		</div>
 	);
 };
@@ -32,14 +36,14 @@ const JobDetailInfo = ({ data }) => {
 							<div className="mb-4">
 								<Paid className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Mức lương:</span>
-								Thương lượng
+								{data?.salary?.name}
 							</div>
 							<div className="mb-4">
 								<WorkHistory className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">
 									Hình thức làm việc:
 								</span>
-								Dài hạn
+								{data?.typeOfWork?.name}
 							</div>
 							<div className="mb-4">
 								<PinDrop className="text-primary" />
@@ -72,23 +76,19 @@ const JobDetailInfo = ({ data }) => {
 							<div className="mb-4">
 								<Engineering className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Ngành nghề:</span>
-								Cơ khí chế tạo
+								{data?.career?.name}
 							</div>
 						</Grid>
 					</Grid>
-					<div>
+					<div className="mt-5 pr-10">
 						<Description
 							title={"Mô tả công việc"}
 							content={data?.description}
 						/>
-					</div>
-					<div>
 						<Description
 							title={"Quyền lợi được hưởng"}
 							content={data?.benifitDescription}
 						/>
-					</div>
-					<div>
 						<Description
 							title={"Yêu cầu công việc"}
 							content={data?.jobRequirement?.requestDescription}
