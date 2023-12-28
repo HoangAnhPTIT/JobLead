@@ -85,7 +85,7 @@ const InfoWithImage = ({ info, type }) => {
 
 const Intro = () => {
 	return (
-		<div gap={40} className="flex gap-10 justify-center bg-bgBody pb-10 pt-24">
+		<div className="flex gap-10 justify-center bg-bgBody pb-10 pt-24">
 			<InfoWithImage info={candidateIntro} type={USER_ROLE.candidate} />
 			<InfoWithImage info={employerIntro} type={USER_ROLE.employer} />
 		</div>

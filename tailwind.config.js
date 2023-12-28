@@ -29,6 +29,7 @@ module.exports = {
 				red1: "#dd0000",
 				red2: "#ff0000",
 				yellow1: "#f3c01a",
+				yellow2: "#fdd33a",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
 				bgHeader: "#001529",
@@ -36,6 +37,9 @@ module.exports = {
 				dd: "#ddd",
 				hlBlue: "#0091ce",
 				hlRed: "#ed145b",
+				bgCv: "#212529",
+				note: "#c60001",
+				bd: "#bdbdbd",
 			},
 			width: {
 				content: "1170px",

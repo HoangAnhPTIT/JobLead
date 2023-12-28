@@ -1,6 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Menu, MenuItem } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
@@ -20,6 +21,9 @@ import styles from "./styles.module.scss";
 import { imageError, token } from "src/constants/common";
 import { jwtDecode } from "jwt-decode";
 import { deleteAllCookies, getCookie } from "src/helper/common";
+import { viVN } from "@mui/material/locale";
+
+const theme = createTheme(viVN);
 
 const PageHideFooter = ["/nha-tuyen-dung/create-job"];
 const PageOutSide = [
@@ -66,104 +70,111 @@ const LayoutContent = ({ children }) => {
 	}, [entities]);
 
 	return (
-		<div className="layout">
-			<Loading />
-			<div
-				className={classNames([
-					"h-16 flex content-center px-10 bg-bgHeader",
-					styles.header,
-				])}
-			>
-				<ToastContainer position="top-center" autoClose={3000} />
-				<Grid container justifyContent="space-between" alignContent="center">
-					<Grid item>
-						<Grid container alignItems="center" spacing={2} className="h-full">
+		<ThemeProvider theme={theme}>
+			<div className="layout">
+				<Loading />
+				<div
+					className={classNames([
+						"h-16 flex content-center px-10 bg-bgHeader",
+						styles.header,
+					])}
+				>
+					<ToastContainer position="top-center" autoClose={3000} />
+					<Grid container justifyContent="space-between" alignContent="center">
+						<Grid item>
 							<Grid
-								item
-								className="cursor-pointer"
-								onClick={() => router.push("/")}
+								container
+								alignItems="center"
+								spacing={2}
+								className="h-full"
 							>
-								<Image
-									src={"https://placehold.co/112x41.png" || imageError}
-									alt="logo"
-									width={112}
-									height={41}
-								/>
-							</Grid>
-							<Grid item>
-								<Grid container>
-									{menuItems?.map((item, i) => (
-										<Link href={item?.link} key={i}>
-											<Grid
-												item
-												key={i}
-												className={classNames([
-													"hover:bg-primary hover:text-white px-4 uppercase font-semibold text-primary cursor-pointer",
-													item?.link === pathname && "bg-primary text-white",
-												])}
-											>
-												{item?.label}
-											</Grid>
-										</Link>
-									))}
+								<Grid
+									item
+									className="cursor-pointer"
+									onClick={() => router.push("/")}
+								>
+									<Image
+										src={"https://placehold.co/112x41.png" || imageError}
+										alt="logo"
+										width={112}
+										height={41}
+									/>
+								</Grid>
+								<Grid item>
+									<Grid container>
+										{menuItems?.map((item, i) => (
+											<Link href={item?.link} key={i}>
+												<Grid
+													item
+													key={i}
+													className={classNames([
+														"hover:bg-primary hover:text-white px-4 uppercase font-semibold text-primary cursor-pointer",
+														item?.link === pathname && "bg-primary text-white",
+													])}
+												>
+													{item?.label}
+												</Grid>
+											</Link>
+										))}
+									</Grid>
 								</Grid>
 							</Grid>
 						</Grid>
-					</Grid>
-					{isLogin === false && (
-						<Grid
-							item
-							className="text-white font-semibold text-center flex"
-							align="middle"
-							justify="center"
-						>
-							<Link href={routeMap.signin}>
-								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-									<span className="text-sm">Đăng ký</span>
-								</div>
-							</Link>
-							<Link href={routeMap.login}>
-								<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
-									<span className="text-sm">Đăng nhập</span>
-								</div>
-							</Link>
-						</Grid>
-					)}
-					{isLogin && (
-						<div>
-							<div
-								className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase"
-								onClick={(e) => setAnchorEl(e.currentTarget)}
+						{isLogin === false && (
+							<Grid
+								item
+								className="text-white font-semibold text-center flex"
+								align="middle"
+								justify="center"
 							>
-								<span className="text-sm">Tài khoản</span>
-							</div>
-							<Menu
-								id="basic-menu"
-								anchorEl={anchorEl}
-								open={Boolean(anchorEl)}
-								MenuListProps={{
-									"aria-labelledby": "basic-button",
-								}}
-							>
-								<MenuItem
-									onClick={() => {
-										dispatch(logout());
-										router.push("/");
-										setAnchorEl(null);
+								<Link href={routeMap.signin}>
+									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+										<span className="text-sm">Đăng ký</span>
+									</div>
+								</Link>
+								<Link href={routeMap.login}>
+									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+										<span className="text-sm">Đăng nhập</span>
+									</div>
+								</Link>
+							</Grid>
+						)}
+						{isLogin && (
+							<div>
+								<div
+									className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase"
+									onClick={(e) => setAnchorEl(e.currentTarget)}
+								>
+									<span className="text-sm">Tài khoản</span>
+								</div>
+								<Menu
+									id="basic-menu"
+									anchorEl={anchorEl}
+									open={Boolean(anchorEl)}
+									MenuListProps={{
+										"aria-labelledby": "basic-button",
 									}}
 								>
-									Đăng xuất
-								</MenuItem>
-							</Menu>
-						</div>
-					)}
-				</Grid>
+									<MenuItem
+										onClick={() => {
+											dispatch(logout());
+											router.push("/");
+											setAnchorEl(null);
+										}}
+									>
+										Đăng xuất
+									</MenuItem>
+								</Menu>
+							</div>
+						)}
+					</Grid>
+				</div>
+				<Suspense fallback={<SuspenseLoading />}>
+					<div>{children}</div>
+				</Suspense>
+				{!hideFooter && <FooterLayout />}
 			</div>
-			<Suspense fallback={<SuspenseLoading />}>
-				<div>{children}</div>
-			</Suspense>
-			{!hideFooter && <FooterLayout />}
-		</div>
+		</ThemeProvider>
 	);
 };
 export default LayoutContent;

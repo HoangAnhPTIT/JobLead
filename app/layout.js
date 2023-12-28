@@ -1,6 +1,6 @@
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import "app/globals.css";
 import { Roboto } from "next/font/google";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
 

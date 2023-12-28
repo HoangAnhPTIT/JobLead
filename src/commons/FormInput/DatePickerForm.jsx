@@ -3,7 +3,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Controller } from "react-hook-form";
 
-export default function DatePickerForm({ label, name, required, control }) {
+export default function DatePickerForm({
+	label,
+	name,
+	required,
+	control,
+	...options
+}) {
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
 			<Controller
@@ -19,6 +25,7 @@ export default function DatePickerForm({ label, name, required, control }) {
 						slotProps={{
 							textField: { size: "small", fullWidth: true, required },
 						}}
+						{...options}
 					/>
 				)}
 			/>
