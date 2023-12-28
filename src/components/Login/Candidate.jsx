@@ -8,11 +8,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiLoginCandidate } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
-import { toastError } from "src/commons/Toast";
-import { imageError } from "src/constants/common";
+import { errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { setCookie } from "src/helper/common";
 
@@ -39,11 +39,11 @@ const Candidate = () => {
 				dispatch(setIsLogin(true));
 				router.push("/");
 			} else {
-				toastError(response?.messages[0]);
+				toast.error(response?.messages[0]);
 			}
 		} catch (error) {
 			console.error("errorLogin", error);
-			toastError();
+			toast.error(errorMessage);
 		} finally {
 			dispatch(updateLoading(false));
 		}

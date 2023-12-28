@@ -24,3 +24,4 @@ export const refreshToken = "refreshToken";
 export const imageError = "/image-error.png";
 
 export const CV_TYPE = {};
+export const errorMessage = "Có lỗi xảy ra, vui lòng thử lại";

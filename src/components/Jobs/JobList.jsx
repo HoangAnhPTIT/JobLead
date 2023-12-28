@@ -50,7 +50,7 @@ const JobList = ({ jobList, majorList }) => {
 						workLocationId: paramValue(location),
 						careerId: paramValue(career),
 						paging: {
-							page: getCurrentPage,
+							page: Number(getCurrentPage),
 							size: 10,
 						},
 					});
@@ -60,9 +60,8 @@ const JobList = ({ jobList, majorList }) => {
 			} else if (type) {
 				const searchData = async () => {
 					const responseData = await httpGet(
-						`${apiJob}/filter/service/${JOB_TYPE_MAP_ROUTE[type]}?page=${
-							searchParams?.page || 1
-						}&size=10`
+						`${apiJob}/filter/service/${JOB_TYPE_MAP_ROUTE[type]}`,
+						{ page: searchParams?.page || 1, size: 10 }
 					);
 					setJobsInfo(responseData?.data);
 				};
@@ -80,7 +79,7 @@ const JobList = ({ jobList, majorList }) => {
 					<Category
 						icon={<SearchOutlined />}
 						title={jobsInfo?.title}
-						contentClass="border-b-0"
+						contentClass="border-0"
 					>
 						{jobsInfo?.count > 0 ? (
 							jobsInfo?.jobs?.map((item, i) => (
