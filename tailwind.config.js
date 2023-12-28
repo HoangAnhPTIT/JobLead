@@ -40,6 +40,7 @@ module.exports = {
 				bgCv: "#212529",
 				note: "#c60001",
 				bd: "#bdbdbd",
+				ee: "#eee",
 			},
 			width: {
 				content: "1170px",

@@ -1,0 +1,56 @@
+.basic {
+	:global {
+		.MuiInputBase-root {
+			fieldset {
+				border: 0 !important;
+			}
+		}
+	}
+	.yourName {
+		input {
+			font-size: 40px;
+			padding: 0 14px;
+		}
+	}
+	.position {
+		input {
+			font-size: 18px;
+		}
+	}
+}
+
+.cvItem {
+	.info {
+		position: relative;
+		border-left: 1px solid #ccc;
+		margin-left: 16px;
+	}
+	.item {
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			left: -57.5px;
+			top: 3px;
+			z-index: 10;
+			font-size: 15px;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			border-color: #fff;
+			background: #009ce0;
+		}
+	}
+	.time {
+		position: relative;
+		&::before {
+			content: "";
+			border-right: 10px solid #009ce0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			position: absolute;
+			left: -10px;
+			top: 0px;
+		}
+	}
+}
