@@ -46,12 +46,12 @@ const CvLayout = () => {
 			/>
 			<div className="bg-bgCv py-5">
 				<div className="w-[1300px] mx-auto">
-					<Grid container>
+					<Grid container spacing={3}>
 						<Grid item xs={8}>
 							<Basic />
 						</Grid>
 						<Grid item xs={4}>
-							<Stack gap={2}>
+							<Stack gap={2} className="pr-5">
 								<div>
 									<Button
 										variant="contained"
