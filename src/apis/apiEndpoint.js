@@ -11,3 +11,13 @@ export const apiLoginEmployer = `${apiAuthen}/login/employer`;
 export const apiRegister = `${apiAuthen}/register`;
 export const apiRegisterCompany = `${apiAuthen}/register-company`;
 export const apiRefreshToken = `${apiAuthen}/refresh-token`;
+
+export const apiCandidate = "Candidate";
+export const apiCandidateCareerGoal = `${apiCandidate}/career-goal`;
+export const apiCandidateInfo = `${apiCandidate}/contact-info`;
+export const apiCandidateProject = `${apiCandidate}/projects`;
+export const apiCandidateSkill = `${apiCandidate}/skill`;
+export const apiCandidateEducation = `${apiCandidate}/education`;
+export const apiCandidateExperience = `${apiCandidate}/experience`;
+export const apiCandidateItSkill = `${apiCandidate}/it-skill`;
+export const apiCandidateLanguageSkill = `${apiCandidate}/language-skill`;

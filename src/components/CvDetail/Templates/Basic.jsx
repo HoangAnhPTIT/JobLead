@@ -17,13 +17,16 @@ import {
 import { Grid, Rating, TextField } from "@mui/material";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
+import { CV_MODAL_TYPES } from "src/constants/cv";
 
 const color = "#009ce0";
 
-const CvItem = ({ icon, title, content }) => {
-	console.log("content", content);
+const CvItem = ({ icon, title, content, onClick }) => {
 	return (
-		<div className={styles.cvItem}>
+		<div
+			className={classNames("cursor-pointer", styles.cvItem)}
+			onClick={onClick}
+		>
 			<div className="pt-2" style={{ color: color }}>
 				{icon}
 				<span className="uppercase ml-4 text-xl">{title}</span>
@@ -85,7 +88,7 @@ const itSkills = [
 	},
 ];
 
-const Basic = () => {
+const Basic = ({ setModalUpdating }) => {
 	return (
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>
@@ -116,6 +119,7 @@ const Basic = () => {
 								{ time: "1-2", content: "sdb" },
 								{ time: "1-2", content: "sdb" },
 							]}
+							onClick={() => setModalUpdating(CV_MODAL_TYPES.education)}
 						/>
 						<CvItem
 							icon={<FolderShared style={{ color, fontSize: 50 }} />}
@@ -124,22 +128,28 @@ const Basic = () => {
 								{ time: "1-2", content: "sdb" },
 								{ time: "1-2", content: "sdb" },
 							]}
+							onClick={() => setModalUpdating(CV_MODAL_TYPES.experience)}
 						/>
 						<CvItem
 							icon={<BorderColor style={{ color, fontSize: 50 }} />}
 							title="Kỹ năng"
 							content={[{ content: "sdb", detail: [123, 345, 567] }]}
+							onClick={() => setModalUpdating(CV_MODAL_TYPES.skill)}
 						/>
 						<CvItem
 							icon={<RecentActors style={{ color, fontSize: 50 }} />}
-							title="Kỹ năng"
+							title="Người tham chiếu"
 							content={[{ content: "sdb" }]}
+							onClick={() => setModalUpdating(CV_MODAL_TYPES.reference)}
 						/>
 					</div>
 				</Grid>
 				<Grid item xs={5}>
 					<PhotoCamera style={{ fontSize: 150, color: "#333" }} />
-					<div>
+					<div
+						className="cursor-pointer"
+						onClick={() => setModalUpdating(CV_MODAL_TYPES.careerGoal)}
+					>
 						<div className="text-xl" style={{ color }}>
 							Mục tiêu nghề nghiệp
 						</div>

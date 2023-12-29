@@ -48,7 +48,7 @@ const CvLayout = () => {
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>
-							<Basic />
+							<Basic setModalUpdating={setModalUpdating} />
 						</Grid>
 						<Grid item xs={4}>
 							<Stack gap={2} className="pr-5">

@@ -23,3 +23,13 @@
 .header {
 	line-height: 64px;
 }
+
+.toastCustom {
+	max-width: 500px;
+	width: fit-content;
+	:global {
+		.Toastify__toast-body > div:last-child {
+			line-height: 28px;
+		}
+	}
+}

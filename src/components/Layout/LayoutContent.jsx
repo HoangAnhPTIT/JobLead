@@ -55,8 +55,8 @@ const LayoutContent = ({ children }) => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
-		// const tokenCookie = getCookie(token);
-		// console.log("tokenData", tokenCookie);
+		const tokenCookie = getCookie(token);
+		console.log("tokenData", tokenCookie);
 		dispatch(setIsLogin(isLogin));
 		deleteAllCookies();
 	}, []);
@@ -79,7 +79,12 @@ const LayoutContent = ({ children }) => {
 						styles.header,
 					])}
 				>
-					<ToastContainer position="top-center" autoClose={3000} />
+					<ToastContainer
+						position="top-center"
+						autoClose={2000}
+						theme="light"
+						className={styles.toastCustom}
+					/>
 					<Grid container justifyContent="space-between" alignContent="center">
 						<Grid item>
 							<Grid
