@@ -40,6 +40,7 @@ const CreateJobContent = () => {
 				serviceIds: values.services || [],
 				job: {
 					...values?.jobInfo,
+					numOfRecruitment: Number(values?.jobInfo?.numOfRecruitment || 0),
 					jobRequirement: {
 						...values?.jobRequirement,
 						submitDeadline: moment(

@@ -1,6 +1,6 @@
 "use client";
 import { Button, Grid, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import ModalEducation from "./CvModal/ModalEducation";
 import ModalExperience from "./CvModal/ModalExperience";
@@ -10,13 +10,24 @@ import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalGeneralinfo from "./CvModal/ModalGeneralInfo";
 import { Check, Edit, Info, Save } from "@mui/icons-material";
 import Basic from "./Templates/Basic";
+import { httpAuthGet } from "src/apis/apiAuthCaller";
+import { apiCandidate } from "src/apis/apiEndpoint";
 
 const CvLayout = () => {
 	const [modalUpdating, setModalUpdating] = useState(null);
+	const [candidateInfo, setCandidateInfo] = useState();
 
 	const handleClose = () => {
 		setModalUpdating(null);
 	};
+
+	useEffect(() => {
+		const getCandidateInfo = async () => {
+			const response = await httpAuthGet({ endpoint: apiCandidate });
+			console.log("response", response);
+		};
+		getCandidateInfo();
+	}, []);
 
 	return (
 		<>

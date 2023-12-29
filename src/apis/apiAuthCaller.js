@@ -8,9 +8,9 @@ import {
 } from "./apiEndpoint";
 import routeMap from "src/constants/routeMap";
 
-// const baseURL = "https://api.tuyendung247.vn/api/v1";
-const baseURL =
-	"https://bcd8-2402-800-73e4-54a5-310f-99ff-1eae-feb2.ngrok-free.app";
+const baseURL = "https://api.tuyendung247.vn/api/v1";
+// const baseURL =
+// 	"https://bcd8-2402-800-73e4-54a5-310f-99ff-1eae-feb2.ngrok-free.app";
 
 const instance = axios.create({
 	baseURL,

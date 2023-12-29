@@ -12,7 +12,7 @@ export const apiRegister = `${apiAuthen}/register`;
 export const apiRegisterCompany = `${apiAuthen}/register-company`;
 export const apiRefreshToken = `${apiAuthen}/refresh-token`;
 
-export const apiCandidate = "Candidate";
+export const apiCandidate = "/Candidate";
 export const apiCandidateCareerGoal = `${apiCandidate}/career-goal`;
 export const apiCandidateInfo = `${apiCandidate}/contact-info`;
 export const apiCandidateProject = `${apiCandidate}/projects`;
