@@ -16,42 +16,61 @@ import Basic from "./Templates/Basic";
 const CvLayout = () => {
 	const [modalUpdating, setModalUpdating] = useState(null);
 	const [candidateInfo, setCandidateInfo] = useState();
+	const [educationIndex, setEducationIndex] = useState(null);
+	const [experienceIndex, setExperienceIndex] = useState(null);
+
+	const getCandidateInfo = async () => {
+		const response = await httpAuthGet({ endpoint: apiCandidate });
+		setCandidateInfo(response?.data);
+	};
 
 	const handleClose = () => {
+		getCandidateInfo();
 		setModalUpdating(null);
+		setEducationIndex(null);
+		setEducationIndex(null);
+	};
+
+	const deleteEducation = (index) => {
+		const newData = [...candidateInfo?.educations]?.splice(index, 1);
+		console.log("newData", index, candidateInfo?.educations, newData);
 	};
 
 	useEffect(() => {
-		const getCandidateInfo = async () => {
-			const response = await httpAuthGet({ endpoint: apiCandidate });
-			setCandidateInfo(response?.data);
-		};
 		getCandidateInfo();
 	}, []);
 
 	return (
 		<>
 			<ModalEducation
+				index={educationIndex}
+				data={candidateInfo?.educations}
 				open={modalUpdating === CV_MODAL_TYPES.education}
 				handleClose={handleClose}
 			/>
 			<ModalExperience
+				index={experienceIndex}
+				data={candidateInfo?.experiences}
 				open={modalUpdating === CV_MODAL_TYPES.experience}
 				handleClose={handleClose}
 			/>
 			<ModalSkill
+				data={candidateInfo}
 				open={modalUpdating === CV_MODAL_TYPES.skill}
 				handleClose={handleClose}
 			/>
 			<ModalReference
+				data={candidateInfo}
 				open={modalUpdating === CV_MODAL_TYPES.reference}
 				handleClose={handleClose}
 			/>
 			<ModalCareerGoal
+				data={candidateInfo}
 				open={modalUpdating === CV_MODAL_TYPES.careerGoal}
 				handleClose={handleClose}
 			/>
 			<ModalGeneralinfo
+				data={candidateInfo}
 				open={modalUpdating === CV_MODAL_TYPES.generalInfo}
 				handleClose={handleClose}
 			/>
@@ -59,7 +78,14 @@ const CvLayout = () => {
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>
-							<Basic setModalUpdating={setModalUpdating} data={candidateInfo} />
+							<Basic
+								data={candidateInfo}
+								setEducationIndex={setEducationIndex}
+								setExperienceIndex={setExperienceIndex}
+								setModalUpdating={setModalUpdating}
+								getCandidateInfo={getCandidateInfo}
+								deleteEducation={deleteEducation}
+							/>
 						</Grid>
 						<Grid item xs={4}>
 							<Stack gap={2} className="pr-5">

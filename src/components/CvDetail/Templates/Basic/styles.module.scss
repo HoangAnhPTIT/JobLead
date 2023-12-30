@@ -20,6 +20,12 @@
 }
 
 .cvItem {
+	&:hover {
+		.editIcon {
+			display: block !important;
+		}
+	}
+
 	.info {
 		position: relative;
 		border-left: 1px solid #ccc;
@@ -39,6 +45,11 @@
 			border-radius: 50%;
 			border-color: #fff;
 			background: #009ce0;
+		}
+		&:hover {
+			.editItem {
+				display: block !important;
+			}
 		}
 	}
 	.time {

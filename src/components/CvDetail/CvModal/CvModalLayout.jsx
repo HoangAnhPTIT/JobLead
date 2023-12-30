@@ -44,7 +44,6 @@ const CvModalLayout = ({
 				</Button>
 				<Button
 					variant="contained"
-					autoFocus
 					onClick={handleSubmit}
 					className="flex items-center"
 				>

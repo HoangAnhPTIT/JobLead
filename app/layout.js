@@ -17,9 +17,7 @@ export const metadata = {
 const RootLayout = ({ children }) => {
 	return (
 		<html>
-			<head>
-				<script src="/static/monitor.js" async />
-			</head>
+			<head>{/* <script src="/static/monitor.js" async /> */}</head>
 			<body className={roboto.className}>
 				<StoreProvider>
 					<AppRouterCacheProvider>

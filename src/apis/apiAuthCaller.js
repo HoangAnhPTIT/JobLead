@@ -215,3 +215,6 @@ export function httpAuthPost(options) {
 export function httpAuthGet(options) {
 	return apiCaller({ ...options, method: "get" });
 }
+export function httpAuthPut(options) {
+	return apiCaller({ ...options, method: "put" });
+}

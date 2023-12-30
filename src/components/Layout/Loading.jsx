@@ -4,10 +4,7 @@ import { useAppSelector } from "lib/hooks";
 const Loading = () => {
 	const { isLoading } = useAppSelector((state) => state.loading);
 	return (
-		<Backdrop
-			sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-			open={isLoading}
-		>
+		<Backdrop sx={{ color: "#fff", zIndex: 9999 }} open={isLoading}>
 			<CircularProgress color="inherit" />
 		</Backdrop>
 	);

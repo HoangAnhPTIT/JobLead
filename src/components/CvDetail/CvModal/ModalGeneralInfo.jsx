@@ -3,14 +3,49 @@ import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import CvModalLayout from "./CvModalLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isEmpty } from "lodash";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { updateLoading } from "lib/features/loadingSlice";
+import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateInfo } from "src/apis/apiEndpoint";
+import { toast } from "react-toastify";
+import SelectForm from "src/commons/FormInput/SelectForm";
 
-const ModalGeneralinfo = ({ open, handleClose }) => {
-	const { register, handleSubmit, control } = useForm();
+const ModalGeneralinfo = ({ data, open, handleClose }) => {
+	const { register, handleSubmit, control, reset } = useForm();
+	const dispatch = useAppDispatch();
+	const { entities } = useAppSelector((state) => state.entity);
 
-	const onSubmit = (data) => {
-		console.log("data", data);
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
+		try {
+			await httpAuthPut({
+				endpoint: apiCandidateInfo,
+				data: {
+					...values,
+					workTitle: data?.workTitle,
+					fullName: data?.fullName,
+				},
+			});
+			handleClose();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
+
+	useEffect(() => {
+		reset &&
+			!isEmpty(data) &&
+			reset({
+				phone: data?.phone,
+				email: data?.email,
+				genderId: data?.genderId,
+				location: data?.location,
+			});
+	}, [data, reset]);
 
 	return (
 		<CvModalLayout
@@ -38,11 +73,14 @@ const ModalGeneralinfo = ({ open, handleClose }) => {
 						/>
 					</Grid>
 					<Grid item xs={6}>
-						<TextField
+						<SelectForm
 							fullWidth
 							size="small"
 							label="Giới tính"
-							{...register("genderId")}
+							placeholder={"Giới tính"}
+							name={"genderId"}
+							control={control}
+							list={entities?.Gender}
 						/>
 					</Grid>
 					<Grid item xs={6}>

@@ -22,54 +22,92 @@ import styles from "./styles.module.scss";
 import Education from "./Education";
 import Experience from "./Experience";
 import Skill from "./Skill";
+import { useAppDispatch } from "lib/hooks";
+import { updateLoading } from "lib/features/loadingSlice";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateInfo } from "src/apis/apiEndpoint";
+import { toast } from "react-toastify";
 
 const color = "#009ce0";
 
-const CvItem = ({ icon, title, content, onClick }) => {
-	return (
-		<div
-			className={classNames("cursor-pointer", styles.cvItem)}
-			onClick={onClick}
-		>
-			<div className="pt-2" style={{ color: color }}>
-				{icon}
-				<span className="uppercase ml-4 text-xl">{title}</span>
-			</div>
-			<div className={classNames("pt-2", styles.info)}>
-				{content?.map((item, i) => (
-					<div key={i} className={classNames("ml-[40px]", styles.item)}>
-						{item?.startDate && (
-							<p
-								className={classNames(
-									"w-[200px] rounded-r h-5 px-1 mb-2 text-sm text-white",
-									styles.time
-								)}
-								style={{ background: color }}
-							>
-								{getDate(item?.startDate)} - {getDate(item?.finishDate)}
-							</p>
-						)}
-						{item?.detail && (
-							<div>
-								{item?.detail?.map((item, i) => (
-									<div key={i} className="text-33 text-sm my-1">
-										<CheckCircle fontSize="small" style={{ color }} /> {item}
-									</div>
-								))}
-							</div>
-						)}
-						<div className={classNames("text-33 text-sm", styles.content)}>
-							{item?.content}
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
-	);
-};
+// const CvItem = ({ icon, title, content, onClick }) => {
+// 	return (
+// 		<div
+// 			className={classNames("cursor-pointer", styles.cvItem)}
+// 			onClick={onClick}
+// 		>
+// 			<div className="pt-2" style={{ color: color }}>
+// 				{icon}
+// 				<span className="uppercase ml-4 text-xl">{title}</span>
+// 			</div>
+// 			<div className={classNames("pt-2", styles.info)}>
+// 				{content?.map((item, i) => (
+// 					<div key={i} className={classNames("ml-[40px]", styles.item)}>
+// 						{item?.startDate && (
+// 							<p
+// 								className={classNames(
+// 									"w-[200px] rounded-r h-5 px-1 mb-2 text-sm text-white",
+// 									styles.time
+// 								)}
+// 								style={{ background: color }}
+// 							>
+// 								{getDate(item?.startDate)} - {getDate(item?.finishDate)}
+// 							</p>
+// 						)}
+// 						{item?.detail && (
+// 							<div>
+// 								{item?.detail?.map((item, i) => (
+// 									<div key={i} className="text-33 text-sm my-1">
+// 										<CheckCircle fontSize="small" style={{ color }} /> {item}
+// 									</div>
+// 								))}
+// 							</div>
+// 						)}
+// 						<div className={classNames("text-33 text-sm", styles.content)}>
+// 							{item?.content}
+// 						</div>
+// 					</div>
+// 				))}
+// 			</div>
+// 		</div>
+// 	);
+// };
 
-const Basic = ({ data, setModalUpdating }) => {
-	console.log("data", data);
+const Basic = ({
+	data,
+	setEducationIndex,
+	setExperienceIndex,
+	setModalUpdating,
+	getCandidateInfo,
+	deleteEducation,
+}) => {
+	const dispatch = useAppDispatch();
+
+	const updateInfo = async (key, value) => {
+		dispatch(updateLoading(true));
+		const values = {
+			phone: data?.phone,
+			email: data?.email,
+			genderId: data?.genderId,
+			location: data?.location,
+			fullName: data?.fullName,
+			workTitle: data?.workTitle,
+		};
+		try {
+			await httpAuthPut({
+				endpoint: apiCandidateInfo,
+				data: {
+					...values,
+					[key]: value,
+				},
+			});
+			getCandidateInfo();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
 	return (
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>
@@ -79,17 +117,21 @@ const Basic = ({ data, setModalUpdating }) => {
 							fullWidth
 							name="fullName"
 							size="medium"
+							defaultValue={data?.fullName}
 							placeholder="Tên của bạn"
 							autoComplete="off"
 							className={styles.yourName}
+							onBlur={(e) => updateInfo("fullName", e.target.value)}
 						/>
 						<TextField
 							fullWidth
 							name="workTitle"
 							size="small"
+							defaultValue={data?.workTitle}
 							placeholder="Vị trí công việc bạn muốn ứng tuyển"
 							autoComplete="off"
 							className={styles.position}
+							onBlur={(e) => updateInfo("workTitle", e.target.value)}
 						/>
 					</div>
 					<div>
@@ -98,6 +140,8 @@ const Basic = ({ data, setModalUpdating }) => {
 							title="Học vấn"
 							data={data?.educations}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.education)}
+							setEducationIndex={setEducationIndex}
+							deleteEducation={deleteEducation}
 						/>
 						<Experience
 							icon={<FolderShared style={{ color, fontSize: 50 }} />}
@@ -111,12 +155,12 @@ const Basic = ({ data, setModalUpdating }) => {
 							data={data}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.skill)}
 						/>
-						<CvItem
+						{/* <CvItem
 							icon={<RecentActors style={{ color, fontSize: 50 }} />}
 							title="Người tham chiếu"
 							content={[{ content: "sdb" }]}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.reference)}
-						/>
+						/> */}
 					</div>
 				</Grid>
 				<Grid item xs={5}>
@@ -147,7 +191,7 @@ const Basic = ({ data, setModalUpdating }) => {
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<Transgender fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{data?.gender}</div>
+							<div className="flex-1 border-b">{data?.gender?.name}</div>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<CalendarMonth fontSize="inherit" style={{ color }} />

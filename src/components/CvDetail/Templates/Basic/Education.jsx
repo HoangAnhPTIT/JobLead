@@ -3,14 +3,50 @@ import { getDate } from "src/helper/format";
 import Section from "../Basic/Section";
 import styles from "./styles.module.scss";
 import { Stack } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 
 const color = "#009ce0";
-const Education = ({ data, icon, title, onClick }) => {
+const Education = ({
+	data,
+	icon,
+	title,
+	onClick,
+	setEducationIndex,
+	deleteEducation,
+}) => {
 	return (
-		<Section icon={icon} title={title} onClick={onClick}>
+		<Section
+			icon={icon}
+			title={title}
+			onClick={() => {
+				onClick();
+				setEducationIndex(null);
+			}}
+		>
 			<div className={classNames("pt-2", styles.info)}>
 				{data?.map((item, i) => (
-					<div key={i} className={classNames("ml-[40px]", styles.item)}>
+					<div
+						key={i}
+						className={classNames("ml-[40px] relative pb-3", styles.item)}
+					>
+						<div
+							className={classNames(
+								"hidden absolute right-5 top-0 cursor-pointer",
+								styles.editItem
+							)}
+						>
+							<Edit
+								className="text-green-500"
+								onClick={() => {
+									setEducationIndex(i);
+									onClick();
+								}}
+							/>
+							<Delete
+								className="text-red-500"
+								onClick={() => deleteEducation(i)}
+							/>
+						</div>
 						{item?.startDate && (
 							<p
 								className={classNames(

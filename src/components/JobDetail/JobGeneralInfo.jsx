@@ -29,7 +29,7 @@ function JobGeneralInfo({ data }) {
 						<span className="font-semibold text-33 mr-1">
 							Khu vực tuyển dụng:
 						</span>
-						<span className="text-hlBlue">{data?.workLocation}</span>
+						<span className="text-hlBlue">{data?.workLocation?.name}</span>
 					</div>
 					<div className="text-sm">
 						<span className="font-semibold text-33 mr-1">Mức lương:</span>

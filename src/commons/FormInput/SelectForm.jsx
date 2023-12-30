@@ -7,6 +7,7 @@ import {
 	Select,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Controller } from "react-hook-form";
 
 const SelectForm = ({
 	label,
@@ -17,7 +18,6 @@ const SelectForm = ({
 	classname,
 	allowClear,
 	valueKey = "id",
-	Controller,
 	control,
 	getValues,
 }) => {

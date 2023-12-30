@@ -3,13 +3,52 @@ import { Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import CvModalLayout from "./CvModalLayout";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import SelectForm from "src/commons/FormInput/SelectForm";
+import { updateLoading } from "lib/features/loadingSlice";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateEducation } from "src/apis/apiEndpoint";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { concat, isEmpty } from "lodash";
+import { replaceArrayValue } from "src/helper/format";
 
-const ModalEducation = ({ open, handleClose }) => {
-	const { register, handleSubmit, control } = useForm();
+const ModalEducation = ({ index, data, open, handleClose }) => {
+	const { register, handleSubmit, reset, control } = useForm();
+	const { entities } = useAppSelector((state) => state.entity);
+	const dispatch = useAppDispatch();
 
-	const onSubmit = (data) => {
-		console.log("data", data);
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
+		try {
+			const updateValue =
+				index !== null
+					? {
+							id: data[index].id,
+							...values,
+					  }
+					: values;
+			const payload = replaceArrayValue(data, updateValue, index);
+
+			await httpAuthPut({
+				endpoint: apiCandidateEducation,
+				data: payload,
+			});
+			handleClose();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
+
+	useEffect(() => {
+		if (index === null) {
+			reset();
+		} else {
+			reset({ ...data[index] });
+		}
+	}, [data, index, reset]);
 
 	return (
 		<CvModalLayout
@@ -33,7 +72,7 @@ const ModalEducation = ({ open, handleClose }) => {
 						<TextField
 							fullWidth
 							size="small"
-							label="Bằng cấp, chứng chỉ"
+							label="Khoa đào tạo"
 							{...register("class")}
 						/>
 					</Grid>
@@ -55,7 +94,16 @@ const ModalEducation = ({ open, handleClose }) => {
 							{...register("major")}
 						/>
 					</Grid>
-					<Grid item xs={6}></Grid>
+					<Grid item xs={6}>
+						<SelectForm
+							label={"Xếp loại"}
+							name="learningClassificationId"
+							required
+							control={control}
+							placeholder={"Xếp loại"}
+							list={entities?.Degree}
+						/>
+					</Grid>
 					<Grid item xs={6}>
 						<DatePickerForm
 							label="Thời gian bắt đầu"

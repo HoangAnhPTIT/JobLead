@@ -28,7 +28,7 @@ import { companyId } from "src/constants/common";
 import ApproveRule from "./ApproveRule";
 
 const CreateJobContent = () => {
-	const { register, control, handleSubmit, reset, setValue } = useForm();
+	const { register, control, handleSubmit, reset } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [serviceList, setServiceList] = useState([]);
 	const dispatch = useAppDispatch();
@@ -71,7 +71,7 @@ const CreateJobContent = () => {
 		};
 		const getCompanyInfo = async () => {
 			const response = await httpAuthGet({ endpoint: apiCompanyContact });
-			response?.data && setValue({ ...response?.data });
+			response?.data && reset({ ...response?.data });
 		};
 		getServices();
 		getCompanyInfo();
