@@ -1,14 +1,12 @@
 import { Business } from "@mui/icons-material";
-import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { apiCompany } from "src/apis/apiEndpoint";
-import ImageFull from "src/commons/Image";
 import { imageError } from "src/constants/common";
 import { getDate } from "src/helper/format";
 
 function JobGeneralInfo({ data }) {
+	console.log("data", data);
 	return (
 		<div className="shadow-ccc p-5 bg-white">
 			<div className="flex gap-8">
@@ -40,8 +38,9 @@ function JobGeneralInfo({ data }) {
 						</span>
 					</div>
 					<div className="font-light text-sm">
-						Lượt xem: 0 . Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)} .
-						Ngày duyệt: {getDate(data?.approvalDate)}
+						{/* Lượt xem: 0 .  */}
+						Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)} . Ngày duyệt:{" "}
+						{getDate(data?.approvalDate)}
 					</div>
 				</div>
 			</div>

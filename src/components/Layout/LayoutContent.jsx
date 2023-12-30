@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { Grid, Menu, MenuItem } from "@mui/material";
+import { Grid, Menu, MenuItem, Popover, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
@@ -22,6 +22,7 @@ import { imageError, token } from "src/constants/common";
 import { jwtDecode } from "jwt-decode";
 import { deleteAllCookies, getCookie } from "src/helper/common";
 import { viVN } from "@mui/material/locale";
+import { Logout } from "@mui/icons-material";
 
 const theme = createTheme(viVN);
 
@@ -49,7 +50,6 @@ const LayoutContent = ({ children }) => {
 	const entities = useEntities();
 
 	const hideFooter = PageHideFooter.includes(pathname);
-	const [anchorEl, setAnchorEl] = useState(false);
 
 	useEffect(() => {
 		const isLogin = getCookie("isLogin")
@@ -153,29 +153,38 @@ const LayoutContent = ({ children }) => {
 						{isLogin && (
 							<div>
 								<div
-									className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer text-center uppercase"
-									onClick={(e) => setAnchorEl(e.currentTarget)}
+									className={classNames(
+										"hover:bg-secondary hover:text-white w-[80px] text-33 cursor-pointer relative",
+										styles.acc
+									)}
 								>
-									<span className="text-sm">Tài khoản</span>
-								</div>
-								<Menu
-									id="basic-menu"
-									anchorEl={anchorEl}
-									open={Boolean(anchorEl)}
-									MenuListProps={{
-										"aria-labelledby": "basic-button",
-									}}
-								>
-									<MenuItem
-										onClick={() => {
-											dispatch(logout());
-											router.push("/");
-											setAnchorEl(null);
-										}}
+									<div
+										className={classNames(
+											"text-sm font-semibold uppercase",
+											styles.item
+										)}
 									>
-										Đăng xuất
-									</MenuItem>
-								</Menu>
+										Tài khoản
+									</div>
+									<div
+										className={classNames(
+											"hidden absolute bg-white text-33 top-[64px] right-0 w-[200px] border",
+											styles.accMenu
+										)}
+									>
+										<Stack gap={1} className="py-2">
+											<div
+												onClick={() => {
+													dispatch(logout());
+													router.push("/");
+												}}
+												className="text-sm hover:text-primary px-2"
+											>
+												<Logout /> Đăng xuất
+											</div>
+										</Stack>
+									</div>
+								</div>
 							</div>
 						)}
 					</Grid>

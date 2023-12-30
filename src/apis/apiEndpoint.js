@@ -4,6 +4,8 @@ export const apiJobByLocation = "/Job/count/location";
 export const apiJobByCareer = "/Job/count/career";
 export const apiCompany = "/Company";
 export const apiCompanyInfo = `${apiCompany}/info`;
+export const apiCompanyContact = `${apiCompany}/contact`;
+
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";
 export const apiLoginCandidate = `${apiAuthen}/login/candidate`;

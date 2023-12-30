@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import { Stack } from "@mui/material";
 
 const color = "#009ce0";
-const Education = ({ data, icon, title, onClick }) => {
+const Experience = ({ data, icon, title, onClick }) => {
 	return (
 		<Section icon={icon} title={title} onClick={onClick}>
 			<div className={classNames("pt-2", styles.info)}>
@@ -24,16 +24,9 @@ const Education = ({ data, icon, title, onClick }) => {
 						)}
 
 						<div className={classNames("text-33 text-sm", styles.content)}>
-							<div className="font-semibold text-[15px]">
-								{item?.certification}
-							</div>
+							<div className="font-semibold text-[15px]">{item?.company}</div>
 							<Stack className="gap-[2px]">
-								{item?.school && <div>Trường/nơi đào tạo: {item?.school}</div>}
-								{item?.learningClassification?.name && (
-									<div>Xếp loại: {item?.learningClassification?.name}</div>
-								)}
-								{item?.class && <div>Khoa: {item?.class}</div>}
-								{item?.major && <div>Ngành: {item?.major}</div>}
+								{item?.title && <div>Vị trí: {item?.title}</div>}
 								{item?.description && <div>Mô tả: {item?.description}</div>}
 							</Stack>
 						</div>
@@ -44,4 +37,4 @@ const Education = ({ data, icon, title, onClick }) => {
 	);
 };
 
-export default Education;
+export default Experience;

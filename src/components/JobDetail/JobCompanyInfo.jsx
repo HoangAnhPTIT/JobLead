@@ -28,10 +28,10 @@ const JobCompanyInfo = ({ data }) => {
 				/>
 				<ItemInfo
 					icon={<Groups />}
-					title="Giới thiệu"
+					title="Quy mô"
 					content={data?.sizeDescription}
 				/>
-				<ItemInfo icon={<Place />} title="Giới thiệu" content={data?.address} />
+				<ItemInfo icon={<Place />} title="Địa điểm" content={data?.address} />
 			</div>
 		</div>
 	);

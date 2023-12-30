@@ -20,6 +20,8 @@ const JobsPage = async ({ params, searchParams }) => {
 		{ page: page || 1, size: 10 }
 	);
 
+	console.log("hotJobResponse", hotJobResponse);
+
 	const majorResponse = await httpGet(`${apiJob}/count/career`);
 
 	const jobInfo = hotJobResponse?.data || [];

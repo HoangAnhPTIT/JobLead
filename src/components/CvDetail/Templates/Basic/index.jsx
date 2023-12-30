@@ -20,6 +20,8 @@ import { CV_MODAL_TYPES } from "src/constants/cv";
 import { getDate } from "src/helper/format";
 import styles from "./styles.module.scss";
 import Education from "./Education";
+import Experience from "./Experience";
+import Skill from "./Skill";
 
 const color = "#009ce0";
 
@@ -66,31 +68,8 @@ const CvItem = ({ icon, title, content, onClick }) => {
 	);
 };
 
-const goals = {
-	description: "nghi huu som",
-	detail: ["lau dai, on dinh", "thang tien tot"],
-};
-
-const info = {
-	gender: "Nam",
-	dob: "12/12/2014",
-	phone: "1213 343",
-	email: "dx@example",
-	address: "NCT",
-};
-
-const itSkills = [
-	{
-		name: "Excel",
-		star: 3,
-	},
-	{
-		name: "Word",
-		star: 4,
-	},
-];
-
 const Basic = ({ data, setModalUpdating }) => {
+	console.log("data", data);
 	return (
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>
@@ -98,7 +77,7 @@ const Basic = ({ data, setModalUpdating }) => {
 					<div>
 						<TextField
 							fullWidth
-							name="name"
+							name="fullName"
 							size="medium"
 							placeholder="Tên của bạn"
 							autoComplete="off"
@@ -106,7 +85,7 @@ const Basic = ({ data, setModalUpdating }) => {
 						/>
 						<TextField
 							fullWidth
-							name="position"
+							name="workTitle"
 							size="small"
 							placeholder="Vị trí công việc bạn muốn ứng tuyển"
 							autoComplete="off"
@@ -120,19 +99,16 @@ const Basic = ({ data, setModalUpdating }) => {
 							data={data?.educations}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.education)}
 						/>
-						<CvItem
+						<Experience
 							icon={<FolderShared style={{ color, fontSize: 50 }} />}
 							title="Kinh nghiệm làm việc"
-							content={[
-								{ time: "1-2", content: "sdb" },
-								{ time: "1-2", content: "sdb" },
-							]}
+							data={data?.experiences}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.experience)}
 						/>
-						<CvItem
+						<Skill
 							icon={<BorderColor style={{ color, fontSize: 50 }} />}
 							title="Kỹ năng"
-							content={[{ content: "sdb", detail: [123, 345, 567] }]}
+							data={data}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.skill)}
 						/>
 						<CvItem
@@ -153,59 +129,87 @@ const Basic = ({ data, setModalUpdating }) => {
 							Mục tiêu nghề nghiệp
 						</div>
 						<div className="text-33 text-sm">
-							{goals?.detail.map((item, i) => (
+							{data?.candidateCareerGoals.map((item, i) => (
 								<div key={i}>
-									<Check fontSize="small" style={{ color }} /> {item}
+									<Check fontSize="small" style={{ color }} className="mr-1" />
+									{item?.careerGoal?.name}
 								</div>
 							))}
-							<div>{goals?.description}</div>
+							<div>{data?.careerGoalDescription}</div>
 						</div>
 					</div>
-					<div className="mt-5">
+					<div
+						className="mt-5"
+						onClick={() => setModalUpdating(CV_MODAL_TYPES.generalInfo)}
+					>
 						<div className="text-xl" style={{ color }}>
 							Thông tin cá nhân
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<Transgender fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{info.gender}</div>
+							<div className="flex-1 border-b">{data?.gender}</div>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<CalendarMonth fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{info.dob}</div>
+							<div className="flex-1 border-b">{getDate(data?.dob)}</div>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<PhoneEnabled fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{info.phone}</div>
+							<div className="flex-1 border-b">{data?.phone}</div>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<Email fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{info.email}</div>
+							<div className="flex-1 border-b">{data?.email}</div>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<Place fontSize="inherit" style={{ color }} />
-							<div className="flex-1 border-b">{info.address}</div>
+							<div className="flex-1 border-b">{data?.location}</div>
 						</div>
 					</div>
-					<div className="mt-5">
-						<div className="text-xl mb-2" style={{ color }}>
-							Tin học
+					{data?.itSkills && (
+						<div className="mt-5">
+							<div className="text-xl mb-2" style={{ color }}>
+								Tin học
+							</div>
+							{data?.itSkills?.map((item, i) => (
+								<Grid container key={i} className="border-b mt-2">
+									<Grid item xs={6} className="text-sm">
+										{item?.name}
+									</Grid>
+									<Grid item xs={6}>
+										<Rating
+											readOnly
+											value={item?.star}
+											icon={<Star style={{ color }} />}
+											emptyIcon={<StarOutline style={{ color }} />}
+										/>
+									</Grid>
+								</Grid>
+							))}
 						</div>
-						{itSkills?.map((item, i) => (
-							<Grid container key={i} className="border-b mt-2">
-								<Grid item xs={6} className="text-sm">
-									{item?.name}
+					)}
+					{data?.languageSkills && (
+						<div className="mt-5">
+							<div className="text-xl mb-2" style={{ color }}>
+								Ngoại ngữ
+							</div>
+							{data?.languageSkills?.map((item, i) => (
+								<Grid container key={i} className="border-b mt-2">
+									<Grid item xs={6} className="text-sm">
+										{item?.name}
+									</Grid>
+									<Grid item xs={6}>
+										<Rating
+											readOnly
+											value={item?.star}
+											icon={<Star style={{ color }} />}
+											emptyIcon={<StarOutline style={{ color }} />}
+										/>
+									</Grid>
 								</Grid>
-								<Grid item xs={6}>
-									<Rating
-										readOnly
-										value={item?.star}
-										icon={<Star style={{ color }} />}
-										emptyIcon={<StarOutline style={{ color }} />}
-									/>
-								</Grid>
-							</Grid>
-						))}
-					</div>
+							))}
+						</div>
+					)}
 				</Grid>
 			</Grid>
 		</div>

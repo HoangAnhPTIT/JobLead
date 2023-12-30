@@ -51,18 +51,18 @@ const JobDetailInfo = ({ data }) => {
 								<span className="font-semibold ml-2 mr-1">
 									Địa điểm làm việc:
 								</span>
-								{data?.workLocation}
+								{data?.contactInfo?.workLocation}
 							</div>
 						</Grid>
 						<Grid item xs={6} className="px-4">
 							<div className="mb-4">
 								<Groups className="text-primary" />
-								<span className="font-semibold ml-2 mr-1">Số lượng:</span>{" "}
+								<span className="font-semibold ml-2 mr-1">Số lượng:</span>
 								{data?.numberOfRecruitment}
 							</div>
 							<div className="mb-4">
 								<MilitaryTech className="text-primary" />
-								<span className="font-semibold ml-2 mr-1">Chức vụ:</span>{" "}
+								<span className="font-semibold ml-2 mr-1">Chức vụ:</span>
 								{data?.position}
 							</div>
 							<div className="mb-4">
@@ -70,7 +70,7 @@ const JobDetailInfo = ({ data }) => {
 								<span className="font-semibold ml-2 mr-1">
 									Ngày đăng tuyển:
 								</span>
-								{getDate(data?.approvalDate)}
+								{getDate(data?.create)}
 							</div>
 						</Grid>
 						<Grid item xs={12} className="px-4">

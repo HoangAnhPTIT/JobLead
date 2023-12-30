@@ -19,7 +19,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import { httpGet } from "src/apis/apiCaller";
-import { apiCompany, apiCompanyInfo, apiJob } from "src/apis/apiEndpoint";
+import { apiCompany, apiCompanyContact, apiJob } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import MultipleSelectWithLabel from "src/commons/FormInput/MultipleSelectWithLabel";
 import SelectWithLabel from "src/commons/FormInput/SelectWithLabel";
@@ -70,7 +70,7 @@ const CreateJobContent = () => {
 			response?.status === 200 && setServiceList(response?.data || []);
 		};
 		const getCompanyInfo = async () => {
-			const response = await httpAuthGet({ endpoint: apiCompanyInfo });
+			const response = await httpAuthGet({ endpoint: apiCompanyContact });
 			response?.data && setValue({ ...response?.data });
 		};
 		getServices();

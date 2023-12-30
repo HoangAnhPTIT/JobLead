@@ -34,3 +34,15 @@
 		}
 	}
 }
+.acc {
+	.item {
+		height: 64px;
+		line-height: 64px;
+		text-align: center;
+	}
+	&:hover {
+		.accMenu {
+			display: block;
+		}
+	}
+}
