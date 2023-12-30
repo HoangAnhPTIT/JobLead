@@ -21,7 +21,7 @@ const commonSearch = [
 
 const HomeSearch = () => {
 	const router = useRouter();
-	const { register, handleSubmit, control } = useForm();
+	const { register, handleSubmit, control, setValue } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {
@@ -65,6 +65,7 @@ const HomeSearch = () => {
 									"rounded-full bg-white",
 									styles.searchInput,
 								])}
+								setValue={setValue}
 							/>
 						</Grid>
 						<Grid item xs={3}>

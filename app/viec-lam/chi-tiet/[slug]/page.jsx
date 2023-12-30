@@ -3,7 +3,7 @@ import { apiJob } from "src/apis/apiEndpoint";
 import JobDetailContent from "src/components/JobDetail/JobDetailContent";
 
 const JobDetailPage = async ({ params }) => {
-	const response = await httpGet(`${apiJob}/${params?.slug}`);
+	const response = await httpGet(`${apiJob}`, { slug: params?.slug });
 
 	const data = response?.jobInfo || {};
 

@@ -56,7 +56,7 @@ const LayoutContent = ({ children }) => {
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
 		const tokenCookie = getCookie(token);
-		console.log("tokenData", tokenCookie);
+		// console.log("tokenData", tokenCookie);
 		dispatch(setIsLogin(isLogin));
 		deleteAllCookies();
 	}, []);
