@@ -32,7 +32,7 @@ module.exports = {
 				yellow2: "#fdd33a",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
-				bgHeader: "#001529",
+				bgHeader: "#fff",
 				ff: "#fff",
 				dd: "#ddd",
 				hlBlue: "#0091ce",

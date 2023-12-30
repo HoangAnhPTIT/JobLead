@@ -14,7 +14,11 @@ import routeMap from "src/constants/routeMap";
 
 const JobItem = ({ item, showExpire = false }) => {
 	return (
-		<Link href={`${routeMap.job}${routeMap.detail}/${item?.id || item?.jobId}`}>
+		<Link
+			href={`${routeMap.job}${routeMap.detail}/${
+				item?.slug || item?.id || item?.jobId
+			}`}
+		>
 			<div className="flex gap-3">
 				<Image
 					src={item?.company?.avatar || imageError}

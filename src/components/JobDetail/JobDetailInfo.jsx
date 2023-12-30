@@ -8,6 +8,7 @@ import {
 	WorkHistory,
 } from "@mui/icons-material";
 import { Grid, TextareaAutosize } from "@mui/material";
+import { getDate } from "src/helper/format";
 
 const Description = ({ title, content }) => {
 	return (
@@ -50,26 +51,26 @@ const JobDetailInfo = ({ data }) => {
 								<span className="font-semibold ml-2 mr-1">
 									Địa điểm làm việc:
 								</span>
-								Lô B1.4, đường Đ2, khu công nghiệp Đồng An 2, Phường Hoà Phú,
-								Thành phố Thủ Dầu Một, Tỉnh Bình Dương, Việt Nam
+								{data?.workLocation}
 							</div>
 						</Grid>
 						<Grid item xs={6} className="px-4">
 							<div className="mb-4">
 								<Groups className="text-primary" />
-								<span className="font-semibold ml-2 mr-1">Số lượng:</span> 10
+								<span className="font-semibold ml-2 mr-1">Số lượng:</span>{" "}
+								{data?.numberOfRecruitment}
 							</div>
 							<div className="mb-4">
 								<MilitaryTech className="text-primary" />
-								<span className="font-semibold ml-2 mr-1">Chức vụ:</span> Nhân
-								viên
+								<span className="font-semibold ml-2 mr-1">Chức vụ:</span>{" "}
+								{data?.position}
 							</div>
 							<div className="mb-4">
 								<CalendarMonth className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">
 									Ngày đăng tuyển:
 								</span>
-								13/12/2023
+								{getDate(data?.approvalDate)}
 							</div>
 						</Grid>
 						<Grid item xs={12} className="px-4">

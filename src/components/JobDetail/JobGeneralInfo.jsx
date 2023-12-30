@@ -6,6 +6,7 @@ import React from "react";
 import { apiCompany } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
 import { imageError } from "src/constants/common";
+import { getDate } from "src/helper/format";
 
 function JobGeneralInfo({ data }) {
 	return (
@@ -39,9 +40,8 @@ function JobGeneralInfo({ data }) {
 						</span>
 					</div>
 					<div className="font-light text-sm">
-						Lượt xem: 0 . Hạn nộp hồ sơ:{" "}
-						{moment(data?.submissionDeadline).format("DD/MM/YYYY")} . Ngày
-						duyệt: {moment(data?.approvalDate).format("DD/MM/YYYY")}
+						Lượt xem: 0 . Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)} .
+						Ngày duyệt: {getDate(data?.approvalDate)}
 					</div>
 				</div>
 			</div>

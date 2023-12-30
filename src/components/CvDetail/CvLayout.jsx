@@ -9,9 +9,9 @@ import ModalReference from "./CvModal/ModalReference";
 import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalGeneralinfo from "./CvModal/ModalGeneralInfo";
 import { Check, Edit, Info, Save } from "@mui/icons-material";
-import Basic from "./Templates/Basic";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidate } from "src/apis/apiEndpoint";
+import Basic from "./Templates/Basic";
 
 const CvLayout = () => {
 	const [modalUpdating, setModalUpdating] = useState(null);
@@ -24,7 +24,7 @@ const CvLayout = () => {
 	useEffect(() => {
 		const getCandidateInfo = async () => {
 			const response = await httpAuthGet({ endpoint: apiCandidate });
-			console.log("response", response);
+			setCandidateInfo(response?.data);
 		};
 		getCandidateInfo();
 	}, []);
@@ -59,7 +59,7 @@ const CvLayout = () => {
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>
-							<Basic setModalUpdating={setModalUpdating} />
+							<Basic setModalUpdating={setModalUpdating} data={candidateInfo} />
 						</Grid>
 						<Grid item xs={4}>
 							<Stack gap={2} className="pr-5">

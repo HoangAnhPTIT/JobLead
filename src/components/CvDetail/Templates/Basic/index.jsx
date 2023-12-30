@@ -16,8 +16,10 @@ import {
 } from "@mui/icons-material";
 import { Grid, Rating, TextField } from "@mui/material";
 import classNames from "classnames";
-import styles from "./styles.module.scss";
 import { CV_MODAL_TYPES } from "src/constants/cv";
+import { getDate } from "src/helper/format";
+import styles from "./styles.module.scss";
+import Education from "./Education";
 
 const color = "#009ce0";
 
@@ -34,15 +36,15 @@ const CvItem = ({ icon, title, content, onClick }) => {
 			<div className={classNames("pt-2", styles.info)}>
 				{content?.map((item, i) => (
 					<div key={i} className={classNames("ml-[40px]", styles.item)}>
-						{item?.time && (
+						{item?.startDate && (
 							<p
 								className={classNames(
-									"w-[200px] rounded-r h-5 px-1 mb-2 text-white",
+									"w-[200px] rounded-r h-5 px-1 mb-2 text-sm text-white",
 									styles.time
 								)}
 								style={{ background: color }}
 							>
-								{item?.time}
+								{getDate(item?.startDate)} - {getDate(item?.finishDate)}
 							</p>
 						)}
 						{item?.detail && (
@@ -88,7 +90,7 @@ const itSkills = [
 	},
 ];
 
-const Basic = ({ setModalUpdating }) => {
+const Basic = ({ data, setModalUpdating }) => {
 	return (
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>
@@ -112,13 +114,10 @@ const Basic = ({ setModalUpdating }) => {
 						/>
 					</div>
 					<div>
-						<CvItem
+						<Education
 							icon={<School style={{ color, fontSize: 50 }} />}
 							title="Học vấn"
-							content={[
-								{ time: "1-2", content: "sdb" },
-								{ time: "1-2", content: "sdb" },
-							]}
+							data={data?.educations}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.education)}
 						/>
 						<CvItem

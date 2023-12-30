@@ -18,7 +18,11 @@ const JobItemList = ({ item }) => {
 					alt={item?.companyName || ""}
 				/>
 				<div className="text-sm w-[175px]">
-					<Link href={`${routeMap.job}${routeMap.detail}/${item?.jobId}`}>
+					<Link
+						href={`${routeMap.job}${routeMap.detail}/${
+							item?.slug || item?.jobId
+						}`}
+					>
 						<div
 							className={classNames([
 								"three-dot font-bold",

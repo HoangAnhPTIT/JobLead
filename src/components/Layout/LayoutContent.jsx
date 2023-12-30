@@ -75,7 +75,7 @@ const LayoutContent = ({ children }) => {
 				<Loading />
 				<div
 					className={classNames([
-						"h-16 flex content-center px-10 bg-bgHeader",
+						"h-16 fixed top-0 left-0 w-screen z-30 flex content-center px-10 bg-bgHeader",
 						styles.header,
 					])}
 				>
@@ -85,7 +85,12 @@ const LayoutContent = ({ children }) => {
 						theme="light"
 						className={styles.toastCustom}
 					/>
-					<Grid container justifyContent="space-between" alignContent="center">
+					<Grid
+						container
+						justifyContent="space-between"
+						alignContent="center"
+						className="text-33"
+					>
 						<Grid item>
 							<Grid
 								container
@@ -113,8 +118,9 @@ const LayoutContent = ({ children }) => {
 													item
 													key={i}
 													className={classNames([
-														"hover:bg-primary hover:text-white px-4 uppercase font-semibold text-primary cursor-pointer",
-														item?.link === pathname && "bg-primary text-white",
+														"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+														item?.link === pathname &&
+															"bg-secondary text-white",
 													])}
 												>
 													{item?.label}
@@ -133,12 +139,12 @@ const LayoutContent = ({ children }) => {
 								justify="center"
 							>
 								<Link href={routeMap.signin}>
-									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<div className="hover:bg-secondary hover:text-white w-[80px] font-semibold text-33 cursor-pointer">
 										<span className="text-sm">Đăng ký</span>
 									</div>
 								</Link>
 								<Link href={routeMap.login}>
-									<div className="hover:bg-primary hover:text-white w-[80px] font-semibold text-primary cursor-pointer">
+									<div className="hover:bg-secondary hover:text-white w-[80px] font-semibold text-33 cursor-pointer">
 										<span className="text-sm">Đăng nhập</span>
 									</div>
 								</Link>
@@ -175,7 +181,7 @@ const LayoutContent = ({ children }) => {
 					</Grid>
 				</div>
 				<Suspense fallback={<SuspenseLoading />}>
-					<div>{children}</div>
+					<div className="pt-[64px]">{children}</div>
 				</Suspense>
 				{!hideFooter && <FooterLayout />}
 			</div>
