@@ -1,19 +1,27 @@
 "use client";
+import { Check, Edit, Info, Save } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
+import {
+	apiCandidate,
+	apiCandidateEducation,
+	apiCandidateExperience,
+} from "src/apis/apiEndpoint";
 import { CV_MODAL_TYPES } from "src/constants/cv";
+import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalEducation from "./CvModal/ModalEducation";
 import ModalExperience from "./CvModal/ModalExperience";
-import ModalSkill from "./CvModal/ModalSkill";
-import ModalReference from "./CvModal/ModalReference";
-import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalGeneralinfo from "./CvModal/ModalGeneralInfo";
-import { Check, Edit, Info, Save } from "@mui/icons-material";
-import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCandidate } from "src/apis/apiEndpoint";
+import ModalReference from "./CvModal/ModalReference";
+import ModalSkill from "./CvModal/ModalSkill";
 import Basic from "./Templates/Basic";
 
 const CvLayout = () => {
+	const dispatch = useAppDispatch();
 	const [modalUpdating, setModalUpdating] = useState(null);
 	const [candidateInfo, setCandidateInfo] = useState();
 	const [educationIndex, setEducationIndex] = useState(null);
@@ -31,9 +39,37 @@ const CvLayout = () => {
 		setEducationIndex(null);
 	};
 
-	const deleteEducation = (index) => {
-		const newData = [...candidateInfo?.educations]?.splice(index, 1);
-		console.log("newData", index, candidateInfo?.educations, newData);
+	const deleteEducation = async (index) => {
+		dispatch(updateLoading(true));
+		try {
+			const newData = candidateInfo?.educations;
+			newData.splice(index, 1);
+			await httpAuthPut({
+				endpoint: apiCandidateEducation,
+				data: newData,
+			});
+			handleClose();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
+	const deleteExperience = async (index) => {
+		dispatch(updateLoading(true));
+		try {
+			const newData = candidateInfo?.experiences;
+			newData.splice(index, 1);
+			await httpAuthPut({
+				endpoint: apiCandidateExperience,
+				data: newData,
+			});
+			handleClose();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
 
 	useEffect(() => {
@@ -85,6 +121,7 @@ const CvLayout = () => {
 								setModalUpdating={setModalUpdating}
 								getCandidateInfo={getCandidateInfo}
 								deleteEducation={deleteEducation}
+								deleteExperience={deleteExperience}
 							/>
 						</Grid>
 						<Grid item xs={4}>

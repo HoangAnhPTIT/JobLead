@@ -8,6 +8,10 @@ export const convertArrayToObject = (array, key) => {
 		array?.reduce((obj, item) => ({ ...obj, [item[key]]: item }), {}) || {};
 	return newObj;
 };
+export const getArrayObjectValue = (array, key = "id") => {
+	const values = array.map((item) => item[key]);
+	return values;
+};
 
 export const paramValue = (param) => (param !== "0" ? param : "");
 export const getDate = (date) =>

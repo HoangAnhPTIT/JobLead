@@ -80,6 +80,7 @@ const Basic = ({
 	setModalUpdating,
 	getCandidateInfo,
 	deleteEducation,
+	deleteExperience,
 }) => {
 	const dispatch = useAppDispatch();
 
@@ -148,6 +149,8 @@ const Basic = ({
 							title="Kinh nghiệm làm việc"
 							data={data?.experiences}
 							onClick={() => setModalUpdating(CV_MODAL_TYPES.experience)}
+							setExperienceIndex={setExperienceIndex}
+							deleteExperience={deleteExperience}
 						/>
 						<Skill
 							icon={<BorderColor style={{ color, fontSize: 50 }} />}

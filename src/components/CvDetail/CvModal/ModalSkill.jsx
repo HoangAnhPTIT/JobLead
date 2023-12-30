@@ -7,15 +7,24 @@ import {
 	Grid,
 	TextField,
 } from "@mui/material";
+import { useAppSelector } from "lib/hooks";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { getArrayObjectValue } from "src/helper/format";
 import CvModalLayout from "./CvModalLayout";
 
-const ModalSkill = ({ open, handleClose }) => {
-	const { register, handleSubmit } = useForm();
+const ModalSkill = ({ data, open, handleClose }) => {
+	const { entities } = useAppSelector((state) => state.entity);
+	const { register, handleSubmit, reset } = useForm();
 
-	const onSubmit = (data) => {
-		console.log("data", data);
+	const onSubmit = async (values) => {
+		console.log("values", values);
 	};
+
+	useEffect(() => {
+		const skillIds = getArrayObjectValue(data?.skills);
+		reset({ skills: skillIds, description: data?.skillDescription });
+	}, [data, reset]);
 
 	return (
 		<CvModalLayout

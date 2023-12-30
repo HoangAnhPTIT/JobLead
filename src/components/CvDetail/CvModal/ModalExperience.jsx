@@ -3,10 +3,17 @@ import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import CvModalLayout from "./CvModalLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "lib/hooks";
+import { updateLoading } from "lib/features/loadingSlice";
+import { replaceArrayValue } from "src/helper/format";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateExperience } from "src/apis/apiEndpoint";
+import { toast } from "react-toastify";
 
-const ModalExperience = ({ open, handleClose }) => {
-	const { register, handleSubmit, setValue, control } = useForm();
+const ModalExperience = ({ index, data, open, handleClose }) => {
+	const dispatch = useAppDispatch();
+	const { register, handleSubmit, setValue, reset, control } = useForm();
 	const [isCurrentJob, setIsCurrentJob] = useState(false);
 
 	const handleChangeIsCurrentJob = (value) => {
@@ -14,9 +21,32 @@ const ModalExperience = ({ open, handleClose }) => {
 		setValue("finishDate", null);
 	};
 
-	const onSubmit = (data) => {
-		console.log("data", data);
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
+		try {
+			const updateValue =
+				index !== null ? { id: data[index].id, ...values } : values;
+			const payload = replaceArrayValue(data, updateValue, index);
+
+			await httpAuthPut({
+				endpoint: apiCandidateExperience,
+				data: payload,
+			});
+			handleClose();
+		} catch (error) {
+			toast.error(error?.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
+
+	useEffect(() => {
+		if (index === null) {
+			reset();
+		} else {
+			reset({ ...data[index] });
+		}
+	}, [data, index, reset]);
 
 	return (
 		<CvModalLayout

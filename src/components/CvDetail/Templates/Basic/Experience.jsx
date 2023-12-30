@@ -3,14 +3,43 @@ import { getDate } from "src/helper/format";
 import Section from "../Basic/Section";
 import styles from "./styles.module.scss";
 import { Stack } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 
 const color = "#009ce0";
-const Experience = ({ data, icon, title, onClick }) => {
+const Experience = ({
+	data,
+	icon,
+	title,
+	onClick,
+	setExperienceIndex,
+	deleteExperience,
+}) => {
 	return (
 		<Section icon={icon} title={title} onClick={onClick}>
 			<div className={classNames("pt-2", styles.info)}>
 				{data?.map((item, i) => (
-					<div key={i} className={classNames("ml-[40px]", styles.item)}>
+					<div
+						key={i}
+						className={classNames("ml-[40px] relative pb-3", styles.item)}
+					>
+						<div
+							className={classNames(
+								"hidden absolute right-5 top-0 cursor-pointer",
+								styles.editItem
+							)}
+						>
+							<Edit
+								className="text-green-500"
+								onClick={() => {
+									setExperienceIndex(i);
+									onClick();
+								}}
+							/>
+							<Delete
+								className="text-red-500"
+								onClick={() => deleteExperience(i)}
+							/>
+						</div>
 						{item?.startDate && (
 							<p
 								className={classNames(
@@ -19,10 +48,10 @@ const Experience = ({ data, icon, title, onClick }) => {
 								)}
 								style={{ background: color }}
 							>
-								{getDate(item?.startDate)} - {getDate(item?.finishDate)}
+								{getDate(item?.startDate)} -{" "}
+								{item?.finishDate ? getDate(item?.finishDate) : "Hiện tại"}
 							</p>
 						)}
-
 						<div className={classNames("text-33 text-sm", styles.content)}>
 							<div className="font-semibold text-[15px]">{item?.company}</div>
 							<Stack className="gap-[2px]">

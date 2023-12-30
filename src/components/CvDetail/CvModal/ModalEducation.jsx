@@ -1,17 +1,16 @@
 "use client";
 import { Grid, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
-import DatePickerForm from "src/commons/FormInput/DatePickerForm";
-import CvModalLayout from "./CvModalLayout";
-import { useAppDispatch, useAppSelector } from "lib/hooks";
-import SelectForm from "src/commons/FormInput/SelectForm";
 import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCandidateEducation } from "src/apis/apiEndpoint";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { concat, isEmpty } from "lodash";
+import DatePickerForm from "src/commons/FormInput/DatePickerForm";
+import SelectForm from "src/commons/FormInput/SelectForm";
 import { replaceArrayValue } from "src/helper/format";
+import CvModalLayout from "./CvModalLayout";
 
 const ModalEducation = ({ index, data, open, handleClose }) => {
 	const { register, handleSubmit, reset, control } = useForm();
@@ -22,12 +21,7 @@ const ModalEducation = ({ index, data, open, handleClose }) => {
 		dispatch(updateLoading(true));
 		try {
 			const updateValue =
-				index !== null
-					? {
-							id: data[index].id,
-							...values,
-					  }
-					: values;
+				index !== null ? { id: data[index].id, ...values } : values;
 			const payload = replaceArrayValue(data, updateValue, index);
 
 			await httpAuthPut({
