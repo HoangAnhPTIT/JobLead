@@ -11,6 +11,7 @@ import { apiCandidateInfo } from "src/apis/apiEndpoint";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import SelectForm from "src/commons/FormInput/SelectForm";
 import CvModalLayout from "./CvModalLayout";
+import moment from "moment";
 
 const ModalGeneralinfo = ({ data, open, handleClose }) => {
 	const { register, handleSubmit, control, reset } = useForm();
@@ -44,6 +45,7 @@ const ModalGeneralinfo = ({ data, open, handleClose }) => {
 				email: data?.email,
 				genderId: data?.genderId,
 				location: data?.location,
+				dob: moment(data?.dob),
 			});
 	}, [data, reset]);
 
