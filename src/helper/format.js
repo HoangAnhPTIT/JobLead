@@ -9,7 +9,7 @@ export const convertArrayToObject = (array, key) => {
 	return newObj;
 };
 export const getArrayObjectValue = (array, key = "id") => {
-	const values = array.map((item) => item[key]);
+	const values = array?.map((item) => item[key]);
 	return values;
 };
 
@@ -26,4 +26,8 @@ export const replaceArrayValue = (array, value, index) => {
 	}
 
 	return newArr;
+};
+
+export const removeArrayValue = (array, value) => {
+	return array?.filter((item) => item !== value);
 };

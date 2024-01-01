@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 const color = "#009ce0";
 const Skill = ({ data, icon, title, onClick }) => {
 	return (
-		<Section icon={icon} title={title} onClick={onClick}>
+		<Section icon={icon} title={title} onClick={onClick} typeParent="edit">
 			<div className={classNames("pt-2", styles.info)}>
 				<div className={classNames("ml-[40px]", styles.item)}>
 					<div className={classNames("text-33 text-sm", styles.content)}>

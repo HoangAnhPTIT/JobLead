@@ -7,6 +7,7 @@ import {
 	apiRefreshToken,
 } from "./apiEndpoint";
 import routeMap from "src/constants/routeMap";
+import { toast } from "react-toastify";
 
 const baseURL = "https://api.tuyendung247.vn/api/v1";
 // const baseURL =
@@ -146,6 +147,8 @@ export async function apiCaller({
 		} else if (err?.errorCode === "TOKEN_INVALID") {
 			deleteAllCookies();
 			window.location.replace = routeMap.login;
+		} else {
+			toast.error(err?.title);
 		}
 		return err;
 	}

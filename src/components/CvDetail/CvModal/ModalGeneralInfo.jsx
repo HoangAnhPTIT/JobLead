@@ -1,16 +1,16 @@
 "use client";
-import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
-import DatePickerForm from "src/commons/FormInput/DatePickerForm";
-import CvModalLayout from "./CvModalLayout";
-import { useEffect, useState } from "react";
-import { isEmpty } from "lodash";
-import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { Grid, TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
-import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCandidateInfo } from "src/apis/apiEndpoint";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { isEmpty } from "lodash";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateInfo } from "src/apis/apiEndpoint";
+import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import SelectForm from "src/commons/FormInput/SelectForm";
+import CvModalLayout from "./CvModalLayout";
 
 const ModalGeneralinfo = ({ data, open, handleClose }) => {
 	const { register, handleSubmit, control, reset } = useForm();

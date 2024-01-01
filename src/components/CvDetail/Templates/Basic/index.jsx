@@ -3,6 +3,7 @@ import {
 	CalendarMonth,
 	Check,
 	CheckCircle,
+	Edit,
 	Email,
 	FolderShared,
 	PhoneEnabled,
@@ -168,12 +169,23 @@ const Basic = ({
 				</Grid>
 				<Grid item xs={5}>
 					<PhotoCamera style={{ fontSize: 150, color: "#333" }} />
-					<div
-						className="cursor-pointer"
-						onClick={() => setModalUpdating(CV_MODAL_TYPES.careerGoal)}
-					>
-						<div className="text-xl" style={{ color }}>
-							Mục tiêu nghề nghiệp
+					<div>
+						<div
+							className={classNames(
+								"text-xl flex justify-between pr-5 mb-2",
+								styles.cvItem
+							)}
+							style={{ color }}
+						>
+							<div>Mục tiêu nghề nghiệp</div>
+							<Edit
+								fontSize="medium"
+								className={classNames(
+									"text-right self-center !hidden cursor-pointer text-green-500",
+									styles.editIcon
+								)}
+								onClick={() => setModalUpdating(CV_MODAL_TYPES.careerGoal)}
+							/>
 						</div>
 						<div className="text-33 text-sm">
 							{data?.candidateCareerGoals.map((item, i) => (
@@ -185,12 +197,23 @@ const Basic = ({
 							<div>{data?.careerGoalDescription}</div>
 						</div>
 					</div>
-					<div
-						className="mt-5"
-						onClick={() => setModalUpdating(CV_MODAL_TYPES.generalInfo)}
-					>
-						<div className="text-xl" style={{ color }}>
-							Thông tin cá nhân
+					<div className="mt-5">
+						<div
+							className={classNames(
+								"text-xl flex justify-between pr-5 mb-2 mt-5 text-xl",
+								styles.cvItem
+							)}
+							style={{ color }}
+						>
+							<div>Thông tin cá nhân</div>
+							<Edit
+								fontSize="medium"
+								className={classNames(
+									"text-right self-center !hidden cursor-pointer text-green-500",
+									styles.editIcon
+								)}
+								onClick={() => setModalUpdating(CV_MODAL_TYPES.generalInfo)}
+							/>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
 							<Transgender fontSize="inherit" style={{ color }} />
@@ -215,8 +238,22 @@ const Basic = ({
 					</div>
 					{data?.itSkills && (
 						<div className="mt-5">
-							<div className="text-xl mb-2" style={{ color }}>
-								Tin học
+							<div
+								className={classNames(
+									"text-xl flex justify-between pr-5 mb-2 mt-5 text-xl",
+									styles.cvItem
+								)}
+								style={{ color }}
+							>
+								<div>Tin học</div>
+								<Edit
+									fontSize="medium"
+									className={classNames(
+										"text-right self-center !hidden cursor-pointer text-green-500",
+										styles.editIcon
+									)}
+									onClick={() => setModalUpdating(CV_MODAL_TYPES.itSkill)}
+								/>
 							</div>
 							{data?.itSkills?.map((item, i) => (
 								<Grid container key={i} className="border-b mt-2">
@@ -237,8 +274,22 @@ const Basic = ({
 					)}
 					{data?.languageSkills && (
 						<div className="mt-5">
-							<div className="text-xl mb-2" style={{ color }}>
-								Ngoại ngữ
+							<div
+								className={classNames(
+									"text-xl flex justify-between pr-5 mb-2 mt-5 text-xl",
+									styles.cvItem
+								)}
+								style={{ color }}
+							>
+								<div>Ngoại ngữ</div>
+								<Edit
+									fontSize="medium"
+									className={classNames(
+										"text-right self-center !hidden cursor-pointer text-green-500",
+										styles.editIcon
+									)}
+									onClick={() => setModalUpdating(CV_MODAL_TYPES.language)}
+								/>
 							</div>
 							{data?.languageSkills?.map((item, i) => (
 								<Grid container key={i} className="border-b mt-2">

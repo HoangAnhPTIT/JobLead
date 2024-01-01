@@ -19,6 +19,8 @@ import ModalGeneralinfo from "./CvModal/ModalGeneralInfo";
 import ModalReference from "./CvModal/ModalReference";
 import ModalSkill from "./CvModal/ModalSkill";
 import Basic from "./Templates/Basic";
+import ModalItSkill from "./CvModal/ModalItSkill";
+import ModalLanguage from "./CvModal/ModalLanguage";
 
 const CvLayout = () => {
 	const dispatch = useAppDispatch();
@@ -108,6 +110,16 @@ const CvLayout = () => {
 			<ModalGeneralinfo
 				data={candidateInfo}
 				open={modalUpdating === CV_MODAL_TYPES.generalInfo}
+				handleClose={handleClose}
+			/>
+			<ModalItSkill
+				data={candidateInfo}
+				open={modalUpdating === CV_MODAL_TYPES.itSkill}
+				handleClose={handleClose}
+			/>
+			<ModalLanguage
+				data={candidateInfo}
+				open={modalUpdating === CV_MODAL_TYPES.language}
 				handleClose={handleClose}
 			/>
 			<div className="bg-bgCv py-5">
