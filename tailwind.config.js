@@ -43,6 +43,9 @@ module.exports = {
 				ee: "#eee",
 				secondInfoBorder: "#7cdbf8",
 				secondInfoBg: "#f7fdff",
+				bgCopy: "#f2fbf6",
+				copy: "#00b14f",
+				bgTextCopy: "#fafafa",
 			},
 			width: {
 				content: "1170px",

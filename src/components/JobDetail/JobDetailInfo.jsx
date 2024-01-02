@@ -1,5 +1,7 @@
+"use client";
 import {
 	CalendarMonth,
+	ContentCopy,
 	Engineering,
 	FolderShared,
 	Groups,
@@ -11,7 +13,9 @@ import {
 	Translate,
 	WorkHistory,
 } from "@mui/icons-material";
-import { Grid, TextareaAutosize } from "@mui/material";
+import { Grid, TextField, TextareaAutosize } from "@mui/material";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getDate } from "src/helper/format";
 
 const Description = ({ title, content }) => {
@@ -44,6 +48,21 @@ const SecondaryInfomation = ({ icon, title, content }) => {
 };
 
 const JobDetailInfo = ({ data }) => {
+	const [currentUrl, setCurrentUrl] = useState("");
+
+	const handleCopy = () => {
+		try {
+			navigator.clipboard.writeText(currentUrl);
+			toast.success("Copy thành công");
+		} catch (error) {
+			toast.error(error?.message || error);
+		}
+	};
+
+	useEffect(() => {
+		setCurrentUrl(window.location.href);
+	}, []);
+
 	return (
 		<div className="p-4 bg-white">
 			<Grid container className="">
@@ -113,6 +132,21 @@ const JobDetailInfo = ({ data }) => {
 					</div>
 				</Grid>
 				<Grid item={3} flex={1}>
+					<div className="border p-4 max-w-[284px] mb-10">
+						<div className="text-lg font-semibold">Chia sẻ tin tuyển dụng</div>
+						<p className="text-sm my-3">Sao chép đường dẫn</p>
+						<div className="flex gap-2 cursor-pointer">
+							<div className="bg-bgTextCopy rounded flex-1 p-2 three-dot">
+								{currentUrl}
+							</div>
+							<div
+								className="bg-bgCopy rounded flex justify-center items-center w-8"
+								onClick={handleCopy}
+							>
+								<ContentCopy fontSize="small" className="text-copy" />
+							</div>
+						</div>
+					</div>
 					<div className="rounded border border-secondInfoBorder bg-secondInfoBg px-5 py-1 w-full [&>*:last-child]:border-0">
 						<SecondaryInfomation
 							icon={<Transgender fontSize="large" />}

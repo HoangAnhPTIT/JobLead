@@ -73,18 +73,18 @@ const LayoutContent = ({ children }) => {
 		<ThemeProvider theme={theme}>
 			<div className="layout">
 				<Loading />
+				<ToastContainer
+					position="top-right"
+					autoClose={2000}
+					theme="light"
+					className={styles.toastCustom}
+				/>
 				<div
 					className={classNames([
-						"h-16 fixed top-0 left-0 w-screen z-30 flex content-center px-10 bg-bgHeader",
+						"h-16 fixed top-0 left-0 w-screen z-10 flex content-center px-10 bg-bgHeader",
 						styles.header,
 					])}
 				>
-					<ToastContainer
-						position="top-center"
-						autoClose={2000}
-						theme="light"
-						className={styles.toastCustom}
-					/>
 					<Grid
 						container
 						justifyContent="space-between"

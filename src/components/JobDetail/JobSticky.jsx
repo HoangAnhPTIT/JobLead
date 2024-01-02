@@ -23,7 +23,7 @@ const JobSticky = ({ data }) => {
 		<div
 			className={classNames(
 				[
-					"h-[85px] w-screen bg-white fixed left-0 z-10 transition-all duration-700",
+					"h-[85px] w-screen bg-white fixed left-0 transition-all duration-700 z-20",
 				],
 				showSticky ? "top-0" : "-top-[86px]"
 			)}

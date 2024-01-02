@@ -27,7 +27,9 @@
 
 .toastCustom {
 	max-width: 500px;
+	min-width: 300px;
 	width: fit-content;
+	z-index: 30;
 	:global {
 		.Toastify__toast-body > div:last-child {
 			line-height: 28px;
