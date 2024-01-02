@@ -1,28 +1,28 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { Grid, Menu, MenuItem, Popover, Stack } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Grid, Stack } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import FooterLayout from "./Footer";
 
+import { Logout } from "@mui/icons-material";
+import { viVN } from "@mui/material/locale";
+import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
 import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
+import { imageError, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
+import { deleteAllCookies, getCookie } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
 import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
-import { imageError, token } from "src/constants/common";
-import { jwtDecode } from "jwt-decode";
-import { deleteAllCookies, getCookie } from "src/helper/common";
-import { viVN } from "@mui/material/locale";
-import { Logout } from "@mui/icons-material";
 
 const theme = createTheme(viVN);
 
@@ -36,6 +36,11 @@ const PageOutSide = [
 	"/dang-ky/nha-tuyen-dung",
 ];
 
+// const PageByRole = {
+// 	Candidate: [routeMap.file, ],
+// 	Employer: [routeMap.employer],
+// };
+
 const menuItems = [
 	{ label: "Việc làm", link: `${routeMap.job}/viec-lam-hot` },
 	{ label: "Công ty", link: routeMap.company },
@@ -45,20 +50,35 @@ const menuItems = [
 const LayoutContent = ({ children }) => {
 	const router = useRouter();
 	const pathname = usePathname();
-	const { isLogin } = useAppSelector((state) => state.user);
+	const { isLogin, userInfo } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
 	const entities = useEntities();
 
 	const hideFooter = PageHideFooter.includes(pathname);
+	// const checkRole = PageByRole?.[userInfo?.role]?.includes(pathname);
 
 	useEffect(() => {
 		const isLogin = getCookie("isLogin")
 			? JSON?.parse(getCookie("isLogin"))
 			: false;
-		const tokenCookie = getCookie(token);
-		// console.log("tokenData", tokenCookie);
 		dispatch(setIsLogin(isLogin));
-		deleteAllCookies();
+		if (isLogin) {
+			const tokenCookie = getCookie(token);
+			const decodeToken = jwtDecode(tokenCookie);
+			const userInfo = {
+				userId: decodeToken.userId,
+				email:
+					decodeToken[
+						"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+					],
+				role: decodeToken[
+					"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+				],
+			};
+			dispatch(setUserInfo(userInfo));
+		} else {
+			deleteAllCookies();
+		}
 	}, []);
 
 	useEffect(() => {
@@ -68,6 +88,12 @@ const LayoutContent = ({ children }) => {
 	useEffect(() => {
 		!isEmpty(entities) && dispatch(setEntities(entities));
 	}, [entities]);
+
+	// useEffect(() => {
+	// 	if (!checkRole) {
+	// 		router.push("/");
+	// 	}
+	// }, [pathname]);
 
 	return (
 		<ThemeProvider theme={theme}>

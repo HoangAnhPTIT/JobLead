@@ -4,6 +4,7 @@ import {
 	InputLabel,
 	TextField,
 } from "@mui/material";
+import { Controller } from "react-hook-form";
 
 const SelectFilter = ({
 	label,
@@ -13,7 +14,6 @@ const SelectFilter = ({
 	list,
 	classname = "",
 	valueKey = "id",
-	Controller,
 	control,
 }) => {
 	return (
@@ -46,26 +46,17 @@ const SelectFilter = ({
 								onChange(resolvedValue);
 							}}
 							renderInput={(params) => (
-								<>
-									{/* {label && (
-										<InputLabel
-											size="small"
-											required={required}
-											id="demo-simple-select-label"
-										>
-											{label}
-										</InputLabel>
-									)} */}
-									<TextField
-										className={classname}
-										{...params}
-										placeholder={placeholder}
-										inputProps={{
-											...params.inputProps,
-											autoComplete: "disabled", // disable autocomplete and autofill
-										}}
-									/>
-								</>
+								<TextField
+									className={classname}
+									{...params}
+									label={label}
+									required={required}
+									placeholder={placeholder}
+									inputProps={{
+										...params.inputProps,
+										autoComplete: "disabled", // disable autocomplete and autofill
+									}}
+								/>
 							)}
 						/>
 					</FormControl>

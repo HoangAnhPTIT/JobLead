@@ -13,6 +13,7 @@ import { apiRegisterCompany } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
+import SelectForm from "src/commons/FormInput/SelectForm";
 import { errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
@@ -110,7 +111,7 @@ const Employer = () => {
 									label="Tỉnh/Thành phố"
 									list={entities?.WorkLocation}
 									control={control}
-									Controller={Controller}
+									required
 								/>
 							</Stack>
 
