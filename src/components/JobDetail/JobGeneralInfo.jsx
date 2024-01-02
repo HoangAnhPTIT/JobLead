@@ -6,7 +6,6 @@ import { imageError } from "src/constants/common";
 import { getDate } from "src/helper/format";
 
 function JobGeneralInfo({ data }) {
-	console.log("data", data);
 	return (
 		<div className="shadow-ccc p-5 bg-white">
 			<div className="flex gap-8">

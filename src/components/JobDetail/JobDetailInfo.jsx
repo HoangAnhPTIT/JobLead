@@ -1,10 +1,14 @@
 import {
 	CalendarMonth,
 	Engineering,
+	FolderShared,
 	Groups,
 	MilitaryTech,
 	Paid,
 	PinDrop,
+	School,
+	Transgender,
+	Translate,
 	WorkHistory,
 } from "@mui/icons-material";
 import { Grid, TextareaAutosize } from "@mui/material";
@@ -12,7 +16,7 @@ import { getDate } from "src/helper/format";
 
 const Description = ({ title, content }) => {
 	return (
-		<div className="px-5">
+		<div className="pr-5">
 			<div className="border-b border-dd">
 				<span className="text-hlBlue text-lg uppercase font-semibold border-b-2 border-hlBlue pb-0.5">
 					{title}
@@ -27,13 +31,25 @@ const Description = ({ title, content }) => {
 	);
 };
 
+const SecondaryInfomation = ({ icon, title, content }) => {
+	return (
+		<div className="flex gap-3 py-4 border-b">
+			{icon}
+			<div className="text-sm">
+				<div className="font-bold uppercase">{title}</div>
+				<div>{content}</div>
+			</div>
+		</div>
+	);
+};
+
 const JobDetailInfo = ({ data }) => {
 	return (
-		<div className="py-5 bg-white">
+		<div className="p-4 bg-white">
 			<Grid container className="">
 				<Grid item xs={9}>
 					<Grid container>
-						<Grid item xs={6} className="px-4">
+						<Grid item xs={6} className="pr-5">
 							<div className="mb-4">
 								<Paid className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Mức lương:</span>
@@ -54,11 +70,11 @@ const JobDetailInfo = ({ data }) => {
 								{data?.contactInfo?.workLocation}
 							</div>
 						</Grid>
-						<Grid item xs={6} className="px-4">
+						<Grid item xs={6} className="pr-5">
 							<div className="mb-4">
 								<Groups className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Số lượng:</span>
-								{data?.numberOfRecruitment}
+								{data?.numOfRecruitment}
 							</div>
 							<div className="mb-4">
 								<MilitaryTech className="text-primary" />
@@ -70,10 +86,10 @@ const JobDetailInfo = ({ data }) => {
 								<span className="font-semibold ml-2 mr-1">
 									Ngày đăng tuyển:
 								</span>
-								{getDate(data?.create)}
+								{getDate(data?.createdDate)}
 							</div>
 						</Grid>
-						<Grid item xs={12} className="px-4">
+						<Grid item xs={12}>
 							<div className="mb-4">
 								<Engineering className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Ngành nghề:</span>
@@ -93,6 +109,30 @@ const JobDetailInfo = ({ data }) => {
 						<Description
 							title={"Yêu cầu công việc"}
 							content={data?.jobRequirement?.requestDescription}
+						/>
+					</div>
+				</Grid>
+				<Grid item={3} flex={1}>
+					<div className="rounded border border-secondInfoBorder bg-secondInfoBg px-5 py-1 w-full [&>*:last-child]:border-0">
+						<SecondaryInfomation
+							icon={<Transgender fontSize="large" />}
+							title="Giới tính"
+							content={data?.jobRequirement?.gender?.name}
+						/>
+						<SecondaryInfomation
+							icon={<School fontSize="large" />}
+							title="Bằng cấp"
+							content={data?.jobRequirement?.degree?.name}
+						/>
+						<SecondaryInfomation
+							icon={<FolderShared fontSize="large" />}
+							title="Kinh nghiệm"
+							content={data?.jobRequirement?.experience?.name}
+						/>
+						<SecondaryInfomation
+							icon={<Translate fontSize="large" />}
+							title="Ngôn ngữ"
+							content={data?.jobRequirement?.language?.name}
 						/>
 					</div>
 				</Grid>

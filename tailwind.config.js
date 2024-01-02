@@ -41,6 +41,8 @@ module.exports = {
 				note: "#c60001",
 				bd: "#bdbdbd",
 				ee: "#eee",
+				secondInfoBorder: "#7cdbf8",
+				secondInfoBg: "#f7fdff",
 			},
 			width: {
 				content: "1170px",
