@@ -1,10 +1,17 @@
 import { Add, Edit } from "@mui/icons-material";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
+import { ACTION_TYPES } from "src/constants/common";
 
 const color = "#009ce0";
 
-const Section = ({ icon, title, onClick, typeParent = "add", children }) => {
+const Section = ({
+	icon,
+	title,
+	onClick,
+	typeParent = ACTION_TYPES.add,
+	children,
+}) => {
 	return (
 		<div className={classNames("", styles.cvItem)}>
 			<div
@@ -15,7 +22,7 @@ const Section = ({ icon, title, onClick, typeParent = "add", children }) => {
 					{icon}
 					<span className="uppercase ml-4 text-xl">{title}</span>
 				</div>
-				{typeParent === "add" ? (
+				{typeParent === ACTION_TYPES.add ? (
 					<Add
 						fontSize="medium"
 						className={classNames(

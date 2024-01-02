@@ -1,20 +1,21 @@
 "use client";
 import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateExperience } from "src/apis/apiEndpoint";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import CvModalLayout from "./CvModalLayout";
-import { useEffect, useState } from "react";
-import { useAppDispatch } from "lib/hooks";
-import { updateLoading } from "lib/features/loadingSlice";
-import { replaceArrayValue } from "src/helper/format";
-import { httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCandidateExperience } from "src/apis/apiEndpoint";
-import { toast } from "react-toastify";
 
 const ModalExperience = ({ index, data, open, handleClose }) => {
 	const dispatch = useAppDispatch();
 	const { register, handleSubmit, setValue, reset, control } = useForm();
 	const [isCurrentJob, setIsCurrentJob] = useState(false);
+	const dataInfo = index !== null ? data?.[index] : null;
 
 	const handleChangeIsCurrentJob = (value) => {
 		setIsCurrentJob(value.target.checked);
@@ -24,14 +25,18 @@ const ModalExperience = ({ index, data, open, handleClose }) => {
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
 		try {
-			const updateValue =
-				index !== null ? { id: data[index].id, ...values } : values;
-			const payload = replaceArrayValue(data, updateValue, index);
-
-			await httpAuthPut({
-				endpoint: apiCandidateExperience,
-				data: payload,
-			});
+			if (index !== null) {
+				const payload = { id: dataInfo.id, ...values };
+				await httpAuthPut({
+					endpoint: apiCandidateExperience,
+					data: payload,
+				});
+			} else {
+				await httpAuthPost({
+					endpoint: apiCandidateExperience,
+					data: values,
+				});
+			}
 			handleClose();
 		} catch (error) {
 			toast.error(error?.message || error);
@@ -41,12 +46,16 @@ const ModalExperience = ({ index, data, open, handleClose }) => {
 	};
 
 	useEffect(() => {
-		if (index === null) {
-			reset();
+		if (dataInfo === null) {
+			reset({});
 		} else {
-			reset({ ...data[index] });
+			reset({
+				...dataInfo,
+				startDate: moment(dataInfo?.startDate),
+				finishDate: dataInfo?.finishDate ? moment(dataInfo.finishDate) : null,
+			});
 		}
-	}, [data, index, reset]);
+	}, [open, dataInfo, reset]);
 
 	return (
 		<CvModalLayout

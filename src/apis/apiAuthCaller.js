@@ -221,3 +221,6 @@ export function httpAuthGet(options) {
 export function httpAuthPut(options) {
 	return apiCaller({ ...options, method: "put" });
 }
+export function httpAuthDelete(options) {
+	return apiCaller({ ...options, method: "delete" });
+}

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
+import styles from "./styles.module.scss";
 
 const SelectForm = ({
 	label,
@@ -35,7 +36,7 @@ const SelectForm = ({
 			control={control}
 			defaultValue=""
 			render={({ field }) => (
-				<FormControl fullWidth>
+				<FormControl fullWidth className={styles.customSelect}>
 					{label && (
 						<InputLabel
 							size="small"

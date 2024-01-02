@@ -5,7 +5,7 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
+import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
 import {
 	apiCandidate,
 	apiCandidateEducation,
@@ -16,11 +16,12 @@ import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalEducation from "./CvModal/ModalEducation";
 import ModalExperience from "./CvModal/ModalExperience";
 import ModalGeneralinfo from "./CvModal/ModalGeneralInfo";
+import ModalItSkill from "./CvModal/ModalItSkill";
+import ModalLanguage from "./CvModal/ModalLanguage";
 import ModalReference from "./CvModal/ModalReference";
 import ModalSkill from "./CvModal/ModalSkill";
 import Basic from "./Templates/Basic";
-import ModalItSkill from "./CvModal/ModalItSkill";
-import ModalLanguage from "./CvModal/ModalLanguage";
+import ModalSave from "./CvModal/ModalSave";
 
 const CvLayout = () => {
 	const dispatch = useAppDispatch();
@@ -44,11 +45,8 @@ const CvLayout = () => {
 	const deleteEducation = async (index) => {
 		dispatch(updateLoading(true));
 		try {
-			const newData = candidateInfo?.educations;
-			newData.splice(index, 1);
-			await httpAuthPut({
-				endpoint: apiCandidateEducation,
-				data: newData,
+			await httpAuthDelete({
+				endpoint: `${apiCandidateEducation}/${candidateInfo?.educations?.[index]?.id}`,
 			});
 			handleClose();
 		} catch (error) {
@@ -60,11 +58,8 @@ const CvLayout = () => {
 	const deleteExperience = async (index) => {
 		dispatch(updateLoading(true));
 		try {
-			const newData = candidateInfo?.experiences;
-			newData.splice(index, 1);
-			await httpAuthPut({
-				endpoint: apiCandidateExperience,
-				data: newData,
+			await httpAuthDelete({
+				endpoint: `${apiCandidateExperience}/${candidateInfo?.experiences?.[index]?.id}`,
 			});
 			handleClose();
 		} catch (error) {
@@ -122,6 +117,10 @@ const CvLayout = () => {
 				open={modalUpdating === CV_MODAL_TYPES.language}
 				handleClose={handleClose}
 			/>
+			<ModalSave
+				open={modalUpdating === CV_MODAL_TYPES.save}
+				handleClose={handleClose}
+			/>
 			<div className="bg-bgCv py-5">
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
@@ -143,6 +142,7 @@ const CvLayout = () => {
 										variant="contained"
 										className="flex items-center !text-33 !bg-yellow2 h-9"
 										fullWidth
+										onClick={() => setModalUpdating(CV_MODAL_TYPES.save)}
 									>
 										<Save fontSize="small" />
 										<div className="ml-1 h-5">Lưu hồ sơ</div>

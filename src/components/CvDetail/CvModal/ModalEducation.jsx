@@ -2,32 +2,37 @@
 import { Grid, TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
+import moment from "moment";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCandidateEducation } from "src/apis/apiEndpoint";
 import DatePickerForm from "src/commons/FormInput/DatePickerForm";
 import SelectForm from "src/commons/FormInput/SelectForm";
-import { replaceArrayValue } from "src/helper/format";
 import CvModalLayout from "./CvModalLayout";
 
 const ModalEducation = ({ index, data, open, handleClose }) => {
 	const { register, handleSubmit, reset, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const dispatch = useAppDispatch();
+	const dataInfo = index !== null ? data?.[index] : null;
 
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
 		try {
-			const updateValue =
-				index !== null ? { id: data[index].id, ...values } : values;
-			const payload = replaceArrayValue(data, updateValue, index);
-
-			await httpAuthPut({
-				endpoint: apiCandidateEducation,
-				data: payload,
-			});
+			if (index !== null) {
+				const payload = { id: dataInfo.id, ...values };
+				await httpAuthPut({
+					endpoint: apiCandidateEducation,
+					data: payload,
+				});
+			} else {
+				await httpAuthPost({
+					endpoint: apiCandidateEducation,
+					data: values,
+				});
+			}
 			handleClose();
 		} catch (error) {
 			toast.error(error?.message || error);
@@ -37,12 +42,16 @@ const ModalEducation = ({ index, data, open, handleClose }) => {
 	};
 
 	useEffect(() => {
-		if (index === null) {
-			reset();
+		if (dataInfo === null) {
+			reset({});
 		} else {
-			reset({ ...data[index] });
+			reset({
+				...dataInfo,
+				startDate: moment(dataInfo?.startDate),
+				finishDate: dataInfo?.finishDate ? moment(dataInfo.finishDate) : null,
+			});
 		}
-	}, [data, index, reset]);
+	}, [open, dataInfo, reset]);
 
 	return (
 		<CvModalLayout
@@ -95,7 +104,7 @@ const ModalEducation = ({ index, data, open, handleClose }) => {
 							required
 							control={control}
 							placeholder={"Xếp loại"}
-							list={entities?.Degree}
+							list={entities?.LearningClassification}
 						/>
 					</Grid>
 					<Grid item xs={6}>

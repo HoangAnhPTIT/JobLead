@@ -3,11 +3,17 @@ import { Stack } from "@mui/material";
 import classNames from "classnames";
 import Section from "../Basic/Section";
 import styles from "./styles.module.scss";
+import { ACTION_TYPES } from "src/constants/common";
 
 const color = "#009ce0";
 const Skill = ({ data, icon, title, onClick }) => {
 	return (
-		<Section icon={icon} title={title} onClick={onClick} typeParent="edit">
+		<Section
+			icon={icon}
+			title={title}
+			onClick={onClick}
+			typeParent={ACTION_TYPES.edit}
+		>
 			<div className={classNames("pt-2", styles.info)}>
 				<div className={classNames("ml-[40px]", styles.item)}>
 					<div className={classNames("text-33 text-sm", styles.content)}>

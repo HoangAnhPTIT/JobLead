@@ -48,7 +48,7 @@ const CvModalLayout = ({
 					className="flex items-center"
 				>
 					<CheckCircle fontSize="small" />
-					<div className="h-5 ml-1">Cập nhật</div>
+					<div className="h-5 ml-1">Lưu</div>
 				</Button>
 			</DialogActions>
 		</Dialog>

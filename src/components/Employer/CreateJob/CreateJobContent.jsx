@@ -53,7 +53,7 @@ const CreateJobContent = () => {
 			const response = await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
 				toast.success("Đăng tin tuyển dụng thành công");
-				reset();
+				reset({});
 			}
 		} catch (error) {
 			console.log(error);
