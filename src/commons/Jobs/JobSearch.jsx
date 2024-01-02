@@ -75,7 +75,6 @@ const JobSearch = () => {
 								list={entities?.Career}
 								valueKey="slug"
 								control={control}
-								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item xs={3}>
@@ -85,7 +84,6 @@ const JobSearch = () => {
 								list={entities?.WorkLocation}
 								valueKey="slug"
 								control={control}
-								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item>
@@ -122,7 +120,6 @@ const JobSearch = () => {
 										name="levelId"
 										placeholder="Vị trí"
 										control={control}
-										Controller={Controller}
 										list={entities?.Level}
 									/>
 								</div>
@@ -131,7 +128,6 @@ const JobSearch = () => {
 										name="experienceId"
 										placeholder="Kinh nghiệm"
 										control={control}
-										Controller={Controller}
 										list={entities?.Experience}
 									/>
 								</div>
@@ -140,7 +136,6 @@ const JobSearch = () => {
 										name="salaryId"
 										placeholder="Mức lương"
 										control={control}
-										Controller={Controller}
 										list={entities?.Salary}
 									/>
 								</div>
@@ -150,7 +145,6 @@ const JobSearch = () => {
 										placeholder="Loại hình công việc"
 										list={entities?.TypeOfWork}
 										control={control}
-										Controller={Controller}
 									/>
 								</div>
 								<div className="w-1/5">
@@ -158,7 +152,6 @@ const JobSearch = () => {
 										name="genderId"
 										placeholder="Giới tính"
 										control={control}
-										Controller={Controller}
 										list={entities?.Gender}
 									/>
 								</div>

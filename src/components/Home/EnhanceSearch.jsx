@@ -4,7 +4,7 @@ import { Button, Stack } from "@mui/material";
 import classNames from "classnames";
 import { useAppSelector } from "lib/hooks";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
 import routeMap from "src/constants/routeMap";
 
@@ -55,7 +55,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 					<Stack spacing={2}>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="career"
 							placeholder="Ngành nghề"
 							list={entities?.Career}
@@ -63,7 +62,6 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="workLocation"
 							placeholder="Địa điểm"
 							list={entities?.WorkLocation}
@@ -71,35 +69,30 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="levelId"
 							placeholder="Cấp bậc"
 							list={entities?.Level}
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="experienceId"
 							placeholder="Năm kinh nghiệm"
 							list={entities?.Experience}
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="salaryId"
 							placeholder="Mức lương"
 							list={entities?.Salary}
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="typeOfWorkId"
 							placeholder="Loại hình công việc"
 							list={entities?.TypeOfWork}
 						/>
 						<SelectFilter
 							control={control}
-							Controller={Controller}
 							name="genderId"
 							placeholder="Giới tính"
 							list={entities?.Gender}

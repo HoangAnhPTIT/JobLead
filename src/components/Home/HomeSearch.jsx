@@ -76,7 +76,6 @@ const HomeSearch = () => {
 								classname={"bg-white !rounded-full"}
 								valueKey="slug"
 								control={control}
-								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item xs={3}>
@@ -87,7 +86,6 @@ const HomeSearch = () => {
 								classname={"bg-white !rounded-full"}
 								valueKey="slug"
 								control={control}
-								Controller={Controller}
 							/>
 						</Grid>
 						<Grid item xs={2}>
