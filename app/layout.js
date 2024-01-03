@@ -3,6 +3,8 @@ import "app/globals.css";
 import { Roboto } from "next/font/google";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import viVN from "antd/locale/vi_VN";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],
@@ -17,11 +19,13 @@ export const metadata = {
 const RootLayout = ({ children }) => {
 	return (
 		<html>
-			<head>{/* <script src="/static/monitor.js" async /> */}</head>
+			<head></head>
 			<body className={roboto.className}>
 				<StoreProvider>
 					<AppRouterCacheProvider>
-						<LayoutContent>{children}</LayoutContent>
+						<AntdRegistry locale={viVN}>
+							<LayoutContent>{children}</LayoutContent>
+						</AntdRegistry>
 					</AppRouterCacheProvider>
 				</StoreProvider>
 			</body>
