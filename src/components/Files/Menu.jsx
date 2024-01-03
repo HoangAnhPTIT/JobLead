@@ -1,4 +1,4 @@
-import { DescriptionOutlined } from "@mui/icons-material";
+import { DescriptionOutlined, SettingsOutlined } from "@mui/icons-material";
 import {
 	Box,
 	List,
@@ -14,6 +14,11 @@ const items = [
 		link: routeMap.cv,
 		name: "CV",
 		icon: <DescriptionOutlined />,
+	},
+	{
+		link: routeMap.setupJobSuggestions,
+		name: "Cài đặt gợi ý việc làm",
+		icon: <SettingsOutlined />,
 	},
 ];
 

@@ -9,6 +9,7 @@ const routeMap = {
 	detail: "/chi-tiet",
 	file: "/ho-so",
 	cv: "/cv",
+	setupJobSuggestions: "/cai-dat-goi-y-viec-lam",
 };
 
 export default routeMap;

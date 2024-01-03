@@ -5,6 +5,7 @@ import LayoutContent from "src/components/Layout/LayoutContent";
 import StoreProvider from "./StoreProvider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import viVN from "antd/locale/vi_VN";
+import { ConfigProvider } from "antd";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],
@@ -23,8 +24,10 @@ const RootLayout = ({ children }) => {
 			<body className={roboto.className}>
 				<StoreProvider>
 					<AppRouterCacheProvider>
-						<AntdRegistry locale={viVN}>
-							<LayoutContent>{children}</LayoutContent>
+						<AntdRegistry>
+							<ConfigProvider locale={viVN}>
+								<LayoutContent>{children}</LayoutContent>
+							</ConfigProvider>
 						</AntdRegistry>
 					</AppRouterCacheProvider>
 				</StoreProvider>
