@@ -8,7 +8,12 @@ const DatePickerAntd = ({ form: Form, name, label, ...option }) => {
 			rules={[{ required: true }]}
 			{...option}
 		>
-			<DatePicker size="large" placeholder="" className="w-full" />
+			<DatePicker
+				size="large"
+				placeholder=""
+				format="DD/MM/YYYY"
+				className="w-full"
+			/>
 		</Form.Item>
 	);
 };

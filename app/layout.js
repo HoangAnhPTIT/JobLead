@@ -6,6 +6,7 @@ import StoreProvider from "./StoreProvider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import viVN from "antd/locale/vi_VN";
 import { ConfigProvider } from "antd";
+import { primaryColor } from "src/constants/common";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],
@@ -25,7 +26,15 @@ const RootLayout = ({ children }) => {
 				<StoreProvider>
 					<AppRouterCacheProvider>
 						<AntdRegistry>
-							<ConfigProvider locale={viVN}>
+							<ConfigProvider
+								locale={viVN}
+								theme={{
+									token: {
+										colorPrimary: primaryColor,
+										borderRadius: 4,
+									},
+								}}
+							>
 								<LayoutContent>{children}</LayoutContent>
 							</ConfigProvider>
 						</AntdRegistry>

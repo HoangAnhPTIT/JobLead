@@ -1,10 +1,21 @@
 "use client";
-import { Button, Col, DatePicker, Form, Grid, Input, Row, Select } from "antd";
+import {
+	Button,
+	Col,
+	DatePicker,
+	Divider,
+	Form,
+	Grid,
+	Input,
+	Row,
+	Select,
+} from "antd";
 import { useAppSelector } from "lib/hooks";
 import React from "react";
 import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import FileLayout from "src/components/Files/FileLayout";
+import { primaryColor } from "src/constants/common";
 
 const JobSuggestionPage = () => {
 	const { entities } = useAppSelector((state) => state.entity);
@@ -23,7 +34,7 @@ const JobSuggestionPage = () => {
 	return (
 		<FileLayout>
 			<Row gutter={20}>
-				<Col span={16} className="shadow !p-5 bg-white">
+				<Col span={16}>
 					<Form
 						form={form}
 						labelCol={{
@@ -33,6 +44,7 @@ const JobSuggestionPage = () => {
 							span: 17,
 						}}
 						autoComplete="off"
+						className="shadow !p-5 bg-white"
 					>
 						<div>
 							<div className="text-base text-primary font-semibold uppercase mb-5">
@@ -105,11 +117,62 @@ const JobSuggestionPage = () => {
 								/>
 							</div>
 						</div>
+						<Divider />
+						<div>
+							<div className="text-base text-primary font-semibold uppercase mb-5">
+								Mong muốn của bạn
+							</div>
+							<div>
+								<SelectAntd
+									form={Form}
+									name="careerIds"
+									label="Ngành nghề"
+									mode="multiple"
+									rules={[{ required: true }]}
+									list={entities?.Career}
+								/>
+								<SelectAntd
+									form={Form}
+									name="workLocationIds"
+									label="Địa điểm làm việc"
+									mode="multiple"
+									rules={[{ required: true }]}
+									list={entities?.City}
+								/>
+								<SelectAntd
+									form={Form}
+									name="typeOfWorkIds"
+									label="Loại hình công việc"
+									mode="multiple"
+									rules={[{ required: true }]}
+									list={entities?.TypeOfWork}
+								/>
+								<SelectAntd
+									form={Form}
+									name="slaryId"
+									label="Mức lương mong muốn"
+									rules={[{ required: true }]}
+									list={entities?.Salary}
+								/>
+								<SelectAntd
+									form={Form}
+									name="levelId"
+									label="Cấp bậc mong muốn"
+									rules={[{ required: true }]}
+									list={entities?.Level}
+								/>
+							</div>
+						</div>
 					</Form>
+					<Button
+						type="primary"
+						onClick={onSubmit}
+						color={primaryColor}
+						className="mt-5 float-right"
+					>
+						Lưu thông tin
+					</Button>
 				</Col>
-				<Button type="primary" onClick={onSubmit}>
-					Lưu
-				</Button>
 			</Row>
 		</FileLayout>
 	);

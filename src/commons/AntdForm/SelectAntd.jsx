@@ -21,6 +21,7 @@ const SelectAntd = ({
 				placeholder={placeholder}
 				fieldNames={{ label: nameKey, value: valueKey }}
 				options={list}
+				{...option}
 				filterOption={(inputValue, option) =>
 					(option?.[nameKey]?.toLowerCase() ?? "").includes(
 						inputValue.toLowerCase()
