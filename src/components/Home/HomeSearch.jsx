@@ -5,12 +5,10 @@ import { useAppSelector } from "lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
-import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
-import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
-import routeMap from "src/constants/routeMap";
-import styles from "./styles.module.scss";
 import InputSearch from "src/commons/FormInput/InputSearch";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
+import routeMap from "src/constants/routeMap";
+import styles from "./styles.module.scss";
 
 const commonSearch = [
 	// { title: "Nhân viên bán hàng", link: "/sale" },
@@ -50,7 +48,7 @@ const HomeSearch = () => {
 			<form>
 				<div
 					className={classNames([
-						"bg-f0Blur rounded-full mx-auto w-content p-3 z",
+						"bg-f0Blur rounded-full mx-auto w-content p-3",
 						styles.searchForm,
 					])}
 				>

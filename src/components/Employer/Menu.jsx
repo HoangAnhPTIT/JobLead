@@ -7,6 +7,7 @@ import {
 	ListItemText,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
+import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
@@ -26,7 +27,7 @@ const EmployerMenu = () => {
 	const pathname = usePathname();
 
 	const handleClick = (link) => {
-		router.push(`/employer${link}`);
+		router.push(`${routeMap.employer}${link}`);
 	};
 
 	return (

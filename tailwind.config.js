@@ -49,6 +49,8 @@ module.exports = {
 			},
 			width: {
 				content: "1170px",
+				lgContent: "718px",
+				smContent: "718px",
 				userForm: "975px",
 			},
 			boxShadow: {
