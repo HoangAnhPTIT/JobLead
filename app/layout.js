@@ -33,6 +33,11 @@ const RootLayout = ({ children }) => {
 										colorPrimary: primaryColor,
 										borderRadius: 4,
 									},
+									components: {
+										Form: {
+											itemMarginBottom: 10,
+										},
+									},
 								}}
 							>
 								<LayoutContent>{children}</LayoutContent>

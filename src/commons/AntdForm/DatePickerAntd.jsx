@@ -1,6 +1,12 @@
 import { DatePicker } from "antd";
 
-const DatePickerAntd = ({ form: Form, name, label, ...option }) => {
+const DatePickerAntd = ({
+	form: Form,
+	name,
+	label,
+	placeholder = "",
+	...option
+}) => {
 	return (
 		<Form.Item
 			label={label}
@@ -10,7 +16,7 @@ const DatePickerAntd = ({ form: Form, name, label, ...option }) => {
 		>
 			<DatePicker
 				size="large"
-				placeholder=""
+				placeholder={placeholder}
 				format="DD/MM/YYYY"
 				className="w-full"
 			/>
