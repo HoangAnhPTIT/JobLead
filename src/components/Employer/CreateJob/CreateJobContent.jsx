@@ -23,7 +23,7 @@ const CreateJobContent = () => {
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
 		try {
-			const values = form.validateFields();
+			const values = await form.validateFields();
 			const bodyData = {
 				serviceIds: values.services || [],
 				job: {
@@ -59,10 +59,14 @@ const CreateJobContent = () => {
 		};
 		const getCompanyInfo = async () => {
 			const response = await httpAuthGet({ endpoint: apiCompanyContact });
-			response?.data && form.setFieldsValue({ ...response?.data });
+			response?.data &&
+				form.setFieldsValue("contact", {
+					...response?.data,
+				});
 		};
 		getServices();
 		getCompanyInfo();
+		form.setFieldValue("jobInfo", { isHasCommission: false });
 	}, []);
 
 	return (
@@ -95,7 +99,7 @@ const CreateJobContent = () => {
 								</Col>
 								<Col span={12}>
 									<Form.Item
-										name={"jobInfo.numOfRecruitment"}
+										name={["jobInfo", "numOfRecruitment"]}
 										label="Số lượng"
 										rules={[{ required: true }]}
 									>
