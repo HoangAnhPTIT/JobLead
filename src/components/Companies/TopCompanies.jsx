@@ -39,41 +39,42 @@ const TopCompanies = () => {
 				autoplay={{ delay: 5000 }}
 				className="pt-2 pb-9 px-5"
 			>
-				{companyList?.map((item, i) => (
-					<SwiperSlide key={i}>
-						<Link href={`/companyies/${item?.id}`}>
-							<div className="text-33 border">
-								<ImageFull
-									src={item?.profile}
-									alt={item?.name}
-									classname="min-h-[132px]"
-								/>
-								<div className="flex gap-2.5 px-5">
-									<div className="relative w-20 h-10">
-										<Image
-											src={item?.avatar || imageError}
-											alt={item.name || ""}
-											width={80}
-											height={80}
-											className="absolute -top-7 left-0"
-										/>
-									</div>
-									<div className={"flex-1 font-semibold max-two-line !h-12"}>
-										{item?.name}
-									</div>
-								</div>
-								<div className="p-2 !h-14 overflow-hidden">
-									<PlaceOutlined
-										fontSize="small"
-										style={{ fontSize: 18 }}
-										className="mr-1 -mt-0.5"
+				{companyList &&
+					companyList?.map((item, i) => (
+						<SwiperSlide key={i}>
+							<Link href={`/companyies/${item?.id}`}>
+								<div className="text-33 border">
+									<ImageFull
+										src={item?.profile}
+										alt={item?.name}
+										classname="min-h-[132px]"
 									/>
-									Địa chỉ: {item?.address}
+									<div className="flex gap-2.5 px-5">
+										<div className="relative w-20 h-10">
+											<Image
+												src={item?.avatar || imageError}
+												alt={item.name || ""}
+												width={80}
+												height={80}
+												className="absolute -top-7 left-0"
+											/>
+										</div>
+										<div className={"flex-1 font-semibold max-two-line !h-12"}>
+											{item?.name}
+										</div>
+									</div>
+									<div className="p-2 !h-14 overflow-hidden">
+										<PlaceOutlined
+											fontSize="small"
+											style={{ fontSize: 18 }}
+											className="mr-1 -mt-0.5"
+										/>
+										Địa chỉ: {item?.address}
+									</div>
 								</div>
-							</div>
-						</Link>
-					</SwiperSlide>
-				))}
+							</Link>
+						</SwiperSlide>
+					))}
 			</Swiper>
 		</Category>
 	);

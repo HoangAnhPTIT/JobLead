@@ -7,10 +7,10 @@ import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import FooterLayout from "./Footer";
 
-import { Logout } from "@mui/icons-material";
+import { KeyboardArrowDown, Logout, MenuOutlined } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
 import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
@@ -54,6 +54,8 @@ const LayoutContent = ({ children }) => {
 	const dispatch = useAppDispatch();
 	const entities = useEntities();
 
+	const [showMenu, setShowMenu] = useState(false);
+
 	const hideFooter = PageHideFooter.includes(pathname);
 	// const checkRole = PageByRole?.[userInfo?.role]?.includes(pathname);
 
@@ -89,11 +91,9 @@ const LayoutContent = ({ children }) => {
 		!isEmpty(entities) && dispatch(setEntities(entities));
 	}, [entities]);
 
-	// useEffect(() => {
-	// 	if (!checkRole) {
-	// 		router.push("/");
-	// 	}
-	// }, [pathname]);
+	useEffect(() => {
+		setShowMenu(false);
+	}, [pathname]);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -107,116 +107,140 @@ const LayoutContent = ({ children }) => {
 				/>
 				<div
 					className={classNames([
-						"h-16 fixed top-0 left-0 w-screen z-10 flex content-center px-10 bg-bgHeader",
+						"h-16 fixed top-0 left-0 w-screen z-10 flex content-center lg:px-10 bg-bgHeader relative",
 						styles.header,
 					])}
 				>
 					<Grid
 						container
-						justifyContent="space-between"
+						alignItems="center"
 						alignContent="center"
+						spacing={{ xs: 0, lg: 1 }}
 						className="text-33"
 					>
-						<Grid item>
+						<Grid
+							item
+							xs={12}
+							lg="auto"
+							className="cursor-pointer"
+							onClick={() => router.push("/")}
+						>
+							<Image
+								src={"https://placehold.co/112x41.png" || imageError}
+								alt="logo"
+								width={112}
+								height={41}
+							/>
+						</Grid>
+						<Grid
+							item
+							xs={12}
+							lg="auto"
+							className={classNames(
+								"!flex-1 w-full left-0 lg:left-auto absolute top-16 lg:relative lg:top-0 bg-white lg:!visible",
+								showMenu ? "visible" : "invisible"
+							)}
+						>
 							<Grid
 								container
+								justifyContent="space-between"
 								alignItems="center"
-								spacing={2}
-								className="h-full"
+								spacing={{ xs: 0, lg: 2 }}
+								className="w-full"
 							>
-								<Grid
-									item
-									className="cursor-pointer"
-									onClick={() => router.push("/")}
-								>
-									<Image
-										src={"https://placehold.co/112x41.png" || imageError}
-										alt="logo"
-										width={112}
-										height={41}
-									/>
-								</Grid>
-								<Grid item>
+								<Grid item xs={12} lg="auto">
 									<Grid container>
 										{menuItems?.map((item, i) => (
-											<Link href={item?.link} key={i}>
-												<Grid
-													item
-													key={i}
-													className={classNames([
-														"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
-														item?.link === pathname &&
-															"bg-secondary text-white",
-													])}
-												>
-													{item?.label}
-												</Grid>
-											</Link>
+											<Grid item xs={12} lg="auto" key={i}>
+												<Link href={item?.link}>
+													<div
+														className={classNames([
+															"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+															item?.link === pathname &&
+																"bg-secondary text-white",
+														])}
+													>
+														{item?.label}
+													</div>
+												</Link>
+											</Grid>
 										))}
 									</Grid>
 								</Grid>
+								{isLogin === false && (
+									<Grid
+										item
+										xs={12}
+										lg="auto"
+										className="text-white font-semibold"
+										justify="center"
+									>
+										<Grid container>
+											<Grid item xs={12} lg="auto">
+												<Link href={routeMap.login}>
+													<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
+														<span className="text-sm">Đăng nhập</span>
+													</div>
+												</Link>
+											</Grid>
+											<Grid item xs={12} lg="auto">
+												<Link href={routeMap.signin}>
+													<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
+														<span className="text-sm te">Đăng ký</span>
+													</div>
+												</Link>
+											</Grid>
+										</Grid>
+									</Grid>
+								)}
+								{isLogin && (
+									<Grid item xs={12} lg="auto">
+										<div
+											className={classNames(
+												"hover:bg-secondary hover:text-white text-33 cursor-pointer relative px-4 lg:px-2",
+												styles.acc
+											)}
+										>
+											<div
+												className={classNames(
+													"text-sm font-semibold uppercase",
+													styles.item
+												)}
+											>
+												Tài khoản <KeyboardArrowDown />
+											</div>
+											<div
+												className={classNames(
+													"hidden absolute bg-white text-33 top-[64px] right-0 w-[200px] border",
+													styles.accMenu
+												)}
+											>
+												<Stack gap={1} className="py-2">
+													<div
+														onClick={() => {
+															dispatch(logout());
+															router.push("/");
+														}}
+														className="text-sm hover:text-primary px-2"
+													>
+														<Logout /> Đăng xuất
+													</div>
+												</Stack>
+											</div>
+										</div>
+									</Grid>
+								)}
 							</Grid>
 						</Grid>
-						{isLogin === false && (
-							<Grid
-								item
-								className="text-white font-semibold text-center flex"
-								align="middle"
-								justify="center"
-							>
-								<Link href={routeMap.signin}>
-									<div className="hover:bg-secondary hover:text-white w-[80px] font-semibold text-33 cursor-pointer">
-										<span className="text-sm">Đăng ký</span>
-									</div>
-								</Link>
-								<Link href={routeMap.login}>
-									<div className="hover:bg-secondary hover:text-white w-[80px] font-semibold text-33 cursor-pointer">
-										<span className="text-sm">Đăng nhập</span>
-									</div>
-								</Link>
-							</Grid>
-						)}
-						{isLogin && (
-							<div>
-								<div
-									className={classNames(
-										"hover:bg-secondary hover:text-white w-[80px] text-33 cursor-pointer relative",
-										styles.acc
-									)}
-								>
-									<div
-										className={classNames(
-											"text-sm font-semibold uppercase",
-											styles.item
-										)}
-									>
-										Tài khoản
-									</div>
-									<div
-										className={classNames(
-											"hidden absolute bg-white text-33 top-[64px] right-0 w-[200px] border",
-											styles.accMenu
-										)}
-									>
-										<Stack gap={1} className="py-2">
-											<div
-												onClick={() => {
-													dispatch(logout());
-													router.push("/");
-												}}
-												className="text-sm hover:text-primary px-2"
-											>
-												<Logout /> Đăng xuất
-											</div>
-										</Stack>
-									</div>
-								</div>
-							</div>
-						)}
 					</Grid>
+					<MenuOutlined
+						fontSize="large"
+						className="absolute top-4 right-6 cursor-pointer lg:!hidden"
+						onClick={() => setShowMenu(!showMenu)}
+					/>
 				</div>
 				<Suspense fallback={<SuspenseLoading />}>
-					<div className="pt-[64px]">{children}</div>
+					<div className="">{children}</div>
 				</Suspense>
 				{!hideFooter && <FooterLayout />}
 			</div>
