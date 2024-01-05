@@ -31,3 +31,5 @@ export const replaceArrayValue = (array, value, index) => {
 export const removeArrayValue = (array, value) => {
 	return array?.filter((item) => item !== value);
 };
+
+export const getTimeValue = (value) => (value ? moment(value) : null);

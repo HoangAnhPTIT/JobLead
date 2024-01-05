@@ -2,14 +2,12 @@ import {
 	BorderColor,
 	CalendarMonth,
 	Check,
-	CheckCircle,
 	Edit,
 	Email,
 	FolderShared,
 	PhoneEnabled,
 	PhotoCamera,
 	Place,
-	RecentActors,
 	School,
 	Star,
 	StarOutline,
@@ -17,17 +15,17 @@ import {
 } from "@mui/icons-material";
 import { Grid, Rating, TextField } from "@mui/material";
 import classNames from "classnames";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
+import { toast } from "react-toastify";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateInfo } from "src/apis/apiEndpoint";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import { getDate } from "src/helper/format";
-import styles from "./styles.module.scss";
 import Education from "./Education";
 import Experience from "./Experience";
 import Skill from "./Skill";
-import { useAppDispatch } from "lib/hooks";
-import { updateLoading } from "lib/features/loadingSlice";
-import { httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCandidateInfo } from "src/apis/apiEndpoint";
-import { toast } from "react-toastify";
+import styles from "./styles.module.scss";
 
 const color = "#009ce0";
 

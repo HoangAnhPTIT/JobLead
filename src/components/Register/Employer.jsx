@@ -6,14 +6,13 @@ import { useAppDispatch, useAppSelector } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiRegisterCompany } from "src/apis/apiEndpoint";
 import InputForm from "src/commons/FormInput/InputForm";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
-import SelectForm from "src/commons/FormInput/SelectForm";
 import { errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
@@ -38,7 +37,7 @@ const Employer = () => {
 				toast.success("Đăng kí tài khoản thành công");
 				router.push(routeMap.login);
 			} else {
-				toast.error(response?.message);
+				toast.error(response?.messages?.[0]?.description);
 			}
 		} catch (error) {
 			toast.error(errorMessage);

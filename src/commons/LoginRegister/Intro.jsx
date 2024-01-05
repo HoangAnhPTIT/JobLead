@@ -76,7 +76,7 @@ const InfoWithImage = ({ info, type }) => {
 			>
 				<span className={classNames(["font-semibold"])}>
 					{path === routeMap.login && "Đăng nhập"}
-					{path === routeMap.signin && "Đăng ký"} {info.label}
+					{path === routeMap.register && "Đăng ký"} {info.label}
 				</span>
 			</Button>
 		</div>

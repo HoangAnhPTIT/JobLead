@@ -59,10 +59,7 @@ const CreateJobContent = () => {
 		};
 		const getCompanyInfo = async () => {
 			const response = await httpAuthGet({ endpoint: apiCompanyContact });
-			response?.data &&
-				form.setFieldsValue("contact", {
-					...response?.data,
-				});
+			response?.data && form.setFieldValue("contact", response?.data);
 		};
 		getServices();
 		getCompanyInfo();
@@ -313,7 +310,7 @@ const CreateJobContent = () => {
 								<Row gutter={[16, 16]}>
 									<Col span={24}>
 										<Form.Item
-											name={["contact", "fullname"]}
+											name={["contact", "fullName"]}
 											label="Người liên hệ"
 											rules={[{ required: true }]}
 										>

@@ -1,7 +1,6 @@
 "use client";
 import {
 	AccountTreeOutlined,
-	LocationOnOutlined,
 	PlaceOutlined,
 	SchoolOutlined,
 	Search,

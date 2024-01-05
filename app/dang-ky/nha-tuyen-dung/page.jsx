@@ -1,8 +1,8 @@
 import React from "react";
-import Employer from "src/components/Signin/Employer";
+import Employer from "src/components/Register/Employer";
 
-const SigninEmployerPage = () => {
+const RegisterEmployerPage = () => {
 	return <Employer />;
 };
 
-export default SigninEmployerPage;
+export default RegisterEmployerPage;

@@ -42,7 +42,7 @@ const PageOutSide = [
 	routeMap.login,
 	"/dang-nhap/ung-vien",
 	"/dang-nhap/nha-tuyen-dung",
-	routeMap.signin,
+	routeMap.register,
 	"/dang-ky/ung-vien",
 	"/dang-ky/nha-tuyen-dung",
 ];
@@ -195,7 +195,7 @@ const LayoutContent = ({ children }) => {
 													</Link>
 												</Grid>
 												<Grid item xs={12} lg="auto">
-													<Link href={routeMap.signin}>
+													<Link href={routeMap.register}>
 														<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
 															<span className="text-sm te">Đăng ký</span>
 														</div>

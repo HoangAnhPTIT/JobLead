@@ -35,7 +35,7 @@ const Candidate = () => {
 				toast.success("Đăng kí tài khoản thành công");
 				router.push(routeMap.login);
 			} else {
-				toast.error(response?.message);
+				toast.error(response?.messages?.[0]?.description);
 			}
 		} catch (error) {
 			toast.error(errorMessage);

@@ -1,20 +1,19 @@
 "use client";
 import {
 	BorderColorOutlined,
-	Download,
 	DownloadOutlined,
-	EditOutlined,
 	RemoveRedEyeOutlined,
 	ScheduleOutlined,
 } from "@mui/icons-material";
-import { Button, Divider, Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
+import { Image } from "antd";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCandidateCv, apiCv } from "src/apis/apiEndpoint";
+import { apiCandidateCv } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
+import { imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const CvPage = () => {
@@ -24,7 +23,7 @@ const CvPage = () => {
 	useEffect(() => {
 		const getCvList = async () => {
 			const response = await httpAuthGet({ endpoint: apiCandidateCv });
-			setCvList(response?.cvs);
+			setCvList(response?.data);
 		};
 		getCvList();
 	}, []);
@@ -37,7 +36,14 @@ const CvPage = () => {
 					<Stack gap={5} className="bg-white shadow p-5">
 						{cvList?.map((item, i) => (
 							<div key={i} className="flex gap-5">
-								<div className="w-36 h-44 shadow">{item?.name}</div>
+								<div className="w-36 h-44 shadow">
+									<Image
+										src={item?.templateImage || imageError}
+										width="auto"
+										alt={item?.name}
+										preview={false}
+									/>
+								</div>
 								<div className="flex-1">
 									<div className="mb-3 flex justify-between">
 										<div className="text-lg text-primary font-semibold ">
@@ -68,7 +74,9 @@ const CvPage = () => {
 											fontSize="small"
 											className="mr-1"
 											onClick={() =>
-												router.push(`${routeMap.file}${routeMap.cv}/1`)
+												router.push(
+													`${routeMap.file}${routeMap.cv}/${item?.templateCode}`
+												)
 											}
 										>
 											<BorderColorOutlined /> Sửa

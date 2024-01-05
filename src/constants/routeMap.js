@@ -4,7 +4,7 @@ const routeMap = {
 	candidate: "/ung-vien",
 	employer: "/nha-tuyen-dung",
 	login: "/dang-nhap",
-	signin: "/dang-ky",
+	register: "/dang-ky",
 	searchJob: "/tim-viec-lam",
 	detail: "/chi-tiet",
 	file: "/ho-so",

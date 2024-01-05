@@ -13,7 +13,7 @@ import {
 	Translate,
 	WorkHistory,
 } from "@mui/icons-material";
-import { Grid, TextField, TextareaAutosize } from "@mui/material";
+import { Grid, TextareaAutosize } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getDate } from "src/helper/format";
@@ -65,8 +65,8 @@ const JobDetailInfo = ({ data }) => {
 
 	return (
 		<div className="p-4 bg-white">
-			<Grid container className="">
-				<Grid item xs={9}>
+			<div className="w-full grid grid-cols-[75%_25%]">
+				<div>
 					<Grid container>
 						<Grid item xs={6} className="pr-5">
 							<div className="mb-4">
@@ -130,8 +130,8 @@ const JobDetailInfo = ({ data }) => {
 							content={data?.jobRequirement?.requestDescription}
 						/>
 					</div>
-				</Grid>
-				<Grid item={3} flex={1}>
+				</div>
+				<div>
 					<div className="border p-4 max-w-[284px] mb-10">
 						<div className="text-lg font-semibold">Chia sẻ tin tuyển dụng</div>
 						<p className="text-sm my-3">Sao chép đường dẫn</p>
@@ -169,8 +169,8 @@ const JobDetailInfo = ({ data }) => {
 							content={data?.jobRequirement?.language?.name}
 						/>
 					</div>
-				</Grid>
-			</Grid>
+				</div>
+			</div>
 		</div>
 	);
 };

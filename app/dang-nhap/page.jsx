@@ -1,5 +1,5 @@
 "use client";
-import Intro from "src/commons/LogSignIn/Intro";
+import Intro from "src/commons/LoginRegister/Intro";
 
 const LoginPage = () => {
 	return <Intro />;

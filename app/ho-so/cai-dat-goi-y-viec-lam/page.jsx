@@ -1,35 +1,56 @@
 "use client";
-import {
-	Button,
-	Col,
-	DatePicker,
-	Divider,
-	Form,
-	Grid,
-	Input,
-	Row,
-	Select,
-} from "antd";
-import { useAppSelector } from "lib/hooks";
-import React from "react";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateExpectation } from "src/apis/apiEndpoint";
 import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import FileLayout from "src/components/Files/FileLayout";
-import { primaryColor } from "src/constants/common";
+import { errorMessage, primaryColor } from "src/constants/common";
+import { getTimeValue } from "src/helper/format";
 
 const JobSuggestionPage = () => {
 	const { entities } = useAppSelector((state) => state.entity);
 	const [form] = Form.useForm();
-	console.log("entities", entities);
+	const dispatch = useAppDispatch();
+
+	const [data, setData] = useState();
 
 	const onSubmit = async () => {
+		dispatch(updateLoading(true));
 		try {
 			const values = await form.validateFields();
-			console.log("values", values);
+			const response = await httpAuthPut({
+				endpoint: apiCandidateExpectation,
+				data: { id: data?.id, ...values },
+			});
+			if (response.status === 200) {
+				toast.success("Cập nhật thông tin thành công");
+			} else {
+				toast.error(errorMessage);
+				console.error(response.message);
+			}
 		} catch (error) {
 			console.error(error);
+		} finally {
+			dispatch(updateLoading(false));
 		}
 	};
+
+	useEffect(() => {
+		const getData = async () => {
+			const response = await httpAuthGet({ endpoint: apiCandidateExpectation });
+			setData(response?.data);
+			form.setFieldsValue({
+				...response?.data,
+				dob: getTimeValue(response?.data?.dob),
+			});
+		};
+		getData();
+	}, [form]);
 
 	return (
 		<FileLayout>
@@ -88,7 +109,7 @@ const JobSuggestionPage = () => {
 								/>
 								<SelectAntd
 									form={Form}
-									name="englishLevel"
+									name="englishLevelId"
 									label="Trình độ tiếng anh"
 									rules={[{ required: true }]}
 									list={entities?.LanguageLevel}
@@ -133,7 +154,7 @@ const JobSuggestionPage = () => {
 								/>
 								<SelectAntd
 									form={Form}
-									name="workLocationIds"
+									name="locationIds"
 									label="Địa điểm làm việc"
 									mode="multiple"
 									rules={[{ required: true }]}
@@ -149,7 +170,7 @@ const JobSuggestionPage = () => {
 								/>
 								<SelectAntd
 									form={Form}
-									name="slaryId"
+									name="salaryId"
 									label="Mức lương mong muốn"
 									rules={[{ required: true }]}
 									list={entities?.Salary}

@@ -1,8 +1,8 @@
 "use client";
-import Intro from "src/commons/LogSignIn/Intro";
+import Intro from "src/commons/LoginRegister/Intro";
 
-const SigninPage = () => {
+const RegisterPage = () => {
 	return <Intro />;
 };
 
-export default SigninPage;
+export default RegisterPage;

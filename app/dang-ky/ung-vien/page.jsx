@@ -1,7 +1,7 @@
-import Candidate from "src/components/Signin/Candidate";
+import Candidate from "src/components/Register/Candidate";
 
-const SigninCangidatePage = () => {
+const RegisterCangidatePage = () => {
 	return <Candidate />;
 };
 
-export default SigninCangidatePage;
+export default RegisterCangidatePage;

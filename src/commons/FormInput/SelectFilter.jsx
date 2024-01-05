@@ -1,9 +1,4 @@
-import {
-	Autocomplete,
-	FormControl,
-	InputLabel,
-	TextField,
-} from "@mui/material";
+import { Autocomplete, FormControl, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 const SelectFilter = ({

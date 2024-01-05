@@ -15,13 +15,15 @@ import {
 	apiJobByCareer,
 	apiJobByLocation,
 } from "src/apis/apiEndpoint";
-import EnhanceSearch from "src/components/Home/EnhanceSearch";
 import Category from "src/commons/Category";
 import ItemList from "src/commons/ItemList";
-import ItemSlider from "src/commons/ItemSlider";
+import AttractiveJob from "src/components/Home/AttractiveJob";
 import CompanyList from "src/components/Home/CompanyList";
 import ContactInfo from "src/components/Home/ContactInfo";
+import EnhanceSearch from "src/components/Home/EnhanceSearch";
+import HighSalaryJob from "src/components/Home/HighSalảyJob";
 import HomeSearch from "src/components/Home/HomeSearch";
+import HotJob from "src/components/Home/HotJob";
 import ListCate from "src/components/Home/ListCate";
 import RecruitmentSupport from "src/components/Home/RecruitmentSupport";
 import {
@@ -29,11 +31,8 @@ import {
 	COMPONENT_SIZE,
 	imageError,
 } from "src/constants/common";
-import { WIDTH_CONTENT } from "src/constants/screen";
 import routeMap, { jobTypeRouteMap } from "src/constants/routeMap";
-import HotJob from "src/components/Home/HotJob";
-import AttractiveJob from "src/components/Home/AttractiveJob";
-import HighSalaryJob from "src/components/Home/HighSalảyJob";
+import { WIDTH_CONTENT } from "src/constants/screen";
 
 const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);

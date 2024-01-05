@@ -19,7 +19,7 @@ const commonSearch = [
 
 const HomeSearch = () => {
 	const router = useRouter();
-	const { register, handleSubmit, control, setValue } = useForm();
+	const { handleSubmit, control, setValue } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {

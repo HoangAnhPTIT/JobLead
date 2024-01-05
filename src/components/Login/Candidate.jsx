@@ -109,7 +109,7 @@ const Candidate = () => {
 				</Grid>
 			</div>
 			<div className="text-sm w-userForm px-20 mx-auto text-right mt-5">
-				Bạn chưa có tài khoản ? <Link href={routeMap.signin}>Đăng ký</Link> |
+				Bạn chưa có tài khoản ? <Link href={routeMap.register}>Đăng ký</Link> |
 				<Link
 					href="/dang-nhap/nha-tuyen-dung"
 					className="ml-1 hover:text-primary cursor-pointer"
