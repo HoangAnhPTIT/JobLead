@@ -48,9 +48,9 @@ module.exports = {
 				bgTextCopy: "#fafafa",
 			},
 			width: {
-				content: "1170px",
-				lgContent: "718px",
-				smContent: "718px",
+				xlContent: "1170px",
+				lgContent: "960px",
+				content: "718px",
 				userForm: "975px",
 			},
 			boxShadow: {

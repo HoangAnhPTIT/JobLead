@@ -73,7 +73,7 @@ const JobList = ({ jobList, majorList }) => {
 	}, [type, searchParams, career, location]);
 
 	return (
-		<div className="w-content mx-auto my-5">
+		<div className="w-lgContent mx-auto my-5">
 			<Grid container spacing={4}>
 				<Grid item xs={9}>
 					<Category

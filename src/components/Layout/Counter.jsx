@@ -35,7 +35,7 @@ const counts = [
 const Counter = () => {
 	return (
 		<div className={classNames([styles.counter, "flex"])}>
-			<Grid container className="w-content m-auto">
+			<Grid container className="w-lgContent m-auto">
 				{counts?.map((item, i) => (
 					<Grid item xs={3} className="text-center" key={i}>
 						<div>{item?.icon}</div>

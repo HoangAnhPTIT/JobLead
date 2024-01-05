@@ -7,7 +7,7 @@ const CompaniesPage = () => {
 		<div>
 			<CompanySearch />
 			<div className="bg-bgBody">
-				<div className="w-content mx-auto py-8">
+				<div className="w-lgContent mx-auto py-8">
 					<TopCompanies />
 					<OtherCompanies />
 				</div>

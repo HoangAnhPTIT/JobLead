@@ -29,7 +29,7 @@ const JobSticky = ({ data }) => {
 			)}
 			style={{ boxShadow: "0 0 5px rgba(0,0,0,.3)" }}
 		>
-			<div className="w-content mx-auto flex gap-10 items-center h-full">
+			<div className="w-lgContent mx-auto flex gap-10 items-center h-full">
 				<Image
 					src={data?.company?.avatar || imageError}
 					alt={data?.company?.name || ""}

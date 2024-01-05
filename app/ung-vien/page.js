@@ -14,7 +14,7 @@ const CandidatesPage = () => {
 				<Banner />
 			</div>
 			<div className="bg-bgBody py-11 -my-1.5">
-				<div className=" w-content mx-auto">
+				<div className=" w-lgContent mx-auto">
 					<Grid container spacing={4}>
 						<Grid item xs={9}>
 							<CandidateList />

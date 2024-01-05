@@ -24,7 +24,18 @@ import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
 
-const theme = createTheme(viVN);
+const theme = createTheme({
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 640,
+			md: 768,
+			lg: 1024,
+			xl: 1280,
+		},
+	},
+	viVN,
+});
 
 const PageHideFooter = ["/nha-tuyen-dung/create-job"];
 const PageOutSide = [
@@ -107,7 +118,7 @@ const LayoutContent = ({ children }) => {
 				/>
 				<div
 					className={classNames([
-						"h-16 fixed top-0 left-0 w-screen z-10 flex content-center lg:px-10 bg-bgHeader relative",
+						"h-16 fixed top-0 left-0 z-10 flex content-center lg:px-10 bg-bgHeader relative",
 						styles.header,
 					])}
 				>
@@ -242,7 +253,7 @@ const LayoutContent = ({ children }) => {
 				<Suspense fallback={<SuspenseLoading />}>
 					<div className="">{children}</div>
 				</Suspense>
-				{!hideFooter && <FooterLayout />}
+				{/* {!hideFooter && <FooterLayout />} */}
 			</div>
 		</ThemeProvider>
 	);

@@ -42,6 +42,24 @@ body {
 	text-overflow: ellipsis;
 }
 
+/* start scrollbar */
+::-webkit-scrollbar {
+	width: 7px;
+}
+::-webkit-scrollbar-track {
+	border-radius: 7px;
+	background: #f9f9f9;
+}
+::-webkit-scrollbar-thumb {
+	background: #cccccc;
+	border-radius: 7px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #cccccc;
+	background: #9b9b9b;
+}
+/* end scrollbar */
+
 .max-two-line {
 	overflow: hidden;
 	display: -webkit-box;

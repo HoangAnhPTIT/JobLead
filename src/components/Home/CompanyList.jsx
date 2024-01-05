@@ -18,7 +18,7 @@ const CompanyList = ({ items }) => {
 			{items?.map((item, i) => (
 				<SwiperSlide key={i}>
 					<Link href={item?.id}>
-						<div className="image-shadow p-2">
+						<div className="image-shadow p-2 shadow rounded">
 							{item?.avatar && (
 								<Image
 									src={item?.avatar || imageError}
@@ -28,7 +28,7 @@ const CompanyList = ({ items }) => {
 								/>
 							)}
 						</div>
-						<div className="text-center text-sm mt-2 text-primary">
+						<div className="text-center text-sm mt-2 text-primary max-two-line">
 							{item?.name}
 						</div>
 					</Link>

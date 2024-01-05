@@ -31,6 +31,9 @@ import {
 } from "src/constants/common";
 import { WIDTH_CONTENT } from "src/constants/screen";
 import routeMap, { jobTypeRouteMap } from "src/constants/routeMap";
+import HotJob from "src/components/Home/HotJob";
+import AttractiveJob from "src/components/Home/AttractiveJob";
+import HighSalaryJob from "src/components/Home/HighSalảyJob";
 
 const HomePage = async () => {
 	const jobResponse = await httpGet(apiHome);
@@ -46,7 +49,7 @@ const HomePage = async () => {
 	return (
 		<div className="introduce pb-5 bg-bgBody">
 			<HomeSearch />
-			<div className="w-content mx-auto">
+			<div className="w-content lg:w-lgContent xl:w-xlContent mx-auto">
 				<Image
 					src={"https://placehold.co/1170x220.png" || imageError}
 					width={WIDTH_CONTENT}
@@ -62,12 +65,7 @@ const HomePage = async () => {
 							jobTypeRouteMap?.[jobData?.[0]?.serviceCode || "SEARCH"]
 						}`}
 					>
-						<ItemSlider
-							items={jobData?.[0]?.jobs}
-							col={3}
-							size={COMPONENT_SIZE.SMALL}
-							pageSize={18}
-						/>
+						<HotJob items={jobData?.[0]?.jobs} />
 					</Category>
 				</div>
 				<Grid container spacing={2} className="mb-5">
@@ -89,7 +87,7 @@ const HomePage = async () => {
 					</Grid>
 				</Grid>
 				<Grid container spacing={3} className="mb-5">
-					<Grid item xs={9}>
+					<Grid item xs={12} lg={9}>
 						<Category
 							title={jobData?.[1]?.serviceName}
 							icon={<Stars />}
@@ -98,14 +96,10 @@ const HomePage = async () => {
 							}`}
 							contentClass="min-h-[487px]"
 						>
-							<ItemSlider
-								items={jobData?.[1]?.jobs}
-								size={COMPONENT_SIZE.NORMAL}
-								pageSize={10}
-							/>
+							<AttractiveJob items={jobData?.[1]?.jobs} />
 						</Category>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={0} lg={3} className="hidden lg:block">
 						<Image
 							src="https://placehold.co/280x550.png"
 							width={280}
@@ -115,7 +109,7 @@ const HomePage = async () => {
 					</Grid>
 				</Grid>
 				<Grid container spacing={3} className="mb-5">
-					<Grid item xs={9}>
+					<Grid item xs={12} lg={9}>
 						<Category
 							title={jobData?.[2]?.serviceName}
 							icon={<Stars />}
@@ -124,14 +118,10 @@ const HomePage = async () => {
 							}`}
 							contentClass="min-h-[475px]"
 						>
-							<ItemSlider
-								items={jobData?.[2]?.jobs}
-								size={COMPONENT_SIZE.NORMAL}
-								pageSize={10}
-							/>
+							<HighSalaryJob items={jobData?.[2]?.jobs} />
 						</Category>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={12} lg={3}>
 						<Category
 							title={jobData?.[3]?.serviceName}
 							icon={<BorderColor />}

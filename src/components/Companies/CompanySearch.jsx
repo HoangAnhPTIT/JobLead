@@ -4,7 +4,7 @@ import { Button, Grid, TextField } from "@mui/material";
 
 const CompanySearch = () => {
 	return (
-		<div className="w-content mx-auto py-5 bg-white">
+		<div className="w-lgContent mx-auto py-5 bg-white">
 			<Grid container spacing={2}>
 				<Grid item xs={10}>
 					<TextField

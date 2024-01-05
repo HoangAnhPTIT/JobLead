@@ -1,12 +1,12 @@
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { ConfigProvider } from "antd";
+import viVN from "antd/locale/vi_VN";
 import "app/globals.css";
 import { Roboto } from "next/font/google";
 import LayoutContent from "src/components/Layout/LayoutContent";
-import StoreProvider from "./StoreProvider";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import viVN from "antd/locale/vi_VN";
-import { ConfigProvider } from "antd";
 import { primaryColor } from "src/constants/common";
+import StoreProvider from "./StoreProvider";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],

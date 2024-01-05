@@ -15,7 +15,7 @@ const padding = {
 const SwiperItem = ({ items, col, size }) => (
 	<Grid container spacing={[2, 2]}>
 		{items?.map((item, i) => (
-			<Grid item xs={12 / col} key={i}>
+			<Grid item md={12 / col} xs={12 / (col - 1)} key={i}>
 				<div className={classNames(["rounded border", padding[size]])}>
 					<JobItem item={item} col={col} key={i} bordered size={size} />
 				</div>

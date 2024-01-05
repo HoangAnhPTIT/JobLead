@@ -48,12 +48,12 @@ const HomeSearch = () => {
 			<form>
 				<div
 					className={classNames([
-						"bg-f0Blur rounded-full mx-auto w-content p-3",
+						"bg-f0Blur rounded-full mx-auto w-content lg:w-lgContent xl:w-xlContent py-3 px-1.5",
 						styles.searchForm,
 					])}
 				>
-					<Grid container spacing={2} className="!w-full">
-						<Grid item xs={4}>
+					<Grid container className="!w-full">
+						<Grid item xs={4} className="px-1.5">
 							<InputSearch
 								name="q"
 								placeholder="Tiêu đề công việc..."
@@ -66,7 +66,7 @@ const HomeSearch = () => {
 								setValue={setValue}
 							/>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={3} className="px-1.5">
 							<SelectFilter
 								name="career"
 								placeholder="Ngành nghề"
@@ -76,7 +76,7 @@ const HomeSearch = () => {
 								control={control}
 							/>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={3} className="px-1.5">
 							<SelectFilter
 								name="workLocation"
 								placeholder="Địa điểm"
@@ -86,7 +86,7 @@ const HomeSearch = () => {
 								control={control}
 							/>
 						</Grid>
-						<Grid item xs={2}>
+						<Grid item xs={2} className="px-1.5">
 							<Button
 								fullWidth
 								variant="contained"
