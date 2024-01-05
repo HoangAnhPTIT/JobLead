@@ -9,9 +9,19 @@ const CompanyList = ({ items }) => {
 	return (
 		<Swiper
 			modules={[Pagination]}
-			spaceBetween={50}
 			slidesPerView={5}
 			slidesPerGroup={5}
+			breakpoints={{
+				640: {
+					spaceBetween: 20,
+				},
+				768: {
+					spaceBetween: 40,
+				},
+				1024: {
+					spaceBetween: 50,
+				},
+			}}
 			pagination={{ clickable: true }}
 			className="pt-2 pb-9 px-5"
 		>

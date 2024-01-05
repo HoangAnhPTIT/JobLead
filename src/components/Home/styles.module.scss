@@ -1,6 +1,6 @@
 .search {
 	background-image: url("../../../public/bg-home.png");
-	height: 400px;
+	min-height: 400px;
 	@apply flex flex-col justify-evenly;
 }
 .searchForm {

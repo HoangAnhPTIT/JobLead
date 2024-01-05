@@ -12,7 +12,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const params = new URLSearchParams(searchParams);
-	const { register, handleSubmit, control } = useForm();
+	const { handleSubmit, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = (values) => {
@@ -43,7 +43,7 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 				<SearchOutlined fontSize="medium" style={{ color: "#fff" }} />
 				<span
 					className={classNames([
-						"text-white ml-2 uppercase text-xl",
+						"text-white ml-2 uppercase text-lg",
 						classTitle,
 					])}
 				>

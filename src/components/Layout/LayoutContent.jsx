@@ -118,142 +118,143 @@ const LayoutContent = ({ children }) => {
 				/>
 				<div
 					className={classNames([
-						"h-16 fixed top-0 left-0 z-10 flex content-center lg:px-10 bg-bgHeader relative",
+						"h-16 fixed top-0 left-0 z-10 flex content-center lg:px-10 bg-bgHeader w-full",
 						styles.header,
 					])}
 				>
-					<Grid
-						container
-						alignItems="center"
-						alignContent="center"
-						spacing={{ xs: 0, lg: 1 }}
-						className="text-33"
-					>
+					<div className="relative w-full">
 						<Grid
-							item
-							xs={12}
-							lg="auto"
-							className="cursor-pointer"
-							onClick={() => router.push("/")}
+							container
+							alignItems="center"
+							alignContent="center"
+							spacing={{ xs: 0, lg: 1 }}
+							className="text-33"
 						>
-							<Image
-								src={"https://placehold.co/112x41.png" || imageError}
-								alt="logo"
-								width={112}
-								height={41}
-							/>
-						</Grid>
-						<Grid
-							item
-							xs={12}
-							lg="auto"
-							className={classNames(
-								"!flex-1 w-full left-0 lg:left-auto absolute top-16 lg:relative lg:top-0 bg-white lg:!visible",
-								showMenu ? "visible" : "invisible"
-							)}
-						>
+							<Grid item xs={12} lg="auto">
+								<div
+									className="cursor-pointer p-3 lg:p-0 w-fit"
+									onClick={() => router.push("/")}
+								>
+									<Image
+										src={"https://placehold.co/112x41.png" || imageError}
+										alt="logo"
+										width={112}
+										height={41}
+									/>
+								</div>
+							</Grid>
 							<Grid
-								container
-								justifyContent="space-between"
-								alignItems="center"
-								spacing={{ xs: 0, lg: 2 }}
-								className="w-full"
+								item
+								xs={12}
+								lg="auto"
+								className={classNames(
+									"!flex-1 w-full left-0 lg:left-auto absolute top-16 lg:relative lg:top-0 bg-white lg:!visible",
+									showMenu ? "visible" : "invisible"
+								)}
 							>
-								<Grid item xs={12} lg="auto">
-									<Grid container>
-										{menuItems?.map((item, i) => (
-											<Grid item xs={12} lg="auto" key={i}>
-												<Link href={item?.link}>
-													<div
-														className={classNames([
-															"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
-															item?.link === pathname &&
-																"bg-secondary text-white",
-														])}
-													>
-														{item?.label}
-													</div>
-												</Link>
-											</Grid>
-										))}
-									</Grid>
-								</Grid>
-								{isLogin === false && (
-									<Grid
-										item
-										xs={12}
-										lg="auto"
-										className="text-white font-semibold"
-										justify="center"
-									>
+								<Grid
+									container
+									justifyContent="space-between"
+									alignItems="center"
+									spacing={{ xs: 0, lg: 2 }}
+									className="w-full"
+								>
+									<Grid item xs={12} lg="auto">
 										<Grid container>
-											<Grid item xs={12} lg="auto">
-												<Link href={routeMap.login}>
-													<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
-														<span className="text-sm">Đăng nhập</span>
-													</div>
-												</Link>
-											</Grid>
-											<Grid item xs={12} lg="auto">
-												<Link href={routeMap.signin}>
-													<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
-														<span className="text-sm te">Đăng ký</span>
-													</div>
-												</Link>
-											</Grid>
+											{menuItems?.map((item, i) => (
+												<Grid item xs={12} lg="auto" key={i}>
+													<Link href={item?.link}>
+														<div
+															className={classNames([
+																"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+																item?.link === pathname &&
+																	"bg-secondary text-white",
+															])}
+														>
+															{item?.label}
+														</div>
+													</Link>
+												</Grid>
+											))}
 										</Grid>
 									</Grid>
-								)}
-								{isLogin && (
-									<Grid item xs={12} lg="auto">
-										<div
-											className={classNames(
-												"hover:bg-secondary hover:text-white text-33 cursor-pointer relative px-4 lg:px-2",
-												styles.acc
-											)}
+									{isLogin === false && (
+										<Grid
+											item
+											xs={12}
+											lg="auto"
+											className="text-white font-semibold"
+											justify="center"
 										>
+											<Grid container>
+												<Grid item xs={12} lg="auto">
+													<Link href={routeMap.login}>
+														<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
+															<span className="text-sm">Đăng nhập</span>
+														</div>
+													</Link>
+												</Grid>
+												<Grid item xs={12} lg="auto">
+													<Link href={routeMap.signin}>
+														<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
+															<span className="text-sm te">Đăng ký</span>
+														</div>
+													</Link>
+												</Grid>
+											</Grid>
+										</Grid>
+									)}
+									{isLogin && (
+										<Grid item xs={12} lg="auto">
 											<div
 												className={classNames(
-													"text-sm font-semibold uppercase",
-													styles.item
+													"hover:bg-secondary hover:text-white text-33 cursor-pointer relative px-4 lg:px-2",
+													styles.acc
 												)}
 											>
-												Tài khoản <KeyboardArrowDown />
+												<div
+													className={classNames(
+														"text-sm font-semibold uppercase",
+														styles.item
+													)}
+												>
+													Tài khoản <KeyboardArrowDown />
+												</div>
+												<div
+													className={classNames(
+														"hidden absolute bg-white text-33 top-[64px] right-0 w-[200px] border",
+														styles.accMenu
+													)}
+												>
+													<Stack gap={1} className="py-2">
+														<div
+															onClick={() => {
+																dispatch(logout());
+																router.push("/");
+															}}
+															className="text-sm hover:text-primary px-2"
+														>
+															<Logout /> Đăng xuất
+														</div>
+													</Stack>
+												</div>
 											</div>
-											<div
-												className={classNames(
-													"hidden absolute bg-white text-33 top-[64px] right-0 w-[200px] border",
-													styles.accMenu
-												)}
-											>
-												<Stack gap={1} className="py-2">
-													<div
-														onClick={() => {
-															dispatch(logout());
-															router.push("/");
-														}}
-														className="text-sm hover:text-primary px-2"
-													>
-														<Logout /> Đăng xuất
-													</div>
-												</Stack>
-											</div>
-										</div>
-									</Grid>
-								)}
+										</Grid>
+									)}
+								</Grid>
 							</Grid>
 						</Grid>
-					</Grid>
-					<MenuOutlined
-						fontSize="large"
-						className="absolute top-4 right-6 cursor-pointer lg:!hidden"
-						onClick={() => setShowMenu(!showMenu)}
-					/>
+						<MenuOutlined
+							fontSize="large"
+							className="absolute top-4 right-3 cursor-pointer lg:!hidden"
+							onClick={() => setShowMenu(!showMenu)}
+						/>
+					</div>
 				</div>
 				<Suspense fallback={<SuspenseLoading />}>
-					<div className="">{children}</div>
+					<div className="mt-[64px]">{children}</div>
 				</Suspense>
-				{/* {!hideFooter && <FooterLayout />} */}
+				{!hideFooter && <FooterLayout />}
 			</div>
 		</ThemeProvider>
 	);

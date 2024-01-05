@@ -50,7 +50,9 @@ module.exports = {
 			width: {
 				xlContent: "1170px",
 				lgContent: "960px",
-				content: "718px",
+				mdContent: "718px",
+				smContent: "520px",
+				content: "450px",
 				userForm: "975px",
 			},
 			boxShadow: {

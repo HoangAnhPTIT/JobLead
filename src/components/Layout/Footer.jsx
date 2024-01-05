@@ -171,8 +171,8 @@ const FooterLayout = () => {
 	return (
 		<>
 			<Counter />
-			<div className="py-8 w-lgContent m-auto text-footer">
-				<div className="grid px-4 grid-cols-[20%_80%]">
+			<div className="py-8 w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent m-auto text-footer">
+				<div className="grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
 					<div>
 						<div className="mb-6">
 							<Image
@@ -200,28 +200,25 @@ const FooterLayout = () => {
 						</div>
 					</div>
 					<div>
-						<Grid container spacing={[2, 2]}>
-							<Grid item xs={3}>
-								<InfoList info={websiteInfo} />
-							</Grid>
-							<Grid item xs={3}>
-								<InfoList info={candidateInfo} />
-							</Grid>
-							<Grid item xs={3}></Grid>
-							<Grid item xs={3}></Grid>
-							<Grid item xs={3}>
-								<InfoList info={jobByLocation} />
-							</Grid>
-							<Grid item xs={3}>
-								<InfoList info={majorInfo} />
-							</Grid>
-							<Grid item xs={3}>
-								<InfoList info={toolInfo} />
-							</Grid>
-							<Grid item xs={3}>
-								<InfoList info={forEmployerInfo} />
-							</Grid>
-						</Grid>
+						<InfoList info={websiteInfo} />
+					</div>
+					<div>
+						<InfoList info={candidateInfo} />
+					</div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div>
+						<InfoList info={jobByLocation} />
+					</div>
+					<div>
+						<InfoList info={majorInfo} />
+					</div>
+					<div>
+						<InfoList info={toolInfo} />
+					</div>
+					<div>
+						<InfoList info={forEmployerInfo} />
 					</div>
 				</div>
 			</div>

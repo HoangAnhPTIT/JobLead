@@ -32,7 +32,10 @@ const HomeSearch = () => {
 
 	return (
 		<div className={styles.search}>
-			<h2 className="text-5xl text-center w-full text-white mb-30 font-bold">
+			<h2
+				className="text-5xl text-center w-full text-white mb-30 font-bold p-10"
+				style={{ lineHeight: "64px" }}
+			>
 				Công nghệ AI - đón đầu xu hướng tìm việc mới
 				<br />
 				<strong
@@ -48,12 +51,12 @@ const HomeSearch = () => {
 			<form>
 				<div
 					className={classNames([
-						"bg-f0Blur rounded-full mx-auto w-content lg:w-lgContent xl:w-xlContent py-3 px-1.5",
+						"bg-f0Blur rounded-xl md:rounded-full mx-auto w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent py-3 px-1.5",
 						styles.searchForm,
 					])}
 				>
 					<Grid container className="!w-full">
-						<Grid item xs={4} className="px-1.5">
+						<Grid item xs={12} md={4} className="px-1.5 py-1.5 md:py-0">
 							<InputSearch
 								name="q"
 								placeholder="Tiêu đề công việc..."
@@ -66,7 +69,7 @@ const HomeSearch = () => {
 								setValue={setValue}
 							/>
 						</Grid>
-						<Grid item xs={3} className="px-1.5">
+						<Grid item xs={12} md={3} className="px-1.5 py-1.5 md:py-0">
 							<SelectFilter
 								name="career"
 								placeholder="Ngành nghề"
@@ -76,7 +79,7 @@ const HomeSearch = () => {
 								control={control}
 							/>
 						</Grid>
-						<Grid item xs={3} className="px-1.5">
+						<Grid item xs={12} md={3} className="px-1.5 py-1.5 md:py-0">
 							<SelectFilter
 								name="workLocation"
 								placeholder="Địa điểm"
@@ -86,7 +89,7 @@ const HomeSearch = () => {
 								control={control}
 							/>
 						</Grid>
-						<Grid item xs={2} className="px-1.5">
+						<Grid item xs={12} md={2} className="px-1.5 py-1.5 md:py-0">
 							<Button
 								fullWidth
 								variant="contained"

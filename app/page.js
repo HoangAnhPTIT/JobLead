@@ -49,7 +49,7 @@ const HomePage = async () => {
 	return (
 		<div className="introduce pb-5 bg-bgBody">
 			<HomeSearch />
-			<div className="w-content lg:w-lgContent xl:w-xlContent mx-auto">
+			<div className="w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto">
 				<Image
 					src={"https://placehold.co/1170x220.png" || imageError}
 					width={WIDTH_CONTENT}
@@ -145,7 +145,7 @@ const HomePage = async () => {
 					</Category>
 				</div>
 				<Grid container spacing={3} className="mb-5">
-					<Grid item xs={9}>
+					<Grid item xs={12} lg={9}>
 						<Category
 							title="Việc làm theo ngành nghề"
 							icon={<Work />}
@@ -177,7 +177,7 @@ const HomePage = async () => {
 						<div className="pb-5" />
 						<ContactInfo />
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={12} lg={3}>
 						<EnhanceSearch />
 					</Grid>
 				</Grid>
