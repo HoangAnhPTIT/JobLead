@@ -171,7 +171,7 @@ const FooterLayout = () => {
 	return (
 		<>
 			<Counter />
-			<div className="py-8 w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent m-auto text-footer">
+			<div className="py-8 w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent m-auto text-footer">
 				<div className="grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
 					<div>
 						<div className="mb-6">

@@ -22,7 +22,7 @@ const Banner = () => {
 			slidesPerView={1}
 			slidesPerGroup={1}
 			autoplay={{ delay: 5000 }}
-			className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent"
+			className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent"
 		>
 			{items?.map((item, i) => (
 				<SwiperSlide key={i}>

@@ -57,7 +57,7 @@ const JobSearch = () => {
 	return (
 		<div>
 			<form>
-				<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto pt-7">
+				<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto pt-7">
 					<Grid container spacing={2}>
 						<Grid item flex={1}>
 							<InputSearch
@@ -68,7 +68,7 @@ const JobSearch = () => {
 								Controller={Controller}
 							/>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={12} md={3}>
 							<SelectFilter
 								name="career"
 								placeholder="Ngành nghề"
@@ -77,7 +77,7 @@ const JobSearch = () => {
 								control={control}
 							/>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={12} md={3}>
 							<SelectFilter
 								name="workLocation"
 								placeholder="Địa điểm"
@@ -98,7 +98,7 @@ const JobSearch = () => {
 						</Grid>
 					</Grid>
 				</div>
-				<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto mt-1 mb-5">
+				<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto mt-1 mb-5">
 					<div className="my-3 text-right flex justify-end">
 						<span
 							className="cursor-pointer"
@@ -114,8 +114,8 @@ const JobSearch = () => {
 					</div>
 					<div>
 						<Collapse in={showEnhanceSearch}>
-							<div className="flex gap-3">
-								<div className="w-1/5">
+							<div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+								<div>
 									<SelectFilter
 										name="levelId"
 										placeholder="Vị trí"
@@ -123,7 +123,7 @@ const JobSearch = () => {
 										list={entities?.Level}
 									/>
 								</div>
-								<div className="w-1/5">
+								<div>
 									<SelectFilter
 										name="experienceId"
 										placeholder="Kinh nghiệm"
@@ -131,7 +131,7 @@ const JobSearch = () => {
 										list={entities?.Experience}
 									/>
 								</div>
-								<div className="w-1/5">
+								<div>
 									<SelectFilter
 										name="salaryId"
 										placeholder="Mức lương"
@@ -139,7 +139,7 @@ const JobSearch = () => {
 										list={entities?.Salary}
 									/>
 								</div>
-								<div className="w-1/5">
+								<div>
 									<SelectFilter
 										name="typeOfWorkId"
 										placeholder="Loại hình công việc"
@@ -147,7 +147,7 @@ const JobSearch = () => {
 										control={control}
 									/>
 								</div>
-								<div className="w-1/5">
+								<div>
 									<SelectFilter
 										name="genderId"
 										placeholder="Giới tính"

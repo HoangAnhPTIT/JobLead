@@ -73,7 +73,7 @@ const JobList = ({ jobList, majorList }) => {
 	}, [type, searchParams, career, location]);
 
 	return (
-		<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto my-5">
+		<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto my-5">
 			<Grid container spacing={4}>
 				<Grid item xs={12} lg={9}>
 					<Category

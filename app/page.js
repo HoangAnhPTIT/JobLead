@@ -48,7 +48,7 @@ const HomePage = async () => {
 	return (
 		<div className="introduce pb-5 bg-bgBody">
 			<HomeSearch />
-			<div className="w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto">
+			<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto">
 				<Image
 					src={"https://placehold.co/1170x220.png" || imageError}
 					width={WIDTH_CONTENT}

@@ -51,7 +51,7 @@ const HomeSearch = () => {
 			<form>
 				<div
 					className={classNames([
-						"bg-f0Blur rounded-xl md:rounded-full mx-auto w-content sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent py-3 px-1.5",
+						"bg-f0Blur rounded-xl md:rounded-full mx-auto w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent py-3 px-1.5",
 						styles.searchForm,
 					])}
 				>
