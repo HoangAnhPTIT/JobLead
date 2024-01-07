@@ -21,7 +21,7 @@ import AttractiveJob from "src/components/Home/AttractiveJob";
 import CompanyList from "src/components/Home/CompanyList";
 import ContactInfo from "src/components/Home/ContactInfo";
 import EnhanceSearch from "src/components/Home/EnhanceSearch";
-import HighSalaryJob from "src/components/Home/HighSalảyJob";
+import HighSalaryJob from "src/components/Home/HighSalaryJob";
 import HomeSearch from "src/components/Home/HomeSearch";
 import HotJob from "src/components/Home/HotJob";
 import ListCate from "src/components/Home/ListCate";

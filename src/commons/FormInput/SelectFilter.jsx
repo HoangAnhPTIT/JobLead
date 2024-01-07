@@ -16,7 +16,7 @@ const SelectFilter = ({
 			name={name}
 			control={control}
 			defaultValue=""
-			onChange={([event, data]) => {
+			onChange={([_, data]) => {
 				return data;
 			}}
 			render={({ field }) => {

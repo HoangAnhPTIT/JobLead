@@ -73,9 +73,9 @@ const JobList = ({ jobList, majorList }) => {
 	}, [type, searchParams, career, location]);
 
 	return (
-		<div className="w-lgContent mx-auto my-5">
+		<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto my-5">
 			<Grid container spacing={4}>
-				<Grid item xs={9}>
+				<Grid item xs={12} lg={9}>
 					<Category
 						icon={<SearchOutlined />}
 						title={jobsInfo?.title}
@@ -100,7 +100,7 @@ const JobList = ({ jobList, majorList }) => {
 						/>
 					)}
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={12} lg={3}>
 					<Category
 						icon={<ApartmentOutlined />}
 						title="Việc làm theo ngành"

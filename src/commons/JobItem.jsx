@@ -44,8 +44,7 @@ const JobItem = ({ item, showExpire = false }) => {
 					<Grid container className="text-primary">
 						<Grid
 							item
-							xs={12}
-							lg={!showExpire ? 7 : 4}
+							xs={!showExpire ? 7 : 4}
 							className="flex items-center three-dot"
 						>
 							<PaidOutlined style={{ fontSize: 16 }} />
@@ -53,15 +52,14 @@ const JobItem = ({ item, showExpire = false }) => {
 						</Grid>
 						<Grid
 							item
-							xs={0}
-							lg={!showExpire ? 5 : 4}
-							className="flex items-center three-dot hidden lg:block"
+							xs={!showExpire ? 5 : 4}
+							className="flex items-center three-dot"
 						>
 							<PlaceOutlined style={{ fontSize: 16 }} />
 							<span className="text-55 ml-1">{item?.location}</span>
 						</Grid>
 						{showExpire && (
-							<Grid item xs={0} lg={4} className="flex items-center">
+							<Grid item xs={4} className="flex items-center">
 								<TodayOutlined style={{ fontSize: 16 }} />
 								<span className="text-55 ml-1">
 									{moment(item?.submissionDeadline).format("DD-MM-YYYY")}

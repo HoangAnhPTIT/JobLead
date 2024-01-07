@@ -57,7 +57,7 @@ const JobSearch = () => {
 	return (
 		<div>
 			<form>
-				<div className="!w-lgContent !mx-auto pt-7">
+				<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto pt-7">
 					<Grid container spacing={2}>
 						<Grid item flex={1}>
 							<InputSearch
@@ -98,7 +98,7 @@ const JobSearch = () => {
 						</Grid>
 					</Grid>
 				</div>
-				<div className="w-lgContent mx-auto mt-1 mb-5">
+				<div className="w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto mt-1 mb-5">
 					<div className="my-3 text-right flex justify-end">
 						<span
 							className="cursor-pointer"
