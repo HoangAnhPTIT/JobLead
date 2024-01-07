@@ -7,28 +7,32 @@ import {
 	StarBorderOutlined,
 	WorkOutline,
 } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
+import moment from "moment";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
 
 const color = "#f19a2c";
 
-const Item = () => {
+const Item = ({ item }) => {
 	return (
 		<div className="rounded border px-4 py-3 my-5">
 			<div className="mb-1">
-				<span className="text-54 text-lg font-bold">Phan Thị Mỹ Vân</span>
+				<span className="text-54 text-lg font-bold">{item?.name}</span>
 				<span className="text-white rounded-full bg-red1 px-3 pb-0.5 font-semibold text-xs ml-2">
-					Đang tìm việc
+					{/* Đang tìm việc */}
 				</span>
 			</div>
 			<Grid container spacing={3}>
 				<Grid item xs={9} className="text-54">
 					<div className="text-[15px]">
-						<span>Nhân viên quản lý</span>
+						<span>{item?.workTitle}</span>
 						<span className="dot-ce"></span>
-						<span>24 tuổi</span>
+						<span>
+							{moment().get("year") - moment(item?.dob).get("year")} tuổi
+						</span>
 						<span className="dot-ce"></span>
-						<span>Kinh nghiệm: Chưa có</span>
+						<span>Kinh nghiệm: {item?.experience}</span>
 					</div>
 					<div className="text-sm">
 						<p className="my-1">
@@ -38,7 +42,10 @@ const Item = () => {
 									style={{ color }}
 									className="mr-1"
 								/>
-								Địa điểm: Hà Nội
+								Địa điểm:{" "}
+								{item?.locations?.map((item, i) =>
+									i === 0 ? item : `, ${item}`
+								)}
 							</span>
 							<span>
 								<AccountTreeOutlined
@@ -46,7 +53,7 @@ const Item = () => {
 									style={{ color }}
 									className="mr-1"
 								/>
-								Nhân viên
+								Cấp bậc: {item?.level}
 							</span>
 						</p>
 						<p className="my-1">
@@ -55,7 +62,7 @@ const Item = () => {
 								style={{ color }}
 								className="mr-1"
 							/>
-							Ngành nghề: Sinh viên / Mới tốt nghiệp / Thực tập
+							Ngành nghề:
 						</p>
 						<p className="my-1">
 							<WorkOutline
@@ -63,7 +70,9 @@ const Item = () => {
 								style={{ color }}
 								className="mr-1"
 							/>
-							Nhân viên thủ khoa
+							{item?.workHistories?.map((item, i) =>
+								i === 0 ? item : `, ${item}`
+							)}
 						</p>
 						<p className="my-1">
 							<SchoolOutlined
@@ -71,7 +80,11 @@ const Item = () => {
 								style={{ color }}
 								className="mr-1"
 							/>
-							Cử nhân bách hóa xanh
+							{item?.educations?.map((item, i) =>
+								i === 0
+									? `${item?.certification} tại ${item?.school}`
+									: `, ${item?.certification} tại ${item?.school}`
+							)}
 						</p>
 					</div>
 				</Grid>
@@ -83,17 +96,36 @@ const Item = () => {
 	);
 };
 
-const CandidateList = () => {
+const CandidateList = ({ data }) => {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const params = new URLSearchParams(searchParams);
+
+	const currentPage = Number(searchParams.get("page") || 1);
+
+	const onChangePage = async (page) => {
+		params.set("page", page);
+		router.push(`${pathname}?${params.toString()}`);
+	};
+
 	return (
 		<Category
 			title="Danh sách ứng viên"
 			icon={<Search />}
-			contentClass="p-5 !py-5"
+			contentClass="px-5 py-0"
 		>
-			<Item />
-			<Item />
-			<Item />
-			<Item />
+			{data?.candidates?.map((item, i) => (
+				<Item item={item} key={i} />
+			))}
+			{data?.count > 0 && (
+				<Pagination
+					count={Math.ceil(data?.count / 10)}
+					page={currentPage}
+					onChange={(e, page) => onChangePage(page)}
+					className="flex justify-center py-5 bg-white"
+				/>
+			)}
 		</Category>
 	);
 };

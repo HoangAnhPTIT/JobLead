@@ -5,20 +5,44 @@ import {
 	Search,
 } from "@mui/icons-material";
 import { Button, Collapse, Grid } from "@mui/material";
-import { useAppSelector } from "lib/hooks";
-import { useState } from "react";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import InputWithoutLabel from "src/commons/FormInput/InputWithoutLabel";
-import SelectWithoutLabel from "src/commons/FormInput/SelectWithoutLabel";
+import SelectFilter from "src/commons/FormInput/SelectFilter";
+import { genUrlParams } from "src/helper/format";
 
 const CandidateSearch = () => {
-	const { register, handleSubmit } = useForm();
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const { register, handleSubmit, setValue, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
+	const dispatch = useAppDispatch();
 
 	const onSubmit = (values) => {
-		console.log("search job values", values);
+		dispatch(updateLoading(true));
+		try {
+			router.push(genUrlParams(pathname, values));
+		} catch (error) {
+			toast.error(error.message || error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
+
+	useEffect(() => {
+		const initValues = async () => {
+			for (const [key, value] of searchParams.entries()) {
+				setValue(key, value);
+			}
+		};
+		initValues();
+	}, [searchParams, setValue]);
 
 	return (
 		<div>
@@ -33,19 +57,21 @@ const CandidateSearch = () => {
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectWithoutLabel
+							<SelectFilter
+								valueKey="slug"
+								control={control}
 								name="careerId"
 								placeholder="Ngành nghề"
 								list={entities?.Career}
-								register={register}
 							/>
 						</Grid>
 						<Grid item xs={3}>
-							<SelectWithoutLabel
+							<SelectFilter
+								valueKey="slug"
+								control={control}
 								name="workLocationId"
 								placeholder="Địa điểm"
 								list={entities?.WorkLocation}
-								register={register}
 							/>
 						</Grid>
 						<Grid item>
@@ -76,50 +102,50 @@ const CandidateSearch = () => {
 						<Collapse in={showEnhanceSearch}>
 							<Grid container spacing={2}>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="degreeId"
 										placeholder="Học vấn"
-										register={register}
 										list={entities?.Degree}
 									/>
 								</Grid>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="levelId"
 										placeholder="Vị trí"
-										register={register}
 										list={entities?.Level}
 									/>
 								</Grid>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="experienceId"
 										placeholder="Kinh nghiệm"
-										register={register}
 										list={entities?.Experience}
 									/>
 								</Grid>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="languageId"
 										placeholder="Ngoại ngữ"
-										register={register}
 										list={entities?.Language}
 									/>
 								</Grid>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="genderId"
 										placeholder="Giới tính"
-										register={register}
 										list={entities?.Gender}
 									/>
 								</Grid>
 								<Grid item xs={4}>
-									<SelectWithoutLabel
+									<SelectFilter
+										control={control}
 										name="salaryId"
 										placeholder="Mức lương"
-										register={register}
 										list={entities?.Salary}
 									/>
 								</Grid>

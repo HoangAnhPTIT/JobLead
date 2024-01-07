@@ -25,5 +25,6 @@ export const apiCandidateExperience = `${apiCandidate}/experience`;
 export const apiCandidateItSkill = `${apiCandidate}/it-skill`;
 export const apiCandidateLanguageSkill = `${apiCandidate}/language-skill`;
 export const apiCandidateExpectation = `${apiCandidate}/expectation`;
+export const apiCandidateExpectationSearch = `${apiCandidate}/expectation/search`;
 
 export const apiCv = "/Cv";

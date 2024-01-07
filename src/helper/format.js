@@ -33,3 +33,14 @@ export const removeArrayValue = (array, value) => {
 };
 
 export const getTimeValue = (value) => (value ? moment(value) : null);
+
+export const genUrlParams = (basePath, objectParams) => {
+	const params = new URLSearchParams();
+	const getKeyAndValue = Object.entries(objectParams);
+	getKeyAndValue.forEach((item) => {
+		params.set(item[0], item[1] || "");
+	});
+	params.set("page", 1);
+
+	return `${basePath}?${params}`;
+};

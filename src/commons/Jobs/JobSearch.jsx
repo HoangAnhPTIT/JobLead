@@ -5,7 +5,8 @@ import {
 	SearchOutlined,
 } from "@mui/icons-material";
 import { Button, Collapse, Grid } from "@mui/material";
-import { useAppSelector } from "lib/hooks";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -23,8 +24,10 @@ const JobSearch = () => {
 	const { handleSubmit, setValue, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
+	const dispatch = useAppDispatch();
 
-	const onSubmit = (values) => {
+	const onSubmit = async (values) => {
+		dispatch(updateLoading(true));
 		const location = values.workLocation;
 		const career = values.career;
 
@@ -38,9 +41,10 @@ const JobSearch = () => {
 		});
 		params.set("page", 1);
 
-		router.push(
+		await router.push(
 			`${routeMap.searchJob}/${career || 0}/${location || 0}?${params}`
 		);
+		dispatch(updateLoading(false));
 	};
 
 	useEffect(() => {
