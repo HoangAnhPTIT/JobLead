@@ -7,6 +7,21 @@ import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
 import { apiOtherCompany } from "src/apis/apiEndpoint";
 import LayoutCompanyType from "src/components/Companies/CompanyType/LayoutCompanyType";
+import routeMap from "src/constants/routeMap";
+
+const breadcrum = [
+	{
+		title: "Trang chủ",
+		href: "/",
+	},
+	{
+		title: "Công ty",
+		href: routeMap.company,
+	},
+	{
+		title: "Công ty khác",
+	},
+];
 
 const OtherCompanyPage = () => {
 	const searchParams = useSearchParams();
@@ -18,6 +33,7 @@ const OtherCompanyPage = () => {
 		title: "Các công ty khác",
 		icon: <WorkOutline />,
 		companies: companies?.companies,
+		breadcrum,
 		count: companies?.count || null,
 	};
 

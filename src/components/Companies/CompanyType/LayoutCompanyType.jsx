@@ -1,25 +1,9 @@
-import React from "react";
-import Breadcrumb from "src/commons/Breadcrumb";
-import routeMap from "src/constants/routeMap";
-import CompanySearch from "../CompanySearch";
-import CompanyItem from "../CompanyItem";
-import Category from "src/commons/Category";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Pagination } from "@mui/material";
-
-const breadcrum = [
-	{
-		title: "Trang chủ",
-		href: "/",
-	},
-	{
-		title: "Công ty",
-		href: routeMap.company,
-	},
-	{
-		title: "Công ty hàng đầu",
-	},
-];
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Breadcrumb from "src/commons/Breadcrumb";
+import Category from "src/commons/Category";
+import CompanyItem from "../CompanyItem";
+import CompanySearch from "../CompanySearch";
 
 const LayoutCompanyType = ({ data }) => {
 	const router = useRouter();
@@ -39,7 +23,7 @@ const LayoutCompanyType = ({ data }) => {
 			<CompanySearch />
 			<div className="bg-bgBody">
 				<div className="w-lgContent mx-auto pb-5">
-					<Breadcrumb items={breadcrum} />
+					<Breadcrumb items={data.breadcrum} />
 					<Category icon={data.icon} title={data.title} contentClass="!p-5">
 						<div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-5">
 							{data?.companies?.map((item, i) => (
