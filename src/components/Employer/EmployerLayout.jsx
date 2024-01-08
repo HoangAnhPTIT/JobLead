@@ -1,8 +1,21 @@
 "use client";
 import { Grid } from "@mui/material";
+import { useAppSelector } from "lib/hooks";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import EmployerMenu from "src/components/Employer/Menu";
+import { USER_ROLE } from "src/constants/common";
 
 const EmployerLayout = ({ children }) => {
+	const router = useRouter();
+	const { userInfo } = useAppSelector((state) => state.user);
+
+	useEffect(() => {
+		if (userInfo.role !== USER_ROLE.employer) {
+			router.push("/");
+		}
+	}, []);
+
 	return (
 		<div className="py-5 bg-bgBody">
 			<div className="w-xlContent !mx-auto">

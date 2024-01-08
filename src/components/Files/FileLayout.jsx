@@ -1,7 +1,20 @@
 "use client";
+import { useRouter } from "next/navigation";
 import FileMenu from "./Menu";
+import { useAppSelector } from "lib/hooks";
+import { useEffect } from "react";
+import { USER_ROLE } from "src/constants/common";
 
 const FileLayout = ({ children }) => {
+	const router = useRouter();
+	const { userInfo } = useAppSelector((state) => state.user);
+
+	useEffect(() => {
+		if (userInfo.role !== USER_ROLE.candidate) {
+			router.push("/");
+		}
+	}, []);
+
 	return (
 		<div className="py-5 bg-bgBody">
 			<div className="w-xlContent !mx-auto">

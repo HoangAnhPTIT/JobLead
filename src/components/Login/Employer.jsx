@@ -1,20 +1,11 @@
 "use client";
-import { USER_ROLE } from "@/src/constants/common";
 import { CheckOutlined } from "@mui/icons-material";
-import {
-	Button,
-	Checkbox,
-	FormControlLabel,
-	Grid,
-	Stack,
-	TextField,
-} from "@mui/material";
+import { Button, Grid, Stack, TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
 import { setIsLogin } from "lib/features/userSlice";
 import { useAppDispatch } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
@@ -37,7 +28,6 @@ const employerIntro = [
 ];
 
 const Employer = () => {
-	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const { register, handleSubmit } = useForm();
 
@@ -50,7 +40,7 @@ const Employer = () => {
 				setCookie(refreshToken, response?.tokenLogin?.refreshToken);
 				setCookie("isLogin", true);
 				dispatch(setIsLogin(true));
-				router.push("/");
+				window.location.href = "/";
 			} else {
 				toast.error(response?.messages[0]);
 			}

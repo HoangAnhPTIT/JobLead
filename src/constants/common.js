@@ -11,8 +11,8 @@ export const COMPONENT_LAYOUT = {
 
 export const USER_ROLE = {
 	guest: "guest",
-	candidate: "candidate",
-	employer: "employer",
+	candidate: "Candidate",
+	employer: "Employer",
 	admin: "admin",
 };
 

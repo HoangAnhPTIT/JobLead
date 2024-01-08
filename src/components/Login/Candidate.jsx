@@ -6,7 +6,6 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { setIsLogin } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
@@ -26,7 +25,6 @@ const candidateIntro = [
 const Candidate = () => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
-	const router = useRouter();
 
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
@@ -37,7 +35,7 @@ const Candidate = () => {
 				setCookie("refreshToken", response?.tokenLogin?.refreshToken);
 				setCookie("isLogin", true);
 				dispatch(setIsLogin(true));
-				router.push("/");
+				window.location.href = "/";
 			} else {
 				toast.error(response?.messages[0]);
 			}

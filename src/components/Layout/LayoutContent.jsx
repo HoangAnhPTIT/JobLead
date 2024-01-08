@@ -10,13 +10,19 @@ import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import FooterLayout from "./Footer";
 
-import { KeyboardArrowDown, Logout, MenuOutlined } from "@mui/icons-material";
+import {
+	BorderColor,
+	KeyboardArrowDown,
+	Logout,
+	MenuOutlined,
+	TextSnippet,
+} from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
 import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
 import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
-import { imageError, token } from "src/constants/common";
+import { USER_ROLE, imageError, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { deleteAllCookies, getCookie } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
@@ -58,6 +64,23 @@ const menuItems = [
 	{ label: "Ứng viên", link: routeMap.candidate },
 ];
 
+const userMenu = {
+	[USER_ROLE.candidate]: [
+		{
+			icon: <TextSnippet />,
+			label: "Quản lý hồ sơ",
+			link: `${routeMap.file}${routeMap.cv}`,
+		},
+	],
+	[USER_ROLE.employer]: [
+		{
+			icon: <BorderColor />,
+			label: "Đăng tin tuyển dụng",
+			link: `${routeMap.employer}${routeMap.createJob}`,
+		},
+	],
+};
+
 const LayoutContent = ({ children }) => {
 	const router = useRouter();
 	const pathname = usePathname();
@@ -68,7 +91,12 @@ const LayoutContent = ({ children }) => {
 	const [showMenu, setShowMenu] = useState(false);
 
 	const hideFooter = PageHideFooter.includes(pathname);
-	// const checkRole = PageByRole?.[userInfo?.role]?.includes(pathname);
+
+	const handleLogout = () => {
+		deleteAllCookies();
+		dispatch(logout());
+		window.location.href = "/";
+	};
 
 	useEffect(() => {
 		const isLogin = getCookie("isLogin")
@@ -226,15 +254,24 @@ const LayoutContent = ({ children }) => {
 														styles.accMenu
 													)}
 												>
-													<Stack gap={1} className="py-2">
+													<Stack>
+														{userMenu?.[userInfo?.role]?.map((item, i) => (
+															<div
+																onClick={() => {
+																	router.push(item?.link);
+																}}
+																className="text-sm hover:text-primary p-2 border-b hover:bg-ee"
+																key={i}
+															>
+																{item.icon}
+																<span className="ml-2">{item.label}</span>
+															</div>
+														))}
 														<div
-															onClick={() => {
-																dispatch(logout());
-																router.push("/");
-															}}
-															className="text-sm hover:text-primary px-2"
+															onClick={handleLogout}
+															className="text-sm hover:text-primary p-2 hover:bg-ee"
 														>
-															<Logout /> Đăng xuất
+															<Logout /> <span className="ml-2">Đăng xuất</span>
 														</div>
 													</Stack>
 												</div>

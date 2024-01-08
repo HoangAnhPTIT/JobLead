@@ -16,7 +16,7 @@ const items = [
 		icon: <SettingsOutlined />,
 	},
 	{
-		link: "/create-job",
+		link: routeMap.createJob,
 		name: "Đăng tin tuyển dụng",
 		icon: <FileUploadOutlined />,
 	},
