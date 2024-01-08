@@ -22,6 +22,7 @@ import ModalReference from "./CvModal/ModalReference";
 import ModalSkill from "./CvModal/ModalSkill";
 import Basic from "./Templates/Basic";
 import ModalSave from "./CvModal/ModalSave";
+import ModalAvatar from "./CvModal/ModalAvatar";
 
 const CvLayout = () => {
 	const dispatch = useAppDispatch();
@@ -119,6 +120,10 @@ const CvLayout = () => {
 			/>
 			<ModalSave
 				open={modalUpdating === CV_MODAL_TYPES.save}
+				handleClose={handleClose}
+			/>
+			<ModalAvatar
+				open={modalUpdating === CV_MODAL_TYPES.avatar}
 				handleClose={handleClose}
 			/>
 			<div className="bg-bgCv py-5">

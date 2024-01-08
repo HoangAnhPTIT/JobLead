@@ -1,28 +1,46 @@
 "use client";
 import { Place, WorkOutline } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
-import { apiCompany } from "src/apis/apiEndpoint";
+import { apiCompany, apiCompanyFilter } from "src/apis/apiEndpoint";
 import Category from "src/commons/Category";
 import Nodata from "src/commons/Nodata";
 import { imageError, primaryColor } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
 const OtherCompanies = () => {
+	const pathname = usePathname();
+	const router = useRouter();
 	const [companyList, setCompanyList] = useState();
+	const [count, setCount] = useState(0);
+	const searchParams = useSearchParams();
+	const q = searchParams.get("q") || "";
+	const page = Number(searchParams.get("page")) || 1;
+
+	const params = new URLSearchParams(searchParams);
+
+	const onChangePage = async (page) => {
+		params.set("page", page);
+		router.push(`${pathname}?${params.toString()}`);
+	};
 
 	useEffect(() => {
 		const getCompanies = async () => {
-			const response = await httpGet(
-				`${apiCompany}/non-service?page=1&size=40`
-			);
+			const response = await httpGet(apiCompanyFilter, {
+				type: "other",
+				q,
+				page,
+				size: 20,
+			});
 			setCompanyList(response?.data?.companies);
+			setCount(response?.data?.count);
 		};
 		getCompanies();
-	}, []);
+	}, [page, q]);
 
 	return (
 		<div className="mt-8">
@@ -62,6 +80,14 @@ const OtherCompanies = () => {
 								</Grid>
 							))}
 						</Grid>
+						{count > 0 && (
+							<Pagination
+								count={Math.ceil(count / 20)}
+								page={page}
+								onChange={(e, page) => onChangePage(page)}
+								className="flex justify-center py-5 bg-white"
+							/>
+						)}
 					</div>
 				) : (
 					<Nodata />

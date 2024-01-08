@@ -166,7 +166,11 @@ const Basic = ({
 					</div>
 				</Grid>
 				<Grid item xs={5}>
-					<PhotoCamera style={{ fontSize: 150, color: "#333" }} />
+					<PhotoCamera
+						style={{ fontSize: 150, color: "#333" }}
+						className="cursor-pointer"
+						onClick={() => setModalUpdating(CV_MODAL_TYPES.avatar)}
+					/>
 					<div>
 						<div
 							className={classNames(

@@ -1,27 +1,32 @@
 "use client";
 import Category from "@/src/commons/Category";
 import { ApartmentOutlined } from "@mui/icons-material";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
-import { apiCompany } from "src/apis/apiEndpoint";
+import { apiCompanyFilter } from "src/apis/apiEndpoint";
 import routeMap from "src/constants/routeMap";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CompanyItem from "./CompanyItem";
-import { useSearchParams } from "next/navigation";
 
 const TopCompanies = () => {
-	// const searchParams = useSearchParams();
 	const [companyList, setCompanyList] = useState();
-	// const q = searchParams.get("q");
+	const searchParams = useSearchParams();
+	const q = searchParams.get("q") || "";
 
 	useEffect(() => {
 		const getCompanies = async () => {
-			const response = await httpGet(`${apiCompany}/service-top`);
-			setCompanyList(response?.data);
+			const response = await httpGet(apiCompanyFilter, {
+				type: "top",
+				q,
+				page: 1,
+				size: 20,
+			});
+			setCompanyList(response?.data?.companies);
 		};
 		getCompanies();
-	}, []);
+	}, [q]);
 
 	return (
 		<Category

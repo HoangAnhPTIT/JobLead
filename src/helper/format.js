@@ -44,3 +44,6 @@ export const genUrlParams = (basePath, objectParams) => {
 
 	return `${basePath}?${params}`;
 };
+
+export const genArrayData = (items) =>
+	items?.map((item, i) => `${i > 0 ? ", " : ""}${item || ""}`);

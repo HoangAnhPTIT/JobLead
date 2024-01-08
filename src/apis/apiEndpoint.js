@@ -7,6 +7,7 @@ export const apiCompanyInfo = `${apiCompany}/info`;
 export const apiCompanyContact = `${apiCompany}/contact`;
 export const apiTopCompany = `${apiCompany}/service-top`;
 export const apiOtherCompany = `${apiCompany}/non-service`;
+export const apiCompanyFilter = `${apiCompany}/filter`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";
@@ -28,5 +29,6 @@ export const apiCandidateItSkill = `${apiCandidate}/it-skill`;
 export const apiCandidateLanguageSkill = `${apiCandidate}/language-skill`;
 export const apiCandidateExpectation = `${apiCandidate}/expectation`;
 export const apiCandidateExpectationSearch = `${apiCandidate}/expectation/search`;
+export const apiCandidateUploadAvatar = `${apiCandidate}/upload/avatar`;
 
 export const apiCv = "/Cv";

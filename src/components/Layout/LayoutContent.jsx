@@ -140,7 +140,7 @@ const LayoutContent = ({ children }) => {
 				<Loading />
 				<ToastContainer
 					position="top-right"
-					autoClose={2000}
+					autoClose={3000}
 					theme="light"
 					className={styles.toastCustom}
 				/>

@@ -11,6 +11,7 @@ import { Grid, Pagination } from "@mui/material";
 import moment from "moment";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
+import { genArrayData } from "src/helper/format";
 
 const color = "#f19a2c";
 
@@ -42,10 +43,7 @@ const Item = ({ item }) => {
 									style={{ color }}
 									className="mr-1"
 								/>
-								Địa điểm:{" "}
-								{item?.locations?.map((item, i) =>
-									i === 0 ? item : `, ${item}`
-								)}
+								Địa điểm: {genArrayData(item?.locations)}
 							</span>
 							<span>
 								<AccountTreeOutlined
@@ -62,7 +60,7 @@ const Item = ({ item }) => {
 								style={{ color }}
 								className="mr-1"
 							/>
-							Ngành nghề:
+							Ngành nghề: {genArrayData(item?.careers)}
 						</p>
 						<p className="my-1">
 							<WorkOutline
@@ -70,9 +68,7 @@ const Item = ({ item }) => {
 								style={{ color }}
 								className="mr-1"
 							/>
-							{item?.workHistories?.map((item, i) =>
-								i === 0 ? item : `, ${item}`
-							)}
+							{genArrayData(item?.workHistories)}
 						</p>
 						<p className="my-1">
 							<SchoolOutlined

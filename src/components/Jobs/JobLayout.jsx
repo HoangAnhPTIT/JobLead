@@ -7,7 +7,6 @@ import Breadcrumb from "src/commons/Breadcrumb";
 import routeMap from "src/constants/routeMap";
 
 const JobLayout = ({ jobInfo, majorList }) => {
-	console.log("jobInfo", jobInfo);
 	return (
 		<div>
 			<JobSearch />

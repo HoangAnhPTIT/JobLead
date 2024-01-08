@@ -15,9 +15,13 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "placehold.co",
 			},
+			{
+				protocol: "https",
+				hostname: "recruitment-storage.hn.ss.bfcplatform.vn",
+			},
 		],
 	},
-	output: 'standalone'
+	output: "standalone",
 };
 
 module.exports = nextConfig;
