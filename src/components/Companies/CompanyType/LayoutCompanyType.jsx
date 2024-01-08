@@ -1,0 +1,64 @@
+import React from "react";
+import Breadcrumb from "src/commons/Breadcrumb";
+import routeMap from "src/constants/routeMap";
+import CompanySearch from "../CompanySearch";
+import CompanyItem from "../CompanyItem";
+import Category from "src/commons/Category";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Pagination } from "@mui/material";
+
+const breadcrum = [
+	{
+		title: "Trang chủ",
+		href: "/",
+	},
+	{
+		title: "Công ty",
+		href: routeMap.company,
+	},
+	{
+		title: "Công ty hàng đầu",
+	},
+];
+
+const LayoutCompanyType = ({ data }) => {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const pathname = usePathname();
+	const params = new URLSearchParams(searchParams);
+
+	const currentPage = Number(searchParams.get("page") || 1);
+
+	const onChangePage = async (page) => {
+		await params.set("page", page);
+		router.push(`${pathname}?${params.toString()}`);
+	};
+
+	return (
+		<div>
+			<CompanySearch />
+			<div className="bg-bgBody">
+				<div className="w-lgContent mx-auto pb-5">
+					<Breadcrumb items={breadcrum} />
+					<Category icon={data.icon} title={data.title} contentClass="!p-5">
+						<div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-5">
+							{data?.companies?.map((item, i) => (
+								<CompanyItem item={item} key={i} />
+							))}
+						</div>
+						{data?.count > 0 && (
+							<Pagination
+								count={Math.ceil(data?.count / 12)}
+								page={currentPage}
+								onChange={(e, page) => onChangePage(page)}
+								className="flex justify-center py-5 bg-white"
+							/>
+						)}
+					</Category>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default LayoutCompanyType;

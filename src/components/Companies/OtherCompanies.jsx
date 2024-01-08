@@ -9,6 +9,7 @@ import { apiCompany } from "src/apis/apiEndpoint";
 import Category from "src/commons/Category";
 import Nodata from "src/commons/Nodata";
 import { imageError, primaryColor } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 
 const OtherCompanies = () => {
 	const [companyList, setCompanyList] = useState();
@@ -25,7 +26,11 @@ const OtherCompanies = () => {
 
 	return (
 		<div className="mt-8">
-			<Category icon={<WorkOutline />} title="Các công ty khác">
+			<Category
+				icon={<WorkOutline />}
+				title="Các công ty khác"
+				extra={`${routeMap.company}/cong-ty-khac`}
+			>
 				{companyList?.length > 0 ? (
 					<div className="max-h-[calc(100vh-200px)] overflow-y-auto">
 						<Grid container>

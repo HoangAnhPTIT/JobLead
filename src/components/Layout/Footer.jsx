@@ -1,14 +1,13 @@
 import { Email, FmdGood, PhoneEnabled } from "@mui/icons-material";
-import { Grid } from "@mui/material";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { imageError } from "src/constants/common";
 import Counter from "./Counter";
 import styles from "./styles.module.scss";
-import { imageError } from "src/constants/common";
 
 const companyInfo = {
-	logo: "/logo.png",
+	logo: "https://placehold.co/121x41.png",
 	name: "Coong ty TNHH Xyz",
 	address: "Thong tin dia chi cong ty",
 	phone: "123 2323",

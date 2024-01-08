@@ -25,10 +25,10 @@ const JobList = ({ jobList, majorList }) => {
 	const { type, career, location } = useParams();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
+	const params = new URLSearchParams(searchParams);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [jobsInfo, setJobsInfo] = useState(jobList);
 	const [firstLoad, setFirstLoad] = useState(true);
-	const params = new URLSearchParams(searchParams);
 
 	const onChangePage = async (page) => {
 		await params.set("page", page);
