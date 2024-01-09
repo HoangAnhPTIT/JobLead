@@ -109,10 +109,11 @@ export async function apiCaller({
 	data,
 	params,
 	responseType = "json",
+	contentType = "application/json",
 }) {
 	let headers = {
 		// Accept: "*",
-		"Content-Type": "application/json",
+		"Content-Type": contentType,
 		// "Access-Control-Allow-Origin": "*",
 	};
 

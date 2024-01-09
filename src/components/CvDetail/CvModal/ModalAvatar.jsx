@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiCandidateUploadAvatar } from "src/apis/apiEndpoint";
 import CvModalLayout from "./CvModalLayout";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
 
 const ModalAvatar = ({ open, handleClose }) => {
 	const dispatch = useAppDispatch();
@@ -16,7 +17,18 @@ const ModalAvatar = ({ open, handleClose }) => {
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
 		try {
-			await httpPost({ endpoint: apiCandidateUploadAvatar, data: file });
+			const res = await httpAuthPost({
+				contentType: "multipart/form-data",
+				endpoint: apiCandidateUploadAvatar,
+				data: { file },
+			});
+			console.log("res", res);
+			if (res.status === 200) {
+				toast.success("Tải ảnh thành công");
+				closeModal();
+			} else {
+				toast(res.message);
+			}
 		} catch (error) {
 			toast(error.message || error);
 		} finally {

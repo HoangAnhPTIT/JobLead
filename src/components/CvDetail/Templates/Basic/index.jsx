@@ -14,6 +14,7 @@ import {
 	Transgender,
 } from "@mui/icons-material";
 import { Grid, Rating, TextField } from "@mui/material";
+import { Image } from "antd";
 import classNames from "classnames";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
@@ -178,11 +179,22 @@ const Basic = ({
 					</div>
 				</Grid>
 				<Grid item xs={5}>
-					<PhotoCamera
-						style={{ fontSize: 150, color: "#333" }}
+					<div
 						className="cursor-pointer"
 						onClick={() => !readOnly && setModalUpdating(CV_MODAL_TYPES.avatar)}
-					/>
+					>
+						{data?.avatar ? (
+							<Image
+								src={data?.avatar}
+								alt=""
+								width={150}
+								height="auto"
+								preview={false}
+							/>
+						) : (
+							<PhotoCamera style={{ fontSize: 150, color: "#333" }} />
+						)}
+					</div>
 					<div>
 						<div
 							className={classNames(
