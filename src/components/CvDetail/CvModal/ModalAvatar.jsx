@@ -1,16 +1,17 @@
 import { UploadOutlined } from "@mui/icons-material";
-import { Form, Upload } from "antd";
+import { Image, Upload } from "antd";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { httpPost } from "src/apis/apiCaller";
 import { apiCandidateUploadAvatar } from "src/apis/apiEndpoint";
 import CvModalLayout from "./CvModalLayout";
-import { toast } from "react-toastify";
-import { useState } from "react";
-import { useAppDispatch } from "lib/hooks";
-import { updateLoading } from "lib/features/loadingSlice";
-import { httpPost } from "src/apis/apiCaller";
 
-const ModalAvatar = ({ data, open, handleClose }) => {
+const ModalAvatar = ({ open, handleClose }) => {
 	const dispatch = useAppDispatch();
 	const [file, setFile] = useState(null);
+	const [imageUrl, setImageUrl] = useState(null);
 
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
@@ -23,33 +24,44 @@ const ModalAvatar = ({ data, open, handleClose }) => {
 		}
 	};
 
+	const closeModal = () => {
+		setFile(null);
+		setImageUrl(null);
+		handleClose();
+	};
+
 	const props = {
-		beforeUpload: () => {
-			return false;
+		maxCount: 1,
+		accept: "image/png, image/jpeg",
+		onRemove: () => {
+			setFile(null);
+			setImageUrl(null);
 		},
-		onChange: (info) => {
-			// console.log(info.fileList[0]);
-			setFile(URL.createObjectURL(info.fileList[0]));
+		beforeUpload: (file) => {
+			setImageUrl(URL.createObjectURL(file));
+			setFile(file);
+			return false;
 		},
 	};
 
-	function handleChange(e) {
-		console.log(e.target.files);
-		setFile(URL.createObjectURL(e.target.files[0]));
-	}
-
 	return (
 		<CvModalLayout
+			title="Cập nhật avatar"
 			open={open}
-			handleClose={handleClose}
+			handleClose={closeModal}
 			handleSubmit={onSubmit}
 		>
-			<Upload accept="image/png, image/jpeg" maxCount={1} {...props}>
-				<button style={{ border: 0, background: "none" }} type="button">
-					<UploadOutlined fontSize="large" />
-				</button>
-			</Upload>
-			<input type="file" onChange={handleChange} />
+			<div className="flex justify-center items-center min-h-[200px]">
+				<Upload {...props}>
+					<button style={{ border: 0, background: "none" }} type="button">
+						{imageUrl ? (
+							<Image src={imageUrl} alt="" preview={false} />
+						) : (
+							<UploadOutlined fontSize="large" />
+						)}
+					</button>
+				</Upload>
+			</div>
 		</CvModalLayout>
 	);
 };

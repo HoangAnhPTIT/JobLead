@@ -47,7 +47,7 @@ const CandidateSearch = () => {
 	return (
 		<div>
 			<form>
-				<div className="!w-lgContent !mx-auto pt-7">
+				<div className="!w-lgContent xl:!w-xlContent !mx-auto pt-7">
 					<Grid container spacing={2}>
 						<Grid item flex={1}>
 							<InputWithoutLabel
@@ -86,7 +86,7 @@ const CandidateSearch = () => {
 						</Grid>
 					</Grid>
 				</div>
-				<div className="w-lgContent mx-auto mt-1 mb-5">
+				<div className="w-lgContent xl:w-xlContent mx-auto mt-1 mb-5">
 					<div
 						className="cursor-pointer my-3 text-right flex justify-end"
 						onClick={() => setShowEnhanceSearch(!showEnhanceSearch)}

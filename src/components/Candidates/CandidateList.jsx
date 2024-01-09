@@ -18,11 +18,11 @@ const color = "#f19a2c";
 const Item = ({ item }) => {
 	return (
 		<div className="rounded border px-4 py-3 my-5">
-			<div className="mb-1">
-				<span className="text-54 text-lg font-bold">{item?.name}</span>
-				<span className="text-white rounded-full bg-red1 px-3 pb-0.5 font-semibold text-xs ml-2">
-					{/* Đang tìm việc */}
-				</span>
+			<div className="mb-1 flex items-center">
+				<div className="text-54 text-lg font-bold">{item?.name}</div>
+				<div className="text-white rounded-full bg-red1 px-3 py-[1px] font-semibold text-xs ml-2">
+					Đang tìm việc
+				</div>
 			</div>
 			<Grid container spacing={3}>
 				<Grid item xs={9} className="text-54">
@@ -36,25 +36,25 @@ const Item = ({ item }) => {
 						<span>Kinh nghiệm: {item?.experience}</span>
 					</div>
 					<div className="text-sm">
-						<p className="my-1">
-							<span className="mr-5">
+						<div className="my-1 grid grid-cols-2">
+							<div className="mr-5 three-dot">
 								<PlaceOutlined
 									fontSize="small"
 									style={{ color }}
 									className="mr-1"
 								/>
 								Địa điểm: {genArrayData(item?.locations)}
-							</span>
-							<span>
+							</div>
+							<div className="three-dot">
 								<AccountTreeOutlined
 									fontSize="small"
 									style={{ color }}
 									className="mr-1"
 								/>
 								Cấp bậc: {item?.level}
-							</span>
-						</p>
-						<p className="my-1">
+							</div>
+						</div>
+						<p className="my-1 three-dot">
 							<StarBorderOutlined
 								fontSize="small"
 								style={{ color }}
@@ -62,7 +62,7 @@ const Item = ({ item }) => {
 							/>
 							Ngành nghề: {genArrayData(item?.careers)}
 						</p>
-						<p className="my-1">
+						<p className="my-1 three-dot">
 							<WorkOutline
 								fontSize="small"
 								style={{ color }}
@@ -70,7 +70,7 @@ const Item = ({ item }) => {
 							/>
 							{genArrayData(item?.workHistories)}
 						</p>
-						<p className="my-1">
+						<p className="my-1 three-dot">
 							<SchoolOutlined
 								fontSize="small"
 								style={{ color }}
@@ -85,7 +85,7 @@ const Item = ({ item }) => {
 					</div>
 				</Grid>
 				<Grid item xs={3} className="font-bold text-base text-555552">
-					12 - 15 triệu
+					{item?.salary}
 				</Grid>
 			</Grid>
 		</div>
