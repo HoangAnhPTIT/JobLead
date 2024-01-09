@@ -14,6 +14,7 @@ export const USER_ROLE = {
 	candidate: "Candidate",
 	employer: "Employer",
 	admin: "admin",
+	all: "all",
 };
 
 export const primaryColor = "#0091ce";

@@ -14,16 +14,23 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
 import routeMap from "src/constants/routeMap";
 import { genArrayData } from "src/helper/format";
+import ModalRoleView from "./ModalRoleView";
+import { useState } from "react";
+import { useAppSelector } from "lib/hooks";
+import { USER_ROLE } from "src/constants/common";
 
 const color = "#f19a2c";
 
-const Item = ({ item }) => {
+const Item = ({ item, handleClickItem }) => {
 	return (
 		<div className="rounded border px-4 py-3 my-5">
 			<div className="mb-1 flex items-center">
-				<Link href={`${routeMap.candidate}${routeMap.detail}/${item?.id}`}>
-					<div className="text-54 text-lg font-bold">{item?.name}</div>
-				</Link>
+				<div
+					className="text-54 text-lg font-bold cursor-pointer"
+					onClick={() => handleClickItem(item?.id)}
+				>
+					{item?.name}
+				</div>
 				<div className="text-white rounded-full bg-red1 px-3 py-[1px] font-semibold text-xs ml-2">
 					Đang tìm việc
 				</div>
@@ -97,6 +104,8 @@ const Item = ({ item }) => {
 };
 
 const CandidateList = ({ data }) => {
+	const { userInfo } = useAppSelector((state) => state.user);
+	const [openModal, setOpenModal] = useState(false);
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -104,29 +113,44 @@ const CandidateList = ({ data }) => {
 
 	const currentPage = Number(searchParams.get("page") || 1);
 
+	const handleClickItem = (id) => {
+		if (userInfo?.role === USER_ROLE.employer) {
+			router.push(`${routeMap.candidate}${routeMap.detail}/${id}`);
+		} else {
+			setOpenModal(true);
+		}
+	};
+
 	const onChangePage = async (page) => {
 		params.set("page", page);
 		router.push(`${pathname}?${params.toString()}`);
 	};
 
 	return (
-		<Category
-			title="Danh sách ứng viên"
-			icon={<Search />}
-			contentClass="px-5 py-0"
-		>
-			{data?.candidates?.map((item, i) => (
-				<Item item={item} key={i} />
-			))}
-			{data?.count > 0 && (
-				<Pagination
-					count={Math.ceil(data?.count / 10)}
-					page={currentPage}
-					onChange={(e, page) => onChangePage(page)}
-					className="flex justify-center py-5 bg-white"
-				/>
-			)}
-		</Category>
+		<>
+			<Category
+				title="Danh sách ứng viên"
+				icon={<Search />}
+				contentClass="px-5 py-0"
+			>
+				{data?.candidates?.map((item, i) => (
+					<Item item={item} key={i} handleClickItem={handleClickItem} />
+				))}
+				{data?.count > 0 && (
+					<Pagination
+						count={Math.ceil(data?.count / 10)}
+						page={currentPage}
+						onChange={(e, page) => onChangePage(page)}
+						className="flex justify-center py-5 bg-white"
+					/>
+				)}
+			</Category>
+			<ModalRoleView
+				open={openModal}
+				onCancel={() => setOpenModal(false)}
+				onOk={() => router.push(`${routeMap.login}${routeMap.employer}`)}
+			/>
+		</>
 	);
 };
 

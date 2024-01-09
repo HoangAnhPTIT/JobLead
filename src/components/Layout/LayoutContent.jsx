@@ -62,9 +62,13 @@ const PageOutSide = [
 // };
 
 const menuItems = [
-	{ label: "Việc làm", link: `${routeMap.job}/viec-lam-hot` },
-	{ label: "Công ty", link: routeMap.company },
-	{ label: "Ứng viên", link: routeMap.candidate },
+	{
+		label: "Việc làm",
+		link: `${routeMap.job}/viec-lam-hot`,
+		role: USER_ROLE.all,
+	},
+	{ label: "Công ty", link: routeMap.company, role: USER_ROLE.all },
+	{ label: "Ứng viên", link: routeMap.candidate, role: USER_ROLE.employer },
 ];
 
 const userMenu = {
@@ -199,21 +203,25 @@ const LayoutContent = ({ children }) => {
 								>
 									<Grid item xs={12} lg="auto">
 										<Grid container>
-											{menuItems?.map((item, i) => (
-												<Grid item xs={12} lg="auto" key={i}>
-													<Link href={item?.link}>
-														<div
-															className={classNames([
-																"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
-																item?.link === pathname &&
-																	"bg-secondary text-white",
-															])}
-														>
-															{item?.label}
-														</div>
-													</Link>
-												</Grid>
-											))}
+											{menuItems?.map(
+												(item, i) =>
+													(item?.role === USER_ROLE.all ||
+														item?.role === userInfo?.role) && (
+														<Grid item xs={12} lg="auto" key={i}>
+															<Link href={item?.link}>
+																<div
+																	className={classNames([
+																		"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+																		item?.link === pathname &&
+																			"bg-secondary text-white",
+																	])}
+																>
+																	{item?.label}
+																</div>
+															</Link>
+														</Grid>
+													)
+											)}
 										</Grid>
 									</Grid>
 									{isLogin === false && (

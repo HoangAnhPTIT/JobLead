@@ -1,8 +1,8 @@
 "use client";
 import { Grid } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
-import { useAppDispatch } from "lib/hooks";
-import { useSearchParams } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
@@ -11,12 +11,14 @@ import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
 import CandidateList from "src/components/Candidates/CandidateList";
 import CandidateSearch from "src/components/Candidates/CandidateSearch";
-import { imageError } from "src/constants/common";
+import { USER_ROLE, imageError } from "src/constants/common";
 
 const CandidatesPage = () => {
+	const router = useRouter();
 	const [candidates, setCandidates] = useState();
 	const searchParams = useSearchParams();
 	const dispatch = useAppDispatch();
+	const { userInfo } = useAppSelector((state) => state.user);
 
 	const getParams = () => {
 		let params = {};
@@ -32,19 +34,23 @@ const CandidatesPage = () => {
 	};
 
 	useEffect(() => {
-		const getCandidates = async () => {
-			try {
-				dispatch(updateLoading(true));
-				const params = getParams();
-				const res = await httpPost(apiCandidateExpectationSearch, params);
-				setCandidates(res?.data);
-			} catch (error) {
-				toast.error(error.message || error);
-			} finally {
-				dispatch(updateLoading(false));
-			}
-		};
-		getCandidates();
+		if (userInfo?.role === USER_ROLE.employer) {
+			const getCandidates = async () => {
+				try {
+					dispatch(updateLoading(true));
+					const params = getParams();
+					const res = await httpPost(apiCandidateExpectationSearch, params);
+					setCandidates(res?.data);
+				} catch (error) {
+					toast.error(error.message || error);
+				} finally {
+					dispatch(updateLoading(false));
+				}
+			};
+			getCandidates();
+		} else {
+			router.push("/");
+		}
 	}, [searchParams]);
 
 	return (
