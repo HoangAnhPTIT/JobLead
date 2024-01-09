@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
 import { Image } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
@@ -54,7 +54,7 @@ const CvPage = () => {
 												fontSize="inherit"
 												className="text-primary mr-1"
 											/>
-											{moment(item?.lastUpdatedDate).format(
+											{dayjs(item?.lastUpdatedDate).format(
 												"DD/MM/YYYY HH:mm:ss"
 											)}
 										</div>

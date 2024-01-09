@@ -2,7 +2,7 @@
 import { Button, Checkbox, Col, Form, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
@@ -31,7 +31,7 @@ const CreateJobContent = () => {
 					numOfRecruitment: Number(values?.jobInfo?.numOfRecruitment || 0),
 					jobRequirement: {
 						...values?.jobRequirement,
-						submitDeadline: moment(
+						submitDeadline: dayjs(
 							values?.jobRequirement?.submitDeadline
 						).format("YYYY-MM-DD"),
 					},

@@ -2,7 +2,7 @@
 import { Grid, TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -47,8 +47,8 @@ const ModalEducation = ({ index, data, open, handleClose }) => {
 		} else {
 			reset({
 				...dataInfo,
-				startDate: moment(dataInfo?.startDate),
-				finishDate: dataInfo?.finishDate ? moment(dataInfo.finishDate) : null,
+				startDate: dayjs(dataInfo?.startDate),
+				finishDate: dataInfo?.finishDate ? dayjs(dataInfo.finishDate) : null,
 			});
 		}
 	}, [open, dataInfo, reset]);

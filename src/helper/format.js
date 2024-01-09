@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const formatNumber = (value) => new Intl.NumberFormat().format(value);
 
@@ -14,8 +14,7 @@ export const getArrayObjectValue = (array, key = "id") => {
 };
 
 export const paramValue = (param) => (param !== "0" ? param : "");
-export const getDate = (date) =>
-	date ? moment(date).format("DD/MM/YYYY") : "";
+export const getDate = (date) => (date ? dayjs(date).format("DD/MM/YYYY") : "");
 
 export const replaceArrayValue = (array, value, index) => {
 	const newArr = isEmpty(array) ? [] : [...array];
@@ -32,7 +31,7 @@ export const removeArrayValue = (array, value) => {
 	return array?.filter((item) => item !== value);
 };
 
-export const getTimeValue = (value) => (value ? moment(value) : null);
+export const getTimeValue = (value) => (value ? dayjs(value) : null);
 
 export const genUrlParams = (basePath, objectParams) => {
 	const params = new URLSearchParams();

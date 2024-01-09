@@ -8,7 +8,7 @@ import {
 	WorkOutline,
 } from "@mui/icons-material";
 import { Pagination } from "@mui/material";
-import moment from "moment";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
@@ -41,7 +41,7 @@ const Item = ({ item, handleClickItem }) => {
 						<span>{item?.workTitle}</span>
 						<span className="dot-ce"></span>
 						<span>
-							{moment().get("year") - moment(item?.dob).get("year")} tuổi
+							{dayjs().get("year") - dayjs(item?.dob).get("year")} tuổi
 						</span>
 						<span className="dot-ce"></span>
 						<span>Kinh nghiệm: {item?.experience}</span>

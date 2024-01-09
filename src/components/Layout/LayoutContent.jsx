@@ -15,6 +15,7 @@ import {
 	KeyboardArrowDown,
 	Logout,
 	MenuOutlined,
+	SettingsOutlined,
 	TextSnippet,
 } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
@@ -80,6 +81,11 @@ const userMenu = {
 		},
 	],
 	[USER_ROLE.employer]: [
+		{
+			icon: <SettingsOutlined />,
+			label: "Thông tin chung",
+			link: `${routeMap.employer}${routeMap.dashboard}`,
+		},
 		{
 			icon: <BorderColor />,
 			label: "Đăng tin tuyển dụng",

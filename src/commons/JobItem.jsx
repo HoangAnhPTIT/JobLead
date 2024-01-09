@@ -5,7 +5,7 @@ import {
 } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import classNames from "classnames";
-import moment from "moment";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { imageError } from "src/constants/common";
@@ -62,7 +62,7 @@ const JobItem = ({ item, showExpire = false }) => {
 							<Grid item xs={4} className="flex items-center">
 								<TodayOutlined style={{ fontSize: 16 }} />
 								<span className="text-55 ml-1">
-									{moment(item?.submissionDeadline).format("DD-MM-YYYY")}
+									{dayjs(item?.submissionDeadline).format("DD-MM-YYYY")}
 								</span>
 							</Grid>
 						)}

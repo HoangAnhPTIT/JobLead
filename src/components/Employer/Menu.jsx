@@ -11,8 +11,8 @@ import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
-		link: "/general",
-		name: "Quản lý chung",
+		link: routeMap.dashboard,
+		name: "Tổng quan",
 		icon: <SettingsOutlined />,
 	},
 	{

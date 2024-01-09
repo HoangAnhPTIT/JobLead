@@ -11,6 +11,7 @@ const routeMap = {
 	cv: "/cv",
 	setupJobSuggestions: "/cai-dat-goi-y-viec-lam",
 	createJob: "/dang-tin",
+	dashboard: "/tong-quan",
 };
 
 export default routeMap;
