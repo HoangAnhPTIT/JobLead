@@ -1,4 +1,8 @@
-import { FileUploadOutlined, SettingsOutlined } from "@mui/icons-material";
+import {
+	FileUploadOutlined,
+	SettingsOutlined,
+	WorkOutline,
+} from "@mui/icons-material";
 import {
 	Box,
 	List,
@@ -19,6 +23,11 @@ const items = [
 		link: routeMap.createJob,
 		name: "Đăng tin tuyển dụng",
 		icon: <FileUploadOutlined />,
+	},
+	{
+		link: routeMap.companyInfo,
+		name: "Thông tin công ty",
+		icon: <WorkOutline />,
 	},
 ];
 

@@ -112,9 +112,9 @@ const LayoutContent = ({ children }) => {
 
 	const hideFooter = PageHideFooter.includes(shortPath);
 
-	const handleLogout = () => {
-		deleteAllCookies();
-		dispatch(logout());
+	const handleLogout = async () => {
+		await deleteAllCookies();
+		await dispatch(logout());
 		window.location.href = "/";
 	};
 
