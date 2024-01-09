@@ -74,6 +74,7 @@ const color = "#009ce0";
 
 const Basic = ({
 	data,
+	readOnly = false,
 	setEducationIndex,
 	setExperienceIndex,
 	setModalUpdating,
@@ -121,6 +122,7 @@ const Basic = ({
 							placeholder="Tên của bạn"
 							autoComplete="off"
 							className={styles.yourName}
+							disabled={readOnly}
 							onBlur={(e) => updateInfo("fullName", e.target.value)}
 						/>
 						<TextField
@@ -131,6 +133,7 @@ const Basic = ({
 							placeholder="Vị trí công việc bạn muốn ứng tuyển"
 							autoComplete="off"
 							className={styles.position}
+							disabled={readOnly}
 							onBlur={(e) => updateInfo("workTitle", e.target.value)}
 						/>
 					</div>
@@ -139,23 +142,32 @@ const Basic = ({
 							icon={<School style={{ color, fontSize: 50 }} />}
 							title="Học vấn"
 							data={data?.educations}
-							onClick={() => setModalUpdating(CV_MODAL_TYPES.education)}
+							onClick={() =>
+								!readOnly && setModalUpdating(CV_MODAL_TYPES.education)
+							}
 							setEducationIndex={setEducationIndex}
 							deleteEducation={deleteEducation}
+							readOnly={readOnly}
 						/>
 						<Experience
 							icon={<FolderShared style={{ color, fontSize: 50 }} />}
 							title="Kinh nghiệm làm việc"
 							data={data?.experiences}
-							onClick={() => setModalUpdating(CV_MODAL_TYPES.experience)}
+							onClick={() =>
+								!readOnly && setModalUpdating(CV_MODAL_TYPES.experience)
+							}
 							setExperienceIndex={setExperienceIndex}
 							deleteExperience={deleteExperience}
+							readOnly={readOnly}
 						/>
 						<Skill
 							icon={<BorderColor style={{ color, fontSize: 50 }} />}
 							title="Kỹ năng"
 							data={data}
-							onClick={() => setModalUpdating(CV_MODAL_TYPES.skill)}
+							onClick={() =>
+								!readOnly && setModalUpdating(CV_MODAL_TYPES.skill)
+							}
+							readOnly={readOnly}
 						/>
 						{/* <CvItem
 							icon={<RecentActors style={{ color, fontSize: 50 }} />}
@@ -169,7 +181,7 @@ const Basic = ({
 					<PhotoCamera
 						style={{ fontSize: 150, color: "#333" }}
 						className="cursor-pointer"
-						onClick={() => setModalUpdating(CV_MODAL_TYPES.avatar)}
+						onClick={() => !readOnly && setModalUpdating(CV_MODAL_TYPES.avatar)}
 					/>
 					<div>
 						<div
@@ -184,9 +196,11 @@ const Basic = ({
 								fontSize="medium"
 								className={classNames(
 									"text-right self-center !hidden cursor-pointer text-green-500",
-									styles.editIcon
+									!readOnly && styles.editIcon
 								)}
-								onClick={() => setModalUpdating(CV_MODAL_TYPES.careerGoal)}
+								onClick={() =>
+									!readOnly && setModalUpdating(CV_MODAL_TYPES.careerGoal)
+								}
 							/>
 						</div>
 						<div className="text-33 text-sm">
@@ -212,9 +226,11 @@ const Basic = ({
 								fontSize="medium"
 								className={classNames(
 									"text-right self-center !hidden cursor-pointer text-green-500",
-									styles.editIcon
+									!readOnly && styles.editIcon
 								)}
-								onClick={() => setModalUpdating(CV_MODAL_TYPES.generalInfo)}
+								onClick={() =>
+									!readOnly && setModalUpdating(CV_MODAL_TYPES.generalInfo)
+								}
 							/>
 						</div>
 						<div className="text-33 flex gap-5 pr-5 mt-3">
@@ -252,9 +268,11 @@ const Basic = ({
 									fontSize="medium"
 									className={classNames(
 										"text-right self-center !hidden cursor-pointer text-green-500",
-										styles.editIcon
+										!readOnly && styles.editIcon
 									)}
-									onClick={() => setModalUpdating(CV_MODAL_TYPES.itSkill)}
+									onClick={() =>
+										!readOnly && setModalUpdating(CV_MODAL_TYPES.itSkill)
+									}
 								/>
 							</div>
 							{data?.itSkills?.map((item, i) => (
@@ -288,9 +306,11 @@ const Basic = ({
 									fontSize="medium"
 									className={classNames(
 										"text-right self-center !hidden cursor-pointer text-green-500",
-										styles.editIcon
+										!readOnly && styles.editIcon
 									)}
-									onClick={() => setModalUpdating(CV_MODAL_TYPES.language)}
+									onClick={() =>
+										!readOnly && setModalUpdating(CV_MODAL_TYPES.language)
+									}
 								/>
 							</div>
 							{data?.languageSkills?.map((item, i) => (

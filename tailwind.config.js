@@ -30,6 +30,7 @@ module.exports = {
 				red2: "#ff0000",
 				yellow1: "#f3c01a",
 				yellow2: "#fdd33a",
+				yellow3: "#ffc107",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
 				bgHeader: "#fff",

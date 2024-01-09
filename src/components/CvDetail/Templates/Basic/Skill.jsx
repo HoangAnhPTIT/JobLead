@@ -6,13 +6,14 @@ import styles from "./styles.module.scss";
 import { ACTION_TYPES } from "src/constants/common";
 
 const color = "#009ce0";
-const Skill = ({ data, icon, title, onClick }) => {
+const Skill = ({ data, icon, title, onClick, readOnly }) => {
 	return (
 		<Section
 			icon={icon}
 			title={title}
 			onClick={onClick}
 			typeParent={ACTION_TYPES.edit}
+			readOnly={readOnly}
 		>
 			<div className={classNames("pt-2", styles.info)}>
 				<div className={classNames("ml-[40px]", styles.item)}>

@@ -7,10 +7,12 @@ import {
 	StarBorderOutlined,
 	WorkOutline,
 } from "@mui/icons-material";
-import { Grid, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import moment from "moment";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
+import routeMap from "src/constants/routeMap";
 import { genArrayData } from "src/helper/format";
 
 const color = "#f19a2c";
@@ -19,13 +21,15 @@ const Item = ({ item }) => {
 	return (
 		<div className="rounded border px-4 py-3 my-5">
 			<div className="mb-1 flex items-center">
-				<div className="text-54 text-lg font-bold">{item?.name}</div>
+				<Link href={`${routeMap.candidate}${routeMap.detail}/${item?.id}`}>
+					<div className="text-54 text-lg font-bold">{item?.name}</div>
+				</Link>
 				<div className="text-white rounded-full bg-red1 px-3 py-[1px] font-semibold text-xs ml-2">
 					Đang tìm việc
 				</div>
 			</div>
-			<Grid container spacing={3}>
-				<Grid item xs={9} className="text-54">
+			<div className="grid grid-cols-[75%_25%] gap-5">
+				<div className="text-54">
 					<div className="text-[15px]">
 						<span>{item?.workTitle}</span>
 						<span className="dot-ce"></span>
@@ -83,11 +87,11 @@ const Item = ({ item }) => {
 							)}
 						</p>
 					</div>
-				</Grid>
-				<Grid item xs={3} className="font-bold text-base text-555552">
+				</div>
+				<div xs={3} className="font-bold text-base text-555552">
 					{item?.salary}
-				</Grid>
-			</Grid>
+				</div>
+			</div>
 		</div>
 	);
 };

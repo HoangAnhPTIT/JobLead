@@ -13,6 +13,7 @@ const Education = ({
 	onClick,
 	setEducationIndex,
 	deleteEducation,
+	readOnly,
 }) => {
 	return (
 		<Section
@@ -22,6 +23,7 @@ const Education = ({
 				onClick();
 				setEducationIndex(null);
 			}}
+			readOnly={readOnly}
 		>
 			<div className={classNames("pt-2", styles.info)}>
 				{data?.map((item, i) => (
@@ -32,7 +34,7 @@ const Education = ({
 						<div
 							className={classNames(
 								"hidden absolute right-5 top-0 cursor-pointer",
-								styles.editItem
+								!readOnly && styles.editItem
 							)}
 						>
 							<Edit

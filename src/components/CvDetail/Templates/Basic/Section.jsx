@@ -10,6 +10,7 @@ const Section = ({
 	title,
 	onClick,
 	typeParent = ACTION_TYPES.add,
+	readOnly = false,
 	children,
 }) => {
 	return (
@@ -22,25 +23,26 @@ const Section = ({
 					{icon}
 					<span className="uppercase ml-4 text-xl">{title}</span>
 				</div>
-				{typeParent === ACTION_TYPES.add ? (
-					<Add
-						fontSize="medium"
-						className={classNames(
-							"text-right self-center !hidden cursor-pointer text-green-500",
-							styles.editIcon
-						)}
-						onClick={onClick}
-					/>
-				) : (
-					<Edit
-						fontSize="medium"
-						className={classNames(
-							"text-right self-center !hidden cursor-pointer text-green-500",
-							styles.editIcon
-						)}
-						onClick={onClick}
-					/>
-				)}
+				{!readOnly &&
+					(typeParent === ACTION_TYPES.add ? (
+						<Add
+							fontSize="medium"
+							className={classNames(
+								"text-right self-center !hidden cursor-pointer text-green-500",
+								styles.editIcon
+							)}
+							onClick={onClick}
+						/>
+					) : (
+						<Edit
+							fontSize="medium"
+							className={classNames(
+								"text-right self-center !hidden cursor-pointer text-green-500",
+								styles.editIcon
+							)}
+							onClick={onClick}
+						/>
+					))}
 			</div>
 			{children}
 		</div>

@@ -13,9 +13,10 @@ const Experience = ({
 	onClick,
 	setExperienceIndex,
 	deleteExperience,
+	readOnly = false,
 }) => {
 	return (
-		<Section icon={icon} title={title} onClick={onClick}>
+		<Section icon={icon} title={title} onClick={onClick} readOnly={readOnly}>
 			<div className={classNames("pt-2", styles.info)}>
 				{data?.map((item, i) => (
 					<div
@@ -25,7 +26,7 @@ const Experience = ({
 						<div
 							className={classNames(
 								"hidden absolute right-5 top-0 cursor-pointer",
-								styles.editItem
+								!readOnly && styles.editItem
 							)}
 						>
 							<Edit
