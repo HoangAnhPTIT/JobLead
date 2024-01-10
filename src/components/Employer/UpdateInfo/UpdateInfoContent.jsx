@@ -1,18 +1,64 @@
 "use client";
 import { KeyOutlined } from "@mui/icons-material";
-import { Button, Col, Form, Image, Input, Row } from "antd";
-import { useAppSelector } from "lib/hooks";
-import React from "react";
+import { Button, Col, Form, Image, Input, Modal, Row } from "antd";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCompany, apiCompanyInfo } from "src/apis/apiEndpoint";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
-import { imageError } from "src/constants/common";
+import {
+	errorMessage,
+	imageError,
+	updateSuccessMessage,
+} from "src/constants/common";
+import ModalChangePassword from "./ModalChangePassword";
 
 const UpdateInfoContent = () => {
 	const [form] = Form.useForm();
+	const [formPw] = Form.useForm();
+	const dispatch = useAppDispatch();
 	const { entities } = useAppSelector((state) => state.entity);
+	const [info, setInfo] = useState();
+	const [showModal, setShowModal] = useState(false);
 
+	const handleChangePassword = () => {};
 	const onSubmit = async () => {
-		console.log(form.getFieldsValue());
+		dispatch(updateLoading(true));
+		try {
+			const values = await form.validateFields();
+			const payload = { ...info, ...values };
+			const res = await httpAuthPut({ endpoint: apiCompany, data: payload });
+			if (res.status === 200) {
+				toast.success(updateSuccessMessage);
+			} else {
+				toast.error(errorMessage);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
 	};
+
+	useEffect(() => {
+		const getData = async () => {
+			dispatch(updateLoading(true));
+			try {
+				const res = await httpAuthGet({ endpoint: apiCompanyInfo });
+				if (res.status === 200) {
+					setInfo(res.company);
+					form.setFieldsValue(res.company);
+				}
+			} catch (error) {
+				console.error(error);
+			} finally {
+				dispatch(updateLoading(false));
+			}
+		};
+		getData();
+	}, []);
 
 	return (
 		<div>
@@ -26,13 +72,20 @@ const UpdateInfoContent = () => {
 							Thông tin tài khoản
 						</div>
 						<div>
-							<p>Địa chỉ email:</p>
-							<Input size="large" disabled />
-							<p>
-								<KeyOutlined fontSize="small" />
+							<p className="mb-2">Địa chỉ email:</p>
+							<Input size="large" disabled value={info?.email} />
+							<p
+								className="mt-3 text-gray-400 hover:underline cursor-pointer flex items-center w-fit"
+								onClick={() => setShowModal(true)}
+							>
+								<KeyOutlined fontSize="small" className="mr-2" />
 								Đổi mật khẩu
 							</p>
 						</div>
+						<ModalChangePassword
+							open={showModal}
+							onCancel={() => setShowModal(false)}
+						/>
 					</div>
 					<Form form={form} layout="vertical" className="w-full">
 						<div className="p-5 bg-white mb-5">
@@ -62,14 +115,14 @@ const UpdateInfoContent = () => {
 							/>
 							<Form.Item
 								label="Quy mô"
-								name="amount"
+								name="sizeDescription"
 								rules={[{ required: true }]}
 							>
 								<Input size="large" />
 							</Form.Item>
 							<Form.Item
 								label="Mô tả sơ lược"
-								name="brief"
+								name="introducation"
 								rules={[{ required: true }]}
 							>
 								<Input.TextArea />
@@ -89,24 +142,27 @@ const UpdateInfoContent = () => {
 							</div>
 							<div className="grid grid-cols-2 gap-x-5">
 								<Form.Item
-									name="nameContact"
+									name={["contact", "fullName"]}
 									label="Người liên hệ"
 									rules={[{ required: true }]}
 								>
 									<Input size="large" />
 								</Form.Item>
 								<Form.Item
-									name="phoneContact"
+									name={["contact", "phone"]}
 									label="SĐT liên hệ"
 									rules={[{ required: true }]}
 								>
 									<Input size="large" />
 								</Form.Item>
-								<Form.Item name="positionContact" label="Chức vụ người liên hệ">
+								<Form.Item
+									name={["contact", "level"]}
+									label="Chức vụ người liên hệ"
+								>
 									<Input size="large" />
 								</Form.Item>
 								<Form.Item
-									name="emailContact"
+									name={["contact", "email"]}
 									label="Email người liên hệ"
 									rules={[{ required: true }]}
 								>
