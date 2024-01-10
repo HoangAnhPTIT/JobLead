@@ -1,18 +1,20 @@
 "use client";
 import { KeyOutlined } from "@mui/icons-material";
-import { Button, Col, Form, Image, Input, Modal, Row } from "antd";
+import { Button, Col, Form, Image, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCompany, apiCompanyInfo } from "src/apis/apiEndpoint";
-import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import {
-	errorMessage,
-	imageError,
-	updateSuccessMessage,
-} from "src/constants/common";
+	apiCompany,
+	apiCompanyInfo,
+	apiCompanyUploadAvatar,
+	apiCompanyUploadProfile,
+} from "src/apis/apiEndpoint";
+import ImageInput from "src/commons/AntdForm/ImageInput";
+import SelectAntd from "src/commons/AntdForm/SelectAntd";
+import { errorMessage, updateSuccessMessage } from "src/constants/common";
 import ModalChangePassword from "./ModalChangePassword";
 
 const UpdateInfoContent = () => {
@@ -42,21 +44,22 @@ const UpdateInfoContent = () => {
 		}
 	};
 
-	useEffect(() => {
-		const getData = async () => {
-			dispatch(updateLoading(true));
-			try {
-				const res = await httpAuthGet({ endpoint: apiCompanyInfo });
-				if (res.status === 200) {
-					setInfo(res.company);
-					form.setFieldsValue(res.company);
-				}
-			} catch (error) {
-				console.error(error);
-			} finally {
-				dispatch(updateLoading(false));
+	const getData = async () => {
+		dispatch(updateLoading(true));
+		try {
+			const res = await httpAuthGet({ endpoint: apiCompanyInfo });
+			if (res.status === 200) {
+				setInfo(res.company);
+				form.setFieldsValue(res.company);
 			}
-		};
+		} catch (error) {
+			console.error(error);
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
+
+	useEffect(() => {
 		getData();
 	}, []);
 
@@ -179,12 +182,20 @@ const UpdateInfoContent = () => {
 				</Col>
 				<Col span={8}>
 					<div className="bg-white mb-5 text-center py-5">
-						<p className="font-semibold text-base">Cập nhật ảnh đại diện</p>
-						<Image src={imageError} alt="" preview={false} />
+						<p className="font-semibold text-base mb-5">Ảnh đại diện</p>
+						<ImageInput
+							imageUrl={info?.avatar}
+							apiUpdate={apiCompanyUploadAvatar}
+							reload={getData}
+						/>
 					</div>
 					<div className="bg-white mb-5 text-center py-5">
-						<p className="font-semibold text-base">Cập nhật ảnh bìa</p>
-						<Image src={imageError} alt="" preview={false} />
+						<p className="font-semibold text-base mb-5">Ảnh bìa</p>
+						<ImageInput
+							imageUrl={info?.profile}
+							apiUpdate={apiCompanyUploadProfile}
+							reload={getData}
+						/>
 					</div>
 				</Col>
 			</Row>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://api.tuyendung247.vn/api/v1";
+axios.defaults.baseURL = process.env.BASE_URL;
 
 export const httpPost = async (endpoint, data = {}) => {
 	try {

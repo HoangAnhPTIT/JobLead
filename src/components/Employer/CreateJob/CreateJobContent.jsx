@@ -1,17 +1,15 @@
 "use client";
 import { Button, Checkbox, Col, Form, Input, Row } from "antd";
+import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
-import { httpGet } from "src/apis/apiCaller";
 import { apiCompany, apiCompanyContact, apiJob } from "src/apis/apiEndpoint";
 import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import ImageFull from "src/commons/Image";
-import { companyId } from "src/constants/common";
 import ApproveRule from "./ApproveRule";
 
 const CreateJobContent = () => {
@@ -52,9 +50,9 @@ const CreateJobContent = () => {
 
 	useEffect(() => {
 		const getServices = async () => {
-			const response = await httpGet(
-				`${apiCompany}/${companyId}/services/available`
-			);
+			const response = await httpAuthGet({
+				endpoint: `${apiCompany}/services/available`,
+			});
 			response?.status === 200 && setServiceList(response?.data || []);
 		};
 		const getCompanyInfo = async () => {

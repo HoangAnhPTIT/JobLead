@@ -4,10 +4,9 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { httpPost } from "src/apis/apiCaller";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCandidateUploadAvatar } from "src/apis/apiEndpoint";
 import CvModalLayout from "./CvModalLayout";
-import { httpAuthPost } from "src/apis/apiAuthCaller";
 
 const ModalAvatar = ({ open, handleClose }) => {
 	const dispatch = useAppDispatch();
@@ -22,7 +21,6 @@ const ModalAvatar = ({ open, handleClose }) => {
 				endpoint: apiCandidateUploadAvatar,
 				data: { file },
 			});
-			console.log("res", res);
 			if (res.status === 200) {
 				toast.success("Tải ảnh thành công");
 				closeModal();

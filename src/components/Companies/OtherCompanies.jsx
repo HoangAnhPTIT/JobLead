@@ -50,7 +50,7 @@ const OtherCompanies = () => {
 				extra={`${routeMap.company}/cong-ty-khac`}
 			>
 				{companyList?.length > 0 ? (
-					<div className="max-h-[calc(100vh-200px)] overflow-y-auto">
+					<div className="">
 						<Grid container>
 							{companyList?.map((item, i) => (
 								<Grid item xs={6} key={i} className="px-2">
@@ -63,7 +63,7 @@ const OtherCompanies = () => {
 												height={60}
 											/>
 											<div className="max-w-[calc(100%-80px)]">
-												<div className="font-semibold text-33 text-sm mb-3">
+												<div className="font-semibold text-33 text-sm mb-3 three-dot">
 													{item?.name}
 												</div>
 												<div className="text-xs three-dot flex items-center">

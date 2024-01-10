@@ -106,8 +106,6 @@ const LayoutContent = ({ children }) => {
 		? pathname
 		: pathname.replace(`/${params.id}`, "");
 
-	console.log("shortPath", shortPath);
-
 	const [showMenu, setShowMenu] = useState(false);
 
 	const hideFooter = PageHideFooter.includes(shortPath);

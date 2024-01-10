@@ -2,12 +2,15 @@ export const apiHome = "/Job/classify/service";
 export const apiJob = "/Job";
 export const apiJobByLocation = "/Job/count/location";
 export const apiJobByCareer = "/Job/count/career";
+
 export const apiCompany = "/Company";
 export const apiCompanyInfo = `${apiCompany}/info`;
 export const apiCompanyContact = `${apiCompany}/contact`;
 export const apiTopCompany = `${apiCompany}/service-top`;
 export const apiOtherCompany = `${apiCompany}/non-service`;
 export const apiCompanyFilter = `${apiCompany}/filter`;
+export const apiCompanyUploadAvatar = `${apiCompany}/upload/avatar`;
+export const apiCompanyUploadProfile = `${apiCompany}/upload/profile`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

@@ -98,7 +98,7 @@ const JobDetailInfo = ({ data }) => {
 							<div className="mb-4">
 								<MilitaryTech className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Chức vụ:</span>
-								{data?.position}
+								{data?.level?.name}
 							</div>
 							<div className="mb-4">
 								<CalendarMonth className="text-primary" />
