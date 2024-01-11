@@ -42,7 +42,7 @@ const Employer = () => {
 				dispatch(setIsLogin(true));
 				window.location.href = "/";
 			} else {
-				toast.error(response?.messages[0]);
+				toast.error(response?.messages[0] || errorMessage);
 			}
 		} catch (error) {
 			console.error("errorLogin", error);

@@ -11,7 +11,7 @@ import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
 import CandidateList from "src/components/Candidates/CandidateList";
 import CandidateSearch from "src/components/Candidates/CandidateSearch";
-import { USER_ROLE, imageError } from "src/constants/common";
+import { USER_ROLE, errorMessage, imageError } from "src/constants/common";
 
 const CandidatesPage = () => {
 	const router = useRouter();
@@ -42,7 +42,7 @@ const CandidatesPage = () => {
 					const res = await httpPost(apiCandidateExpectationSearch, params);
 					setCandidates(res?.data);
 				} catch (error) {
-					toast.error(error.message || error);
+					toast.error(error.message || error || errorMessage);
 				} finally {
 					dispatch(updateLoading(false));
 				}

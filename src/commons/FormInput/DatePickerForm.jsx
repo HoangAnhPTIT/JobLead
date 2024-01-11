@@ -1,4 +1,4 @@
-import { Adaptermoment } from "@mui/x-date-pickers/Adaptermoment";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Controller } from "react-hook-form";
@@ -11,7 +11,7 @@ export default function DatePickerForm({
 	...options
 }) {
 	return (
-		<LocalizationProvider dateAdapter={Adaptermoment}>
+		<LocalizationProvider dateAdapter={AdapterMoment}>
 			<Controller
 				name={name}
 				control={control}
