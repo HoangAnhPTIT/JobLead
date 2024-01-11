@@ -1,8 +1,11 @@
 import {
+	CheckOutlined,
+	DnsOutlined,
 	FileUploadOutlined,
+	HomeRepairServiceOutlined,
+	MiscellaneousServicesOutlined,
 	SearchOutlined,
 	SettingsOutlined,
-	WorkOutline,
 } from "@mui/icons-material";
 import {
 	Box,
@@ -31,9 +34,24 @@ const items = [
 		icon: <FileUploadOutlined />,
 	},
 	{
+		link: routeMap.postList,
+		name: "Quản lý tin tuyển dụng",
+		icon: <DnsOutlined />,
+	},
+	{
+		link: routeMap.viewedUser,
+		name: "Hồ sơ đã xem",
+		icon: <CheckOutlined />,
+	},
+	{
+		link: routeMap.packageManage,
+		name: "Quản lý dịch vụ",
+		icon: <MiscellaneousServicesOutlined />,
+	},
+	{
 		link: routeMap.companyInfo,
 		name: "Thông tin công ty",
-		icon: <WorkOutline />,
+		icon: <HomeRepairServiceOutlined />,
 	},
 ];
 

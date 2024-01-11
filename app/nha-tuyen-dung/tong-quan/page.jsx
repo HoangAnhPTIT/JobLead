@@ -1,7 +1,7 @@
 "use client";
 import { ContactPage, HistoryEdu, Work } from "@mui/icons-material";
-import { Image } from "antd";
 import classNames from "classnames";
+import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 
 const ViewItem = ({ icon, bgIcon, amount, title }) => {
@@ -27,9 +27,7 @@ const DashboardPage = () => {
 	return (
 		<EmployerLayout>
 			<div>
-				<div>
-					<Image src="https:placehold.co/900x200.png" alt="" preview={false} />
-				</div>
+				<EmployerBanner />
 				<div className="grid grid-cols-3 gap-5 mt-5">
 					<ViewItem
 						title="Viêc làm đã đăng"

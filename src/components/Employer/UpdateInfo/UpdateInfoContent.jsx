@@ -16,6 +16,7 @@ import ImageInput from "src/commons/AntdForm/ImageInput";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
 import ModalChangePassword from "./ModalChangePassword";
+import EmployerBanner from "../EmployerBanner";
 
 const UpdateInfoContent = () => {
 	const [form] = Form.useForm();
@@ -65,9 +66,7 @@ const UpdateInfoContent = () => {
 
 	return (
 		<div>
-			<div className=" mb-5">
-				<Image src="https:placehold.co/900x200.png" alt="" preview={false} />
-			</div>
+			<EmployerBanner />
 			<Row gutter={16}>
 				<Col span={16}>
 					<div className="p-5 bg-white mb-5">

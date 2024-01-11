@@ -14,6 +14,9 @@ const routeMap = {
 	dashboard: "/tong-quan",
 	companyInfo: "/thong-tin-cong-ty",
 	searchCandidate: "/tim-ung-vien",
+	viewedUser: "/ho-so-da-xem",
+	packageManage: "/quan-ly-dich-vu",
+	postList: "/quan-ly-tin-tuyen-dung",
 };
 
 export default routeMap;
