@@ -15,6 +15,8 @@ module.exports = {
 			colors: {
 				footer: "#666",
 				bgContainer: "#f5f5f5",
+				bgHeader: "#fff",
+				bgEmployer: "#EBEFF3",
 				primary: "#0091ce",
 				secondary: "#fc205c",
 				third: "#d00",
@@ -33,7 +35,6 @@ module.exports = {
 				yellow3: "#ffc107",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
-				bgHeader: "#fff",
 				ff: "#fff",
 				dd: "#ddd",
 				hlBlue: "#0091ce",

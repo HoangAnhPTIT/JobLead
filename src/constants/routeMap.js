@@ -13,6 +13,7 @@ const routeMap = {
 	createJob: "/dang-tin",
 	dashboard: "/tong-quan",
 	companyInfo: "/thong-tin-cong-ty",
+	searchCandidate: "/tim-ung-vien",
 };
 
 export default routeMap;

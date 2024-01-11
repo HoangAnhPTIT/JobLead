@@ -11,13 +11,13 @@ const EmployerLayout = ({ children }) => {
 	const { userInfo } = useAppSelector((state) => state.user);
 
 	useEffect(() => {
-		if (userInfo.role !== USER_ROLE.employer) {
+		if (userInfo?.role !== USER_ROLE.employer) {
 			router.push("/");
 		}
 	}, []);
 
 	return (
-		<div className="py-5 bg-bgBody">
+		<div className="py-5 bg-bgEmployer">
 			<div className="w-xlContent !mx-auto">
 				<Grid container spacing={2}>
 					<Grid item xs={3}>

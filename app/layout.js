@@ -36,6 +36,13 @@ const RootLayout = ({ children }) => {
 									components: {
 										Form: {
 											itemMarginBottom: 10,
+											colorTextPlaceholder: "#c6c6c6",
+										},
+										Select: {
+											colorTextPlaceholder: "#c6c6c6",
+										},
+										Input: {
+											colorTextPlaceholder: "#c6c6c6",
 										},
 									},
 								}}

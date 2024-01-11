@@ -10,7 +10,7 @@ const FileLayout = ({ children }) => {
 	const { userInfo } = useAppSelector((state) => state.user);
 
 	useEffect(() => {
-		if (userInfo.role !== USER_ROLE.candidate) {
+		if (userInfo?.role !== USER_ROLE.candidate) {
 			router.push("/");
 		}
 	}, []);

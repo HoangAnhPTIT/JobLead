@@ -1,5 +1,6 @@
 import {
 	FileUploadOutlined,
+	SearchOutlined,
 	SettingsOutlined,
 	WorkOutline,
 } from "@mui/icons-material";
@@ -18,6 +19,11 @@ const items = [
 		link: routeMap.dashboard,
 		name: "Tổng quan",
 		icon: <SettingsOutlined />,
+	},
+	{
+		link: routeMap.searchCandidate,
+		name: "Tìm ứng viên",
+		icon: <SearchOutlined />,
 	},
 	{
 		link: routeMap.createJob,
