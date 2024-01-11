@@ -11,7 +11,7 @@ const JobDetailContent = ({ data }) => {
 			<JobSticky data={data} />
 			<JobSearch />
 			<div className="bg-bgBody py-5">
-				<div className="w-lgContent mx-auto">
+				<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto">
 					<div className="mb-5">
 						<ImageFull src="https://placehold.co/1170x220.png" alt="" />
 					</div>

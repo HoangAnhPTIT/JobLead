@@ -65,10 +65,10 @@ const JobDetailInfo = ({ data }) => {
 
 	return (
 		<div className="p-4 bg-white">
-			<div className="w-full grid grid-cols-[75%_25%]">
+			<div className="w-full grid grid-cols-[100%] lg:grid-cols-[75%_25%]">
 				<div>
 					<Grid container>
-						<Grid item xs={6} className="pr-5">
+						<Grid item xs={12} md={6} className="pr-5">
 							<div className="mb-4">
 								<Paid className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Mức lương:</span>
@@ -89,7 +89,7 @@ const JobDetailInfo = ({ data }) => {
 								{data?.contactInfo?.workLocation}
 							</div>
 						</Grid>
-						<Grid item xs={6} className="pr-5">
+						<Grid item xs={12} md={6} className="pr-5">
 							<div className="mb-4">
 								<Groups className="text-primary" />
 								<span className="font-semibold ml-2 mr-1">Số lượng:</span>
@@ -116,7 +116,7 @@ const JobDetailInfo = ({ data }) => {
 							</div>
 						</Grid>
 					</Grid>
-					<div className="mt-5 pr-10">
+					<div className="mt-5 pr-10 mb-10">
 						<Description
 							title={"Mô tả công việc"}
 							content={data?.description}
@@ -132,7 +132,7 @@ const JobDetailInfo = ({ data }) => {
 					</div>
 				</div>
 				<div>
-					<div className="border p-4 max-w-[284px] mb-10">
+					<div className="border p-4 w-full mb-10">
 						<div className="text-lg font-semibold">Chia sẻ tin tuyển dụng</div>
 						<p className="text-sm my-3">Sao chép đường dẫn</p>
 						<div className="flex gap-2 cursor-pointer">
