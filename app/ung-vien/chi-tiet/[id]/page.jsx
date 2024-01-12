@@ -34,7 +34,7 @@ const CandidateDetailPage = () => {
 				<div className="max-h-[calc(100vh-64px)] overflow-y-auto">
 					<Basic data={candidateInfo} readOnly />
 				</div>
-				<RightSide />
+				<RightSide info={candidateInfo} />
 			</div>
 		</div>
 	);
