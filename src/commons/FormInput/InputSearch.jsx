@@ -15,7 +15,7 @@ const InputSearch = ({
 
 	useEffect(() => {
 		const getSuggest = async () => {
-			const response = await httpGet(`${apiJob}/suggestion?q='`);
+			const response = await httpGet(`${apiJob}/suggestion?q=`);
 			setSuggestList(response?.data);
 		};
 		getSuggest();

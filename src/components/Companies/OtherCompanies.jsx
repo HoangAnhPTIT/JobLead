@@ -6,11 +6,12 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
-import { apiCompany, apiCompanyFilter } from "src/apis/apiEndpoint";
+import { apiCompanyFilter } from "src/apis/apiEndpoint";
 import Category from "src/commons/Category";
 import Nodata from "src/commons/Nodata";
 import { imageError, primaryColor } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
+import { genUrlParams } from "src/helper/format";
 
 const OtherCompanies = () => {
 	const pathname = usePathname();
@@ -21,11 +22,8 @@ const OtherCompanies = () => {
 	const q = searchParams.get("q") || "";
 	const page = Number(searchParams.get("page")) || 1;
 
-	const params = new URLSearchParams(searchParams);
-
 	const onChangePage = async (page) => {
-		params.set("page", page);
-		router.push(`${pathname}?${params.toString()}`);
+		router.push(genUrlParams(pathname, { page }));
 	};
 
 	useEffect(() => {

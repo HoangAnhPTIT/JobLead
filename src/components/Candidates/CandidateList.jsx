@@ -15,7 +15,7 @@ import { useState } from "react";
 import Category from "src/commons/Category";
 import { USER_ROLE } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { genArrayData } from "src/helper/format";
+import { genArrayData, genUrlParams } from "src/helper/format";
 import ModalRoleView from "./ModalRoleView";
 
 const color = "#f19a2c";
@@ -108,7 +108,6 @@ const CandidateList = ({ data }) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const params = new URLSearchParams(searchParams);
 
 	const currentPage = Number(searchParams.get("page") || 1);
 
@@ -121,8 +120,7 @@ const CandidateList = ({ data }) => {
 	};
 
 	const onChangePage = async (page) => {
-		params.set("page", page);
-		router.push(`${pathname}?${params.toString()}`);
+		router.push(genUrlParams(pathname, { page }));
 	};
 
 	return (

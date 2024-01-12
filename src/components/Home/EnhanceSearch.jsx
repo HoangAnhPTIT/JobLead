@@ -3,15 +3,14 @@ import { Search, SearchOutlined } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import classNames from "classnames";
 import { useAppSelector } from "lib/hooks";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import SelectFilter from "src/commons/FormInput/SelectFilter";
 import routeMap from "src/constants/routeMap";
+import { genUrlParams } from "src/helper/format";
 
 const EnhanceSearch = ({ classTitle = "" }) => {
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const params = new URLSearchParams(searchParams);
 	const { handleSubmit, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 
@@ -22,15 +21,12 @@ const EnhanceSearch = ({ classTitle = "" }) => {
 		const valuesCloned = { ...values };
 		delete valuesCloned.workLocation;
 		delete valuesCloned.career;
-		const getKeyAndValue = Object.entries(valuesCloned);
-
-		getKeyAndValue.forEach((item) => {
-			params.set(item[0], item[1]);
-		});
-		params.set("page", 1);
 
 		router.push(
-			`${routeMap.searchJob}/${career || 0}/${location || 0}?${params}`
+			genUrlParams(
+				`${routeMap.searchJob}/${career || 0}/${location || 0}`,
+				valuesCloned
+			)
 		);
 	};
 

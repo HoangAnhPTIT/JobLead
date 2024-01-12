@@ -8,17 +8,16 @@ import ImageFull from "src/commons/Image";
 import JobItem from "src/commons/JobItem";
 import Nodata from "src/commons/Nodata";
 import routeMap from "src/constants/routeMap";
+import { genUrlParams } from "src/helper/format";
 import ItemCate from "../Home/ItemCate";
 
 const JobList = ({ jobList, majorList }) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
-	const params = new URLSearchParams(searchParams);
 
 	const onChangePage = async (page) => {
-		await params.set("page", page);
-		router.push(`${pathname}?${params.toString()}`);
+		router.push(genUrlParams(pathname, { page }));
 	};
 
 	const currentPage = Number(searchParams.get("page")) || 1;

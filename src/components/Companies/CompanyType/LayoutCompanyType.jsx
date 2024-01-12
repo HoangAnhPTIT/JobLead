@@ -4,18 +4,17 @@ import Breadcrumb from "src/commons/Breadcrumb";
 import Category from "src/commons/Category";
 import CompanyItem from "../CompanyItem";
 import CompanySearch from "../CompanySearch";
+import { genUrlParams } from "src/helper/format";
 
 const LayoutCompanyType = ({ data }) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
-	const params = new URLSearchParams(searchParams);
 
 	const currentPage = Number(searchParams.get("page") || 1);
 
 	const onChangePage = async (page) => {
-		await params.set("page", page);
-		router.push(`${pathname}?${params.toString()}`);
+		router.push(genUrlParams(pathname, { page }));
 	};
 
 	return (

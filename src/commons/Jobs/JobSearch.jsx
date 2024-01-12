@@ -4,98 +4,122 @@ import {
 	KeyboardArrowUpOutlined,
 	SearchOutlined,
 } from "@mui/icons-material";
-import { Button, Collapse, Grid } from "@mui/material";
+import { Collapse, Grid } from "@mui/material";
+import { AutoComplete, Button, Form } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import InputSearch from "src/commons/FormInput/InputSearch";
-import SelectFilter from "src/commons/FormInput/SelectFilter";
+import { httpGet } from "src/apis/apiCaller";
+import { apiJob } from "src/apis/apiEndpoint";
 import routeMap from "src/constants/routeMap";
-import { paramValue } from "src/helper/format";
+import {
+	convertSearchParamsToObject,
+	genUrlParams,
+	paramValue,
+} from "src/helper/format";
+import SelectAntd from "../AntdForm/SelectAntd";
 
 const JobSearch = () => {
 	const router = useRouter();
 	const { career, location } = useParams();
 	const searchParams = useSearchParams();
-	const params = new URLSearchParams(searchParams);
+	const [form] = Form.useForm();
+	Form.useWatch("q", form);
 
-	const { handleSubmit, setValue, control } = useForm();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
 	const dispatch = useAppDispatch();
 
-	const onSubmit = async (values) => {
+	const onSubmit = async () => {
 		dispatch(updateLoading(true));
+		const values = form.getFieldsValue();
 		const location = values.workLocation;
 		const career = values.career;
 
 		const valuesCloned = { ...values };
 		delete valuesCloned.workLocation;
 		delete valuesCloned.career;
-		const getKeyAndValue = Object.entries(valuesCloned);
-
-		getKeyAndValue.forEach((item) => {
-			params.set(item[0], item[1]);
-		});
-		params.set("page", 1);
 
 		await router.push(
-			`${routeMap.searchJob}/${career || 0}/${location || 0}?${params}`
+			genUrlParams(
+				`${routeMap.searchJob}/${career || 0}/${location || 0}`,
+				valuesCloned
+			)
 		);
 		dispatch(updateLoading(false));
 	};
 
+	const [suggestList, setSuggestList] = useState([]);
+
+	useEffect(() => {
+		const getSuggest = async () => {
+			const response = await httpGet(`${apiJob}/suggestion`, { q: "" });
+			setSuggestList(response?.data);
+		};
+		getSuggest();
+	}, []);
+
 	useEffect(() => {
 		const initValue = async () => {
-			setValue("career", paramValue(career));
-			setValue("workLocation", paramValue(location));
-			for (const [key, value] of searchParams.entries()) {
-				setValue(key, value);
-			}
+			const searchParamsObject = convertSearchParamsToObject(searchParams);
+			form.setFieldsValue({
+				...searchParamsObject,
+				career: paramValue(career),
+				workLocation: paramValue(location),
+			});
 		};
-		initValue();
+		searchParams.toString() && initValue();
 	}, [searchParams, career, location]);
 
 	return (
 		<div>
-			<form>
+			<Form form={form}>
 				<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto pt-7">
 					<Grid container spacing={2}>
 						<Grid item flex={1}>
-							<InputSearch
-								name="q"
-								placeholder="Tiêu đề công việc..."
-								setValue={setValue}
-								control={control}
-								Controller={Controller}
-							/>
+							<Form.Item name="q">
+								<AutoComplete
+									allowClear
+									size="large"
+									options={suggestList}
+									placeholder="Tiêu đề công việc..."
+									fieldNames={{ label: "name", value: "name" }}
+									filterOption={(inputValue, option) =>
+										option.name
+											.toUpperCase()
+											.indexOf(inputValue.toUpperCase()) !== -1
+									}
+								/>
+							</Form.Item>
 						</Grid>
 						<Grid item xs={12} md={3}>
-							<SelectFilter
+							<SelectAntd
+								form={Form}
 								name="career"
+								allowClear
 								placeholder="Ngành nghề"
-								list={entities?.Career}
 								valueKey="slug"
-								control={control}
+								list={entities?.Career}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
-							<SelectFilter
+							<SelectAntd
+								form={Form}
 								name="workLocation"
+								allowClear
 								placeholder="Địa điểm"
 								list={entities?.WorkLocation}
 								valueKey="slug"
-								control={control}
 							/>
 						</Grid>
 						<Grid item>
 							<Button
-								fullWidth
-								variant="contained"
-								onClick={handleSubmit((data) => onSubmit(data))}
-								className="w-36 bg-primary"
+								type="primary"
+								htmlType="submit"
+								size="large"
+								onClick={onSubmit}
+								className="w-36 "
 							>
 								<SearchOutlined /> Tìm kiếm
 							</Button>
@@ -120,42 +144,47 @@ const JobSearch = () => {
 						<Collapse in={showEnhanceSearch}>
 							<div className="grid grid-cols-2 md:grid-cols-5 gap-3">
 								<div>
-									<SelectFilter
+									<SelectAntd
+										form={Form}
 										name="levelId"
+										allowClear
 										placeholder="Vị trí"
-										control={control}
 										list={entities?.Level}
 									/>
 								</div>
 								<div>
-									<SelectFilter
+									<SelectAntd
+										form={Form}
 										name="experienceId"
+										allowClear
 										placeholder="Kinh nghiệm"
-										control={control}
 										list={entities?.Experience}
 									/>
 								</div>
 								<div>
-									<SelectFilter
+									<SelectAntd
+										form={Form}
 										name="salaryId"
+										allowClear
 										placeholder="Mức lương"
-										control={control}
 										list={entities?.Salary}
 									/>
 								</div>
 								<div>
-									<SelectFilter
+									<SelectAntd
+										form={Form}
 										name="typeOfWorkId"
+										allowClear
 										placeholder="Loại hình công việc"
 										list={entities?.TypeOfWork}
-										control={control}
 									/>
 								</div>
 								<div>
-									<SelectFilter
+									<SelectAntd
+										form={Form}
 										name="genderId"
+										allowClear
 										placeholder="Giới tính"
-										control={control}
 										list={entities?.Gender}
 									/>
 								</div>
@@ -163,7 +192,7 @@ const JobSearch = () => {
 						</Collapse>
 					</div>
 				</div>
-			</form>
+			</Form>
 		</div>
 	);
 };
