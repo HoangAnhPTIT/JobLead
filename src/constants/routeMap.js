@@ -17,6 +17,7 @@ const routeMap = {
 	viewedUser: "/ho-so-da-xem",
 	packageManage: "/quan-ly-dich-vu",
 	postList: "/quan-ly-tin-tuyen-dung",
+	appliedUser: "/ho-so-da-ung-tuyen",
 };
 
 export default routeMap;

@@ -2,63 +2,55 @@
 import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { httpAuthGet } from "src/apis/apiAuthCaller";
+import { apiCompanyApplication } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
+import { errorMessage } from "src/constants/common";
+import { getDate } from "src/helper/format";
 
 const columns = [
 	{
 		title: "Họ tên",
-		dataIndex: "name",
 		key: "name",
-		render: (text) => <a>{text}</a>,
+		dataIndex: "candidate",
+		render: (value) => value?.name,
+	},
+	{
+		title: "Vị trí ứng tuyển",
+		dataIndex: "job",
+		render: (value) => value?.title,
 	},
 	{
 		title: "Thông tin liên hệ",
-		dataIndex: "info",
+		dataIndex: "candidate",
 		key: "info",
 		render: (value) => (
 			<div>
-				<p>{value.email}</p>
-				<p>{value.phone}</p>
+				<p>{value?.email}</p>
+				<p>{value?.phone}</p>
 			</div>
 		),
 	},
 	{
-		title: "Điểm",
-		dataIndex: "point",
-		key: "point",
-	},
-	{
-		title: "Ngày xem",
-		dataIndex: "viewedAt",
-		key: "viewedAt",
+		title: "Ngày nộp",
+		dataIndex: "applyDate",
+		key: "applyDate",
+		render: (value) => getDate(value),
 	},
 ];
 
-const fakeData = [
-	{
-		key: 1,
-		name: "hic asjdflsl",
-		info: {
-			email: "abc@xyc.ood",
-			phone: "0978",
-		},
-		point: "20",
-		viewedAt: "19/12/2023",
-	},
-];
-
-const ViewedCandidatePage = () => {
+const AppliedCandidatePage = () => {
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const [data, setData] = useState();
+	const [filter, setFilter] = useState({});
 
 	const onSubmit = () => {
-		dispatch(updateLoading(true));
 		const values = form.getFieldsValue();
-		console.log(values);
-		dispatch(updateLoading(false));
+		setFilter(values);
 	};
 
 	const rowSelection = {
@@ -71,10 +63,26 @@ const ViewedCandidatePage = () => {
 		},
 		getCheckboxProps: (record) => ({
 			disabled: record.name === "Disabled User",
-			// Column configuration not to be checked
 			name: record.name,
 		}),
 	};
+
+	useEffect(() => {
+		const getData = async () => {
+			dispatch(updateLoading(true));
+			const res = await httpAuthGet({
+				endpoint: apiCompanyApplication,
+				params: filter,
+			});
+			if (res?.status === 200) {
+				setData(res.data);
+			} else {
+				toast.error(errorMessage);
+			}
+			dispatch(updateLoading(false));
+		};
+		getData();
+	}, [dispatch, filter]);
 
 	return (
 		<EmployerLayout>
@@ -86,7 +94,7 @@ const ViewedCandidatePage = () => {
 					<Row gutter={16}>
 						<Col span={8}>
 							<Form.Item name="q">
-								<Input placeholder="Tên ứng viên" size="large" />
+								<Input placeholder="Vị trí ứng tuyển" size="large" allowClear />
 							</Form.Item>
 						</Col>
 						<Col span={6}>
@@ -123,16 +131,17 @@ const ViewedCandidatePage = () => {
 				<p className="text-lg my-5">Danh sách hồ sơ đã xem thông tin</p>
 				<Table
 					bordered
+					size="small"
 					rowSelection={{
 						type: "checkbox",
 						...rowSelection,
 					}}
 					columns={columns}
-					dataSource={fakeData}
+					dataSource={data}
 				/>
 			</div>
 		</EmployerLayout>
 	);
 };
 
-export default ViewedCandidatePage;
+export default AppliedCandidatePage;

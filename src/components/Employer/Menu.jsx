@@ -4,6 +4,7 @@ import {
 	FileUploadOutlined,
 	HomeRepairServiceOutlined,
 	MiscellaneousServicesOutlined,
+	NoteAddOutlined,
 	SearchOutlined,
 	SettingsOutlined,
 } from "@mui/icons-material";
@@ -37,6 +38,11 @@ const items = [
 		link: routeMap.postList,
 		name: "Quản lý tin tuyển dụng",
 		icon: <DnsOutlined />,
+	},
+	{
+		link: routeMap.appliedUser,
+		name: "Hồ sơ đã ứng tuyển",
+		icon: <NoteAddOutlined />,
 	},
 	{
 		link: routeMap.viewedUser,

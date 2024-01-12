@@ -44,6 +44,10 @@ const RootLayout = ({ children }) => {
 										Input: {
 											colorTextPlaceholder: "#c6c6c6",
 										},
+										Table: {
+											headerBg: primaryColor,
+											headerColor: "#fff",
+										},
 									},
 								}}
 							>

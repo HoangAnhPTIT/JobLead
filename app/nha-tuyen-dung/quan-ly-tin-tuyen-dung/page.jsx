@@ -1,9 +1,8 @@
 "use client";
-import { Search } from "@mui/icons-material";
 import { Button, Card, Col, Form, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCompanyJobs } from "src/apis/apiEndpoint";
@@ -61,7 +60,6 @@ const PostListPage = () => {
 									type="primary"
 									onClick={onSubmit}
 									htmlType="submit"
-									icon={<Search />}
 									className="w-full"
 								>
 									Tìm kiếm
@@ -84,7 +82,7 @@ const PostListPage = () => {
 											<p className="font-semibold text-base">Ứng viên</p>
 										</div>
 										<div>
-											<h1 className="text-lg text-primary font-semibold">
+											<h1 className="text-lg text-primary font-semibold three-dot">
 												{post?.jobName}
 											</h1>
 											<p className="font-semibold text-base">
