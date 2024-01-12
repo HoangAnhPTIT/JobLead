@@ -11,6 +11,7 @@ export const apiOtherCompany = `${apiCompany}/non-service`;
 export const apiCompanyFilter = `${apiCompany}/filter`;
 export const apiCompanyUploadAvatar = `${apiCompany}/upload/avatar`;
 export const apiCompanyUploadProfile = `${apiCompany}/upload/profile`;
+export const apiCompanyJobs = `${apiCompany}/jobs`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

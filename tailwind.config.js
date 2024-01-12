@@ -26,6 +26,7 @@ module.exports = {
 				55: "#555",
 				99: "#999",
 				33: "#333",
+				66: "#666",
 				bgBody: "#f0f0f0",
 				bgPhone: "#d9e6ee",
 				red1: "#dd0000",
