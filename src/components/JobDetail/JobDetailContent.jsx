@@ -2,6 +2,7 @@
 import { useAppSelector } from "lib/hooks";
 import { useEffect } from "react";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpPost } from "src/apis/apiCaller";
 import { apiUserViewJob } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
 import JobSearch from "src/commons/Jobs/JobSearch";
@@ -17,7 +18,7 @@ const JobDetailContent = ({ data }) => {
 	useEffect(() => {
 		if (id) {
 			const endpoint = `${apiUserViewJob}/${id}`;
-			isLogin ? httpAuthPost({ endpoint }) : httpAuthPost(endpoint);
+			isLogin ? httpAuthPost({ endpoint }) : httpPost(endpoint);
 		}
 	}, [id, isLogin]);
 
