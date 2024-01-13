@@ -1,8 +1,37 @@
 "use client";
 import { ContactPage, HistoryEdu, Work } from "@mui/icons-material";
+import { Table } from "antd";
 import classNames from "classnames";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { httpAuthGet } from "src/apis/apiAuthCaller";
+import { apiCompanyApplication } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
+import { errorMessage } from "src/constants/common";
+import { getDate } from "src/helper/format";
+
+const columns = [
+	{
+		title: "Họ tên",
+		key: "name",
+		dataIndex: "candidate",
+		render: (value) => value?.name,
+	},
+	{
+		title: "Vị trí ứng tuyển",
+		dataIndex: "job",
+		render: (value) => value?.title,
+	},
+	{
+		title: "Ngày nộp",
+		dataIndex: "applyDate",
+		key: "applyDate",
+		render: (value) => getDate(value),
+	},
+];
 
 const ViewItem = ({ icon, bgIcon, amount, title }) => {
 	return (
@@ -24,6 +53,25 @@ const ViewItem = ({ icon, bgIcon, amount, title }) => {
 };
 
 const DashboardPage = () => {
+	const dispatch = useAppDispatch();
+	const [data, setData] = useState();
+
+	useEffect(() => {
+		const getData = async () => {
+			dispatch(updateLoading(true));
+			const res = await httpAuthGet({
+				endpoint: apiCompanyApplication,
+			});
+			if (res?.status === 200) {
+				setData(res.data);
+			} else {
+				toast.error(errorMessage);
+			}
+			dispatch(updateLoading(false));
+		};
+		getData();
+	}, []);
+
 	return (
 		<EmployerLayout>
 			<div>
@@ -47,6 +95,10 @@ const DashboardPage = () => {
 						icon={<ContactPage style={{ color: "#00c292" }} />}
 						bgIcon="bg-[#ccf3e9]"
 					/>
+				</div>
+				<div className="mt-5">
+					<h1 className="text-lg mb-3">Hồ sơ ứng tuyển mới nhất</h1>
+					<Table bordered size="small" columns={columns} dataSource={data} />
 				</div>
 			</div>
 		</EmployerLayout>
