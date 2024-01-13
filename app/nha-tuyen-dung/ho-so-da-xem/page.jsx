@@ -5,7 +5,7 @@ import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyViewByCandidate } from "src/apis/apiEndpoint";
+import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -72,7 +72,7 @@ const ViewedCandidatePage = () => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiCompanyViewByCandidate,
+				endpoint: apiCompanyViewCandidate,
 				params: filter,
 			});
 			if (res?.status === 200) {
