@@ -4,6 +4,7 @@ import { Modal } from "antd";
 import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
@@ -30,18 +31,18 @@ const getTimeBefore = (milisecondsBefore) => {
 	);
 };
 
-const RightSide = ({ info }) => {
+const RightSide = ({ info, getData }) => {
 	const dispatch = useAppDispatch();
-	const [modal, contextHolder] = Modal.useModal();
 
 	const confirm = ({ content, onOk }) => {
-		modal.confirm({
+		Modal.confirm({
 			title: "Xác nhận",
 			icon: <ExclamationCircleOutlined />,
 			content,
 			okText: "OK",
 			cancelText: "Huỷ",
 			onOk,
+			autoFocusButton: false,
 		});
 	};
 
@@ -54,11 +55,12 @@ const RightSide = ({ info }) => {
 					const res = await httpAuthPost({
 						endpoint: apiCompanyViewCandidate,
 						data: {
-							candidateId: info?.userId,
+							candidateId: info?.id,
 						},
 					});
 					if (res.status === 200) {
 						toast.success("Đổi điểm thành công");
+						getData();
 					} else {
 						toast.error(errorMessage);
 					}
@@ -72,30 +74,30 @@ const RightSide = ({ info }) => {
 	};
 
 	const onSendEmail = () => {
-		confirm({
-			content: `Bạn có muốn sử dụng ${info?.emailPoint} điểm để gửi emai cho ứng viên?`,
-			onOk: async () => {
-				toast.warning(developingMessage);
-
-				// dispatch(updateLoading(true));
-				// try {
-				// 	const res = await httpAuthPost({
-				// 		endpoint: apiCompanyViewCandidate,
-				// 		data: {
-				// 			candidateId: info?.userId,
-				// 		},
-				// 	});
-				// 	if (res.status === 200) {
-				// 		toast.success("Đổi điểm thành công");
-				// 	} else {
-				// 		toast.error(errorMessage);
-				// 	}
-				// } catch {
-				// 	toast.error(errorMessage);
-				// } finally {
-				// 	dispatch(updateLoading(false));
-				// }
-			},
+		Modal.info({
+			content: developingMessage,
+			onOk: () => {},
+			// content: `Bạn có muốn sử dụng ${info?.emailPoint} điểm để gửi emai cho ứng viên?`,
+			// onOk: async () => {
+			// 	dispatch(updateLoading(true));
+			// 	try {
+			// 		const res = await httpAuthPost({
+			// 			endpoint: apiCompanyViewCandidate,
+			// 			data: {
+			// 				candidateId: info?.userId,
+			// 			},
+			// 		});
+			// 		if (res.status === 200) {
+			// 			toast.success("Đổi điểm thành công");
+			// 		} else {
+			// 			toast.error(errorMessage);
+			// 		}
+			// 	} catch {
+			// 		toast.error(errorMessage);
+			// 	} finally {
+			// 		dispatch(updateLoading(false));
+			// 	}
+			// },
 		});
 	};
 
@@ -104,15 +106,17 @@ const RightSide = ({ info }) => {
 			<div className="pb-2 border-b text-center text-xl uppercase font-semibold">
 				Bạn có muốn
 			</div>
-			<div
-				className="py-2 px-1 border-b cursor-pointer"
-				onClick={onViewCandidate}
-			>
-				<Visibility fontSize="small" /> Xem thông tin liên hệ
-				<span className="text-white rounded bg-yellow3 text-xs px-1 py-0.5 float-right">
-					{info?.viewPoint || 0}đ
-				</span>
-			</div>
+			{!info?.isViewed && (
+				<div
+					className="py-2 px-1 border-b cursor-pointer"
+					onClick={onViewCandidate}
+				>
+					<Visibility fontSize="small" /> Xem thông tin liên hệ
+					<span className="text-white rounded bg-yellow3 text-xs px-1 py-0.5 float-right">
+						{info?.viewPoint || 0}đ
+					</span>
+				</div>
+			)}
 			<div className="py-2 px-1 border-b cursor-pointer" onClick={onSendEmail}>
 				<Email fontSize="small" /> Email mời ứng tuyển
 				<span className="text-white rounded bg-yellow3 text-xs px-1 py-0.5 float-right">
@@ -129,7 +133,6 @@ const RightSide = ({ info }) => {
 				Cập nhật lần cuối:{" "}
 				{getTimeBefore(dayjs() - dayjs(info?.lastUpdatedDate))} trước
 			</div>
-			{contextHolder}
 		</div>
 	);
 };
