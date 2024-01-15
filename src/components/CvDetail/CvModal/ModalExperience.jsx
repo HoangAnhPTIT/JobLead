@@ -2,7 +2,7 @@
 import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import dayjs from "dayjs";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -51,8 +51,8 @@ const ModalExperience = ({ index, data, open, handleClose }) => {
 		} else {
 			reset({
 				...dataInfo,
-				startDate: dayjs(dataInfo?.startDate),
-				finishDate: dataInfo?.finishDate ? dayjs(dataInfo.finishDate) : null,
+				startDate: moment(dataInfo?.startDate),
+				finishDate: dataInfo?.finishDate ? moment(dataInfo.finishDate) : null,
 			});
 		}
 	}, [open, dataInfo, reset]);

@@ -67,7 +67,10 @@ const ModalAvatar = ({ open, handleClose }) => {
 						{imageUrl ? (
 							<Image src={imageUrl} alt="" preview={false} />
 						) : (
-							<UploadOutlined fontSize="large" />
+							<div className="p-10 border border-dashed border-33 rounded">
+								<UploadOutlined fontSize="large" />
+								<p className="text-lg">Tải lên ảnh</p>
+							</div>
 						)}
 					</button>
 				</Upload>
