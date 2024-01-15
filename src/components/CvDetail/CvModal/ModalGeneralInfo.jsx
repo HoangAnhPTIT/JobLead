@@ -39,6 +39,8 @@ const ModalGeneralinfo = ({ data, open, handleClose }) => {
 		reset &&
 			!isEmpty(data) &&
 			reset({
+				fullName: data.fullName,
+				workTitle: data.workTitle,
 				phone: data?.phone,
 				email: data?.email,
 				genderId: data?.genderId,

@@ -37,7 +37,7 @@ const color = "#009ce0";
 // 			</div>
 // 			<div className={classNames("pt-2", styles.info)}>
 // 				{content?.map((item, i) => (
-// 					<div key={i} className={classNames("ml-[40px]", styles.item)}>
+// 					<div key={i} className={styles.item}>
 // 						{item?.startDate && (
 // 							<p
 // 								className={classNames(

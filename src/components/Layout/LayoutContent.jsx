@@ -47,6 +47,8 @@ const theme = createTheme({
 const PageHideFooter = [
 	`${routeMap.employer}${routeMap.createJob}`,
 	`${routeMap.candidate}${routeMap.detail}`,
+	`${routeMap.file}${routeMap.cv}/basic`,
+	`${routeMap.file}${routeMap.cv}/pro`,
 ];
 const PageOutSide = [
 	routeMap.login,

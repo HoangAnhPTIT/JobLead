@@ -23,6 +23,17 @@ import ModalSkill from "./CvModal/ModalSkill";
 import Basic from "./Templates/Basic";
 import ModalSave from "./CvModal/ModalSave";
 import ModalAvatar from "./CvModal/ModalAvatar";
+import { useParams } from "next/navigation";
+import Pro from "./Templates/Pro";
+
+const CvTemplate = (props) => {
+	const params = useParams();
+	const template = params?.template;
+
+	if (template === "pro") return <Pro {...props} />;
+
+	return <Basic {...props} />;
+};
 
 const CvLayout = () => {
 	const dispatch = useAppDispatch();
@@ -130,7 +141,7 @@ const CvLayout = () => {
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>
-							<Basic
+							<CvTemplate
 								data={candidateInfo}
 								setEducationIndex={setEducationIndex}
 								setExperienceIndex={setExperienceIndex}
