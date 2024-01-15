@@ -19,3 +19,8 @@ export const LANGUAGES = [
 	"Tiếng Nga",
 	"Tiếng Hàn",
 ];
+
+export const CV_TEMPLATES = {
+	basic: "basic",
+	pro: "pro",
+};

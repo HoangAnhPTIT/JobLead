@@ -1,7 +1,8 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
 import { CheckOutlined } from "@mui/icons-material";
-import { Button, Grid, Stack, TextField } from "@mui/material";
+import { Grid, Stack, TextField } from "@mui/material";
+import { Button } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { setIsLogin } from "lib/features/userSlice";
 import Image from "next/image";
@@ -92,10 +93,11 @@ const Candidate = () => {
 								</div> */}
 							</Stack>
 							<Button
-								variant="contained"
-								size="medium"
-								className="w-full uppercase bg-primary !mt-5 "
+								type="primary"
+								size="large"
+								className="w-full uppercase !mt-5 "
 								onClick={handleSubmit((data) => onSubmit(data))}
+								htmlType="submit"
 							>
 								Đăng nhập
 							</Button>

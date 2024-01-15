@@ -113,8 +113,8 @@ const LayoutContent = ({ children }) => {
 	const hideFooter = PageHideFooter.includes(shortPath);
 
 	const handleLogout = async () => {
-		await deleteAllCookies();
 		await dispatch(logout());
+		deleteAllCookies();
 		setTimeout(() => {
 			window.location.href = "/";
 		}, 1000);

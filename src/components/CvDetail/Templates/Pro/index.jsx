@@ -57,7 +57,7 @@ const Pro = ({
 					>
 						<Grid item xs={4} className="flex justify-center">
 							<div
-								className="w-fit cursor-pointer p-5 bg-white border-[6px] border-[#9bd6f0] rounded-full"
+								className="w-fit cursor-pointer p-5 bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden"
 								onClick={() =>
 									!readOnly && setModalUpdating(CV_MODAL_TYPES.avatar)
 								}

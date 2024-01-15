@@ -4,7 +4,6 @@ import { Modal } from "antd";
 import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";

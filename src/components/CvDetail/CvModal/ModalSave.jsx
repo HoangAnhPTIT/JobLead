@@ -3,18 +3,26 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCv } from "src/apis/apiEndpoint";
+import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
+import { apiCandidateCv, apiCv } from "src/apis/apiEndpoint";
 import CvModalLayout from "./CvModalLayout";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ModalSave = ({ open, handleClose }) => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
+	const params = useParams();
+	const template = params?.template;
+	const [cvList, setCvList] = useState();
 
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
 		try {
-			await httpAuthPost({ endpoint: apiCv, data: values });
+			await httpAuthPost({
+				endpoint: apiCv,
+				data: { ...values, code: template },
+			});
 			handleClose();
 		} catch (error) {
 			toast.error(error.message || error);
@@ -23,6 +31,14 @@ const ModalSave = ({ open, handleClose }) => {
 			dispatch(updateLoading(false));
 		}
 	};
+
+	useEffect(() => {
+		const getCvList = async () => {
+			const response = await httpAuthGet({ endpoint: apiCandidateCv });
+			setCvList(response?.data);
+		};
+		getCvList();
+	}, []);
 
 	return (
 		<CvModalLayout
