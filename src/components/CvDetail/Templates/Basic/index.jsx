@@ -16,11 +16,6 @@ import {
 import { Grid, Rating, TextField } from "@mui/material";
 import { Image } from "antd";
 import classNames from "classnames";
-import { updateLoading } from "lib/features/loadingSlice";
-import { useAppDispatch } from "lib/hooks";
-import { toast } from "react-toastify";
-import { httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCandidateInfo } from "src/apis/apiEndpoint";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import { getDate } from "src/helper/format";
 import Education from "./Education";
@@ -79,37 +74,9 @@ const Basic = ({
 	setEducationIndex,
 	setExperienceIndex,
 	setModalUpdating,
-	getCandidateInfo,
 	deleteEducation,
 	deleteExperience,
 }) => {
-	const dispatch = useAppDispatch();
-
-	const updateInfo = async (key, value) => {
-		dispatch(updateLoading(true));
-		const values = {
-			phone: data?.phone,
-			email: data?.email,
-			genderId: data?.genderId,
-			location: data?.location,
-			fullName: data?.fullName,
-			workTitle: data?.workTitle,
-		};
-		try {
-			await httpAuthPut({
-				endpoint: apiCandidateInfo,
-				data: {
-					...values,
-					[key]: value,
-				},
-			});
-			getCandidateInfo();
-		} catch (error) {
-			toast.error(error?.message || error);
-		} finally {
-			dispatch(updateLoading(false));
-		}
-	};
 	return (
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>

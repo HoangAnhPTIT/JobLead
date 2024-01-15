@@ -135,7 +135,6 @@ const CvLayout = () => {
 								setEducationIndex={setEducationIndex}
 								setExperienceIndex={setExperienceIndex}
 								setModalUpdating={setModalUpdating}
-								getCandidateInfo={getCandidateInfo}
 								deleteEducation={deleteEducation}
 								deleteExperience={deleteExperience}
 							/>
