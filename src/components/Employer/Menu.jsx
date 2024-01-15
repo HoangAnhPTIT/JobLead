@@ -7,6 +7,7 @@ import {
 	NoteAddOutlined,
 	SearchOutlined,
 	SettingsOutlined,
+	StarOutline,
 } from "@mui/icons-material";
 import {
 	Box,
@@ -38,6 +39,11 @@ const items = [
 		link: routeMap.postList,
 		name: "Quản lý tin tuyển dụng",
 		icon: <DnsOutlined />,
+	},
+	{
+		link: routeMap.savedUser,
+		name: "Hồ sơ đã lưu",
+		icon: <StarOutline />,
 	},
 	{
 		link: routeMap.appliedUser,

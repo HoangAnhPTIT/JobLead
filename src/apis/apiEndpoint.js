@@ -13,7 +13,10 @@ export const apiCompanyUploadAvatar = `${apiCompany}/upload/avatar`;
 export const apiCompanyUploadProfile = `${apiCompany}/upload/profile`;
 export const apiCompanyJobs = `${apiCompany}/jobs`;
 export const apiCompanyApplication = `${apiCompany}/application`;
+export const apiCompanyApplicationGeneralInfo = `${apiCompany}/application/general-info`;
 export const apiCompanyViewCandidate = `${apiCompany}/view/candidate`;
+export const apiCompanyApplicantSave = `${apiCompany}/applicant/save`;
+export const apiCompanyApplicantSaved = `${apiCompany}/applicant/saved`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

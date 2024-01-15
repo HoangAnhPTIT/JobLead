@@ -1,48 +1,67 @@
 "use client";
-import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import { Button, Col, DatePicker, Form, Image, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyApplication } from "src/apis/apiEndpoint";
+import { apiCompanyApplicantSaved } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
-import { errorMessage } from "src/constants/common";
+import { errorMessage, imageDefault } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const columns = [
 	{
 		title: "Họ tên",
 		key: "name",
-		dataIndex: "candidate",
-		render: (value) => value?.name,
-	},
-	{
-		title: "Vị trí ứng tuyển",
-		dataIndex: "job",
-		render: (value) => value?.title,
-	},
-	{
-		title: "Thông tin liên hệ",
-		dataIndex: "candidate",
-		key: "info",
-		render: (value) => (
-			<div>
-				<p>{value?.email}</p>
-				<p>{value?.phone}</p>
-			</div>
+		render: (record) => (
+			<Link
+				href={`${routeMap.candidate}${routeMap.detail}/${record?.candidateId}`}
+			>
+				<div className="flex gap-3">
+					<Image
+						preview={false}
+						src={record?.avatar || imageDefault}
+						width={40}
+						height={40}
+						alt={record?.fullName}
+						className="object-contain rounded-full border"
+					/>
+					<div>
+						<p className="text-primary text-base">{record.fullName}</p>
+						<p className="text-33">{record.workTitle}</p>
+					</div>
+				</div>
+			</Link>
 		),
 	},
 	{
-		title: "Ngày nộp",
-		dataIndex: "applyDate",
-		key: "applyDate",
+		title: "Ngày lưu",
+		dataIndex: "savedDate",
+		key: "savedDate",
 		render: (value) => getDate(value),
+	},
+	{
+		title: "Hành động",
+		dataIndex: "x",
+		key: "action",
+		width: 150,
+		render: () => (
+			<div className="text-center">
+				<DeleteOutline
+					fontSize="small"
+					className="text-secondary cursor-pointer"
+				/>
+			</div>
+		),
 	},
 ];
 
-const AppliedCandidatePage = () => {
+const FileSavedPage = () => {
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const [data, setData] = useState();
@@ -53,25 +72,11 @@ const AppliedCandidatePage = () => {
 		setFilter(values);
 	};
 
-	const rowSelection = {
-		onChange: (selectedRowKeys, selectedRows) => {
-			console.log(
-				`selectedRowKeys: ${selectedRowKeys}`,
-				"selectedRows: ",
-				selectedRows
-			);
-		},
-		getCheckboxProps: (record) => ({
-			disabled: record.name === "Disabled User",
-			name: record.name,
-		}),
-	};
-
 	useEffect(() => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiCompanyApplication,
+				endpoint: apiCompanyApplicantSaved,
 				params: filter,
 			});
 			if (res?.status === 200) {
@@ -94,7 +99,11 @@ const AppliedCandidatePage = () => {
 					<Row gutter={16}>
 						<Col span={8}>
 							<Form.Item name="q">
-								<Input placeholder="Vị trí ứng tuyển" size="large" allowClear />
+								<Input
+									placeholder="Tên ứng viên, tiêu đề hồ sơ"
+									size="large"
+									allowClear
+								/>
 							</Form.Item>
 						</Col>
 						<Col span={6}>
@@ -128,20 +137,11 @@ const AppliedCandidatePage = () => {
 						</Col>
 					</Row>
 				</Form>
-				<p className="text-lg my-5">Danh sách hồ sơ đã ứng tuyển</p>
-				<Table
-					bordered
-					size="small"
-					rowSelection={{
-						type: "checkbox",
-						...rowSelection,
-					}}
-					columns={columns}
-					dataSource={data}
-				/>
+				<p className="text-lg my-5">Danh sách hồ sơ đã xem thông tin</p>
+				<Table bordered size="small" columns={columns} dataSource={data} />
 			</div>
 		</EmployerLayout>
 	);
 };
 
-export default AppliedCandidatePage;
+export default FileSavedPage;

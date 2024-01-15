@@ -11,7 +11,7 @@ import {
 	apiCandidateEducation,
 	apiCandidateExperience,
 } from "src/apis/apiEndpoint";
-import { CV_MODAL_TYPES } from "src/constants/cv";
+import { CV_MODAL_TYPES, CV_TEMPLATES } from "src/constants/cv";
 import ModalCareerGoal from "./CvModal/ModalCareerGoal";
 import ModalEducation from "./CvModal/ModalEducation";
 import ModalExperience from "./CvModal/ModalExperience";
@@ -30,7 +30,7 @@ const CvTemplate = (props) => {
 	const params = useParams();
 	const template = params?.template;
 
-	if (template === "pro") return <Pro {...props} />;
+	if (template === CV_TEMPLATES.pro) return <Pro {...props} />;
 
 	return <Basic {...props} />;
 };

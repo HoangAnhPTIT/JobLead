@@ -1,20 +1,28 @@
 "use client";
-import { Button, Card, Col, Form, Input, Row } from "antd";
+import { Button, Card, Col, Form, Image, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyJobs } from "src/apis/apiEndpoint";
+import {
+	apiCompanyApplication,
+	apiCompanyApplicationGeneralInfo,
+	apiCompanyJobs,
+} from "src/apis/apiEndpoint";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const PostListPage = () => {
 	const [posts, setPosts] = useState();
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
+	const [userApply, setUserApply] = useState();
+	const [statisical, setStatisical] = useState();
 
 	const onSubmit = () => {
 		console.log(form.getFieldsValue());
@@ -24,9 +32,28 @@ const PostListPage = () => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({ endpoint: apiCompanyJobs });
-			if (res.status === 200) {
+			const resUser = await httpAuthGet({
+				endpoint: apiCompanyApplication,
+				data: { paging: { size: 3, page: 1 } },
+			});
+			const resStatistical = await httpAuthGet({
+				endpoint: apiCompanyApplicationGeneralInfo,
+			});
+			if (res?.status === 200) {
 				setPosts(res.data);
-			} else {
+			}
+			if (resUser?.status === 200) {
+				setUserApply(resUser.data?.application);
+			}
+			if (resStatistical?.status === 200) {
+				setStatisical(resStatistical.data);
+			}
+
+			if (
+				res?.status !== 200 ||
+				resUser?.status !== 200 ||
+				resStatistical?.status !== 200
+			) {
 				toast.error(res.message);
 			}
 			dispatch(updateLoading(false));
@@ -105,6 +132,43 @@ const PostListPage = () => {
 											</p>
 										</div>
 									</div>
+								))}
+							</Card>
+						</Col>
+						<Col span={9}>
+							<Card
+								title="Ứng viên mới apply gần đây"
+								bodyStyle={{ padding: "0" }}
+							>
+								{userApply?.map((item, i) => (
+									<Link
+										href={`${routeMap.candidate}${routeMap.detail}/${item?.candidate?.candidateId}`}
+										key={i}
+									>
+										<div
+											className="flex gap-3 p-3 w-full border-b hover:bg-blue2"
+											key={i}
+										>
+											<div className="w-[40px]">
+												<Image
+													preview={false}
+													src={item?.candidate?.avatar}
+													width={40}
+													height={40}
+													alt=""
+													className="object-cover rounded-full"
+												/>
+											</div>
+											<div className="w-[calc(100%-60px)]">
+												<p className="text-lg text-primary three-dot">
+													{item?.candidate?.name}
+												</p>
+												<p className="text-base text-99 three-dot">
+													{item?.job?.title}
+												</p>
+											</div>
+										</div>
+									</Link>
 								))}
 							</Card>
 						</Col>

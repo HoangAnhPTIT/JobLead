@@ -49,6 +49,8 @@ module.exports = {
 				bgCopy: "#f2fbf6",
 				copy: "#00b14f",
 				bgTextCopy: "#fafafa",
+				blue1: "#9bd6f0",
+				blue2: "#d3f2ff",
 			},
 			width: {
 				xlContent: "1170px",

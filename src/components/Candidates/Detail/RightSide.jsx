@@ -6,7 +6,10 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
+import {
+	apiCompanyApplicantSave,
+	apiCompanyViewCandidate,
+} from "src/apis/apiEndpoint";
 import { developingMessage, errorMessage } from "src/constants/common";
 
 const getTimeBefore = (milisecondsBefore) => {
@@ -73,31 +76,54 @@ const RightSide = ({ info, getData }) => {
 	};
 
 	const onSendEmail = () => {
-		Modal.info({
-			content: developingMessage,
-			onOk: () => {},
-			// content: `Bạn có muốn sử dụng ${info?.emailPoint} điểm để gửi emai cho ứng viên?`,
-			// onOk: async () => {
-			// 	dispatch(updateLoading(true));
-			// 	try {
-			// 		const res = await httpAuthPost({
-			// 			endpoint: apiCompanyViewCandidate,
-			// 			data: {
-			// 				candidateId: info?.userId,
-			// 			},
-			// 		});
-			// 		if (res.status === 200) {
-			// 			toast.success("Đổi điểm thành công");
-			// 		} else {
-			// 			toast.error(errorMessage);
-			// 		}
-			// 	} catch {
-			// 		toast.error(errorMessage);
-			// 	} finally {
-			// 		dispatch(updateLoading(false));
-			// 	}
-			// },
-		});
+		toast.info(developingMessage);
+
+		// Modal.info({
+		// content: `Bạn có muốn sử dụng ${info?.emailPoint} điểm để gửi emai cho ứng viên?`,
+		// onOk: async () => {
+		// 	dispatch(updateLoading(true));
+		// 	try {
+		// 		const res = await httpAuthPost({
+		// 			endpoint: apiCompanyViewCandidate,
+		// 			data: {
+		// 				candidateId: info?.userId,
+		// 			},
+		// 		});
+		// 		if (res.status === 200) {
+		// 			toast.success("Đổi điểm thành công");
+		// 		} else {
+		// 			toast.error(errorMessage);
+		// 		}
+		// 	} catch {
+		// 		toast.error(errorMessage);
+		// 	} finally {
+		// 		dispatch(updateLoading(false));
+		// 	}
+		// },
+		// });
+	};
+
+	const onSaveCv = async () => {
+		dispatch(updateLoading(true));
+		try {
+			const res = await httpAuthPost({
+				endpoint: apiCompanyApplicantSave,
+				data: { applicantId: info?.userId },
+			});
+			if (res.status === 200) {
+				toast.success("Lưu CV thành công");
+			} else {
+				toast.error(res?.message || errorMessage);
+			}
+		} catch {
+			toast.error(errorMessage);
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
+
+	const onDownload = async () => {
+		toast.info(developingMessage);
 	};
 
 	return (
@@ -122,10 +148,10 @@ const RightSide = ({ info, getData }) => {
 					{info?.emailPoint || 0}đ
 				</span>
 			</div>
-			<div className="py-2 px-1 border-b">
+			<div className="py-2 px-1 border-b cursor-pointer" onClick={onSaveCv}>
 				<Save fontSize="small" /> Lưu lại CV
 			</div>
-			<div className="py-2 px-1 border-b">
+			<div className="py-2 px-1 border-b cursor-pointer" onClick={onDownload}>
 				<Download fontSize="small" /> Tải CV PDF
 			</div>
 			<div className="py-2 px-1 border-b text-center">
