@@ -114,7 +114,24 @@ const Basic = ({
 		<div className={classNames("bg-white p-5", styles.basic)}>
 			<Grid container>
 				<Grid item xs={7} className="pr-5">
-					<div>
+					<div
+						className={classNames(
+							"ml-[40px] relative pb-3",
+							styles.item,
+							styles.cvItem
+						)}
+					>
+						<Edit
+							fontSize="medium"
+							className={classNames(
+								"text-right self-center !hidden cursor-pointer text-green-500 absolute right-10 top-0 z-10 cursor-pointer",
+								styles.editIcon
+							)}
+							onClick={() =>
+								!readOnly && setModalUpdating(CV_MODAL_TYPES.generalInfo)
+							}
+						/>
+
 						<TextField
 							fullWidth
 							name="fullName"
@@ -123,8 +140,7 @@ const Basic = ({
 							placeholder="Tên của bạn"
 							autoComplete="off"
 							className={styles.yourName}
-							disabled={readOnly}
-							onBlur={(e) => updateInfo("fullName", e.target.value)}
+							disabled
 						/>
 						<TextField
 							fullWidth
@@ -134,8 +150,7 @@ const Basic = ({
 							placeholder="Vị trí công việc bạn muốn ứng tuyển"
 							autoComplete="off"
 							className={styles.position}
-							disabled={readOnly}
-							onBlur={(e) => updateInfo("workTitle", e.target.value)}
+							disabled
 						/>
 					</div>
 					<div>

@@ -25,8 +25,6 @@ const ModalGeneralinfo = ({ data, open, handleClose }) => {
 				endpoint: apiCandidateInfo,
 				data: {
 					...values,
-					workTitle: data?.workTitle,
-					fullName: data?.fullName,
 				},
 			});
 			handleClose();
@@ -58,6 +56,22 @@ const ModalGeneralinfo = ({ data, open, handleClose }) => {
 		>
 			<form>
 				<Grid container spacing={3}>
+					<Grid item xs={12}>
+						<TextField
+							fullWidth
+							size="small"
+							label="Họ và tên"
+							{...register("fullName")}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							fullWidth
+							size="small"
+							label="Vị trí công việc muốn ứng tuyển"
+							{...register("workTitle")}
+						/>
+					</Grid>
 					<Grid item xs={6}>
 						<TextField
 							fullWidth
