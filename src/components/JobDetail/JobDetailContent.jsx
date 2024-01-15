@@ -1,11 +1,27 @@
+"use client";
+import { useAppSelector } from "lib/hooks";
+import { useEffect } from "react";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpPost } from "src/apis/apiCaller";
+import { apiUserViewJob } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
 import JobSearch from "src/commons/Jobs/JobSearch";
-import JobGeneralInfo from "./JobGeneralInfo";
-import JobDetailInfo from "./JobDetailInfo";
 import JobCompanyInfo from "./JobCompanyInfo";
+import JobDetailInfo from "./JobDetailInfo";
+import JobGeneralInfo from "./JobGeneralInfo";
 import JobSticky from "./JobSticky";
 
 const JobDetailContent = ({ data }) => {
+	const { isLogin } = useAppSelector((state) => state.user);
+	const id = data?.id;
+
+	useEffect(() => {
+		if (id) {
+			const endpoint = `${apiUserViewJob}/${id}`;
+			isLogin ? httpAuthPost({ endpoint }) : httpPost(endpoint);
+		}
+	}, [id, isLogin]);
+
 	return (
 		<div>
 			<JobSticky data={data} />

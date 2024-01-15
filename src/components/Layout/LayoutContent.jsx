@@ -113,7 +113,9 @@ const LayoutContent = ({ children }) => {
 	const handleLogout = async () => {
 		await deleteAllCookies();
 		await dispatch(logout());
-		window.location.href = "/";
+		setTimeout(() => {
+			window.location.href = "/";
+		}, 1000);
 	};
 
 	useEffect(() => {

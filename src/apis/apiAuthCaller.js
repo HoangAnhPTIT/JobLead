@@ -147,7 +147,9 @@ export async function apiCaller({
 			await refreshTokenAndRetry();
 		} else if (err?.errorCode === "TOKEN_INVALID") {
 			deleteAllCookies();
-			window.location.replace = routeMap.login;
+			setTimeout(() => {
+				window.location.href = routeMap.login;
+			}, 1000);
 		} else {
 			toast.error(err?.title);
 		}
@@ -183,17 +185,23 @@ const refreshTokenAndRetry = async () => {
 					setCookie(refreshToken, newDataToken.refreshToken);
 				} else {
 					deleteAllCookies();
-					window.location.href = "/";
+					setTimeout(() => {
+						window.location.href = "/";
+					}, 1000);
 				}
 			} catch (error) {
 				deleteAllCookies();
-				window.location.href = "/";
+				setTimeout(() => {
+					window.location.href = "/";
+				}, 1000);
 			}
 
 			// Cập nhật token mới vào localStorage
 		} else {
 			deleteAllCookies();
-			window.location.href = "/";
+			setTimeout(() => {
+				window.location.href = "/";
+			}, 1000);
 		}
 	} catch (error) {
 		console.error("Lỗi khi gọi lại token:", error);

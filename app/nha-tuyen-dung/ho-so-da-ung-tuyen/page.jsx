@@ -5,7 +5,7 @@ import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
+import { apiCompanyApplication } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -14,13 +14,18 @@ import { getDate } from "src/helper/format";
 const columns = [
 	{
 		title: "Họ tên",
-		dataIndex: "candidateInfo",
 		key: "name",
+		dataIndex: "candidate",
 		render: (value) => value?.name,
 	},
 	{
+		title: "Vị trí ứng tuyển",
+		dataIndex: "job",
+		render: (value) => value?.title,
+	},
+	{
 		title: "Thông tin liên hệ",
-		dataIndex: "candidateInfo",
+		dataIndex: "candidate",
 		key: "info",
 		render: (value) => (
 			<div>
@@ -30,19 +35,14 @@ const columns = [
 		),
 	},
 	{
-		title: "Điểm",
-		dataIndex: "point",
-		key: "point",
-	},
-	{
-		title: "Ngày xem",
-		dataIndex: "viewedDate",
-		key: "viewedDate",
+		title: "Ngày nộp",
+		dataIndex: "applyDate",
+		key: "applyDate",
 		render: (value) => getDate(value),
 	},
 ];
 
-const ViewedCandidatePage = () => {
+const AppliedCandidatePage = () => {
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const [data, setData] = useState();
@@ -63,7 +63,6 @@ const ViewedCandidatePage = () => {
 		},
 		getCheckboxProps: (record) => ({
 			disabled: record.name === "Disabled User",
-			// Column configuration not to be checked
 			name: record.name,
 		}),
 	};
@@ -72,7 +71,7 @@ const ViewedCandidatePage = () => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiCompanyViewCandidate,
+				endpoint: apiCompanyApplication,
 				params: filter,
 			});
 			if (res?.status === 200) {
@@ -95,7 +94,7 @@ const ViewedCandidatePage = () => {
 					<Row gutter={16}>
 						<Col span={8}>
 							<Form.Item name="q">
-								<Input placeholder="Tên ứng viên" size="large" allowClear />
+								<Input placeholder="Vị trí ứng tuyển" size="large" allowClear />
 							</Form.Item>
 						</Col>
 						<Col span={6}>
@@ -104,7 +103,6 @@ const ViewedCandidatePage = () => {
 									size="large"
 									placeholder="Từ ngày"
 									className="w-full"
-									allowClear
 								/>
 							</Form.Item>
 						</Col>
@@ -114,7 +112,6 @@ const ViewedCandidatePage = () => {
 									size="large"
 									placeholder="Đến ngày"
 									className="w-full"
-									allowClear
 								/>
 							</Form.Item>
 						</Col>
@@ -134,6 +131,7 @@ const ViewedCandidatePage = () => {
 				<p className="text-lg my-5">Danh sách hồ sơ đã xem thông tin</p>
 				<Table
 					bordered
+					size="small"
 					rowSelection={{
 						type: "checkbox",
 						...rowSelection,
@@ -146,4 +144,4 @@ const ViewedCandidatePage = () => {
 	);
 };
 
-export default ViewedCandidatePage;
+export default AppliedCandidatePage;

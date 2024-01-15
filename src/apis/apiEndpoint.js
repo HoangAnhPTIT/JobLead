@@ -11,6 +11,9 @@ export const apiOtherCompany = `${apiCompany}/non-service`;
 export const apiCompanyFilter = `${apiCompany}/filter`;
 export const apiCompanyUploadAvatar = `${apiCompany}/upload/avatar`;
 export const apiCompanyUploadProfile = `${apiCompany}/upload/profile`;
+export const apiCompanyJobs = `${apiCompany}/jobs`;
+export const apiCompanyApplication = `${apiCompany}/application`;
+export const apiCompanyViewCandidate = `${apiCompany}/view/candidate`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";
@@ -35,3 +38,6 @@ export const apiCandidateExpectationSearch = `${apiCandidate}/expectation/search
 export const apiCandidateUploadAvatar = `${apiCandidate}/upload/avatar`;
 
 export const apiCv = "/Cv";
+
+export const apiUser = "/User";
+export const apiUserViewJob = `${apiUser}/view/job`;
