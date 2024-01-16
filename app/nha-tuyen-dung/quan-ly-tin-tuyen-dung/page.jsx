@@ -136,6 +136,72 @@ const PostListPage = () => {
 							</Card>
 						</Col>
 						<Col span={9}>
+							<div className="bg-white p-5 text-99 mb-5">
+								<div>
+									<p className="text-base font-semibold">ỨNG VIÊN</p>
+									<div className="grid grid-cols-3 py-5 border-b">
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#fea31e]"
+												style={{ background: "rgba(254,163,30,.2)" }}
+											>
+												{statisical?.numOfApplyToday}
+											</div>
+											<p>Hôm nay</p>
+										</div>
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#01c0c8]"
+												style={{ background: "rgba(1,192,200,.2)" }}
+											>
+												{statisical?.numOfApplyDayAgo}
+											</div>
+											<p>1 ngày trước</p>
+										</div>
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#00c292]"
+												style={{ background: "rgba(0,194,146,.2)" }}
+											>
+												{statisical?.numOfApply2DaysAgo}
+											</div>
+											<p>2 ngày trước</p>
+										</div>
+									</div>
+								</div>
+								<div className="mt-5">
+									<p className="text-base font-semibold">LƯỢT ỨNG TUYỂN</p>
+									<div className="grid grid-cols-3 pt-5">
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#859900]"
+												style={{ background: "rgba(133,153,0,.2)" }}
+											>
+												{statisical?.numOfViewJob}
+											</div>
+											<p>Xem job</p>
+										</div>
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#fc2a63]"
+												style={{ background: "rgba(252,42,99,.2)" }}
+											>
+												{statisical?.numOfApplication}
+											</div>
+											<p>Ứng tuyển</p>
+										</div>
+										<div className="flex flex-col items-center">
+											<div
+												className="w-9 h-9 rounded-full font-semibold flex items-center justify-center text-base text-[#ab8ce4]"
+												style={{ background: "rgba(171,140,228,.2)" }}
+											>
+												{statisical?.numOfSaveCandidate}
+											</div>
+											<p>Cv template</p>
+										</div>
+									</div>
+								</div>
+							</div>
 							<Card
 								title="Ứng viên mới apply gần đây"
 								bodyStyle={{ padding: "0" }}
