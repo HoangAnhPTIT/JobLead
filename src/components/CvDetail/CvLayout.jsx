@@ -51,7 +51,7 @@ const CvLayout = () => {
 		getCandidateInfo();
 		setModalUpdating(null);
 		setEducationIndex(null);
-		setEducationIndex(null);
+		setExperienceIndex(null);
 	};
 
 	const deleteEducation = async (index) => {

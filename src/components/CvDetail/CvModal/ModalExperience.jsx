@@ -88,6 +88,7 @@ const ModalExperience = ({ index, data, open, handleClose }) => {
 							label="Thời gian bắt đầu"
 							name="startDate"
 							control={control}
+							required
 							format="MM/YYYY"
 							views={["month", "year"]}
 						/>
