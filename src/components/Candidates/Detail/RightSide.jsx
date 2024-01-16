@@ -1,6 +1,14 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Download, Email, Save, Visibility } from "@mui/icons-material";
-import { Modal } from "antd";
+import {
+	ArrowBackOutlined,
+	ArrowForwardOutlined,
+	Download,
+	Email,
+	KeyboardArrowLeft,
+	Save,
+	Visibility,
+} from "@mui/icons-material";
+import { Button, Modal } from "antd";
 import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
@@ -33,8 +41,13 @@ const getTimeBefore = (milisecondsBefore) => {
 	);
 };
 
-const RightSide = ({ info, getData }) => {
+const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 	const dispatch = useAppDispatch();
+
+	const indexTemplate =
+		1 +
+		(info?.cvs?.findIndex((item) => item?.templateCode === cvTemplate) || -1);
+	const amountCv = info?.cvs?.length || 0;
 
 	const confirm = ({ content, onOk }) => {
 		Modal.confirm({
@@ -126,6 +139,16 @@ const RightSide = ({ info, getData }) => {
 		toast.info(developingMessage);
 	};
 
+	const onPrev = () => {
+		indexTemplate > 0 &&
+			seCvTemplate(info?.cvs?.[indexTemplate - 1]?.templateCode);
+	};
+	const onNext = () => {
+		indexTemplate < amountCv &&
+			indexTemplate > 0 &&
+			seCvTemplate(info?.cvs?.[indexTemplate + 1]?.templateCode);
+	};
+
 	return (
 		<div className="bg-white p-5">
 			<div className="pb-2 border-b text-center text-xl uppercase font-semibold">
@@ -157,6 +180,25 @@ const RightSide = ({ info, getData }) => {
 			<div className="py-2 px-1 border-b text-center">
 				Cập nhật lần cuối:{" "}
 				{getTimeBefore(dayjs() - dayjs(info?.lastUpdatedDate))} trước
+			</div>
+			<div className="flex justify-around mt-10">
+				<Button
+					icon={<ArrowBackOutlined />}
+					className="!rounded-full !bg-ee !flex items-center"
+					onClick={onPrev}
+				>
+					CV trước
+				</Button>
+				<span className="text-xl font-semibold">
+					{indexTemplate}/{amountCv}
+				</span>
+				<Button
+					icon={<ArrowForwardOutlined />}
+					className="!rounded-full !bg-ee !flex items-center"
+					onClick={onNext}
+				>
+					CV sau
+				</Button>
 			</div>
 		</div>
 	);
