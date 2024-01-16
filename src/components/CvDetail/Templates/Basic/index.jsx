@@ -92,7 +92,7 @@ const Basic = ({
 							fontSize="medium"
 							className={classNames(
 								"text-right self-center !hidden cursor-pointer text-green-500 absolute right-10 top-0 z-10 cursor-pointer",
-								styles.editIcon
+								!readOnly && styles.editIcon
 							)}
 							onClick={() =>
 								!readOnly && setModalUpdating(CV_MODAL_TYPES.generalInfo)
