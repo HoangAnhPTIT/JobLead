@@ -19,6 +19,9 @@ const routeMap = {
 	postList: "/quan-ly-tin-tuyen-dung",
 	appliedUser: "/ho-so-da-ung-tuyen",
 	savedUser: "/ho-so-da-luu",
+	savedJob: "/viec-lam-da-luu",
+	appliedJob: "/viec-lam-da-ung-tuyen",
+	viewedByEmployer: "/ntd-da-xem-ho-so",
 };
 
 export default routeMap;

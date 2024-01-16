@@ -1,4 +1,11 @@
-import { DescriptionOutlined, SettingsOutlined } from "@mui/icons-material";
+import {
+	DescriptionOutlined,
+	HowToRegOutlined,
+	SettingsOutlined,
+	SettingsSuggestOutlined,
+	SnippetFolderOutlined,
+	TaskOutlined,
+} from "@mui/icons-material";
 import {
 	Box,
 	List,
@@ -11,14 +18,34 @@ import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
+		link: routeMap.dashboard,
+		name: "Tổng quan",
+		icon: <SettingsOutlined />,
+	},
+	{
 		link: routeMap.cv,
 		name: "CV",
 		icon: <DescriptionOutlined />,
 	},
 	{
+		link: routeMap.appliedJob,
+		name: "Việc làm đã ứng tuyển",
+		icon: <TaskOutlined />,
+	},
+	{
+		link: routeMap.savedJob,
+		name: "Việc làm đã lưu",
+		icon: <SnippetFolderOutlined />,
+	},
+	{
+		link: routeMap.viewedByEmployer,
+		name: "NTD đã xem hồ sơ",
+		icon: <HowToRegOutlined />,
+	},
+	{
 		link: routeMap.setupJobSuggestions,
 		name: "Cài đặt gợi ý việc làm",
-		icon: <SettingsOutlined />,
+		icon: <SettingsSuggestOutlined />,
 	},
 ];
 
