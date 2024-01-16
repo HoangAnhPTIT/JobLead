@@ -63,7 +63,7 @@ const DashboardPage = () => {
 				endpoint: apiCompanyApplication,
 			});
 			if (res?.status === 200) {
-				setData(res.data);
+				setData(res?.data?.application);
 			} else {
 				toast.error(errorMessage);
 			}
