@@ -45,8 +45,7 @@ const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 	const dispatch = useAppDispatch();
 
 	const indexTemplate =
-		1 +
-		(info?.cvs?.findIndex((item) => item?.templateCode === cvTemplate) || -1);
+		1 + info?.cvs?.findIndex((item) => item?.templateCode === cvTemplate);
 	const amountCv = info?.cvs?.length || 0;
 
 	const confirm = ({ content, onOk }) => {
@@ -140,13 +139,13 @@ const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 	};
 
 	const onPrev = () => {
-		indexTemplate > 0 &&
-			seCvTemplate(info?.cvs?.[indexTemplate - 1]?.templateCode);
+		indexTemplate > 1 &&
+			seCvTemplate(info?.cvs?.[indexTemplate - 2]?.templateCode);
 	};
 	const onNext = () => {
 		indexTemplate < amountCv &&
 			indexTemplate > 0 &&
-			seCvTemplate(info?.cvs?.[indexTemplate + 1]?.templateCode);
+			seCvTemplate(info?.cvs?.[indexTemplate]?.templateCode);
 	};
 
 	return (
