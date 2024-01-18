@@ -39,6 +39,8 @@ export const apiCandidateLanguageSkill = `${apiCandidate}/language-skill`;
 export const apiCandidateExpectation = `${apiCandidate}/expectation`;
 export const apiCandidateExpectationSearch = `${apiCandidate}/expectation/search`;
 export const apiCandidateUploadAvatar = `${apiCandidate}/upload/avatar`;
+export const apiCandidateSaveJob = `${apiCandidate}/save/job`;
+export const apiCandidateSaveJobs = `${apiCandidate}/save/jobs`;
 
 export const apiCv = "/Cv";
 

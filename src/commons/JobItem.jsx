@@ -1,4 +1,7 @@
+"use client";
 import {
+	FavoriteBorderOutlined,
+	FavoriteOutlined,
 	PaidOutlined,
 	PlaceOutlined,
 	TodayOutlined,
@@ -6,13 +9,40 @@ import {
 import { Grid } from "@mui/material";
 import classNames from "classnames";
 import dayjs from "dayjs";
+import { updateLoading } from "lib/features/loadingSlice";
+import { useAppDispatch } from "lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { imageError } from "src/constants/common";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
+import { apiCandidateSaveJob } from "src/apis/apiEndpoint";
+import { errorMessage, imageError } from "src/constants/common";
 import { JOB_PRIORITY } from "src/constants/job";
 import routeMap from "src/constants/routeMap";
 
 const JobItem = ({ item, showExpire = false }) => {
+	const dispatch = useAppDispatch();
+	const router = useRouter();
+	const onSave = async (e) => {
+		e.preventDefault();
+		dispatch(updateLoading(true));
+		try {
+			const res = await httpAuthPost({
+				endpoint: `${apiCandidateSaveJob}/${item?.id || item?.jobId}`,
+			});
+			if (res?.status === 200) {
+				toast.success("Lưu việc làm thành công");
+				router.refresh();
+			} else {
+				toast.error(errorMessage);
+			}
+		} catch {
+			/* empty */
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
 	return (
 		<Link
 			href={`${routeMap.job}${routeMap.detail}/${
@@ -67,6 +97,13 @@ const JobItem = ({ item, showExpire = false }) => {
 							</Grid>
 						)}
 					</Grid>
+				</div>
+				<div>
+					{item?.saved ? (
+						<FavoriteOutlined className="text-primary" onClick={onSave} />
+					) : (
+						<FavoriteBorderOutlined className="text-primary" onClick={onSave} />
+					)}
 				</div>
 			</div>
 		</Link>
