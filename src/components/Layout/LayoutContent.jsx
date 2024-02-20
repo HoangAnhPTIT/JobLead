@@ -44,12 +44,6 @@ const theme = createTheme({
 	viVN,
 });
 
-const PageHideFooter = [
-	`${routeMap.employer}${routeMap.createJob}`,
-	`${routeMap.candidate}${routeMap.detail}`,
-	`${routeMap.file}${routeMap.cv}/basic`,
-	`${routeMap.file}${routeMap.cv}/pro`,
-];
 const PageOutSide = [
 	routeMap.login,
 	"/dang-nhap/ung-vien",
@@ -102,15 +96,8 @@ const LayoutContent = ({ children }) => {
 	const { isLogin, userInfo } = useAppSelector((state) => state.user);
 	const dispatch = useAppDispatch();
 	const entities = useEntities();
-	const params = useParams();
-
-	const shortPath = isEmpty(params)
-		? pathname
-		: pathname.replace(`/${params.id}`, "");
 
 	const [showMenu, setShowMenu] = useState(false);
-
-	const hideFooter = PageHideFooter.includes(shortPath);
 
 	const handleLogout = async () => {
 		await dispatch(logout());
@@ -317,7 +304,6 @@ const LayoutContent = ({ children }) => {
 				<Suspense fallback={<SuspenseLoading />}>
 					<div className="mt-[64px]">{children}</div>
 				</Suspense>
-				{!hideFooter && <FooterLayout />}
 			</div>
 		</ThemeProvider>
 	);
