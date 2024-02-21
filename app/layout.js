@@ -7,7 +7,6 @@ import { Roboto } from "next/font/google";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import { primaryColor } from "src/constants/common";
 import StoreProvider from "./StoreProvider";
-import FooterLayout from "src/components/Layout/Footer";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],

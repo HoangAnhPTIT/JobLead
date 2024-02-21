@@ -6,9 +6,8 @@ import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import FooterLayout from "./Footer";
 
 import {
 	BorderColor,
@@ -27,7 +26,6 @@ import { USER_ROLE, imageError, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { deleteAllCookies, getCookie } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
-import Loading from "./Loading";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
 
@@ -146,7 +144,6 @@ const LayoutContent = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<div className="layout">
-				<Loading />
 				<ToastContainer
 					position="top-right"
 					autoClose={3000}

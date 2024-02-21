@@ -1,7 +1,7 @@
 import React from "react";
 import FooterLayout from "src/components/Layout/Footer";
 
-const RegisterLayout = ({ children }) => {
+const PublicLayout = ({ children }) => {
 	return (
 		<>
 			{children}
@@ -10,4 +10,4 @@ const RegisterLayout = ({ children }) => {
 	);
 };
 
-export default RegisterLayout;
+export default PublicLayout;
