@@ -2,7 +2,8 @@
 	"extends": ["eslint:recommended", "next"],
 	"rules": {
 		// "react-hooks/exhaustive-deps": "off",
-		"no-unused-vars": "warn"
+		"no-unused-vars": "warn",
+		"no-mixed-spaces-and-tabs": 0
 	},
 	"env": {
 		"es6": true

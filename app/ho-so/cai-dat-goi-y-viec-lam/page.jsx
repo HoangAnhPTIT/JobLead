@@ -4,7 +4,7 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
+import { httpAuthGet, httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCandidateExpectation } from "src/apis/apiEndpoint";
 import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
@@ -23,10 +23,15 @@ const JobSuggestionPage = () => {
 		dispatch(updateLoading(true));
 		try {
 			const values = await form.validateFields();
-			const response = await httpAuthPut({
-				endpoint: apiCandidateExpectation,
-				data: { id: data?.id, ...values },
-			});
+			const response = data?.id
+				? await httpAuthPut({
+						endpoint: apiCandidateExpectation,
+						data: { id: data?.id, ...values },
+				  })
+				: await httpAuthPost({
+						endpoint: apiCandidateExpectation,
+						data: values,
+				  });
 			if (response.status === 200) {
 				toast.success("Cập nhật thông tin thành công");
 			} else {

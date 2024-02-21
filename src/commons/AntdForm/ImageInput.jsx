@@ -16,8 +16,6 @@ const ImageInput = ({ imageUrl, apiUpdate, reload }) => {
 	const [previewImage, setPreviewImage] = useState("");
 	const [fileList, setFileList] = useState([]);
 
-	console.log("fileList", fileList);
-
 	const handleCancel = () => setPreviewOpen(false);
 
 	const handlePreview = async (file) => {

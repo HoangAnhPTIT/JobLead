@@ -9,6 +9,7 @@ export const CV_MODAL_TYPES = {
 	language: "language",
 	save: "save",
 	avatar: "avatar",
+	expectation: "expectation",
 };
 
 export const IT_SKILLS = ["Word", "Excel", "Power Point"];
