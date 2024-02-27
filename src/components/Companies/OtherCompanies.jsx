@@ -52,7 +52,7 @@ const OtherCompanies = () => {
 						<Grid container>
 							{companyList?.map((item, i) => (
 								<Grid item xs={6} key={i} className="px-2">
-									<Link href={`/companyies/${item?.id}`}>
+									<Link href={`${routeMap.company}/${item?.id}`}>
 										<div className="flex gap-2.5 border-b p-2">
 											<Image
 												src={item?.avatar || imageError}

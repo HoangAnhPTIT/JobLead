@@ -4,10 +4,11 @@ import Link from "next/link";
 import React from "react";
 import ImageFull from "src/commons/Image";
 import { imageError } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 
 const CompanyItem = ({ item }) => {
 	return (
-		<Link href={`/companyies/${item?.id}`}>
+		<Link href={`${routeMap.company}/${item?.id}`}>
 			<div className="text-33 border">
 				<ImageFull
 					src={item?.profile}

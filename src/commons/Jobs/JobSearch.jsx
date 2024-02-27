@@ -25,7 +25,6 @@ const JobSearch = () => {
 	const { career, location } = useParams();
 	const searchParams = useSearchParams();
 	const [form] = Form.useForm();
-	Form.useWatch("q", form);
 
 	const { entities } = useAppSelector((state) => state.entity);
 	const [showEnhanceSearch, setShowEnhanceSearch] = useState(true);
@@ -61,16 +60,17 @@ const JobSearch = () => {
 	}, []);
 
 	useEffect(() => {
-		const initValue = async () => {
-			const searchParamsObject = convertSearchParamsToObject(searchParams);
+		const initValue = () => {
+			const searchParamsObject =
+				searchParams.toString() && convertSearchParamsToObject(searchParams);
 			form.setFieldsValue({
 				...searchParamsObject,
 				career: paramValue(career),
 				workLocation: paramValue(location),
 			});
 		};
-		searchParams.toString() && initValue();
-	}, [searchParams, career, location]);
+		initValue();
+	}, []);
 
 	return (
 		<div>
