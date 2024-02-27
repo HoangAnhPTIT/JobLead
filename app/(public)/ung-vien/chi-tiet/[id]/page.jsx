@@ -18,7 +18,7 @@ const CandidateDetailPage = () => {
 	const dispatch = useAppDispatch();
 	const { userInfo } = useAppSelector((state) => state.user);
 	const [candidateInfo, setCandidateInfo] = useState();
-	const [cvTemplate, seCvTemplate] = useState();
+	const [cvTemplate, setCvTemplate] = useState();
 	const [indexTemplate, setIndexTemplate] = useState(0);
 
 	const getCandidateInfo = async () => {
@@ -29,7 +29,7 @@ const CandidateDetailPage = () => {
 			});
 			if (response.status === 200) {
 				setCandidateInfo(response?.data);
-				seCvTemplate(response?.data?.cvs?.[0].templateCode);
+				setCvTemplate(response?.data?.cvs?.[0].templateCode);
 				setIndexTemplate(1);
 			} else {
 				toast.error(errorMessage);
@@ -73,7 +73,7 @@ const CandidateDetailPage = () => {
 					indexTemplate={indexTemplate}
 					setIndexTemplate={setIndexTemplate}
 					cvTemplate={cvTemplate}
-					seCvTemplate={seCvTemplate}
+					setCvTemplate={setCvTemplate}
 				/>
 			</div>
 		</div>

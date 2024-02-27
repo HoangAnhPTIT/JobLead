@@ -41,7 +41,7 @@ const getTimeBefore = (milisecondsBefore) => {
 	);
 };
 
-const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
+const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
 	const dispatch = useAppDispatch();
 
 	const indexTemplate =
@@ -76,7 +76,7 @@ const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 						toast.success("Đổi điểm thành công");
 						getData();
 					} else {
-						toast.error(errorMessage);
+						toast.error(res.message);
 					}
 				} catch {
 					toast.error(errorMessage);
@@ -140,12 +140,12 @@ const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 
 	const onPrev = () => {
 		indexTemplate > 1 &&
-			seCvTemplate(info?.cvs?.[indexTemplate - 2]?.templateCode);
+			setCvTemplate(info?.cvs?.[indexTemplate - 2]?.templateCode);
 	};
 	const onNext = () => {
 		indexTemplate < amountCv &&
 			indexTemplate > 0 &&
-			seCvTemplate(info?.cvs?.[indexTemplate]?.templateCode);
+			setCvTemplate(info?.cvs?.[indexTemplate]?.templateCode);
 	};
 
 	return (
@@ -189,7 +189,7 @@ const RightSide = ({ info, getData, cvTemplate, seCvTemplate }) => {
 					CV trước
 				</Button>
 				<span className="text-xl font-semibold">
-					{indexTemplate}/{amountCv}
+					{indexTemplate || 0}/{amountCv}
 				</span>
 				<Button
 					icon={<ArrowForwardOutlined />}
