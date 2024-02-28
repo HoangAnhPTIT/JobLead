@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageError } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -27,7 +28,7 @@ const CompanyList = ({ items }) => {
 		>
 			{items?.map((item, i) => (
 				<SwiperSlide key={i}>
-					<Link href={item?.id}>
+					<Link href={`${routeMap.company}/${item?.id}`}>
 						<div className="image-shadow p-2 shadow rounded">
 							{item?.avatar && (
 								<Image
