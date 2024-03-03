@@ -99,7 +99,6 @@ const LayoutContent = ({ children }) => {
 
 	const handleLogout = async () => {
 		await dispatch(logout());
-		deleteAllCookies();
 		setTimeout(() => {
 			window.location.href = "/";
 		}, 1000);
