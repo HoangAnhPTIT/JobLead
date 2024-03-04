@@ -48,13 +48,15 @@ const ImageInput = ({ imageUrl, apiUpdate, reload }) => {
 	);
 
 	useEffect(() => {
-		setFileList([
-			{
-				uid: "-1",
-				status: "done",
-				url: imageUrl,
-			},
-		]);
+		imageUrl
+			? setFileList([
+					{
+						uid: "-1",
+						status: "done",
+						url: imageUrl,
+					},
+			  ])
+			: setFileList[{}];
 	}, [imageUrl]);
 
 	return (

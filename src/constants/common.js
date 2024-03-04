@@ -33,3 +33,5 @@ export const ACTION_TYPES = {
 	add: "add",
 	edit: "edit",
 };
+
+export const NO_DATA = "Không có dữ liệu";

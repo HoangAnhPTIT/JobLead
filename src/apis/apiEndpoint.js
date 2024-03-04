@@ -17,6 +17,7 @@ export const apiCompanyApplicationGeneralInfo = `${apiCompany}/application/gener
 export const apiCompanyViewCandidate = `${apiCompany}/view/candidate`;
 export const apiCompanyApplicantSave = `${apiCompany}/applicant/save`;
 export const apiCompanyApplicantSaved = `${apiCompany}/applicant/saved`;
+export const apiCompanyGeneralInfo = `${apiCompany}/generalInfo`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

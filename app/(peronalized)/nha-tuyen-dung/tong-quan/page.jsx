@@ -1,5 +1,5 @@
 "use client";
-import { ContactPage, HistoryEdu, Work } from "@mui/icons-material";
+import { ContactPage, HistoryEdu, Visibility, Work } from "@mui/icons-material";
 import { Table } from "antd";
 import classNames from "classnames";
 import { updateLoading } from "lib/features/loadingSlice";
@@ -7,7 +7,10 @@ import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyApplication } from "src/apis/apiEndpoint";
+import {
+	apiCompanyApplication,
+	apiCompanyGeneralInfo,
+} from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -55,6 +58,7 @@ const ViewItem = ({ icon, bgIcon, amount, title }) => {
 const DashboardPage = () => {
 	const dispatch = useAppDispatch();
 	const [data, setData] = useState();
+	const [generalInfo, setGeneralInfo] = useState();
 
 	useEffect(() => {
 		const getData = async () => {
@@ -62,8 +66,16 @@ const DashboardPage = () => {
 			const res = await httpAuthGet({
 				endpoint: apiCompanyApplication,
 			});
+			const generalData = await httpAuthGet({
+				endpoint: apiCompanyGeneralInfo,
+			});
 			if (res?.status === 200) {
 				setData(res?.data?.application);
+			} else {
+				toast.error(errorMessage);
+			}
+			if (generalData?.status === 200) {
+				setGeneralInfo(generalData?.data);
 			} else {
 				toast.error(errorMessage);
 			}
@@ -72,6 +84,8 @@ const DashboardPage = () => {
 		getData();
 	}, []);
 
+	console.log("generalInfo", generalInfo);
+
 	return (
 		<EmployerLayout>
 			<div>
@@ -79,21 +93,27 @@ const DashboardPage = () => {
 				<div className="grid grid-cols-3 gap-5 mt-5">
 					<ViewItem
 						title="Viêc làm đã đăng"
-						amount={1}
+						amount={generalInfo?.postedCount || 0}
 						icon={<Work style={{ color: "#feaa2f" }} />}
 						bgIcon="bg-[#ffedd2]"
 					/>
 					<ViewItem
 						title="Hồ sơ ứng tuyển"
-						amount={1}
+						amount={generalInfo?.applicationCount || 0}
 						icon={<HistoryEdu style={{ color: "#01c0c8" }} />}
 						bgIcon="bg-[#ccf2f4]"
 					/>
 					<ViewItem
 						title="Hồ sơ đã lưu"
-						amount={1}
+						amount={generalInfo?.saveApplicantCount || 0}
 						icon={<ContactPage style={{ color: "#00c292" }} />}
 						bgIcon="bg-[#ccf3e9]"
+					/>
+					<ViewItem
+						title="Lượt xem hồ sơ"
+						amount={generalInfo?.viewedCount || 0}
+						icon={<Visibility style={{ color: "#ab8ce4" }} />}
+						bgIcon="bg-[#eee8fa]"
 					/>
 				</div>
 				<div className="mt-5">

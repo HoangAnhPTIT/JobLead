@@ -1,7 +1,7 @@
-import React from "react";
+import { NO_DATA } from "src/constants/common";
 
 const Nodata = () => {
-	return <div className="text-center pt-2 pb-5">Không có dữ liệu</div>;
+	return <div className="text-center pt-2 pb-5">{NO_DATA}</div>;
 };
 
 export default Nodata;

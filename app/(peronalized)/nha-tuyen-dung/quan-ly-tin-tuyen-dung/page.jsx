@@ -2,6 +2,7 @@
 import { Button, Card, Col, Form, Image, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import { isEmpty } from "lodash";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ import {
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
+import { NO_DATA } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
@@ -100,39 +102,47 @@ const PostListPage = () => {
 								title="Danh sách tin tuyển dụng đã đăng"
 								bodyStyle={{ padding: "0 20px" }}
 							>
-								{posts?.map((post, i) => (
-									<div key={i} className="flex gap-5 border-b py-4">
-										<div className="border border-primary rounded flex flex-col justify-center items-center p-4">
-											<p className="text-2xl text-primary font-semibold">
-												{post?.numOfApplication}
-											</p>
-											<p className="font-semibold text-base">Ứng viên</p>
-										</div>
-										<div>
-											<h1 className="text-lg text-primary font-semibold three-dot">
-												{post?.jobName}
-											</h1>
-											<p className="font-semibold text-base">
-												<span className="text-66">Mức lương:</span>
-												<span className="ml-1 text-33">{post?.salary}</span>
-											</p>
-											<p className="text-sm font-semibold text-99">
-												<span>Số lượng:</span>
-												<span className="ml-1 text-33">
-													{post?.numOfRecruitment}
-												</span>
-												<span className="mx-1">-</span>
-												<span>Hạn nộp:</span>
-												<span className="ml-1 text-33">
-													{getDate(post?.submitDeadline)}
-												</span>
-												<span className="mx-1">-</span>
-												<span className="text-33 mr-1">{post?.numOfView}</span>
-												<span>lượt xem</span>
-											</p>
-										</div>
+								{isEmpty(posts) ? (
+									<div className="py-4 text-center font-semibold">
+										{NO_DATA}
 									</div>
-								))}
+								) : (
+									posts?.map((post, i) => (
+										<div key={i} className="flex gap-5 border-b py-4">
+											<div className="border border-primary rounded flex flex-col justify-center items-center p-4">
+												<p className="text-2xl text-primary font-semibold">
+													{post?.numOfApplication}
+												</p>
+												<p className="font-semibold text-base">Ứng viên</p>
+											</div>
+											<div>
+												<h1 className="text-lg text-primary font-semibold three-dot">
+													{post?.jobName}
+												</h1>
+												<p className="font-semibold text-base">
+													<span className="text-66">Mức lương:</span>
+													<span className="ml-1 text-33">{post?.salary}</span>
+												</p>
+												<p className="text-sm font-semibold text-99">
+													<span>Số lượng:</span>
+													<span className="ml-1 text-33">
+														{post?.numOfRecruitment}
+													</span>
+													<span className="mx-1">-</span>
+													<span>Hạn nộp:</span>
+													<span className="ml-1 text-33">
+														{getDate(post?.submitDeadline)}
+													</span>
+													<span className="mx-1">-</span>
+													<span className="text-33 mr-1">
+														{post?.numOfView}
+													</span>
+													<span>lượt xem</span>
+												</p>
+											</div>
+										</div>
+									))
+								)}
 							</Card>
 						</Col>
 						<Col span={9}>
@@ -206,36 +216,40 @@ const PostListPage = () => {
 								title="Ứng viên mới apply gần đây"
 								bodyStyle={{ padding: "0" }}
 							>
-								{userApply?.map((item, i) => (
-									<Link
-										href={`${routeMap.candidate}${routeMap.detail}/${item?.candidate?.candidateId}`}
-										key={i}
-									>
-										<div
-											className="flex gap-3 p-3 w-full border-b hover:bg-blue2"
+								{isEmpty(userApply) ? (
+									<div className="py-4 text-center">{NO_DATA}</div>
+								) : (
+									userApply?.map((item, i) => (
+										<Link
+											href={`${routeMap.candidate}${routeMap.detail}/${item?.candidate?.candidateId}`}
 											key={i}
 										>
-											<div className="w-[40px]">
-												<Image
-													preview={false}
-													src={item?.candidate?.avatar}
-													width={40}
-													height={40}
-													alt=""
-													className="object-cover rounded-full"
-												/>
+											<div
+												className="flex gap-3 p-3 w-full border-b hover:bg-blue2"
+												key={i}
+											>
+												<div className="w-[40px]">
+													<Image
+														preview={false}
+														src={item?.candidate?.avatar}
+														width={40}
+														height={40}
+														alt=""
+														className="object-cover rounded-full"
+													/>
+												</div>
+												<div className="w-[calc(100%-60px)]">
+													<p className="text-lg text-primary three-dot">
+														{item?.candidate?.name}
+													</p>
+													<p className="text-base text-99 three-dot">
+														{item?.job?.title}
+													</p>
+												</div>
 											</div>
-											<div className="w-[calc(100%-60px)]">
-												<p className="text-lg text-primary three-dot">
-													{item?.candidate?.name}
-												</p>
-												<p className="text-base text-99 three-dot">
-													{item?.job?.title}
-												</p>
-											</div>
-										</div>
-									</Link>
-								))}
+										</Link>
+									))
+								)}
 							</Card>
 						</Col>
 					</Row>

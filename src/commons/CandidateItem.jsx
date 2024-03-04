@@ -1,4 +1,5 @@
 "use client";
+import { UserOutlined } from "@ant-design/icons";
 import {
 	AccountTreeOutlined,
 	PlaceOutlined,
@@ -6,10 +7,9 @@ import {
 	StarBorderOutlined,
 	WorkOutline,
 } from "@mui/icons-material";
-import { Image } from "antd";
+import { Avatar, Image } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { imageDefault } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { genArrayData } from "src/helper/format";
 
@@ -19,13 +19,17 @@ const CandidateItem = ({ item }) => {
 	return (
 		<div className="rounded shadow px-4 py-3 my-5 flex gap-5 bg-white">
 			<div>
-				<Image
-					src={item?.avatar || imageDefault}
-					alt={item?.name}
-					width={78}
-					height={78}
-					className="rounded-full"
-				/>
+				{item?.avatar ? (
+					<Image
+						src={item?.avatar}
+						alt={item?.name}
+						width={78}
+						height={78}
+						className="rounded-full"
+					/>
+				) : (
+					<Avatar size={78} icon={<UserOutlined />} />
+				)}
 			</div>
 			<div className="flex-1">
 				<div className="mb-1 flex items-center">

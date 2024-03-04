@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import classNames from "classnames";
-import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
+import { setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -98,10 +98,10 @@ const LayoutContent = ({ children }) => {
 	const [showMenu, setShowMenu] = useState(false);
 
 	const handleLogout = async () => {
-		await dispatch(logout());
+		deleteAllCookies();
 		setTimeout(() => {
 			window.location.href = "/";
-		}, 1000);
+		}, 2000);
 	};
 
 	useEffect(() => {

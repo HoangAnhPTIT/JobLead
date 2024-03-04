@@ -17,7 +17,7 @@ const EmployerLayout = ({ children }) => {
 	}, []);
 
 	return (
-		<div className="py-5 bg-bgEmployer">
+		<div className="py-5 bg-bgEmployer min-h-[calc(100vh-64px)]">
 			<div className="w-xlContent !mx-auto">
 				<Grid container spacing={2}>
 					<Grid item xs={3}>

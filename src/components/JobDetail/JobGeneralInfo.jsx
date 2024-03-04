@@ -12,8 +12,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCandidateSaveJob, apiCompany } from "src/apis/apiEndpoint";
+import { apiCandidateSaveJob } from "src/apis/apiEndpoint";
 import { errorMessage, imageError } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 function JobGeneralInfo({ data }) {
@@ -54,7 +55,7 @@ function JobGeneralInfo({ data }) {
 					</div>
 					<div className="flex-1 flex flex-col gap-1">
 						<h1 className="text-33 text-xl font-semibold ">{data?.name}</h1>
-						<Link href={`${apiCompany}/${data?.company?.id}`}>
+						<Link href={`${routeMap.company}/${data?.company?.id}`}>
 							<div className="text-hlBlue">
 								<Business /> {data?.company?.name}
 							</div>
