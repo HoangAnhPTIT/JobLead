@@ -72,10 +72,12 @@ function JobGeneralInfo({ data }) {
 								{data?.salary?.name || data?.salary}
 							</span>
 						</div>
-						<div className="font-light text-sm">
-							{/* Lượt xem: 0 .  */}
-							Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)} . Ngày duyệt:{" "}
-							{getDate(data?.approvalDate)}
+						<div className="text-sm">
+							<span className="mr-2">Lượt xem: {data?.viewedCount || 0}.</span>
+							<span className="mr-2">
+								Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)}.
+							</span>
+							<span>Ngày duyệt: {getDate(data?.approvalDate)}</span>
 						</div>
 					</div>
 				</div>

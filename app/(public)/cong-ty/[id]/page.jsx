@@ -60,8 +60,8 @@ const CompanyDetail = () => {
 						src={companyInfo?.profile}
 						alt=""
 						width="auto"
-						height={345}
 						preview={false}
+						className="min-h-[345px]"
 					/>
 					<div className="ml-40 my-2">
 						<h1 className="text-2xl text-primary">{companyInfo?.name}</h1>

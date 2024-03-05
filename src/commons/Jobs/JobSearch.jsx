@@ -60,7 +60,7 @@ const JobSearch = () => {
 	}, []);
 
 	useEffect(() => {
-		const initValue = () => {
+		const getData = () => {
 			const searchParamsObject =
 				searchParams.toString() && convertSearchParamsToObject(searchParams);
 			form.setFieldsValue({
@@ -69,7 +69,7 @@ const JobSearch = () => {
 				workLocation: paramValue(location),
 			});
 		};
-		initValue();
+		getData();
 	}, []);
 
 	return (

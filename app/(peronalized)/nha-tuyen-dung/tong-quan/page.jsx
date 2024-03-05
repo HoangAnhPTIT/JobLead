@@ -84,8 +84,6 @@ const DashboardPage = () => {
 		getData();
 	}, []);
 
-	console.log("generalInfo", generalInfo);
-
 	return (
 		<EmployerLayout>
 			<div>
