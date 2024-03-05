@@ -2,6 +2,7 @@
 import { CheckOutlined } from "@mui/icons-material";
 import { Grid, Stack, TextField } from "@mui/material";
 import { Button } from "antd";
+import Cookies from "js-cookie";
 import { updateLoading } from "lib/features/loadingSlice";
 import { setIsLogin } from "lib/features/userSlice";
 import { useAppDispatch } from "lib/hooks";
@@ -14,12 +15,13 @@ import { apiLoginEmployer } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
 import {
 	errorMessage,
+	expiresTime,
 	imageError,
+	loggedIn,
 	refreshToken,
 	token,
 } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { setCookie } from "src/helper/common";
 
 const employerIntro = [
 	"+4,000,000 ứng viên tiếp cận thông tin tuyển dụng",
@@ -37,9 +39,13 @@ const Employer = () => {
 		try {
 			const response = await httpPost(apiLoginEmployer, values);
 			if (response?.status === 200) {
-				setCookie(token, response?.tokenLogin?.token);
-				setCookie(refreshToken, response?.tokenLogin?.refreshToken);
-				setCookie("isLogin", true);
+				Cookies.set(token, response?.tokenLogin?.token, {
+					expires: expiresTime,
+				});
+				Cookies.set(refreshToken, response?.tokenLogin?.refreshToken, {
+					expires: expiresTime,
+				});
+				Cookies.set(loggedIn, true, { expires: expiresTime });
 				dispatch(setIsLogin(true));
 				window.location.href = "/";
 			} else {

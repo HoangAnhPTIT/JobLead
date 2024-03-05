@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Grid, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import classNames from "classnames";
-import { setIsLogin, setUserInfo } from "lib/features/userSlice";
+import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,13 +18,14 @@ import {
 	TextSnippet,
 } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
 import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
-import { USER_ROLE, imageError, token } from "src/constants/common";
+import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { deleteAllCookies, getCookie } from "src/helper/common";
+import { deleteAllCookies } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
 import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
@@ -98,19 +99,17 @@ const LayoutContent = ({ children }) => {
 	const [showMenu, setShowMenu] = useState(false);
 
 	const handleLogout = async () => {
-		deleteAllCookies();
-		setTimeout(() => {
-			window.location.href = "/";
-		}, 2000);
+		dispatch(logout());
+		window.location.href = "/";
 	};
 
 	useEffect(() => {
-		const isLogin = getCookie("isLogin")
-			? JSON?.parse(getCookie("isLogin"))
+		const isLogin = Cookies.get(loggedIn)
+			? JSON?.parse(Cookies.get(loggedIn))
 			: false;
 		dispatch(setIsLogin(isLogin));
 		if (isLogin) {
-			const tokenCookie = getCookie(token);
+			const tokenCookie = Cookies.get(token);
 			const decodeToken = jwtDecode(tokenCookie);
 			const userInfo = {
 				userId: decodeToken.userId,

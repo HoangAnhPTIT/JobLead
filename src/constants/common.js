@@ -21,6 +21,9 @@ export const primaryColor = "#0091ce";
 
 export const token = "token";
 export const refreshToken = "refreshToken";
+export const loggedIn = "loggedIn";
+export const expiresTime = 1;
+
 export const imageError = "/image-error.png";
 export const imageDefault = "/images/default-image.svg";
 export const CV_TYPE = {};

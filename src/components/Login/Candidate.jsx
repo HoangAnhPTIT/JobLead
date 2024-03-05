@@ -3,6 +3,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { CheckOutlined } from "@mui/icons-material";
 import { Grid, Stack, TextField } from "@mui/material";
 import { Button } from "antd";
+import Cookies from "js-cookie";
 import { updateLoading } from "lib/features/loadingSlice";
 import { setIsLogin } from "lib/features/userSlice";
 import Image from "next/image";
@@ -12,9 +13,13 @@ import { toast } from "react-toastify";
 import { httpPost } from "src/apis/apiCaller";
 import { apiLoginCandidate } from "src/apis/apiEndpoint";
 import InputPassword from "src/commons/FormInput/InputPassword";
-import { errorMessage, imageError } from "src/constants/common";
+import {
+	errorMessage,
+	expiresTime,
+	imageError,
+	loggedIn,
+} from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { setCookie } from "src/helper/common";
 
 const candidateIntro = [
 	"Tiếp cận hàng triệu công việc hoàn toàn miễn phí",
@@ -32,9 +37,13 @@ const Candidate = () => {
 		try {
 			const response = await httpPost(apiLoginCandidate, values);
 			if (response?.status === 200) {
-				setCookie("token", response?.tokenLogin?.token);
-				setCookie("refreshToken", response?.tokenLogin?.refreshToken);
-				setCookie("isLogin", true);
+				Cookies.set("token", response?.tokenLogin?.token, {
+					expires: expiresTime,
+				});
+				Cookies.set("refreshToken", response?.tokenLogin?.refreshToken, {
+					expires: expiresTime,
+				});
+				Cookies.set(loggedIn, true, { expires: expiresTime });
 				dispatch(setIsLogin(true));
 				window.location.href = "/";
 			} else {

@@ -1,13 +1,14 @@
 import axios from "axios";
-import { refreshToken, token } from "src/constants/common";
-import { deleteAllCookies, getCookie, setCookie } from "src/helper/common";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import { expiresTime, refreshToken, token } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
+import { deleteAllCookies } from "src/helper/common";
 import {
 	apiLoginCandidate,
 	apiLoginEmployer,
 	apiRefreshToken,
 } from "./apiEndpoint";
-import routeMap from "src/constants/routeMap";
-import { toast } from "react-toastify";
 
 const baseURL = process.env.BASE_URL;
 // const baseURL =
@@ -181,8 +182,12 @@ const refreshTokenAndRetry = async () => {
 				const response = await instance(axiosConfigRefesh);
 				if (response?.status === 200) {
 					const newDataToken = response.data.tokenModel;
-					setCookie(token, newDataToken.accessToken);
-					setCookie(refreshToken, newDataToken.refreshToken);
+					Cookies.set(token, newDataToken.accessToken, {
+						expires: expiresTime,
+					});
+					Cookies.set(refreshToken, newDataToken.refreshToken, {
+						expires: expiresTime,
+					});
 				} else {
 					deleteAllCookies();
 					setTimeout(() => {
@@ -212,12 +217,12 @@ const refreshTokenAndRetry = async () => {
 };
 
 export const getLocalAccessToken = () => {
-	const tokenCookie = getCookie(token);
+	const tokenCookie = Cookies.get(token);
 	return tokenCookie || "";
 };
 
 export const getLocalRefeshToken = () => {
-	const rTokenCookie = getCookie(refreshToken);
+	const rTokenCookie = Cookies.get(refreshToken);
 	return rTokenCookie || "";
 };
 
