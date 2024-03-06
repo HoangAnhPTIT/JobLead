@@ -25,13 +25,13 @@ export const generateStaticParams = async () => {
 
 const JobFilterPage = async ({ params, searchParams }) => {
 	const { career, location } = params;
-	const { q, page } = searchParams;
+	const { page, ...rest } = searchParams;
 
 	const payload = {
 		careerId: paramValue(career),
 		workLocationId: paramValue(location),
-		q,
 		paging: { page: page || 1, size: 10 },
+		...rest,
 	};
 
 	const hotJobResponse = await httpPost(`${apiJob}/filter`, payload);

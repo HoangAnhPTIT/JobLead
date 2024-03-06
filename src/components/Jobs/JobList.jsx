@@ -1,6 +1,7 @@
 "use client";
 import { ApartmentOutlined, SearchOutlined } from "@mui/icons-material";
 import { Grid, Pagination } from "@mui/material";
+import { isEmpty } from "lodash";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Category from "src/commons/Category";
@@ -31,7 +32,7 @@ const JobList = ({ jobList, majorList }) => {
 						title={jobList?.title}
 						contentClass="border-0"
 					>
-						{jobList?.count > 0 ? (
+						{!isEmpty(jobList?.jobs) ? (
 							jobList?.jobs?.map((item, i) => (
 								<div key={i} className="border-b p-2.5">
 									<JobItem item={item} showExpire />
@@ -41,7 +42,7 @@ const JobList = ({ jobList, majorList }) => {
 							<Nodata />
 						)}
 					</Category>
-					{jobList?.count > 0 && (
+					{!isEmpty(jobList?.jobs) && (
 						<Pagination
 							count={Math.ceil(jobList?.count / 10)}
 							page={currentPage}
