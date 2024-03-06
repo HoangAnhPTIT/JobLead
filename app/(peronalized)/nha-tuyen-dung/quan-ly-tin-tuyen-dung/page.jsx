@@ -116,9 +116,13 @@ const PostListPage = () => {
 												<p className="font-semibold text-base">Ứng viên</p>
 											</div>
 											<div>
-												<h1 className="text-lg text-primary font-semibold three-dot">
-													{post?.jobName}
-												</h1>
+												<Link
+													href={`${routeMap.employer}/${routeMap.createJob}/${routeMap.edit}/${post?.jobId}`}
+												>
+													<h1 className="text-lg text-primary font-semibold three-dot">
+														{post?.jobName}
+													</h1>
+												</Link>
 												<p className="font-semibold text-base">
 													<span className="text-66">Mức lương:</span>
 													<span className="ml-1 text-33">{post?.salary}</span>

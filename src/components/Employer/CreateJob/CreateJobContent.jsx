@@ -11,12 +11,14 @@ import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import ImageFull from "src/commons/Image";
 import ApproveRule from "./ApproveRule";
+import { useParams } from "next/navigation";
 
 const CreateJobContent = () => {
 	const { entities } = useAppSelector((state) => state.entity);
 	const [serviceList, setServiceList] = useState([]);
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
+	const { id } = useParams();
 
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
@@ -63,6 +65,23 @@ const CreateJobContent = () => {
 		getCompanyInfo();
 		form.setFieldValue("jobInfo", { isHasCommission: false });
 	}, []);
+
+	useEffect(() => {
+		const getJobData = async () => {
+			dispatch(updateLoading(true));
+			try {
+				const response = await httpAuthGet({
+					endpoint: `${apiCompany}/${id}/jobs`,
+				});
+				form.setFieldsValue(response?.data);
+			} catch {
+				// empty
+			} finally {
+				dispatch(updateLoading(false));
+			}
+		};
+		id && getJobData();
+	}, [dispatch, form, id]);
 
 	return (
 		<div>
