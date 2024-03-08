@@ -42,6 +42,9 @@ export const apiCandidateExpectationSearch = `${apiCandidate}/expectation/search
 export const apiCandidateUploadAvatar = `${apiCandidate}/upload/avatar`;
 export const apiCandidateSaveJob = `${apiCandidate}/save/job`;
 export const apiCandidateSaveJobs = `${apiCandidate}/save/jobs`;
+export const apiCandidateApplication = `${apiCandidate}/application`;
+export const apiCandidateCompanyViewProfile = `${apiCandidate}/company-view-profile`;
+export const apiCandidateGeneralInfo = `${apiCandidate}/general-info`;
 
 export const apiCv = "/Cv";
 

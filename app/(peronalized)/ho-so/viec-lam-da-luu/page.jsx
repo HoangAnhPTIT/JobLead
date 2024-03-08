@@ -13,24 +13,28 @@ import { getDate } from "src/helper/format";
 const columns = [
 	{
 		title: "Vị trí / Công ty",
-		dataIndex: "candidateInfo",
+		dataIndex: "",
 		key: "name",
-		render: (value) => value?.name,
+		render: (value) => (
+			<span>
+				{value?.jobName} / {value?.company?.name}
+			</span>
+		),
 	},
 	{
 		title: "Địa điểm",
-		dataIndex: "point",
-		key: "point",
+		dataIndex: "location",
+		key: "location",
 	},
 	{
 		title: "Mức lương",
-		dataIndex: "point",
-		key: "point",
+		dataIndex: "salary",
+		key: "salary",
 	},
 	{
 		title: "Ngày lưu",
-		dataIndex: "viewedDate",
-		key: "viewedDate",
+		dataIndex: "savedDate",
+		key: "savedDate",
 		render: (value) => getDate(value),
 	},
 ];
@@ -40,7 +44,6 @@ const SavedJobPage = () => {
 	const [form] = Form.useForm();
 	const [data, setData] = useState();
 	const [filter, setFilter] = useState({});
-	const [page, setPage] = useState(1);
 
 	const onSubmit = () => {
 		const values = form.getFieldsValue();
@@ -52,7 +55,7 @@ const SavedJobPage = () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
 				endpoint: apiCandidateSaveJobs,
-				params: { ...filter, page, size: 1000 },
+				params: { ...filter, page: 1, size: 1000 },
 			});
 			if (res?.status === 200) {
 				setData(res.data);
@@ -108,7 +111,12 @@ const SavedJobPage = () => {
 					</Row>
 				</Form>
 				<p className="text-lg mt-2 mb-4">Danh sách việc làm đã lưu</p>
-				<Table size="small" bordered columns={columns} dataSource={data} />
+				<Table
+					size="small"
+					bordered
+					columns={columns}
+					dataSource={data?.jobs || []}
+				/>
 			</div>
 		</FileLayout>
 	);

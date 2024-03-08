@@ -5,9 +5,7 @@ import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
-import EmployerBanner from "src/components/Employer/EmployerBanner";
-import EmployerLayout from "src/components/Employer/EmployerLayout";
+import { apiCandidateCompanyViewProfile } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
 import { getDate } from "src/helper/format";
@@ -43,22 +41,22 @@ const ViewedByEmployerPage = () => {
 		setFilter(values);
 	};
 
-	// useEffect(() => {
-	// 	const getData = async () => {
-	// 		dispatch(updateLoading(true));
-	// 		const res = await httpAuthGet({
-	// 			endpoint: apiCompanyViewCandidate,
-	// 			params: filter,
-	// 		});
-	// 		if (res?.status === 200) {
-	// 			setData(res.data);
-	// 		} else {
-	// 			toast.error(errorMessage);
-	// 		}
-	// 		dispatch(updateLoading(false));
-	// 	};
-	// 	getData();
-	// }, [dispatch, filter]);
+	useEffect(() => {
+		const getData = async () => {
+			dispatch(updateLoading(true));
+			const res = await httpAuthGet({
+				endpoint: apiCandidateCompanyViewProfile,
+				params: filter,
+			});
+			if (res?.status === 200) {
+				setData(res.data);
+			} else {
+				toast.error(errorMessage);
+			}
+			dispatch(updateLoading(false));
+		};
+		getData();
+	}, [dispatch, filter]);
 
 	return (
 		<FileLayout>

@@ -16,7 +16,7 @@ const FileLayout = ({ children }) => {
 	}, []);
 
 	return (
-		<div className="py-5 bg-bgBody">
+		<div className="py-5 bg-bgBody min-h-[calc(100vh-64px)]">
 			<div className="w-xlContent !mx-auto">
 				<div className="grid gap-5" style={{ gridTemplateColumns: "20% 80%" }}>
 					<div>
