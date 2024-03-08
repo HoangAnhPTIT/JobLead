@@ -3,6 +3,7 @@ import {
 	Business,
 	FavoriteBorderOutlined,
 	FavoriteOutlined,
+	RememberMe,
 } from "@mui/icons-material";
 import { Button } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
@@ -81,13 +82,13 @@ function JobGeneralInfo({ data }) {
 						</div>
 					</div>
 				</div>
-				<div>
+				<div className="flex gap-2">
 					{!data?.saved ? (
 						<Button
 							type="primary"
 							ghost
-							size="large"
-							icon={<FavoriteBorderOutlined />}
+							size="middle"
+							icon={<FavoriteBorderOutlined fontSize="small" />}
 							onClick={onSave}
 						>
 							Lưu công việc
@@ -95,13 +96,20 @@ function JobGeneralInfo({ data }) {
 					) : (
 						<Button
 							type="primary"
-							size="large"
-							icon={<FavoriteOutlined />}
+							size="middle"
+							icon={<FavoriteOutlined fontSize="small" />}
 							onClick={onSave}
 						>
 							Bỏ lưu công việc
 						</Button>
 					)}
+					<Button
+						type="primary"
+						size="middle"
+						icon={<RememberMe fontSize="small" />}
+					>
+						Ứng tuyển ngay
+					</Button>
 				</div>
 			</div>
 		</div>
