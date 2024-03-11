@@ -114,21 +114,21 @@ const CompanyDetail = () => {
 															fontSize="inherit"
 															className="mr-1"
 														/>
-														{item?.workLocation}
+														{item?.workLocation?.name}
 													</Col>
 													<Col span={12}>
 														<MonetizationOnOutlined
 															fontSize="inherit"
 															className="mr-1"
 														/>
-														{item?.salary}
+														{item?.salary?.name}
 													</Col>
 													<Col span={12}>
 														<QueryBuilderOutlined
 															fontSize="inherit"
 															className="mr-1"
 														/>
-														{item?.typeOfWork}
+														{item?.typeOfWork?.name}
 													</Col>
 												</Row>
 											</div>

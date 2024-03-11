@@ -1,5 +1,5 @@
 "use client";
-import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import { DeleteOutline } from "@mui/icons-material";
 import { Button, Col, DatePicker, Form, Image, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
