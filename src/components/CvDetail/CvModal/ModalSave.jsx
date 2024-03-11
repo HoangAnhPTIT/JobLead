@@ -12,8 +12,7 @@ import { useEffect, useState } from "react";
 const ModalSave = ({ open, handleClose }) => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
-	const params = useParams();
-	const template = params?.template;
+	const { template = null } = useParams();
 	const [cvList, setCvList] = useState();
 
 	const onSubmit = async (values) => {
@@ -21,7 +20,7 @@ const ModalSave = ({ open, handleClose }) => {
 		try {
 			await httpAuthPost({
 				endpoint: apiCv,
-				data: { ...values, code: template },
+				data: { ...values, templateCode: template },
 			});
 			handleClose();
 		} catch (error) {

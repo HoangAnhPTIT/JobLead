@@ -68,9 +68,9 @@ const CvPage = () => {
 													fontSize="inherit"
 													className="text-primary mr-1"
 												/>
-												{dayjs(item?.lastUpdatedDate).format(
-													"DD/MM/YYYY HH:mm:ss"
-												)}
+												{dayjs(
+													item?.lastUpdatedDate || item?.createdDate
+												).format("DD/MM/YYYY HH:mm:ss")}
 											</div>
 										</div>
 										<div className="flex gap-5">

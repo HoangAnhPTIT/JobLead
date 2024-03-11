@@ -19,6 +19,9 @@ import Education from "./Education";
 import Experience from "./Experience";
 import Skill from "./Skill";
 import styles from "./styles.module.scss";
+import { isEmpty } from "lodash";
+import { NO_DATA } from "src/constants/common";
+import NoDataYet from "../../NoDataYet";
 
 const color = "#009ce0";
 
@@ -172,19 +175,24 @@ const Pro = ({
 									}
 								/>
 							</div>
-							<div className="text-33 text-sm">
-								{data?.candidateCareerGoals.map((item, i) => (
-									<div key={i}>
-										<Check
-											fontSize="small"
-											style={{ color }}
-											className="mr-1"
-										/>
-										{item?.careerGoal?.name}
-									</div>
-								))}
-								<div>{data?.careerGoalDescription}</div>
-							</div>
+							{isEmpty(data?.candidateCareerGoals) &&
+							isEmpty(data?.careerGoalDescription) ? (
+								<NoDataYet />
+							) : (
+								<div className="text-33 text-sm">
+									{data?.candidateCareerGoals.map((item, i) => (
+										<div key={i}>
+											<Check
+												fontSize="small"
+												style={{ color }}
+												className="mr-1"
+											/>
+											{item?.careerGoal?.name}
+										</div>
+									))}
+									<div>{data?.careerGoalDescription}</div>
+								</div>
+							)}
 						</div>
 						<div className="mt-5">
 							<Education
@@ -242,21 +250,27 @@ const Pro = ({
 									}
 								/>
 							</div>
-							{data?.itSkills?.map((item, i) => (
-								<Grid container key={i}>
-									<Grid item xs={6} className="text-sm">
-										{item?.name}
+							{isEmpty(data?.itSkills) ? (
+								<div className="mt-5">
+									<NoDataYet />
+								</div>
+							) : (
+								data?.itSkills?.map((item, i) => (
+									<Grid container key={i}>
+										<Grid item xs={6} className="text-sm">
+											{item?.name}
+										</Grid>
+										<Grid item xs={6}>
+											<Rating
+												readOnly
+												value={item?.star}
+												icon={<Star style={{ color }} />}
+												emptyIcon={<StarOutline style={{ color }} />}
+											/>
+										</Grid>
 									</Grid>
-									<Grid item xs={6}>
-										<Rating
-											readOnly
-											value={item?.star}
-											icon={<Star style={{ color }} />}
-											emptyIcon={<StarOutline style={{ color }} />}
-										/>
-									</Grid>
-								</Grid>
-							))}
+								))
+							)}
 						</div>
 					)}
 					{data?.languageSkills && (
@@ -282,21 +296,27 @@ const Pro = ({
 									}
 								/>
 							</div>
-							{data?.languageSkills?.map((item, i) => (
-								<Grid container key={i}>
-									<Grid item xs={6} className="text-sm">
-										{item?.name}
+							{isEmpty(data?.languageSkills) ? (
+								<div className="mt-5">
+									<NoDataYet />
+								</div>
+							) : (
+								data?.languageSkills?.map((item, i) => (
+									<Grid container key={i}>
+										<Grid item xs={6} className="text-sm">
+											{item?.name}
+										</Grid>
+										<Grid item xs={6}>
+											<Rating
+												readOnly
+												value={item?.star}
+												icon={<Star style={{ color }} />}
+												emptyIcon={<StarOutline style={{ color }} />}
+											/>
+										</Grid>
 									</Grid>
-									<Grid item xs={6}>
-										<Rating
-											readOnly
-											value={item?.star}
-											icon={<Star style={{ color }} />}
-											emptyIcon={<StarOutline style={{ color }} />}
-										/>
-									</Grid>
-								</Grid>
-							))}
+								))
+							)}
 						</div>
 					)}
 					<Skill

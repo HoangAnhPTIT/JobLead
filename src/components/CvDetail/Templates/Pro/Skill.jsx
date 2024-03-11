@@ -1,6 +1,8 @@
 import { Edit, Star } from "@mui/icons-material";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
+import { isEmpty } from "lodash";
+import NoDataYet from "../../NoDataYet";
 
 const color = "#009ce0";
 const Skill = ({ data, onClick, readOnly }) => {
@@ -22,15 +24,19 @@ const Skill = ({ data, onClick, readOnly }) => {
 					onClick={() => !readOnly && onClick()}
 				/>
 			</div>
-			<div className="text-33 text-sm">
-				{data?.skills.map((item, i) => (
-					<div key={i}>
-						<Star fontSize="small" style={{ color }} className="mr-1" />
-						{item?.skill?.name}
-					</div>
-				))}
-				<div>{data?.skillDescription}</div>
-			</div>
+			{isEmpty(data?.skillDescription) && isEmpty(data?.skills) ? (
+				<NoDataYet />
+			) : (
+				<div className="text-33 text-sm">
+					{data?.skills.map((item, i) => (
+						<div key={i}>
+							<Star fontSize="small" style={{ color }} className="mr-1" />
+							{item?.skill?.name}
+						</div>
+					))}
+					<div>{data?.skillDescription}</div>
+				</div>
+			)}
 		</div>
 	);
 };

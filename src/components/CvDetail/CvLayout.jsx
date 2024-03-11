@@ -196,7 +196,7 @@ const CvLayout = () => {
 				open={modalUpdating === CV_MODAL_TYPES.avatar}
 				handleClose={handleClose}
 			/>
-			<div className="bg-bgCv py-5">
+			<div className="bg-bgCv py-5 min-h-[calc(100vh-64px)]">
 				<div className="w-[1300px] mx-auto">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>

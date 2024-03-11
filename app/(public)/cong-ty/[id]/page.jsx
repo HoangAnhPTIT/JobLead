@@ -34,7 +34,7 @@ const CompanyDetail = () => {
 			href: routeMap.company,
 		},
 		{
-			title: "Công ty xyz",
+			title: companyInfo?.name,
 		},
 	];
 

@@ -4,8 +4,9 @@ import classNames from "classnames";
 import { getDate } from "src/helper/format";
 import Section from "./Section";
 import styles from "./styles.module.scss";
+import { isEmpty } from "lodash";
+import NoDataYet from "../../NoDataYet";
 
-const color = "#009ce0";
 const Education = ({
 	data,
 	title,
@@ -23,73 +24,79 @@ const Education = ({
 			}}
 			readOnly={readOnly}
 		>
-			<div className={styles.info}>
-				{data?.map((item, i) => (
-					<div key={i} className={styles.item}>
-						<div
-							className={classNames(
-								"hidden absolute right-5 top-0 cursor-pointer",
-								!readOnly && styles.editItem
-							)}
-						>
-							<Edit
-								className="text-green-500"
-								onClick={() => {
-									setEducationIndex(i);
-									onClick();
-								}}
-							/>
-							<Delete
-								className="text-red-500"
-								onClick={() => deleteEducation(i)}
-							/>
-						</div>
-						{item?.startDate && (
-							<p
-								className={
-									"rounded-r h-5 mb-2 text-base font-semibold text-primary"
-								}
+			{isEmpty(data) ? (
+				<div className="mt-5">
+					<NoDataYet />
+				</div>
+			) : (
+				<div className={styles.info}>
+					{data?.map((item, i) => (
+						<div key={i} className={styles.item}>
+							<div
+								className={classNames(
+									"hidden absolute right-5 top-0 cursor-pointer",
+									!readOnly && styles.editItem
+								)}
 							>
-								{getDate(item?.startDate)} - {getDate(item?.finishDate)}
-							</p>
-						)}
-
-						<div className={styles.content}>
-							<div className="font-semibold text-base mb-1">
-								{item?.certification}
+								<Edit
+									className="text-green-500"
+									onClick={() => {
+										setEducationIndex(i);
+										onClick();
+									}}
+								/>
+								<Delete
+									className="text-red-500"
+									onClick={() => deleteEducation(i)}
+								/>
 							</div>
-							<Stack className="gap-[2px]">
-								{item?.school && (
-									<div>
-										<strong>Trường/nơi đào tạo:</strong> {item?.school}
-									</div>
-								)}
-								{item?.learningClassification?.name && (
-									<div>
-										<strong>Xếp loại:</strong>{" "}
-										{item?.learningClassification?.name}
-									</div>
-								)}
-								{item?.class && (
-									<div>
-										<strong>Khoa:</strong> {item?.class}
-									</div>
-								)}
-								{item?.major && (
-									<div>
-										<strong>Ngành:</strong> {item?.major}
-									</div>
-								)}
-								{item?.description && (
-									<div>
-										<strong>Mô tả:</strong> {item?.description}
-									</div>
-								)}
-							</Stack>
+							{item?.startDate && (
+								<p
+									className={
+										"rounded-r h-5 mb-2 text-base font-semibold text-primary"
+									}
+								>
+									{getDate(item?.startDate)} - {getDate(item?.finishDate)}
+								</p>
+							)}
+
+							<div className={styles.content}>
+								<div className="font-semibold text-base mb-1">
+									{item?.certification}
+								</div>
+								<Stack className="gap-[2px]">
+									{item?.school && (
+										<div>
+											<strong>Trường/nơi đào tạo:</strong> {item?.school}
+										</div>
+									)}
+									{item?.learningClassification?.name && (
+										<div>
+											<strong>Xếp loại:</strong>{" "}
+											{item?.learningClassification?.name}
+										</div>
+									)}
+									{item?.class && (
+										<div>
+											<strong>Khoa:</strong> {item?.class}
+										</div>
+									)}
+									{item?.major && (
+										<div>
+											<strong>Ngành:</strong> {item?.major}
+										</div>
+									)}
+									{item?.description && (
+										<div>
+											<strong>Mô tả:</strong> {item?.description}
+										</div>
+									)}
+								</Stack>
+							</div>
 						</div>
-					</div>
-				))}
-			</div>
+					))}
+				</div>
+			)}
 		</Section>
 	);
 };
