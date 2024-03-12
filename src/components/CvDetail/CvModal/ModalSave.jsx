@@ -1,27 +1,32 @@
 import { TextField } from "@mui/material";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCandidateCv, apiCv } from "src/apis/apiEndpoint";
-import CvModalLayout from "./CvModalLayout";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { httpAuthGet, httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateCv, apiCv } from "src/apis/apiEndpoint";
+import CvModalLayout from "./CvModalLayout";
 
 const ModalSave = ({ open, handleClose }) => {
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, setValue } = useForm();
 	const dispatch = useAppDispatch();
 	const { template = null } = useParams();
-	const [cvList, setCvList] = useState();
+	const [currentCv, setCurrentCv] = useState(null);
 
 	const onSubmit = async (values) => {
 		dispatch(updateLoading(true));
 		try {
-			await httpAuthPost({
-				endpoint: apiCv,
-				data: { ...values, templateCode: template },
-			});
+			currentCv
+				? await httpAuthPut({
+						endpoint: apiCv,
+						data: { id: currentCv?.id, ...values, templateCode: template },
+				  })
+				: await httpAuthPost({
+						endpoint: apiCv,
+						data: { ...values, templateCode: template },
+				  });
 			handleClose();
 		} catch (error) {
 			toast.error(error.message || error);
@@ -34,7 +39,11 @@ const ModalSave = ({ open, handleClose }) => {
 	useEffect(() => {
 		const getCvList = async () => {
 			const response = await httpAuthGet({ endpoint: apiCandidateCv });
-			setCvList(response?.data);
+			const currentCvInfo =
+				response?.data?.find((item) => item?.templateCode === template) || {};
+			setCurrentCv(currentCvInfo);
+			setValue("name", currentCvInfo?.name ?? "");
+			setValue("description", currentCvInfo?.description ?? "");
 		};
 		getCvList();
 	}, []);
