@@ -5,7 +5,7 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpAuthGet, httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCompany, apiCompanyContact, apiJob } from "src/apis/apiEndpoint";
 import DatePickerAntd from "src/commons/AntdForm/DatePickerAntd";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
@@ -38,7 +38,9 @@ const CreateJobContent = () => {
 					contactInfo: values?.contact,
 				},
 			};
-			const response = await httpAuthPost({ endpoint: apiJob, data: bodyData });
+			const response = id
+				? await httpAuthPut({ endpoint: apiJob, data: { id, ...bodyData } })
+				: await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
 				toast.success("Đăng tin tuyển dụng thành công");
 				form.resetFields();
@@ -71,9 +73,38 @@ const CreateJobContent = () => {
 			dispatch(updateLoading(true));
 			try {
 				const response = await httpAuthGet({
-					endpoint: `${apiCompany}/${id}/jobs`,
+					endpoint: `${apiJob}/${id}`,
 				});
-				form.setFieldsValue(response?.data);
+				const data = response?.jobInfo;
+				const formData = {
+					jobInfo: {
+						code: data?.code,
+						name: data?.name,
+						numOfRecruitment: data?.numOfRecruitment,
+						levelId: data?.level?.id,
+						isHasCommission: data?.isHasCommission,
+						typeOfWorkId: data?.typeOfWork?.id,
+						salaryId: data?.salary?.id,
+						workLocationId: data?.workLocation?.id,
+						careerId: data?.career?.id,
+						description: data?.description,
+						benifitDescription: data?.benifitDescription,
+					},
+					jobRequirement: {
+						experienceId: data?.jobRequirement?.experience?.id,
+						degreeId: data?.jobRequirement?.degree?.id,
+						genderId: data?.jobRequirement?.gender?.id,
+						submitDeadline: data?.jobRequirement?.submitDeadline
+							? dayjs(data?.jobRequirement?.submitDeadline)
+							: null,
+						languageId: data?.jobRequirement?.language?.id,
+						requestDescription: data?.jobRequirement?.requestDescription,
+						requestDocumentAttachment:
+							data?.jobRequirement?.requestDocumentAttachment,
+					},
+					contact: data?.contactInfo,
+				};
+				form.setFieldsValue(formData);
 			} catch {
 				// empty
 			} finally {
@@ -386,7 +417,7 @@ const CreateJobContent = () => {
 						</div>
 						<div className="text-right mt-5">
 							<Button type="primary" onClick={onSubmit}>
-								Đăng tuyển
+								{id ? "Cập nhật" : "Đăng tuyển"}
 							</Button>
 						</div>
 					</Form>

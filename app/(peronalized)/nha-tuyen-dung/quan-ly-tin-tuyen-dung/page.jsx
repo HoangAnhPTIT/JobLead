@@ -1,9 +1,11 @@
 "use client";
+import { Edit } from "@mui/icons-material";
 import { Button, Card, Col, Form, Image, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { isEmpty } from "lodash";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
@@ -25,6 +27,7 @@ const PostListPage = () => {
 	const [form] = Form.useForm();
 	const [userApply, setUserApply] = useState();
 	const [statisical, setStatisical] = useState();
+	const router = useRouter();
 
 	const onSubmit = () => {
 		console.log(form.getFieldsValue());
@@ -108,7 +111,10 @@ const PostListPage = () => {
 									</div>
 								) : (
 									posts?.map((post, i) => (
-										<div key={i} className="flex gap-5 border-b py-4">
+										<div
+											key={i}
+											className="flex gap-5 border-b py-4 relative group"
+										>
 											<div className="border border-primary rounded flex flex-col justify-center items-center p-4">
 												<p className="text-2xl text-primary font-semibold">
 													{post?.numOfApplication}
@@ -117,7 +123,7 @@ const PostListPage = () => {
 											</div>
 											<div>
 												<Link
-													href={`${routeMap.employer}/${routeMap.createJob}/${routeMap.edit}/${post?.jobId}`}
+													href={`${routeMap.job}${routeMap.detail}/${post?.jobId}`}
 												>
 													<h1 className="text-lg text-primary font-semibold three-dot">
 														{post?.jobName}
@@ -143,6 +149,16 @@ const PostListPage = () => {
 													</span>
 													<span>lượt xem</span>
 												</p>
+											</div>
+											<div
+												className="hidden top-5 right-2 group-hover:block absolute"
+												onClick={() =>
+													router.push(
+														`${routeMap.employer}/${routeMap.createJob}/${routeMap.edit}/${post?.jobId}`
+													)
+												}
+											>
+												<Edit className="text-green-500 cursor-pointer" />
 											</div>
 										</div>
 									))
