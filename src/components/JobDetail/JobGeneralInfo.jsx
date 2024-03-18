@@ -140,9 +140,9 @@ function JobGeneralInfo({ data }) {
 						<div className="text-sm">
 							<span className="mr-2">Lượt xem: {data?.countViewer || 0}.</span>
 							<span className="mr-2">
-								Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)}.
+								Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)}
 							</span>
-							<span>Ngày duyệt: {getDate(data?.approvalDate)}</span>
+							{/* <span>Ngày duyệt: {getDate(data?.approvalDate)}</span> */}
 						</div>
 					</div>
 				</div>

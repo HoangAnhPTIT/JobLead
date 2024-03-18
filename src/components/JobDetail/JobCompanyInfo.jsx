@@ -1,5 +1,4 @@
 import { Groups, Home, Place } from "@mui/icons-material";
-import React from "react";
 
 const ItemInfo = ({ icon, title, content }) => {
 	return (
@@ -24,7 +23,7 @@ const JobCompanyInfo = ({ data }) => {
 				<ItemInfo
 					icon={<Home />}
 					title="Giới thiệu"
-					content={data?.introducation}
+					content={data?.description}
 				/>
 				<ItemInfo
 					icon={<Groups />}

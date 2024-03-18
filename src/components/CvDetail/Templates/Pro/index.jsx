@@ -13,15 +13,14 @@ import {
 import { Grid, Rating } from "@mui/material";
 import { Image } from "antd";
 import classNames from "classnames";
+import { isEmpty } from "lodash";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import { getDate } from "src/helper/format";
+import NoDataYet from "../../NoDataYet";
 import Education from "./Education";
 import Experience from "./Experience";
 import Skill from "./Skill";
 import styles from "./styles.module.scss";
-import { isEmpty } from "lodash";
-import { NO_DATA } from "src/constants/common";
-import NoDataYet from "../../NoDataYet";
 
 const color = "#009ce0";
 
