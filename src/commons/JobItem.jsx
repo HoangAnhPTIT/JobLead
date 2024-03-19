@@ -17,13 +17,14 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCandidateSaveJob } from "src/apis/apiEndpoint";
-import { errorMessage, imageError } from "src/constants/common";
+import { USER_ROLE, errorMessage, imageError } from "src/constants/common";
 import { JOB_PRIORITY } from "src/constants/job";
 import routeMap from "src/constants/routeMap";
 
 const JobItem = ({ item, showExpire = false }) => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const { userInfo } = useAppSelector((state) => state.user);
 	const { isLogin } = useAppSelector((state) => state.user);
 
 	const onSave = async (e) => {
@@ -109,13 +110,15 @@ const JobItem = ({ item, showExpire = false }) => {
 					)}
 				</Grid>
 			</div>
-			<div className="cursor-pointer">
-				{item?.saved ? (
-					<FavoriteOutlined className="text-primary" onClick={onSave} />
-				) : (
-					<FavoriteBorderOutlined className="text-primary" onClick={onSave} />
-				)}
-			</div>
+			{userInfo?.role !== USER_ROLE.employer && (
+				<div className="cursor-pointer">
+					{item?.saved ? (
+						<FavoriteOutlined className="text-primary" onClick={onSave} />
+					) : (
+						<FavoriteBorderOutlined className="text-primary" onClick={onSave} />
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

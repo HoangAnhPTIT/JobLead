@@ -10,16 +10,22 @@ import {
 	QueryBuilderOutlined,
 } from "@mui/icons-material";
 import { Col, Image, Row } from "antd";
+import classNames from "classnames";
+import dayjs from "dayjs";
+import { useAppSelector } from "lib/hooks";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpGet } from "src/apis/apiCaller";
 import { apiCompany } from "src/apis/apiEndpoint";
 import Breadcrumb from "src/commons/Breadcrumb";
+import Expired from "src/commons/Expired";
 import ImageFull from "src/commons/Image";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const CompanyDetail = () => {
+	const { today } = useAppSelector((state) => state.time);
 	const { id } = useParams();
 	const [companyInfo, setCompanyInfo] = useState();
 	const [jobList, setJobList] = useState();
@@ -69,10 +75,12 @@ const CompanyDetail = () => {
 							<FmdGood fontSize="small" className="text-primary mr-1" />
 							{companyInfo?.address}
 						</p>
-						<p className="text-sm mt-1">
-							<Public fontSize="small" className="text-primary mr-1" />
-							{companyInfo?.website}
-						</p>
+						{companyInfo?.website && (
+							<p className="text-sm mt-1">
+								<Public fontSize="small" className="text-primary mr-1" />
+								{companyInfo?.website}
+							</p>
+						)}
 					</div>
 					<div className="shadow p-1 absolute bottom-4 left-4 w-32 h-32 bg-white">
 						<Image
@@ -100,14 +108,24 @@ const CompanyDetail = () => {
 									{jobList?.map((item, i) => (
 										<Col span={12} key={i}>
 											<div className="rounded border text-sm p-2">
-												<h4 className="font-semibold">{item?.name}</h4>
+												<Link
+													href={`${routeMap.job}${routeMap.detail}/${item?.slug}`}
+												>
+													<div className={classNames("font-semibold flex")}>
+														<div className="three-dot">{item?.name}</div>
+														{/* <div className="w-[164px]">
+															<Expired />
+														</div> */}
+													</div>
+												</Link>
 												<Row gutter={[8, 4]}>
 													<Col span={12}>
 														<CalendarMonthOutlined
 															fontSize="inherit"
 															className="mr-1"
 														/>
-														{getDate(item?.createdDate)}
+														{getDate(item?.submissionDeadline)}
+														<Expired time={item?.submissionDeadline} />
 													</Col>
 													<Col span={12}>
 														<PlaceOutlined

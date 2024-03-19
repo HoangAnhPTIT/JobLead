@@ -1,5 +1,4 @@
 "use client";
-import { EyeFilled } from "@ant-design/icons";
 import {
 	Business,
 	FavoriteBorderOutlined,
@@ -9,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import { Button, Modal, Radio, Space, Tooltip } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
-import { useAppDispatch } from "lib/hooks";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { isEmpty } from "lodash";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,13 +21,15 @@ import {
 	apiCandidateCv,
 	apiCandidateSaveJob,
 } from "src/apis/apiEndpoint";
-import { errorMessage, imageError } from "src/constants/common";
+import Expired from "src/commons/Expired";
+import { USER_ROLE, errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 function JobGeneralInfo({ data }) {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const { userInfo } = useAppSelector((state) => state.user);
 	const [showSelectCv, setShowSelectCv] = useState(false);
 	const [cvList, setCvList] = useState(null);
 	const [cvSelected, setCvSelected] = useState(null);
@@ -138,44 +139,47 @@ function JobGeneralInfo({ data }) {
 							</span>
 						</div>
 						<div className="text-sm">
-							<span className="mr-2">Lượt xem: {data?.countViewer || 0}.</span>
-							<span className="mr-2">
+							<div className="mr-2">Lượt xem: {data?.countViewer || 0}</div>
+							<div className="mr-2">
 								Hạn nộp hồ sơ: {getDate(data?.submissionDeadline)}
-							</span>
+								<Expired time={data?.submissionDeadline} />
+							</div>
 							{/* <span>Ngày duyệt: {getDate(data?.approvalDate)}</span> */}
 						</div>
 					</div>
 				</div>
-				<div className="flex gap-2">
-					{!data?.saved ? (
+				{userInfo?.role !== USER_ROLE.employer && (
+					<div className="flex gap-2">
+						{!data?.saved ? (
+							<Button
+								type="primary"
+								ghost
+								size="middle"
+								icon={<FavoriteBorderOutlined fontSize="small" />}
+								onClick={onSave}
+							>
+								Lưu công việc
+							</Button>
+						) : (
+							<Button
+								type="primary"
+								size="middle"
+								icon={<FavoriteOutlined fontSize="small" />}
+								onClick={onSave}
+							>
+								Bỏ lưu công việc
+							</Button>
+						)}
 						<Button
 							type="primary"
-							ghost
 							size="middle"
-							icon={<FavoriteBorderOutlined fontSize="small" />}
-							onClick={onSave}
+							icon={<RememberMe fontSize="small" />}
+							onClick={onApply}
 						>
-							Lưu công việc
+							Ứng tuyển ngay
 						</Button>
-					) : (
-						<Button
-							type="primary"
-							size="middle"
-							icon={<FavoriteOutlined fontSize="small" />}
-							onClick={onSave}
-						>
-							Bỏ lưu công việc
-						</Button>
-					)}
-					<Button
-						type="primary"
-						size="middle"
-						icon={<RememberMe fontSize="small" />}
-						onClick={onApply}
-					>
-						Ứng tuyển ngay
-					</Button>
-				</div>
+					</div>
+				)}
 			</div>
 			<Modal
 				open={showSelectCv}

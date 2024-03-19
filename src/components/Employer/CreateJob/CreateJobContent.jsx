@@ -128,7 +128,7 @@ const CreateJobContent = () => {
 									<Form.Item
 										name={["jobInfo", "name"]}
 										label="Vị trí tuyển dụng"
-										extra="(Lưu ý: Vị trí tuyển dụng sẽ không được chỉnh sửa sau khi tin tuyển dụng được duyệt)"
+										// extra="(Lưu ý: Vị trí tuyển dụng sẽ không được chỉnh sửa sau khi tin tuyển dụng được duyệt)"
 										required
 									>
 										<Input

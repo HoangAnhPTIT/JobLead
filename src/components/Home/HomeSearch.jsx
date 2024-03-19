@@ -12,9 +12,9 @@ import styles from "./styles.module.scss";
 
 const commonSearch = [
 	// { title: "Nhân viên bán hàng", link: "/sale" },
-	{ title: "Việc làm Hà Nội", link: "/0/ha-noi" },
-	{ title: "Việc làm Hồ Chí Minh", link: "/0/ho-chi-minh" },
-	{ title: "Việc làm Đà Nẵng", link: "/0/da-nang" },
+	{ title: "Việc làm Hà Nội", link: "/tim-viec-lam/0/ha-noi" },
+	{ title: "Việc làm Hồ Chí Minh", link: "/tim-viec-lam/0/ho-chi-minh" },
+	{ title: "Việc làm Đà Nẵng", link: "/tim-viec-lam/0/da-nang" },
 ];
 
 const HomeSearch = () => {

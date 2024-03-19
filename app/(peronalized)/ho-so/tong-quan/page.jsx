@@ -135,15 +135,12 @@ const DashboardPage = () => {
 				endpoint: apiCandidateSaveJobs,
 			});
 
-			console.log("savedRes", savedRes);
-
 			if (appliedRes?.status === 200) {
 				setAppliedJobs(appliedRes?.data?.jobs);
 			} else {
 				toast.error(errorMessage);
 			}
 			if (savedRes?.status === 200) {
-				console.log("savedJobs", savedJobs);
 				setSavedJobs(savedRes?.data?.jobs);
 			} else {
 				toast.error(errorMessage);

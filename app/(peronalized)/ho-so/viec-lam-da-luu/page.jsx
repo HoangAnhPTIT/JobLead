@@ -33,8 +33,8 @@ const columns = [
 	},
 	{
 		title: "Ngày lưu",
-		dataIndex: "savedDate",
-		key: "savedDate",
+		dataIndex: "createdDate",
+		key: "createdDate",
 		render: (value) => getDate(value),
 	},
 ];
@@ -74,7 +74,7 @@ const SavedJobPage = () => {
 					<Row gutter={16}>
 						<Col span={8}>
 							<Form.Item name="q">
-								<Input placeholder="Tên ứng viên" size="large" allowClear />
+								<Input placeholder="Vị trí/Công ty" size="large" allowClear />
 							</Form.Item>
 						</Col>
 						<Col span={6}>
