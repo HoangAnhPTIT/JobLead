@@ -1,5 +1,6 @@
 "use client";
 import {
+	ArrowForwardIos,
 	Download,
 	FmdGood,
 	HowToReg,
@@ -14,7 +15,6 @@ import classNames from "classnames";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { isEmpty } from "lodash";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -70,7 +70,6 @@ const jobAppliedColumns = [
 		title: "Địa điểm",
 		dataIndex: "jobInfo",
 		key: "location",
-		width: 140,
 		render: (value) => (
 			<div className="text-center text-99 text-sm">
 				<p>
@@ -84,7 +83,6 @@ const jobAppliedColumns = [
 		title: "Mức lương",
 		dataIndex: "jobInfo",
 		key: "salary",
-		width: 140,
 		render: (value) => (
 			<div className="text-center text-secondary text-sm">
 				<p>
@@ -98,7 +96,6 @@ const jobAppliedColumns = [
 		title: "Ngày ứng tuyển",
 		dataIndex: "applyDate",
 		key: "applyDate",
-		width: 140,
 		render: (value) => (
 			<div className="text-99 text-sm text-center">{getDate(value)}</div>
 		),
@@ -144,7 +141,6 @@ const jobSavedColumns = [
 		title: "Địa điểm",
 		dataIndex: "location",
 		key: "location",
-		width: 140,
 		render: (value) => (
 			<div className="text-center text-99 text-sm">
 				<p>
@@ -158,7 +154,6 @@ const jobSavedColumns = [
 		title: "Mức lương",
 		dataIndex: "salary",
 		key: "salary",
-		width: 140,
 		render: (value) => (
 			<div className="text-center text-secondary text-sm">
 				<p>
@@ -166,6 +161,14 @@ const jobSavedColumns = [
 				</p>
 				<p>{value}</p>
 			</div>
+		),
+	},
+	{
+		title: "Ngày lưu",
+		dataIndex: "createdDate",
+		key: "createdDate",
+		render: (value) => (
+			<div className="text-99 text-sm text-center">{getDate(value)}</div>
 		),
 	},
 ];
@@ -198,6 +201,7 @@ const ViewItem = ({ icon, bgIcon, amount, title, link }) => {
 
 const DashboardPage = () => {
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 	const [appliedJobs, setAppliedJobs] = useState();
 	const [savedJobs, setSavedJobs] = useState();
 	const [generalInfo, setGeneralInfo] = useState();
@@ -281,7 +285,20 @@ const DashboardPage = () => {
 					/>
 				</div>
 				<div className="mt-5">
-					<h1 className="text-lg mb-3">Việc làm đã ứng tuyển mới nhất</h1>
+					<div className="mb-3 flex justify-between">
+						<div className="font-semibold text-lg">
+							Việc làm đã ứng tuyển mới nhất
+						</div>
+						<div
+							className="text-primary cursor-pointer font-semibold"
+							onClick={() =>
+								router.push(`${routeMap.file}${routeMap.appliedJob}`)
+							}
+						>
+							Xem thêm
+							<ArrowForwardIos fontSize="inherit" />
+						</div>
+					</div>
 					<div className="bg-white">
 						{isEmpty(appliedJobs) ? (
 							<Nodata />
@@ -289,13 +306,27 @@ const DashboardPage = () => {
 							<Table
 								columns={jobAppliedColumns}
 								dataSource={appliedJobs}
-								// showHeader={false}
+								showHeader={false}
+								pagination={false}
 							/>
 						)}
 					</div>
 				</div>
 				<div className="mt-5">
-					<h1 className="text-lg mb-3">Việc làm đã lưu mới nhất</h1>
+					<div className="mb-3 flex justify-between">
+						<div className="font-semibold text-lg">
+							Việc làm đã lưu mới nhất
+						</div>
+						<div
+							className="text-primary cursor-pointer font-semibold"
+							onClick={() =>
+								router.push(`${routeMap.file}${routeMap.savedJob}`)
+							}
+						>
+							Xem thêm
+							<ArrowForwardIos fontSize="inherit" />
+						</div>
+					</div>{" "}
 					<div className="bg-white">
 						{isEmpty(savedJobs) ? (
 							<Nodata />
@@ -303,7 +334,8 @@ const DashboardPage = () => {
 							<Table
 								columns={jobSavedColumns}
 								dataSource={savedJobs}
-								// showHeader={false}
+								showHeader={false}
+								pagination={false}
 							/>
 						)}
 					</div>
