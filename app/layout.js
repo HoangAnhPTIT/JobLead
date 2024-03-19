@@ -43,10 +43,14 @@ const RootLayout = ({ children }) => {
 										},
 										Input: {
 											colorTextPlaceholder: "#c6c6c6",
+											borderRadius: 3,
 										},
 										Table: {
 											headerBg: primaryColor,
 											headerColor: "#fff",
+										},
+										Checkbox: {
+											borderRadius: 0,
 										},
 									},
 								}}

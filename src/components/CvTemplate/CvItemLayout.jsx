@@ -7,11 +7,10 @@ const CvItemLayout = ({ itemType, setModalType, children }) => {
 	};
 
 	return (
-		<div className="relative group">
-			<EditOutlined
-				className="absolute top-1 right-1 hidden group-hover:block"
-				onClick={onEdit}
-			/>
+		<div className="relative group h-fit">
+			<div className="absolute top-1 right-1 hidden text-lg text-green-500 group-hover:block">
+				<EditOutlined onClick={onEdit} />
+			</div>
 			{children}
 		</div>
 	);

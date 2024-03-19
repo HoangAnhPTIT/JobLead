@@ -21,6 +21,7 @@ module.exports = {
 				secondary: "#fc205c",
 				third: "#d00",
 				f0: "#f0f0f0",
+				de: "#dedede",
 				f0Blur: "rgb(240, 240, 240, 0.5)",
 				54: "#545454",
 				55: "#555",
