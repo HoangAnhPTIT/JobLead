@@ -9,6 +9,7 @@ import routeMap from "src/constants/routeMap";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CompanyItem from "./CompanyItem";
+import { isEmpty } from "lodash";
 
 const TopCompanies = () => {
 	const [companyList, setCompanyList] = useState();
@@ -28,31 +29,33 @@ const TopCompanies = () => {
 		getCompanies();
 	}, [q]);
 
-	return (
-		<Category
-			icon={<ApartmentOutlined />}
-			title="Các công ty hàng đầu"
-			extra={`${routeMap.company}/cong-ty-hang-dau`}
-			contentClass="px-0"
-		>
-			<Swiper
-				modules={[Pagination]}
-				spaceBetween={20}
-				slidesPerView={3}
-				slidesPerGroup={3}
-				pagination={{ clickable: true }}
-				loop={true}
-				autoplay={{ delay: 5000 }}
-				className="pt-2 pb-9 px-5"
+	return isEmpty(companyList) ? null : (
+		<div className="mb-8">
+			<Category
+				icon={<ApartmentOutlined />}
+				title="Các công ty hàng đầu"
+				extra={`${routeMap.company}/cong-ty-hang-dau`}
+				contentClass="px-0"
 			>
-				{companyList &&
-					companyList?.map((item, i) => (
-						<SwiperSlide key={i}>
-							<CompanyItem item={item} />
-						</SwiperSlide>
-					))}
-			</Swiper>
-		</Category>
+				<Swiper
+					modules={[Pagination]}
+					spaceBetween={20}
+					slidesPerView={3}
+					slidesPerGroup={3}
+					pagination={{ clickable: true }}
+					loop={true}
+					autoplay={{ delay: 5000 }}
+					className="pt-2 pb-9 px-5"
+				>
+					{companyList &&
+						companyList?.map((item, i) => (
+							<SwiperSlide key={i}>
+								<CompanyItem item={item} />
+							</SwiperSlide>
+						))}
+				</Swiper>
+			</Category>
+		</div>
 	);
 };
 

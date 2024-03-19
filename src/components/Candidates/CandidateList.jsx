@@ -15,8 +15,14 @@ import { useState } from "react";
 import Category from "src/commons/Category";
 import { USER_ROLE } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { genArrayData, genUrlParams } from "src/helper/format";
+import {
+	convertSearchParamsToObject,
+	genArrayData,
+	genUrlParams,
+} from "src/helper/format";
 import ModalRoleView from "./ModalRoleView";
+import { isEmpty } from "lodash";
+import Nodata from "src/commons/Nodata";
 
 const color = "#f19a2c";
 
@@ -120,7 +126,9 @@ const CandidateList = ({ data }) => {
 	};
 
 	const onChangePage = async (page) => {
-		router.push(genUrlParams(pathname, { page }));
+		const searchParamsObject =
+			searchParams.toString() && convertSearchParamsToObject(searchParams);
+		router.push(genUrlParams(pathname, { ...searchParamsObject, page }));
 	};
 
 	return (
@@ -130,16 +138,20 @@ const CandidateList = ({ data }) => {
 				icon={<Search />}
 				contentClass="px-5 py-0"
 			>
-				{data?.candidates?.map((item, i) => (
-					<Item item={item} key={i} handleClickItem={handleClickItem} />
-				))}
-				{data?.count > 0 && (
-					<Pagination
-						count={Math.ceil(data?.count / 10)}
-						page={currentPage}
-						onChange={(e, page) => onChangePage(page)}
-						className="flex justify-center py-5 bg-white"
-					/>
+				{isEmpty(data?.candidates) ? (
+					<Nodata />
+				) : (
+					<>
+						{data?.candidates?.map((item, i) => (
+							<Item item={item} key={i} handleClickItem={handleClickItem} />
+						))}
+						<Pagination
+							count={Math.ceil(data?.count / 10)}
+							page={currentPage}
+							onChange={(e, page) => onChangePage(page)}
+							className="flex justify-center py-5 bg-white"
+						/>
+					</>
 				)}
 			</Category>
 			<ModalRoleView

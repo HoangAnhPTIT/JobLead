@@ -8,29 +8,52 @@ import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateApplication } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const columns = [
 	{
 		title: "Vị trí / Công ty",
-		dataIndex: "candidateInfo",
+		dataIndex: "jobInfo",
 		key: "name",
-		render: (value) => value?.name,
+		render: (value) => (
+			<div>
+				<span
+					className="link"
+					onClick={() =>
+						window.open(`${routeMap.job}${routeMap.detail}/${value?.slug}`)
+					}
+				>
+					{value?.jobName}
+				</span>
+				<span className="mx-1">/</span>
+				<span
+					className="link"
+					onClick={() =>
+						window.open(`${routeMap.company}/${value?.company?.id}`)
+					}
+				>
+					{value?.company?.name}
+				</span>
+			</div>
+		),
 	},
 	{
 		title: "Địa điểm",
-		dataIndex: "point",
-		key: "point",
+		dataIndex: "jobInfo",
+		key: "location",
+		render: (value) => value?.location,
 	},
 	{
 		title: "Mức lương",
-		dataIndex: "point",
-		key: "point",
+		dataIndex: "jobInfo",
+		key: "salary",
+		render: (value) => value?.salary,
 	},
 	{
 		title: "Ngày ứng tuyển",
-		dataIndex: "viewedDate",
-		key: "viewedDate",
+		dataIndex: "applyDate",
+		key: "applyDate",
 		render: (value) => getDate(value),
 	},
 ];

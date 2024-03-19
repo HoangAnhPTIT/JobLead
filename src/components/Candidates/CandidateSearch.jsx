@@ -58,7 +58,6 @@ const CandidateSearch = () => {
 						</Grid>
 						<Grid item xs={3}>
 							<SelectFilter
-								valueKey="slug"
 								control={control}
 								name="careerId"
 								placeholder="Ngành nghề"
@@ -67,7 +66,6 @@ const CandidateSearch = () => {
 						</Grid>
 						<Grid item xs={3}>
 							<SelectFilter
-								valueKey="slug"
 								control={control}
 								name="workLocationId"
 								placeholder="Địa điểm"

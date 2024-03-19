@@ -1,5 +1,15 @@
 "use client";
-import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
+import { DeleteOutline } from "@mui/icons-material";
+import {
+	Button,
+	Col,
+	DatePicker,
+	Form,
+	Input,
+	Row,
+	Table,
+	Tooltip,
+} from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
@@ -8,6 +18,7 @@ import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateSaveJobs } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const columns = [
@@ -16,9 +27,25 @@ const columns = [
 		dataIndex: "",
 		key: "name",
 		render: (value) => (
-			<span>
-				{value?.jobName} / {value?.company?.name}
-			</span>
+			<div>
+				<span
+					className="link"
+					onClick={() =>
+						window.open(`${routeMap.job}${routeMap.detail}/${value?.slug}`)
+					}
+				>
+					{value?.jobName}
+				</span>
+				<span className="mx-1">/</span>
+				<span
+					className="link"
+					onClick={() =>
+						window.open(`${routeMap.company}/${value?.company?.id}`)
+					}
+				>
+					{value?.company?.name}
+				</span>
+			</div>
 		),
 	},
 	{
@@ -36,6 +63,22 @@ const columns = [
 		dataIndex: "createdDate",
 		key: "createdDate",
 		render: (value) => getDate(value),
+	},
+	{
+		title: "Hành động",
+		dataIndex: "",
+		key: "action",
+		width: 100,
+		render: (record) => (
+			<div className="text-center">
+				<Tooltip title="Bỏ lưu công việc">
+					<DeleteOutline
+						fontSize="small"
+						className="text-red-600 cursor-pointer"
+					/>
+				</Tooltip>
+			</div>
+		),
 	},
 ];
 

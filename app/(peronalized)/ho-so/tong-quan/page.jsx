@@ -15,6 +15,7 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { isEmpty } from "lodash";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
@@ -30,7 +31,81 @@ import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
-const columns = [
+const jobAppliedColumns = [
+	{
+		title: "Việc làm",
+		dataIndex: "jobInfo",
+		key: "info",
+		render: (value) => (
+			<div className="flex gap-4">
+				<Image
+					src={value?.company?.avatar}
+					alt={value?.company?.name}
+					width={40}
+					height={40}
+					preview={false}
+				/>
+				<div>
+					<p
+						className="text-[15px] link font-semibold"
+						onClick={() =>
+							window.open(`${routeMap.job}${routeMap.detail}/${value?.jobId}`)
+						}
+					>
+						{value?.jobName}
+					</p>
+					<p
+						className="text-sm text-99 link"
+						onClick={() =>
+							window.open(`${routeMap.company}/${value?.company?.id}`)
+						}
+					>
+						{value?.company?.name}
+					</p>
+				</div>
+			</div>
+		),
+	},
+	{
+		title: "Địa điểm",
+		dataIndex: "jobInfo",
+		key: "location",
+		width: 140,
+		render: (value) => (
+			<div className="text-center text-99 text-sm">
+				<p>
+					<FmdGood fontSize="small" />
+				</p>
+				<p>{value?.location}</p>
+			</div>
+		),
+	},
+	{
+		title: "Mức lương",
+		dataIndex: "jobInfo",
+		key: "salary",
+		width: 140,
+		render: (value) => (
+			<div className="text-center text-secondary text-sm">
+				<p>
+					<PaidOutlined fontSize="small" />
+				</p>
+				<p>{value?.salary}</p>
+			</div>
+		),
+	},
+	{
+		title: "Ngày ứng tuyển",
+		dataIndex: "applyDate",
+		key: "applyDate",
+		width: 140,
+		render: (value) => (
+			<div className="text-99 text-sm text-center">{getDate(value)}</div>
+		),
+	},
+];
+
+const jobSavedColumns = [
 	{
 		title: "Việc làm",
 		dataIndex: "",
@@ -45,17 +120,21 @@ const columns = [
 					preview={false}
 				/>
 				<div>
-					<p>
-						<Link href={`${routeMap.job}${routeMap.detail}/${value?.jobId}`}>
-							<span className="text-[15px] text-primary font-semibold">
-								{value?.jobName}
-							</span>
-						</Link>
+					<p
+						className="text-[15px] link font-semibold"
+						onClick={() =>
+							window.open(`${routeMap.job}${routeMap.detail}/${value?.jobId}`)
+						}
+					>
+						{value?.jobName}
 					</p>
-					<p>
-						<Link href={`${routeMap.company}/${value?.company?.id}`}>
-							<span className="text-sm text-99">{value?.company?.name}</span>
-						</Link>
+					<p
+						className="text-sm text-99 link"
+						onClick={() =>
+							window.open(`${routeMap.company}/${value?.company?.id}`)
+						}
+					>
+						{value?.company?.name}
 					</p>
 				</div>
 			</div>
@@ -65,6 +144,7 @@ const columns = [
 		title: "Địa điểm",
 		dataIndex: "location",
 		key: "location",
+		width: 140,
 		render: (value) => (
 			<div className="text-center text-99 text-sm">
 				<p>
@@ -78,6 +158,7 @@ const columns = [
 		title: "Mức lương",
 		dataIndex: "salary",
 		key: "salary",
+		width: 140,
 		render: (value) => (
 			<div className="text-center text-secondary text-sm">
 				<p>
@@ -87,19 +168,18 @@ const columns = [
 			</div>
 		),
 	},
-	{
-		title: "Ngày ứng tuyển",
-		dataIndex: "viewedDate",
-		key: "viewedDate",
-		render: (value) => (
-			<span className="text-99 text-sm">{getDate(value)}</span>
-		),
-	},
 ];
 
-const ViewItem = ({ icon, bgIcon, amount, title }) => {
+const ViewItem = ({ icon, bgIcon, amount, title, link }) => {
+	const router = useRouter();
 	return (
-		<div className="shadow p-5 flex gap-5 bg-white">
+		<div
+			className={classNames(
+				"shadow p-5 flex gap-5 bg-white",
+				link && "cursor-pointer"
+			)}
+			onClick={() => link && router.push(link)}
+		>
 			<div
 				className={classNames(
 					"rounded-full w-[50px] h-[50px] flex justify-center items-center",
@@ -136,7 +216,7 @@ const DashboardPage = () => {
 			});
 
 			if (appliedRes?.status === 200) {
-				setAppliedJobs(appliedRes?.data?.jobs);
+				setAppliedJobs(appliedRes?.data);
 			} else {
 				toast.error(errorMessage);
 			}
@@ -172,6 +252,7 @@ const DashboardPage = () => {
 						amount={generalInfo?.numOfViewProfile || 0}
 						icon={<Visibility style={{ color: "#ab8ce4" }} />}
 						bgIcon="bg-[#eee8fa]"
+						link={`${routeMap.file}${routeMap.viewedByEmployer}`}
 					/>
 					<ViewItem
 						title="NTD gửi email mời ứng tuyển"
@@ -196,6 +277,7 @@ const DashboardPage = () => {
 						amount={generalInfo?.numOfCv || 0}
 						icon={<TextSnippet style={{ color: "#fc225e" }} />}
 						bgIcon="bg-[#fed2de]"
+						link={`${routeMap.file}${routeMap.cv}`}
 					/>
 				</div>
 				<div className="mt-5">
@@ -205,9 +287,9 @@ const DashboardPage = () => {
 							<Nodata />
 						) : (
 							<Table
-								columns={columns}
+								columns={jobAppliedColumns}
 								dataSource={appliedJobs}
-								showHeader={false}
+								// showHeader={false}
 							/>
 						)}
 					</div>
@@ -219,9 +301,9 @@ const DashboardPage = () => {
 							<Nodata />
 						) : (
 							<Table
-								columns={columns}
+								columns={jobSavedColumns}
 								dataSource={savedJobs}
-								showHeader={false}
+								// showHeader={false}
 							/>
 						)}
 					</div>

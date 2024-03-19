@@ -11,10 +11,14 @@ import { Suspense, useEffect, useState } from "react";
 
 import {
 	BorderColor,
+	DescriptionOutlined,
+	DnsOutlined,
 	KeyboardArrowDown,
 	Logout,
 	MenuOutlined,
+	MiscellaneousServicesOutlined,
 	SettingsOutlined,
+	SnippetFolderOutlined,
 	TextSnippet,
 } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
@@ -72,7 +76,17 @@ const userMenu = {
 		{
 			icon: <TextSnippet />,
 			label: "Quản lý hồ sơ",
+			link: `${routeMap.file}${routeMap.dashboard}`,
+		},
+		{
+			icon: <DescriptionOutlined />,
+			label: "Danh sách CV",
 			link: `${routeMap.file}${routeMap.cv}`,
+		},
+		{
+			icon: <SnippetFolderOutlined />,
+			label: "Việc làm đã lưu",
+			link: `${routeMap.file}${routeMap.savedJob}`,
 		},
 	],
 	[USER_ROLE.employer]: [
@@ -85,6 +99,16 @@ const userMenu = {
 			icon: <BorderColor />,
 			label: "Đăng tin tuyển dụng",
 			link: `${routeMap.employer}${routeMap.createJob}`,
+		},
+		{
+			icon: <DnsOutlined />,
+			label: "Quản lý tin tuyển dụng",
+			link: `${routeMap.employer}${routeMap.postList}`,
+		},
+		{
+			icon: <MiscellaneousServicesOutlined />,
+			label: "Quản lý dịch vụ",
+			link: `${routeMap.employer}${routeMap.packageManage}`,
 		},
 	],
 };

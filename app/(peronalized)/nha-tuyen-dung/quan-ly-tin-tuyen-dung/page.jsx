@@ -17,7 +17,7 @@ import {
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
-import { NO_DATA } from "src/constants/common";
+import { NO_DATA, errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
@@ -28,15 +28,16 @@ const PostListPage = () => {
 	const [userApply, setUserApply] = useState();
 	const [statisical, setStatisical] = useState();
 	const router = useRouter();
+	const [filter, setFilter] = useState({});
 
 	const onSubmit = () => {
-		console.log(form.getFieldsValue());
+		const values = form.getFieldsValue();
+		setFilter(values);
 	};
 
 	useEffect(() => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
-			const res = await httpAuthGet({ endpoint: apiCompanyJobs });
 			const resUser = await httpAuthGet({
 				endpoint: apiCompanyApplication,
 				data: { paging: { size: 3, page: 1 } },
@@ -44,9 +45,7 @@ const PostListPage = () => {
 			const resStatistical = await httpAuthGet({
 				endpoint: apiCompanyApplicationGeneralInfo,
 			});
-			if (res?.status === 200) {
-				setPosts(res.data);
-			}
+
 			if (resUser?.status === 200) {
 				setUserApply(resUser.data?.application);
 			}
@@ -54,17 +53,30 @@ const PostListPage = () => {
 				setStatisical(resStatistical.data);
 			}
 
-			if (
-				res?.status !== 200 ||
-				resUser?.status !== 200 ||
-				resStatistical?.status !== 200
-			) {
-				toast.error(res.message);
+			if (resUser?.status !== 200 || resStatistical?.status !== 200) {
+				toast.error(errorMessage);
 			}
 			dispatch(updateLoading(false));
 		};
 		getData();
 	}, []);
+
+	useEffect(() => {
+		const getJobs = async () => {
+			dispatch(updateLoading(true));
+			const res = await httpAuthGet({
+				endpoint: apiCompanyJobs,
+				params: filter,
+			});
+			if (res?.status === 200) {
+				setPosts(res.data);
+			} else {
+				toast.error(res?.message);
+			}
+			dispatch(updateLoading(false));
+		};
+		getJobs();
+	}, [dispatch, filter]);
 
 	return (
 		<EmployerLayout>
@@ -123,7 +135,7 @@ const PostListPage = () => {
 											</div>
 											<div>
 												<Link
-													href={`${routeMap.job}${routeMap.detail}/${post?.jobId}`}
+													href={`${routeMap.job}${routeMap.detail}/${post?.slug}`}
 												>
 													<h1 className="text-lg text-primary font-semibold three-dot">
 														{post?.jobName}

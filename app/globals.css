@@ -90,3 +90,10 @@ body {
 	font-style: italic;
 	margin-top: 5px !important;
 }
+
+.link {
+	@apply cursor-pointer text-primary;
+}
+.link:hover {
+	@apply text-blue-400;
+}
