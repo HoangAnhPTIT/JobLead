@@ -48,6 +48,7 @@ export const apiCandidateGeneralInfo = `${apiCandidate}/general-info`;
 export const apiCandidateApplyJob = `${apiCandidate}/apply/job`;
 
 export const apiCv = "/Cv";
+export const apiCvTemplate = `${apiCv}/template`;
 
 export const apiUser = "/User";
 export const apiUserViewJob = `${apiUser}/view/job`;

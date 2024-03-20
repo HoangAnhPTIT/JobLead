@@ -1,4 +1,4 @@
-import { Col, DatePicker, Form, Input, Modal, Row, Select, Spin } from "antd";
+import { Col, DatePicker, Form, Input, Modal, Row, Spin } from "antd";
 import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCandidateEducation } from "src/apis/apiEndpoint";
+import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import { updateSuccessMessage } from "src/constants/common";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
@@ -100,19 +101,14 @@ const ModalEducation = ({ data, modalType, closeModal }) => {
 							</Form.Item>
 						</Col>
 						<Col span={12}>
-							<Form.Item
+							<SelectAntd
+								form={Form}
 								name="learningClassificationId"
 								label="Xếp loại"
 								rules={[{ required: true }]}
-							>
-								<Select placeholder="Chọn xếp loại">
-									{entities.LearningClassification?.map((item, i) => (
-										<Select.Option key={i} value={item?.id}>
-											{item?.name}
-										</Select.Option>
-									))}
-								</Select>
-							</Form.Item>
+								list={entities?.LearningClassification}
+								placeholder="Chọn xếp loại"
+							/>
 						</Col>
 						<Col span={12}>
 							<Form.Item

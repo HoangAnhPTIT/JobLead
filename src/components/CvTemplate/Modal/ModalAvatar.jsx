@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@mui/icons-material";
-import { Image, Modal, Upload } from "antd";
+import { Image, Modal, Spin, Upload } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCandidateUploadAvatar } from "src/apis/apiEndpoint";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
-const ModalAvatar = ({ modalType, handleClose }) => {
+const ModalAvatar = ({ modalType, closeModal }) => {
 	const dispatch = useAppDispatch();
 	const [file, setFile] = useState(null);
 	const [imageUrl, setImageUrl] = useState(null);
@@ -25,9 +25,9 @@ const ModalAvatar = ({ modalType, handleClose }) => {
 			});
 			if (res.status === 200) {
 				toast.success("Tải ảnh thành công");
-				closeModal();
+				handleClose();
 			} else {
-				toast(res.message);
+				toast.error(res.message);
 			}
 		} catch (error) {
 			toast(error.message || error);
@@ -36,10 +36,10 @@ const ModalAvatar = ({ modalType, handleClose }) => {
 		}
 	};
 
-	const closeModal = () => {
+	const handleClose = () => {
 		setFile(null);
 		setImageUrl(null);
-		handleClose();
+		closeModal();
 	};
 
 	const props = {
@@ -66,20 +66,22 @@ const ModalAvatar = ({ modalType, handleClose }) => {
 			okText="Lưu thông tin"
 			confirmLoading={isLoading}
 		>
-			<div className="flex justify-center items-center min-h-[200px]">
-				<Upload {...props}>
-					<button style={{ border: 0, background: "none" }} type="button">
-						{imageUrl ? (
-							<Image src={imageUrl} alt="" preview={false} />
-						) : (
-							<div className="p-10 border border-dashed border-33 rounded">
-								<UploadOutlined fontSize="large" />
-								<p className="text-lg">Tải lên ảnh</p>
-							</div>
-						)}
-					</button>
-				</Upload>
-			</div>
+			<Spin spinning={isLoading}>
+				<div className="flex justify-center items-center min-h-[200px]">
+					<Upload {...props}>
+						<button style={{ border: 0, background: "none" }} type="button">
+							{imageUrl ? (
+								<Image src={imageUrl} alt="" preview={false} />
+							) : (
+								<div className="p-10 border border-dashed border-33 rounded">
+									<UploadOutlined fontSize="large" />
+									<p className="text-lg">Tải lên ảnh</p>
+								</div>
+							)}
+						</button>
+					</Upload>
+				</div>
+			</Spin>
 		</Modal>
 	);
 };

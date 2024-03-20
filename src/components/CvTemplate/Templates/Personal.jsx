@@ -27,10 +27,7 @@ const PersonalTemplate = ({
 	onEditSection,
 	onDeleteSection,
 	setModalType,
-	data,
 }) => {
-	console.log("info", info);
-
 	return (
 		<div className="bg-white">
 			<div
@@ -41,13 +38,14 @@ const PersonalTemplate = ({
 					className="border-r-2 border-white w-fit px-10 h-full cursor-pointer"
 					onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
 				>
-					{data?.avatar ? (
+					{info?.generalInfo?.avatar ? (
 						<Image
-							src={data?.avatar}
+							src={info?.generalInfo?.avatar}
 							alt=""
-							width={150}
+							width={200}
 							height="auto"
 							preview={false}
+							className="rounded-full"
 						/>
 					) : (
 						<div className="p-5 bg-white rounded-full w-fit">

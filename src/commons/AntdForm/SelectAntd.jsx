@@ -16,7 +16,6 @@ const SelectAntd = ({
 		<Form.Item name={name} label={label} {...option}>
 			<Select
 				showSearch
-				size="large"
 				suffixIcon={<CaretDownOutlined />}
 				placeholder={placeholder}
 				fieldNames={{ label: nameKey, value: valueKey }}

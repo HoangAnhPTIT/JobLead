@@ -9,11 +9,17 @@ import ModalExperience from "../Modal/ModalExperience";
 import ModalIt from "../Modal/ModalIt";
 import ModalLanguage from "../Modal/ModalLanguage";
 import ModalAvatar from "../Modal/ModalAvatar";
+import ModalAdditionInfo from "../Modal/ModalAdditionInfo";
+import { CV_MODAL_TYPES } from "src/constants/cv";
+import ModalSave from "../Modal/ModalSave";
 
 const CvTemplateLayout = ({
 	info,
+	additionInfo,
+	cvInfo,
 	dataSelected,
 	modalType,
+	setModalType,
 	closeModal,
 	children,
 }) => {
@@ -32,13 +38,13 @@ const CvTemplateLayout = ({
 										variant="contained"
 										className="flex items-center !text-33 !bg-yellow2 h-9"
 										fullWidth
-										// onClick={() =>
-										// 	setModalUpdating(
-										// 		expectationData?.id
-										// 			? CV_MODAL_TYPES.save
-										// 			: CV_MODAL_TYPES.expectation
-										// 	)
-										// }
+										onClick={() =>
+											setModalType(
+												additionInfo?.id
+													? CV_MODAL_TYPES.save
+													: CV_MODAL_TYPES.expectation
+											)
+										}
 									>
 										<Save fontSize="small" />
 										<div className="ml-1 h-5">Lưu hồ sơ</div>
@@ -54,9 +60,7 @@ const CvTemplateLayout = ({
 											</span>
 											<span
 												className="underline text-[#eee] cursor-pointer"
-												// onClick={() =>
-												// 	setModalUpdating(CV_MODAL_TYPES.expectation)
-												// }
+												onClick={() => setModalType(CV_MODAL_TYPES.expectation)}
 											>
 												Chỉnh sửa thông tin công việc mong muốn.
 											</span>
@@ -284,6 +288,12 @@ const CvTemplateLayout = ({
 				closeModal={closeModal}
 			/>
 			<ModalAvatar modalType={modalType} closeModal={closeModal} />
+			<ModalAdditionInfo
+				data={additionInfo}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalSave data={cvInfo} modalType={modalType} closeModal={closeModal} />
 		</>
 	);
 };

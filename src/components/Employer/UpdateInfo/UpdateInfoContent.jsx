@@ -29,6 +29,7 @@ const UpdateInfoContent = () => {
 	const handleChangePassword = () => {};
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
+		``;
 		try {
 			const values = await form.validateFields();
 			const payload = { ...info, ...values };
