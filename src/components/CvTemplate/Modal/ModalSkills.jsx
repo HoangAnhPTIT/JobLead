@@ -1,4 +1,4 @@
-import { Checkbox, Col, Form, Input, Modal, Row } from "antd";
+import { Checkbox, Col, Form, Input, Modal, Row, Spin } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect } from "react";
@@ -9,6 +9,7 @@ import { updateSuccessMessage } from "src/constants/common";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
 const ModalSkill = ({ data, modalType, closeModal }) => {
+	const { isLoading } = useAppSelector((state) => state.loading);
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const { entities } = useAppSelector((state) => state.entity);
@@ -17,7 +18,6 @@ const ModalSkill = ({ data, modalType, closeModal }) => {
 		dispatch(updateLoading(true));
 		try {
 			const values = await form.validateFields();
-			console.log("values", values);
 			const response = await httpAuthPut({
 				endpoint: apiCandidateSkill,
 				data: values,
@@ -44,29 +44,32 @@ const ModalSkill = ({ data, modalType, closeModal }) => {
 	return (
 		<Modal
 			open={modalType === CV_MODAL_TYPES.skill}
-			onCancel={closeModal}
+			onCancel={() => closeModal(false)}
 			title="Kỹ năng"
 			className="p-0"
 			width={750}
 			onOk={onSubmit}
 			okText="Lưu thông tin"
+			confirmLoading={isLoading}
 		>
-			<Form form={form} layout="vertical" autoComplete="off">
-				<Form.Item name="description">
-					<Input.TextArea />
-				</Form.Item>
-				<Form.Item name="skillIds">
-					<Checkbox.Group>
-						<Row gutter={[16, 16]} className="mt-4">
-							{entities?.SkillSet?.map((item, i) => (
-								<Col span={12} key={i}>
-									<Checkbox value={item?.id}>{item?.name}</Checkbox>
-								</Col>
-							))}
-						</Row>
-					</Checkbox.Group>
-				</Form.Item>
-			</Form>
+			<Spin spinning={isLoading}>
+				<Form form={form} layout="vertical" autoComplete="off">
+					<Form.Item name="description">
+						<Input.TextArea />
+					</Form.Item>
+					<Form.Item name="skillIds">
+						<Checkbox.Group>
+							<Row gutter={[16, 16]} className="mt-4">
+								{entities?.SkillSet?.map((item, i) => (
+									<Col span={12} key={i}>
+										<Checkbox value={item?.id}>{item?.name}</Checkbox>
+									</Col>
+								))}
+							</Row>
+						</Checkbox.Group>
+					</Form.Item>
+				</Form>
+			</Spin>
 		</Modal>
 	);
 };

@@ -1,7 +1,6 @@
 import { EditOutlined } from "@ant-design/icons";
-import React from "react";
 
-const CvItemLayout = ({ itemType, setModalType, children }) => {
+const CvEditLayout = ({ itemType, setModalType, children }) => {
 	const onEdit = () => {
 		setModalType(itemType);
 	};
@@ -16,4 +15,4 @@ const CvItemLayout = ({ itemType, setModalType, children }) => {
 	);
 };
 
-export default CvItemLayout;
+export default CvEditLayout;

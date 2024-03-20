@@ -2,10 +2,18 @@
 import { Check, Edit, Info, Save } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import { Col, Row, Tooltip } from "antd";
-import ModalGeneralInfo from "./Modal/ModalGeneralInfo";
-import ModalSkill from "./Modal/ModalSkills";
+import ModalGeneralInfo from "../Modal/ModalGeneralInfo";
+import ModalSkill from "../Modal/ModalSkills";
+import ModalEducation from "../Modal/ModalEducation";
+import ModalExperience from "../Modal/ModalExperience";
 
-const CvTemplateLayout = ({ info, modalType, closeModal, children }) => {
+const CvTemplateLayout = ({
+	info,
+	dataSelected,
+	modalType,
+	closeModal,
+	children,
+}) => {
 	return (
 		<>
 			<div className="bg-bgCv p-5 min-h-[calc(100vh-64px)]">
@@ -249,6 +257,16 @@ const CvTemplateLayout = ({ info, modalType, closeModal, children }) => {
 			/>
 			<ModalSkill
 				data={info?.softSkill}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalEducation
+				data={dataSelected}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalExperience
+				data={dataSelected}
 				modalType={modalType}
 				closeModal={closeModal}
 			/>

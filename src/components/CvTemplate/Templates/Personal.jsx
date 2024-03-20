@@ -1,27 +1,33 @@
-import React from "react";
-import CvItemLayout from "../CvItemLayout";
-import { CV_MODAL_TYPES } from "src/constants/cv";
-import useCandidateInfo from "src/hooks/useCandidateInfo";
-import { Col, Image, Row } from "antd";
+import { StarFilled } from "@ant-design/icons";
 import {
+	Adjust,
 	CalendarMonthOutlined,
-	Email,
 	EmailOutlined,
-	PhoneAndroid,
 	PhotoCamera,
 	PlaceOutlined,
 	SmartphoneOutlined,
-	Star,
 	TransgenderOutlined,
 } from "@mui/icons-material";
+import { Stack } from "@mui/system";
+import { Col, Image, Row } from "antd";
+import { isEmpty } from "lodash";
+import { CV_MODAL_TYPES } from "src/constants/cv";
+import CvEditLayout from "../Common/CvEditLayout";
+import CvAddLayout from "../Common/CvAddLayout";
+import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
+import NoDataYet from "../Common/NoDataYet";
 import Fullname from "../Components/Generalnfo/Fullname";
 import WorkTitle from "../Components/Generalnfo/WorkTitle";
-import { Stack } from "@mui/system";
-import { StarFilled } from "@ant-design/icons";
 
 const color = "#B31312";
 
-const PersonalTemplate = ({ info, modalType, setModalType, data }) => {
+const PersonalTemplate = ({
+	info,
+	onEditSection,
+	onDeleteSection,
+	setModalType,
+	data,
+}) => {
 	console.log("info", info);
 
 	return (
@@ -46,7 +52,7 @@ const PersonalTemplate = ({ info, modalType, setModalType, data }) => {
 					)}
 				</div>
 				<div className="px-10">
-					<CvItemLayout
+					<CvEditLayout
 						itemType={CV_MODAL_TYPES.generalInfo}
 						setModalType={setModalType}
 					>
@@ -55,28 +61,34 @@ const PersonalTemplate = ({ info, modalType, setModalType, data }) => {
 							workTitle={info?.generalInfo?.workTitle}
 							css="text-white"
 						/>
-					</CvItemLayout>
-					<CvItemLayout
+					</CvEditLayout>
+					<CvEditLayout
 						itemType={CV_MODAL_TYPES.careerGoal}
 						setModalType={setModalType}
 					>
 						<div className="pt-5">
-							{info?.career?.items?.map((item, i) => (
-								<p key={i}>
-									<StarFilled className="mr-2" />
-									{item?.name}
-								</p>
-							))}
-							<p className="mt-1">{info?.career?.description}</p>
+							{!info?.career?.description && isEmpty(info?.career.items) ? (
+								<NoDataYet />
+							) : (
+								<>
+									{info?.career?.items?.map((item, i) => (
+										<p key={i}>
+											<StarFilled className="mr-2" />
+											{item?.name}
+										</p>
+									))}
+									<p className="mt-1">{info?.career?.description}</p>
+								</>
+							)}
 						</div>
-					</CvItemLayout>
+					</CvEditLayout>
 				</div>
 			</div>
-			<div className="h-2 bg-de"></div>
+			<div className="h-2.5 bg-de"></div>
 			<div className="p-4">
-				<Row gutter={16}>
+				<Row gutter={30}>
 					<Col span={12}>
-						<CvItemLayout
+						<CvEditLayout
 							itemType={CV_MODAL_TYPES.generalInfo}
 							setModalType={setModalType}
 						>
@@ -128,10 +140,10 @@ const PersonalTemplate = ({ info, modalType, setModalType, data }) => {
 									{info?.generalInfo?.location}
 								</p>
 							</Stack>
-						</CvItemLayout>
+						</CvEditLayout>
 					</Col>
 					<Col span={12}>
-						<CvItemLayout
+						<CvEditLayout
 							itemType={CV_MODAL_TYPES.skill}
 							setModalType={setModalType}
 						>
@@ -142,20 +154,153 @@ const PersonalTemplate = ({ info, modalType, setModalType, data }) => {
 								KỸ NĂNG
 							</div>
 							<div className="py-4 px-2">
-								<Stack gap={1}>
-									{info?.softSkill?.items?.map((item, i) => (
-										<p key={i}>
-											<StarFilled className="mr-2" style={{ color }} />
-											{item?.name}
-										</p>
-									))}
-								</Stack>
-								<p className="mt-1">{info?.softSkill?.description}</p>
+								{!info?.softSkill?.description &&
+								isEmpty(info?.softSkill?.items) ? (
+									<NoDataYet />
+								) : (
+									<>
+										<Stack gap={1}>
+											{info?.softSkill?.items?.map((item, i) => (
+												<p key={i}>
+													<StarFilled className="mr-2" style={{ color }} />
+													{item?.name}
+												</p>
+											))}
+										</Stack>
+										<p className="mt-1">{info?.softSkill?.description}</p>
+									</>
+								)}
 							</div>
-						</CvItemLayout>
+						</CvEditLayout>
 					</Col>
 				</Row>
 			</div>
+			<div className="p-4">
+				<Row gutter={36}>
+					<Col span={12}>
+						<CvAddLayout
+							itemType={CV_MODAL_TYPES.education}
+							setModalType={setModalType}
+						>
+							<div
+								className="border-b-[3px] pb-1 border-de text-xl font-bold text-center"
+								style={{ color }}
+							>
+								HỌC VẤN
+							</div>
+							<div className="py-4">
+								{isEmpty(info?.education) ? (
+									<NoDataYet />
+								) : (
+									info?.education?.map((item, i) => (
+										<CvEditDeleteLayout
+											key={i}
+											onEdit={() =>
+												onEditSection(item, CV_MODAL_TYPES.education)
+											}
+											onDelete={() =>
+												onDeleteSection(item?.id, CV_MODAL_TYPES.education)
+											}
+										>
+											<div className="px-1 relative">
+												<div className="absolute -top-1 -left-[5px]">
+													<Adjust fontSize="small" />
+												</div>
+												<div className="border-l-2 pl-4 pb-4">
+													<p>{item?.period}</p>
+													<p className="mt-2">
+														<strong className="uppercase">
+															{item?.certification}
+														</strong>
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">
+															Trường, nơi đào tạo:
+														</strong>
+														{item?.school}
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">Xếp loại:</strong>
+														{item?.degree}
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">Khoa:</strong>
+														{item?.class}
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">Ngành:</strong>
+														{item?.major}
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">Mô tả:</strong>
+														{item?.description}
+													</p>
+												</div>
+											</div>
+										</CvEditDeleteLayout>
+									))
+								)}
+							</div>
+						</CvAddLayout>
+					</Col>
+					<Col span={12}>
+						<CvAddLayout
+							itemType={CV_MODAL_TYPES.experience}
+							setModalType={setModalType}
+						>
+							<div
+								className="border-b-[3px] pb-1 border-de text-xl font-bold text-center"
+								style={{ color }}
+							>
+								KINH NGHIỆM LÀM VIỆC
+							</div>
+							<div className="py-4">
+								{isEmpty(info?.experience) ? (
+									<NoDataYet />
+								) : (
+									info?.experience?.map((item, i) => (
+										<CvEditDeleteLayout
+											key={i}
+											onEdit={() =>
+												onEditSection(item, CV_MODAL_TYPES.experience)
+											}
+											onDelete={() =>
+												onDeleteSection(item?.id, CV_MODAL_TYPES.experience)
+											}
+										>
+											<div className="px-1 relative">
+												<div className="absolute top-8 -left-[5px]">
+													<Adjust fontSize="small" />
+												</div>
+												<div className="border-l-2 pl-4 pb-4">
+													<p>
+														<strong
+															className="uppercase text-lg"
+															style={{ color }}
+														>
+															{item?.company}
+														</strong>
+													</p>
+													<p className="mt-1">
+														<strong className="mr-1">Vị trí:</strong>
+														{item?.title}
+													</p>
+													<p>{item?.period}</p>
+													<p className="mt-1">
+														<strong className="mr-1">Mô tả:</strong>
+													</p>
+													<p>{item?.description}</p>
+												</div>
+											</div>
+										</CvEditDeleteLayout>
+									))
+								)}
+							</div>
+						</CvAddLayout>
+					</Col>
+				</Row>
+			</div>
+			<div className="h-2.5 bg-de"></div>
 		</div>
 	);
 };

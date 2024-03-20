@@ -41,9 +41,14 @@ const useCandidateInfo = () => {
 						description: data?.careerGoalDescription,
 					},
 					education: data?.educations?.map((item) => ({
-						period: `${dayjs(item?.startDate).format("DD/MM/YYYY")} - ${dayjs(
+						id: item?.id,
+						period: `${
+							item?.startDate ? dayjs(item?.startDate).format("DD/MM/YYYY") : ""
+						} - ${
 							item?.finishDate
-						).format("DD/MM/YYYY")}`,
+								? dayjs(item?.finishDate).format("DD/MM/YYYY")
+								: ""
+						}`,
 						degree: item?.learningClassification?.name,
 						degreeId: item?.learningClassification?.id,
 						certification: item?.certification,
@@ -52,18 +57,25 @@ const useCandidateInfo = () => {
 						major: item?.major,
 						startDate: item?.startDate,
 						finishDate: item?.finishDate,
+						description: item?.description,
 					})),
-					experiences: data?.experiences?.map((item) => ({
-						period: `${dayjs(item?.startDate).format("DD/MM/YYYY")} - ${
-							item?.finishDate
+					experience: data?.experiences?.map((item) => ({
+						id: item?.id,
+						period: `${
+							item?.startDate ? dayjs(item?.startDate).format("DD/MM/YYYY") : ""
+						} - ${
+							item?.isCurrentWork
+								? "Hiện tại"
+								: item?.finishDate
 								? dayjs(item?.finishDate).format("DD/MM/YYYY")
-								: "Hiện tại"
+								: ""
 						}`,
 						company: item?.company,
 						title: item?.title,
 						description: item?.description,
 						startDate: item?.startDate,
 						finishDate: item?.finishDate,
+						isCurrentWork: item?.isCurrentWork,
 					})),
 					itSkill: data?.itSkills?.map((item) => ({
 						name: item?.name,
