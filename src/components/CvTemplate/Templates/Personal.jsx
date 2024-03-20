@@ -9,7 +9,7 @@ import {
 	TransgenderOutlined,
 } from "@mui/icons-material";
 import { Stack } from "@mui/system";
-import { Col, Image, Row } from "antd";
+import { Col, Flex, Image, Rate, Row } from "antd";
 import { isEmpty } from "lodash";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import CvEditLayout from "../Common/CvEditLayout";
@@ -18,6 +18,7 @@ import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import NoDataYet from "../Common/NoDataYet";
 import Fullname from "../Components/Generalnfo/Fullname";
 import WorkTitle from "../Components/Generalnfo/WorkTitle";
+import { Fragment } from "react";
 
 const color = "#B31312";
 
@@ -36,7 +37,10 @@ const PersonalTemplate = ({
 				className="text-white h-[290px] px-5 py-10 flex"
 				style={{ background: color }}
 			>
-				<div className="border-r-2 border-white w-fit px-10 h-full">
+				<div
+					className="border-r-2 border-white w-fit px-10 h-full cursor-pointer"
+					onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
+				>
 					{data?.avatar ? (
 						<Image
 							src={data?.avatar}
@@ -301,6 +305,70 @@ const PersonalTemplate = ({
 				</Row>
 			</div>
 			<div className="h-2.5 bg-de"></div>
+			<div style={{ background: color }} className="p-5">
+				<Row gutter={36}>
+					<Col span={12}>
+						<CvEditLayout
+							itemType={CV_MODAL_TYPES.itSkill}
+							setModalType={setModalType}
+						>
+							<div className="border-b-[3px] pb-1 border-white text-white text-xl font-bold">
+								TIN HỌC
+							</div>
+							<Row gutter={[6, 6]} className="py-4 text-white">
+								{isEmpty(info?.itSkill) ? (
+									<NoDataYet />
+								) : (
+									<>
+										{info.itSkill.map((item, i) => (
+											<Fragment key={i}>
+												<Col span={10}>{item?.name}</Col>
+												<Flex>
+													<Rate
+														value={item?.star}
+														disabled
+														style={{ color: "white" }}
+													/>
+												</Flex>
+											</Fragment>
+										))}
+									</>
+								)}
+							</Row>
+						</CvEditLayout>
+					</Col>
+					<Col span={12}>
+						<CvEditLayout
+							itemType={CV_MODAL_TYPES.language}
+							setModalType={setModalType}
+						>
+							<div className="border-b-[3px] pb-1 border-white text-white text-xl font-bold">
+								NGOẠI NGỮ
+							</div>
+							<Row gutter={[6, 6]} className="py-4 text-white">
+								{isEmpty(info?.languageSkill) ? (
+									<NoDataYet />
+								) : (
+									<>
+										{info.languageSkill.map((item, i) => (
+											<Fragment key={i}>
+												<Col span={10}>{item?.name}</Col>
+												<Flex>
+													<Rate
+														value={item?.star}
+														disabled
+														style={{ color: "white" }}
+													/>
+												</Flex>
+											</Fragment>
+										))}
+									</>
+								)}
+							</Row>
+						</CvEditLayout>
+					</Col>
+				</Row>
+			</div>
 		</div>
 	);
 };

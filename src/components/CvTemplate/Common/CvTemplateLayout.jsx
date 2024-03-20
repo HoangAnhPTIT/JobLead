@@ -6,6 +6,9 @@ import ModalGeneralInfo from "../Modal/ModalGeneralInfo";
 import ModalSkill from "../Modal/ModalSkills";
 import ModalEducation from "../Modal/ModalEducation";
 import ModalExperience from "../Modal/ModalExperience";
+import ModalIt from "../Modal/ModalIt";
+import ModalLanguage from "../Modal/ModalLanguage";
+import ModalAvatar from "../Modal/ModalAvatar";
 
 const CvTemplateLayout = ({
 	info,
@@ -270,6 +273,17 @@ const CvTemplateLayout = ({
 				modalType={modalType}
 				closeModal={closeModal}
 			/>
+			<ModalIt
+				data={info?.itSkill}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalLanguage
+				data={info?.languageSkill}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalAvatar modalType={modalType} closeModal={closeModal} />
 		</>
 	);
 };
