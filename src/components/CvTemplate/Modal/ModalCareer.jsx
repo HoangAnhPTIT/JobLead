@@ -1,55 +1,51 @@
-"client";
-import { Form, Input, Modal, Spin } from "antd";
+import { Checkbox, Col, Form, Input, Modal, Row, Spin } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCandidateActivity } from "src/apis/apiEndpoint";
+import { httpAuthPut } from "src/apis/apiAuthCaller";
+import { apiCandidateCareerGoal } from "src/apis/apiEndpoint";
 import { updateSuccessMessage } from "src/constants/common";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
-const ModalActivity = ({ data, modalType, closeModal }) => {
+const ModalCareer = ({ data, modalType, closeModal }) => {
 	const { isLoading } = useAppSelector((state) => state.loading);
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
-	const isThisModal = modalType === CV_MODAL_TYPES.activity;
+	const { entities } = useAppSelector((state) => state.entity);
 
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
 		try {
 			const values = await form.validateFields();
-			const response = data
-				? await httpAuthPut({
-						endpoint: apiCandidateActivity,
-						data: { id: data?.id, ...values },
-				  })
-				: await httpAuthPost({
-						endpoint: apiCandidateActivity,
-						data: values,
-				  });
+			const response = await httpAuthPut({
+				endpoint: apiCandidateCareerGoal,
+				data: values,
+			});
 			if (response.success) {
 				toast.success(updateSuccessMessage);
 				closeModal();
-			} else {
-				toast.error(response.message);
 			}
 		} catch (error) {
-			toast.error(error?.message);
+			toast.error(error?.message || error);
 		} finally {
 			dispatch(updateLoading(false));
 		}
 	};
 
 	useEffect(() => {
-		form.setFieldsValue(data);
+		const formData = {
+			description: data?.description,
+			goalIds: data?.items?.map((item) => item?.id),
+		};
+		form.setFieldsValue(formData);
 	}, [data, form]);
 
 	return (
 		<Modal
-			open={isThisModal}
+			open={modalType === CV_MODAL_TYPES.careerGoal}
 			onCancel={() => closeModal(false)}
-			title="Hoạt động"
+			title="Mục tiêu nghề nghiệp"
 			className="p-0"
 			width={750}
 			onOk={onSubmit}
@@ -58,15 +54,19 @@ const ModalActivity = ({ data, modalType, closeModal }) => {
 		>
 			<Spin spinning={isLoading}>
 				<Form form={form} layout="vertical" autoComplete="off">
-					<Form.Item
-						name="title"
-						label="Tên hoạt động"
-						rules={[{ required: true }]}
-					>
-						<Input placeholder="Nhập tên hoạt động" />
+					<Form.Item name="description">
+						<Input.TextArea />
 					</Form.Item>
-					<Form.Item name="description" label="Mô tả hoạt động">
-						<Input.TextArea placeholder="Nhập mô tả hoạt động" />
+					<Form.Item name="goalIds">
+						<Checkbox.Group>
+							<Row gutter={[16, 16]} className="mt-4">
+								{entities?.CareerGoal?.map((item, i) => (
+									<Col span={24} key={i}>
+										<Checkbox value={item?.id}>{item?.name}</Checkbox>
+									</Col>
+								))}
+							</Row>
+						</Checkbox.Group>
 					</Form.Item>
 				</Form>
 			</Spin>
@@ -74,4 +74,4 @@ const ModalActivity = ({ data, modalType, closeModal }) => {
 	);
 };
 
-export default ModalActivity;
+export default ModalCareer;

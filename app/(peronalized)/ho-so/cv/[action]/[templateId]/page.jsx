@@ -1,6 +1,7 @@
 "use client";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import { template } from "lodash";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,10 +13,12 @@ import {
 	apiCandidateExperience,
 	apiCvTemplate,
 } from "src/apis/apiEndpoint";
+import NotFound from "src/commons/NotFound";
 import CvTemplateLayout from "src/components/CvTemplate/Common/CvTemplateLayout";
 import Cv1 from "src/components/CvTemplate/Templates/Cv1";
+import Cv2 from "src/components/CvTemplate/Templates/Cv2";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
-import { CV_ACTIONS, CV_MODAL_TYPES } from "src/constants/cv";
+import { CV_ACTIONS, CV_MODAL_TYPES, CV_TEMPLATES } from "src/constants/cv";
 import routeMap from "src/constants/routeMap";
 import useCandidateInfo from "src/hooks/useCandidateInfo";
 
@@ -94,35 +97,40 @@ const PersonalCv = () => {
 		getAdditionData();
 	}, [dispatch, templateId]);
 
-	// useEffect(() => {
-	// 	if (!(action === CV_ACTIONS.edit && templateId)) {
-	// 		router.push(routeMap.notFound);
-	// 	}
-	// }, [action, router, templateId]);
+	const ShowCV = (props) => {
+		switch (templateId) {
+			case CV_TEMPLATES.cv1:
+				return <Cv1 {...props} />;
+			case CV_TEMPLATES.cv2:
+				return <Cv2 {...props} />;
+			default:
+				return null;
+		}
+	};
 
-	// if (!(action === CV_ACTIONS.edit && templateId)) {
-	// 	return null;
-	// }
-
-	return (
-		<CvTemplateLayout
-			info={info}
-			modalType={modalType}
-			setModalType={setModalType}
-			dataSelected={dataSelected}
-			closeModal={closeModal}
-			additionInfo={additionInfo}
-			cvInfo={cvInfo}
-		>
-			<Cv1
+	if (action === CV_ACTIONS.edit && templateId) {
+		return (
+			<CvTemplateLayout
 				info={info}
+				modalType={modalType}
 				setModalType={setModalType}
-				setDataSelected={setDataSelected}
-				onEditSection={onEditSection}
-				onDeleteSection={onDeleteSection}
-			/>
-		</CvTemplateLayout>
-	);
+				dataSelected={dataSelected}
+				closeModal={closeModal}
+				additionInfo={additionInfo}
+				cvInfo={cvInfo}
+			>
+				<ShowCV
+					info={info}
+					setModalType={setModalType}
+					setDataSelected={setDataSelected}
+					onEditSection={onEditSection}
+					onDeleteSection={onDeleteSection}
+				/>
+			</CvTemplateLayout>
+		);
+	}
+
+	return <NotFound />;
 };
 
 export default PersonalCv;

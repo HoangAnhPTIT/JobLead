@@ -11,14 +11,15 @@ import {
 import { Stack } from "@mui/system";
 import { Col, Flex, Image, Rate, Row } from "antd";
 import { isEmpty } from "lodash";
+import { Fragment } from "react";
+import ShowDescription from "src/commons/ShowDescription";
 import { CV_MODAL_TYPES } from "src/constants/cv";
-import CvEditLayout from "../Common/CvEditLayout";
 import CvAddLayout from "../Common/CvAddLayout";
 import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
+import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
 import Fullname from "../Components/Generalnfo/Fullname";
 import WorkTitle from "../Components/Generalnfo/WorkTitle";
-import { Fragment } from "react";
 
 const color = "#B31312";
 
@@ -74,7 +75,9 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 											{item?.name}
 										</p>
 									))}
-									<p className="mt-1">{info?.career?.description}</p>
+									<div className="mt-1">
+										<ShowDescription description={info?.career?.description} />
+									</div>
 								</>
 							)}
 						</div>
@@ -140,7 +143,7 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 						</CvEditLayout>
 					</Col>
 					<Col span={8}>
-						<CvEditLayout
+						<CvAddLayout
 							itemType={CV_MODAL_TYPES.activity}
 							setModalType={setModalType}
 						>
@@ -166,13 +169,13 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 												}
 											>
 												<strong>{item?.title}</strong>
-												<p className="mt-2">{item?.description}</p>
+												<ShowDescription description={item?.description} />
 											</CvEditDeleteLayout>
 										))}
 									</Stack>
 								)}
 							</div>
-						</CvEditLayout>
+						</CvAddLayout>
 					</Col>
 					<Col span={8}>
 						<CvEditLayout
@@ -199,7 +202,11 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 												</p>
 											))}
 										</Stack>
-										<p className="mt-1">{info?.softSkill?.description}</p>
+										<div className="mt-1">
+											<ShowDescription
+												description={info?.softSkill?.description}
+											/>
+										</div>
 									</>
 								)}
 							</div>
@@ -321,7 +328,7 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 													<p className="mt-1">
 														<strong className="mr-1">Mô tả:</strong>
 													</p>
-													<p>{item?.description}</p>
+													<ShowDescription description={item?.description} />
 												</div>
 											</div>
 										</CvEditDeleteLayout>

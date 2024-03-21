@@ -49,7 +49,7 @@ const CvTemplate = (props) => {
 
 	if (action === CV_TEMPLATES.pro) return <Pro {...props} />;
 
-	return <Basic {...props} />;
+	return <Pro {...props} />;
 };
 
 const CvLayout = () => {

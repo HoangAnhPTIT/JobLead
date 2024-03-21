@@ -3,7 +3,7 @@ import { Check, Edit, Info, Save } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import { Col, Row, Tooltip } from "antd";
 import ModalGeneralInfo from "../Modal/ModalGeneralInfo";
-import ModalSkill from "../Modal/ModalSkills";
+import ModalSkill from "../Modal/ModalSkill";
 import ModalEducation from "../Modal/ModalEducation";
 import ModalExperience from "../Modal/ModalExperience";
 import ModalIt from "../Modal/ModalIt";
@@ -12,6 +12,8 @@ import ModalAvatar from "../Modal/ModalAvatar";
 import ModalAdditionInfo from "../Modal/ModalAdditionInfo";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import ModalSave from "../Modal/ModalSave";
+import ModalActivity from "../Modal/ModalActivity";
+import ModalCareer from "../Modal/ModalCareer";
 
 const CvTemplateLayout = ({
 	info,
@@ -267,6 +269,11 @@ const CvTemplateLayout = ({
 				modalType={modalType}
 				closeModal={closeModal}
 			/>
+			<ModalCareer
+				data={info?.career}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
 			<ModalEducation
 				data={dataSelected}
 				modalType={modalType}
@@ -290,6 +297,11 @@ const CvTemplateLayout = ({
 			<ModalAvatar modalType={modalType} closeModal={closeModal} />
 			<ModalAdditionInfo
 				data={additionInfo}
+				modalType={modalType}
+				closeModal={closeModal}
+			/>
+			<ModalActivity
+				data={dataSelected}
 				modalType={modalType}
 				closeModal={closeModal}
 			/>

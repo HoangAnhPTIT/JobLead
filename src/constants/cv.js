@@ -26,6 +26,7 @@ export const CV_TEMPLATES = {
 	basic: "basic",
 	pro: "pro",
 	cv1: "1",
+	cv2: "2",
 };
 
 export const CV_ACTIONS = {
