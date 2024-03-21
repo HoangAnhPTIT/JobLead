@@ -45,9 +45,9 @@ import { errorMessage } from "src/constants/common";
 
 const CvTemplate = (props) => {
 	const params = useParams();
-	const template = params?.template;
+	const action = params?.template;
 
-	if (template === CV_TEMPLATES.pro) return <Pro {...props} />;
+	if (action === CV_TEMPLATES.pro) return <Pro {...props} />;
 
 	return <Basic {...props} />;
 };

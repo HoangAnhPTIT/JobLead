@@ -22,12 +22,7 @@ import { Fragment } from "react";
 
 const color = "#B31312";
 
-const PersonalTemplate = ({
-	info,
-	onEditSection,
-	onDeleteSection,
-	setModalType,
-}) => {
+const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 	return (
 		<div className="bg-white">
 			<div
@@ -89,7 +84,7 @@ const PersonalTemplate = ({
 			<div className="h-2.5 bg-de"></div>
 			<div className="p-4">
 				<Row gutter={30}>
-					<Col span={12}>
+					<Col span={8}>
 						<CvEditLayout
 							itemType={CV_MODAL_TYPES.generalInfo}
 							setModalType={setModalType}
@@ -144,7 +139,42 @@ const PersonalTemplate = ({
 							</Stack>
 						</CvEditLayout>
 					</Col>
-					<Col span={12}>
+					<Col span={8}>
+						<CvEditLayout
+							itemType={CV_MODAL_TYPES.activity}
+							setModalType={setModalType}
+						>
+							<div
+								className="border-b-[3px] pb-1 border-de text-xl font-bold text-center"
+								style={{ color }}
+							>
+								HOẠT ĐỘNG
+							</div>
+							<div className="py-4 px-2">
+								{isEmpty(info?.activity) ? (
+									<NoDataYet />
+								) : (
+									<Stack gap={1}>
+										{info?.activity?.map((item, i) => (
+											<CvEditDeleteLayout
+												key={i}
+												onEdit={() =>
+													onEditSection(item, CV_MODAL_TYPES.activity)
+												}
+												onDelete={() =>
+													onDeleteSection(item?.id, CV_MODAL_TYPES.activity)
+												}
+											>
+												<strong>{item?.title}</strong>
+												<p className="mt-2">{item?.description}</p>
+											</CvEditDeleteLayout>
+										))}
+									</Stack>
+								)}
+							</div>
+						</CvEditLayout>
+					</Col>
+					<Col span={8}>
 						<CvEditLayout
 							itemType={CV_MODAL_TYPES.skill}
 							setModalType={setModalType}
@@ -371,4 +401,4 @@ const PersonalTemplate = ({
 	);
 };
 
-export default PersonalTemplate;
+export default Cv1;

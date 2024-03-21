@@ -2,33 +2,31 @@
 import { Form, Input, Modal, Spin } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
-import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
-import { apiCv } from "src/apis/apiEndpoint";
+import { apiCandidateActivity } from "src/apis/apiEndpoint";
 import { updateSuccessMessage } from "src/constants/common";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
-const ModalSave = ({ data, modalType, closeModal }) => {
-	const { templateId } = useParams();
+const ModalActivity = ({ data, modalType, closeModal }) => {
 	const { isLoading } = useAppSelector((state) => state.loading);
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
-	const isThisModal = modalType === CV_MODAL_TYPES.save;
+	const isThisModal = modalType === CV_MODAL_TYPES.activity;
 
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
 		try {
 			const values = await form.validateFields();
-			const response = data?.id
+			const response = data
 				? await httpAuthPut({
-						endpoint: apiCv,
-						data: { id: data?.id, ...values, templateCode: templateId },
+						endpoint: apiCandidateActivity,
+						data: { id: data?.id, ...values },
 				  })
 				: await httpAuthPost({
-						endpoint: apiCv,
-						data: { ...values, templateCode: templateId },
+						endpoint: apiCandidateActivity,
+						data: values,
 				  });
 			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
@@ -60,7 +58,7 @@ const ModalSave = ({ data, modalType, closeModal }) => {
 		>
 			<Spin spinning={isLoading}>
 				<Form form={form} layout="vertical" autoComplete="off">
-					<Form.Item name="name" label="Tên CV" rules={[{ required: true }]}>
+					<Form.Item name="title" label="Tên CV" rules={[{ required: true }]}>
 						<Input placeholder="Nhập tên CV" />
 					</Form.Item>
 					<Form.Item name="description" label="Mô tả CV">
@@ -72,4 +70,4 @@ const ModalSave = ({ data, modalType, closeModal }) => {
 	);
 };
 
-export default ModalSave;
+export default ModalActivity;

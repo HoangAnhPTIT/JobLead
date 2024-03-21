@@ -23,6 +23,7 @@ const routeMap = {
 	appliedJob: "/viec-lam-da-ung-tuyen",
 	viewedByEmployer: "/ntd-da-xem-ho-so",
 	edit: "/chinh-sua",
+	notFound: "/404",
 };
 
 export default routeMap;

@@ -10,6 +10,7 @@ export const CV_MODAL_TYPES = {
 	save: "save",
 	avatar: "avatar",
 	expectation: "expectation",
+	activity: "activity",
 };
 
 export const IT_SKILLS = ["Word", "Excel", "Power Point"];
@@ -24,4 +25,10 @@ export const LANGUAGES = [
 export const CV_TEMPLATES = {
 	basic: "basic",
 	pro: "pro",
+	cv1: "1",
+};
+
+export const CV_ACTIONS = {
+	edit: "chinh-sua",
+	view: "chi-tiet",
 };

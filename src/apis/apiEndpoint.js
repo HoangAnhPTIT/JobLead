@@ -35,6 +35,7 @@ export const apiCandidateProject = `${apiCandidate}/projects`;
 export const apiCandidateSkill = `${apiCandidate}/skill`;
 export const apiCandidateEducation = `${apiCandidate}/education`;
 export const apiCandidateExperience = `${apiCandidate}/experience`;
+export const apiCandidateActivity = `${apiCandidate}/activity`;
 export const apiCandidateItSkill = `${apiCandidate}/it-skill`;
 export const apiCandidateLanguageSkill = `${apiCandidate}/language-skill`;
 export const apiCandidateExpectation = `${apiCandidate}/expectation`;

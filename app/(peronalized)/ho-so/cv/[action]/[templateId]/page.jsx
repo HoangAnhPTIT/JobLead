@@ -1,30 +1,33 @@
 "use client";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
 import {
+	apiCandidateActivity,
 	apiCandidateEducation,
 	apiCandidateExpectation,
 	apiCandidateExperience,
-	apiCv,
 	apiCvTemplate,
 } from "src/apis/apiEndpoint";
 import CvTemplateLayout from "src/components/CvTemplate/Common/CvTemplateLayout";
-import PersonalTemplate from "src/components/CvTemplate/Templates/Personal";
+import Cv1 from "src/components/CvTemplate/Templates/Cv1";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
-import { CV_MODAL_TYPES } from "src/constants/cv";
+import { CV_ACTIONS, CV_MODAL_TYPES } from "src/constants/cv";
+import routeMap from "src/constants/routeMap";
 import useCandidateInfo from "src/hooks/useCandidateInfo";
 
 const ENDPOINT_DELETE = {
 	[CV_MODAL_TYPES.education]: apiCandidateEducation,
 	[CV_MODAL_TYPES.experience]: apiCandidateExperience,
+	[CV_MODAL_TYPES.activity]: apiCandidateActivity,
 };
 
 const PersonalCv = () => {
-	const { templateId } = useParams();
+	const router = useRouter();
+	const { action, templateId } = useParams();
 	const dispatch = useAppDispatch();
 	const { info, getCandidateInfo } = useCandidateInfo();
 	const [modalType, setModalType] = useState(null);
@@ -89,7 +92,17 @@ const PersonalCv = () => {
 			}
 		};
 		getAdditionData();
-	}, [dispatch]);
+	}, [dispatch, templateId]);
+
+	// useEffect(() => {
+	// 	if (!(action === CV_ACTIONS.edit && templateId)) {
+	// 		router.push(routeMap.notFound);
+	// 	}
+	// }, [action, router, templateId]);
+
+	// if (!(action === CV_ACTIONS.edit && templateId)) {
+	// 	return null;
+	// }
 
 	return (
 		<CvTemplateLayout
@@ -101,7 +114,7 @@ const PersonalCv = () => {
 			additionInfo={additionInfo}
 			cvInfo={cvInfo}
 		>
-			<PersonalTemplate
+			<Cv1
 				info={info}
 				setModalType={setModalType}
 				setDataSelected={setDataSelected}
