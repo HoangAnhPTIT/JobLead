@@ -52,6 +52,9 @@ const RootLayout = ({ children }) => {
 										Checkbox: {
 											borderRadius: 0,
 										},
+										Modal: {
+											wireframe: true,
+										},
 									},
 								}}
 							>
