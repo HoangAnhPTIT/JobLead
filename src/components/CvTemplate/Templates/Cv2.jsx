@@ -33,11 +33,11 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 			<Row className="bg-[#d3f2ff] border-b border-b-[10px] border-b-primary p-5">
 				<Col span={8}>
 					<div className="flex justify-center">
-						<div
-							className="w-fit cursor-pointer p-5 bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden"
-							onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
-						>
-							<AvatarImage avatar={info?.generalInfo?.avatar} />
+						<div className="w-fit p-5 bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden">
+							<AvatarImage
+								setModalType={setModalType}
+								avatar={info?.generalInfo?.avatar}
+							/>
 						</div>
 					</div>
 				</Col>

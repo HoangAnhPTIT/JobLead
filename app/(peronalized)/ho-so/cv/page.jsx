@@ -78,7 +78,7 @@ const CvPage = () => {
 												<RemoveRedEyeOutlined
 													fontSize="small"
 													className="mr-1"
-												/>{" "}
+												/>
 												Xem
 											</Button>
 											<Button size="small" variant="outlined">
@@ -92,7 +92,7 @@ const CvPage = () => {
 												className="mr-1"
 												onClick={() =>
 													router.push(
-														`${routeMap.file}${routeMap.cv}/${item?.templateCode}`
+														`${routeMap.file}${routeMap.cv}${routeMap.edit}/${item?.templateCode}`
 													)
 												}
 											>

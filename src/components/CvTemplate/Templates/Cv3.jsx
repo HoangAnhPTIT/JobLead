@@ -205,11 +205,9 @@ const Cv3 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 					</div>
 				</Col>
 				<Col span={11}>
-					<div
-						className="w-fit cursor-pointer bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden"
-						onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
-					>
+					<div className="w-fit bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden">
 						<AvatarImage
+							setModalType={setModalType}
 							avatar={info?.generalInfo?.avatar}
 							defaultColor="#ccc"
 						/>

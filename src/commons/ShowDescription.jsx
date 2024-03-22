@@ -1,7 +1,7 @@
 const ShowDescription = ({ description }) => {
 	return (
 		<>
-			{description.split("\n").map((line, i) => (
+			{description?.split("\n").map((line, i) => (
 				<p key={i}>{line}</p>
 			))}
 		</>

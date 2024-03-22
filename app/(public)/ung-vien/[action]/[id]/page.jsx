@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidate } from "src/apis/apiEndpoint";
+import NotFound from "src/commons/NotFound";
 import RightSide from "src/components/Candidates/Detail/RightSide";
-import Basic from "src/components/CvDetail/Templates/Basic";
-import Pro from "src/components/CvDetail/Templates/Pro";
 import Cv1 from "src/components/CvTemplate/Templates/Cv1";
+import Cv2 from "src/components/CvTemplate/Templates/Cv2";
+import Cv3 from "src/components/CvTemplate/Templates/Cv3";
 import { USER_ROLE, errorMessage } from "src/constants/common";
 import { CV_ACTIONS, CV_TEMPLATES } from "src/constants/cv";
-import routeMap from "src/constants/routeMap";
 import { convertCandidateInfo } from "src/helper/data";
 
 const CandidateDetailPage = () => {
@@ -53,49 +53,34 @@ const CandidateDetailPage = () => {
 		}
 	}, []);
 
-	// const showTemplate = () => {
-	// 	switch (cvTemplate) {
-	// 		case CV_TEMPLATES.basic:
-	// 			return <Basic data={candidateInfo} readOnly />;
-	// 		case CV_TEMPLATES.pro:
-	// 			return <Pro data={candidateInfo} readOnly />;
-
-	// 		default:
-	// 			return null;
-	// 	}
-	// };
-
-	useEffect(() => {
-		if (action !== CV_ACTIONS.view) {
-			router.push(routeMap.notFound);
-		}
-	}, [action, router]);
-
-	if (action !== CV_ACTIONS.view) {
-		return null;
-	}
-
 	const templates = {
-		[CV_TEMPLATES.basic]: <Cv1 info={candidateInfo} />,
+		[CV_TEMPLATES.cv1]: <Cv1 info={candidateInfo} />,
+		[CV_TEMPLATES.cv2]: <Cv2 info={candidateInfo} />,
+		[CV_TEMPLATES.cv3]: <Cv3 info={candidateInfo} />,
+		// [CV_TEMPLATES.basic]: <Cv1 info={candidateInfo} />,
 	};
 
-	return (
-		<div className="bg-bgContainer">
-			<div className="w-xlContent mx-auto grid grid-cols-[67%_33%] gap-5">
-				<div className="max-h-[calc(100vh-64px)] overflow-y-auto pt-4">
-					{templates[cvTemplate]}
+	if (action === CV_ACTIONS.view) {
+		return (
+			<div className="bg-bgContainer">
+				<div className="w-xlContent mx-auto grid grid-cols-[67%_33%] gap-5">
+					<div className="max-h-[calc(100vh-64px)] overflow-y-auto pt-4">
+						{templates[cvTemplate]}
+					</div>
+					<RightSide
+						info={candidateInfo}
+						getData={getCandidateInfo}
+						indexTemplate={indexTemplate}
+						setIndexTemplate={setIndexTemplate}
+						cvTemplate={cvTemplate}
+						setCvTemplate={setCvTemplate}
+					/>
 				</div>
-				<RightSide
-					info={candidateInfo}
-					getData={getCandidateInfo}
-					indexTemplate={indexTemplate}
-					setIndexTemplate={setIndexTemplate}
-					cvTemplate={cvTemplate}
-					setCvTemplate={setCvTemplate}
-				/>
 			</div>
-		</div>
-	);
+		);
+	}
+
+	return <NotFound />;
 };
 
 export default CandidateDetailPage;
