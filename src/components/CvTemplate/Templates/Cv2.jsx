@@ -5,20 +5,22 @@ import {
 	Circle,
 	Email,
 	PhoneEnabled,
-	PhotoCamera,
 	Place,
-	Transgender,
+	TransgenderOutlined,
 } from "@mui/icons-material";
-import { Stack } from "@mui/system";
-import { Col, Flex, Image, Rate, Row } from "antd";
+import { Col, Row } from "antd";
 import { isEmpty } from "lodash";
-import { Fragment } from "react";
 import ShowDescription from "src/commons/ShowDescription";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import CvAddLayout from "../Common/CvAddLayout";
 import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
+import AvatarImage from "../Components/Generalnfo/AvatarImage";
+import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
+import Career from "../Components/OtherInfo/Career";
+import RateInfo from "../Components/OtherInfo/RateInfo";
+import Skill from "../Components/OtherInfo/Skill";
 
 const color = "#009ce0";
 
@@ -32,17 +34,7 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 							className="w-fit cursor-pointer p-5 bg-white border-[6px] border-[#9bd6f0] rounded-full overflow-hidden"
 							onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
 						>
-							{info?.generalInfo?.avatar ? (
-								<Image
-									src={info?.generalInfo?.avatar}
-									alt=""
-									width={150}
-									height="auto"
-									preview={false}
-								/>
-							) : (
-								<PhotoCamera style={{ fontSize: 120, color: "#333" }} />
-							)}
+							<AvatarImage avatar={info?.generalInfo?.avatar} />
 						</div>
 					</div>
 				</Col>
@@ -67,57 +59,54 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								</span>
 							)}
 						</div>
-						<div className="mt-4 grid grid-cols-2">
-							<div className="text-33 flex gap-2 mt-2">
-								<Transgender fontSize="small" style={{ color }} />
-								<div className="flex-1 text-sm">
-									{info?.generalInfo?.gender?.name ? (
-										<span>{info?.generalInfo?.gender?.name}</span>
-									) : (
-										<span className="text-placeholder">Giới tính</span>
-									)}
-								</div>
-							</div>
-							<div className="text-33 flex gap-2 mt-2">
-								<CalendarMonth fontSize="small" style={{ color }} />
-								<div className="flex-1 text-sm">
-									{info?.generalInfo?.birthdayi ? (
-										<span>{info?.generalInfo?.birthday}</span>
-									) : (
-										<span className="text-placeholder">Ngày sinh</span>
-									)}
-								</div>
-							</div>
-							<div className="text-33 flex gap-2 mt-2">
-								<PhoneEnabled fontSize="small" style={{ color }} />
-								<div className="flex-1 text-sm">
-									{info?.generalInfo?.phone ? (
-										<span>{info?.generalInfo?.phone}</span>
-									) : (
-										<span className="text-placeholder">Số điện thoại</span>
-									)}
-								</div>
-							</div>
-							<div className="text-33 flex gap-2 mt-2">
-								<Email fontSize="small" style={{ color }} />
-								<div className="flex-1 text-sm">
-									{info?.generalInfo?.email ? (
-										<span>{info?.generalInfo?.email}</span>
-									) : (
-										<span className="text-placeholder">Email</span>
-									)}
-								</div>
-							</div>
-							<div className="text-33 flex gap-2 mt-2">
-								<Place fontSize="small" style={{ color }} />
-								<div className="flex-1 text-sm">
-									{info?.generalInfo?.location ? (
-										<span>{info?.generalInfo?.location}</span>
-									) : (
-										<span className="text-placeholder">Địa chỉ</span>
-									)}
-								</div>
-							</div>
+						<div className="mt-4 grid grid-cols-2 gap-1">
+							<PrivateInfo
+								icon={
+									<TransgenderOutlined
+										fontSize="small"
+										className="mr-2"
+										style={{ color }}
+									/>
+								}
+								info={info?.generalInfo?.gender}
+								label="Giới tính"
+							/>
+							<PrivateInfo
+								info={info?.generalInfo?.birthday}
+								icon={
+									<CalendarMonth
+										fontSize="small"
+										className="mr-2"
+										style={{ color }}
+									/>
+								}
+								label="Ngày sinh"
+							/>
+							<PrivateInfo
+								icon={
+									<PhoneEnabled
+										fontSize="small"
+										className="mr-2"
+										style={{ color }}
+									/>
+								}
+								info={info?.generalInfo?.phone}
+								label="Số điện thoại"
+							/>
+							<PrivateInfo
+								info={info?.generalInfo?.email}
+								icon={
+									<Email fontSize="small" className="mr-2" style={{ color }} />
+								}
+								label="Email"
+							/>
+							<PrivateInfo
+								icon={
+									<Place fontSize="small" className="mr-2" style={{ color }} />
+								}
+								info={info?.generalInfo?.location}
+								label="Địa chỉ"
+							/>
 						</div>
 					</CvEditLayout>
 				</Col>
@@ -137,27 +126,10 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 									MỤC TIÊU NGHỀ NGHIỆP
 								</div>
 								<div className="pt-5">
-									{!info?.career?.description && isEmpty(info?.career.items) ? (
-										<NoDataYet />
-									) : (
-										<>
-											{info?.career?.items?.map((item, i) => (
-												<p key={i}>
-													<Check
-														className="mr-2"
-														fontSize="small"
-														style={{ color }}
-													/>
-													{item?.name}
-												</p>
-											))}
-											<div className="mt-1">
-												<ShowDescription
-													description={info?.career?.description}
-												/>
-											</div>
-										</>
-									)}
+									<Career
+										info={info?.career}
+										icon={<Check fontSize="small" style={{ color }} />}
+									/>
 								</div>
 							</CvEditLayout>
 						</div>
@@ -302,26 +274,9 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								>
 									TIN HỌC
 								</div>
-								<Row gutter={[6, 6]} className="py-4">
-									{isEmpty(info?.itSkill) ? (
-										<NoDataYet />
-									) : (
-										<>
-											{info.itSkill.map((item, i) => (
-												<Fragment key={i}>
-													<Col span={10}>{item?.name}</Col>
-													<Flex>
-														<Rate
-															value={item?.star}
-															disabled
-															style={{ color }}
-														/>
-													</Flex>
-												</Fragment>
-											))}
-										</>
-									)}
-								</Row>
+								<div className="py-4">
+									<RateInfo info={info?.itSkill} iconColor={color} />
+								</div>
 							</CvEditLayout>
 						</div>
 						<div className="mt-2">
@@ -335,26 +290,9 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								>
 									NGOẠI NGỮ
 								</div>
-								<Row gutter={[6, 6]} className="py-4 ">
-									{isEmpty(info?.languageSkill) ? (
-										<NoDataYet />
-									) : (
-										<>
-											{info.languageSkill.map((item, i) => (
-												<Fragment key={i}>
-													<Col span={10}>{item?.name}</Col>
-													<Flex>
-														<Rate
-															value={item?.star}
-															disabled
-															style={{ color }}
-														/>
-													</Flex>
-												</Fragment>
-											))}
-										</>
-									)}
-								</Row>
+								<div className="py-4">
+									<RateInfo info={info?.languageSkill} iconColor={color} />
+								</div>
 							</CvEditLayout>
 						</div>
 						<div className="mt-2">
@@ -369,26 +307,10 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 									KỸ NĂNG
 								</div>
 								<div className="py-4 px-2">
-									{!info?.softSkill?.description &&
-									isEmpty(info?.softSkill?.items) ? (
-										<NoDataYet />
-									) : (
-										<>
-											<Stack gap={1}>
-												{info?.softSkill?.items?.map((item, i) => (
-													<p key={i}>
-														<StarFilled className="mr-2" style={{ color }} />
-														{item?.name}
-													</p>
-												))}
-											</Stack>
-											<div className="mt-1">
-												<ShowDescription
-													description={info?.softSkill?.description}
-												/>
-											</div>
-										</>
-									)}
+									<Skill
+										info={info?.softSkill}
+										icon={<StarFilled style={{ color }} />}
+									/>
 								</div>
 							</CvEditLayout>
 						</div>

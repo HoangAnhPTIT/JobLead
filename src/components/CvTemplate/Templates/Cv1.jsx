@@ -9,9 +9,8 @@ import {
 	TransgenderOutlined,
 } from "@mui/icons-material";
 import { Stack } from "@mui/system";
-import { Col, Flex, Image, Rate, Row } from "antd";
+import { Col, Image, Row } from "antd";
 import { isEmpty } from "lodash";
-import { Fragment } from "react";
 import ShowDescription from "src/commons/ShowDescription";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 import CvAddLayout from "../Common/CvAddLayout";
@@ -19,7 +18,13 @@ import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
 import Fullname from "../Components/Generalnfo/Fullname";
+import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
 import WorkTitle from "../Components/Generalnfo/WorkTitle";
+import Activity from "../Components/OtherInfo/Activity";
+import Career from "../Components/OtherInfo/Career";
+import RateInfo from "../Components/OtherInfo/RateInfo";
+import Skill from "../Components/OtherInfo/Skill";
+import AvatarImage from "../Components/Generalnfo/AvatarImage";
 
 const color = "#B31312";
 
@@ -30,59 +35,47 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 				className="text-white h-[290px] px-5 py-10 flex"
 				style={{ background: color }}
 			>
-				<div
-					className="border-r-2 border-white w-fit px-10 h-full cursor-pointer"
-					onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
-				>
-					{info?.generalInfo?.avatar ? (
-						<Image
-							src={info?.generalInfo?.avatar}
-							alt=""
-							width={200}
-							height="auto"
-							preview={false}
-							className="rounded-full"
-						/>
-					) : (
-						<div className="p-5 bg-white rounded-full w-fit">
-							<PhotoCamera style={{ fontSize: 160, color: "#333" }} />
+				<Row gutter={16}>
+					<Col span={10}>
+						<div className="flex justify-center border-r-2 border-white">
+							<div
+								className="w-fit px-10 h-full cursor-pointer rounded-full overflow-hidden"
+								onClick={() => setModalType(CV_MODAL_TYPES.avatar)}
+							>
+								<AvatarImage
+									avatar={info?.generalInfo?.avatar}
+									size={200}
+									css="rounded-full"
+								/>
+							</div>
 						</div>
-					)}
-				</div>
-				<div className="px-10">
-					<CvEditLayout
-						itemType={CV_MODAL_TYPES.generalInfo}
-						setModalType={setModalType}
-					>
-						<Fullname fullName={info?.generalInfo?.fullName} css="text-white" />
-						<WorkTitle
-							workTitle={info?.generalInfo?.workTitle}
-							css="text-white"
-						/>
-					</CvEditLayout>
-					<CvEditLayout
-						itemType={CV_MODAL_TYPES.careerGoal}
-						setModalType={setModalType}
-					>
-						<div className="pt-5">
-							{!info?.career?.description && isEmpty(info?.career.items) ? (
-								<NoDataYet />
-							) : (
-								<>
-									{info?.career?.items?.map((item, i) => (
-										<p key={i}>
-											<StarFilled className="mr-2" />
-											{item?.name}
-										</p>
-									))}
-									<div className="mt-1">
-										<ShowDescription description={info?.career?.description} />
-									</div>
-								</>
-							)}
+					</Col>
+					<Col span={14}>
+						<div className="px-10">
+							<CvEditLayout
+								itemType={CV_MODAL_TYPES.generalInfo}
+								setModalType={setModalType}
+							>
+								<Fullname
+									fullName={info?.generalInfo?.fullName}
+									css="text-white"
+								/>
+								<WorkTitle
+									workTitle={info?.generalInfo?.workTitle}
+									css="text-white"
+								/>
+							</CvEditLayout>
+							<CvEditLayout
+								itemType={CV_MODAL_TYPES.careerGoal}
+								setModalType={setModalType}
+							>
+								<div className="pt-5">
+									<Career info={info?.career} icon={<StarFilled />} />
+								</div>
+							</CvEditLayout>
 						</div>
-					</CvEditLayout>
-				</div>
+					</Col>
+				</Row>
 			</div>
 			<div className="h-2.5 bg-de"></div>
 			<div className="p-4">
@@ -99,46 +92,61 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								LIÊN HỆ
 							</div>
 							<Stack gap={2} className="py-4 px-2">
-								<p>
-									<EmailOutlined
-										fontSize="small"
-										className="mr-2"
-										style={{ color }}
-									/>
-									{info?.generalInfo?.email}
-								</p>
-								<p>
-									<SmartphoneOutlined
-										fontSize="small"
-										className="mr-2"
-										style={{ color }}
-									/>
-									{info?.generalInfo?.phone}
-								</p>
-								<p>
-									<CalendarMonthOutlined
-										fontSize="small"
-										className="mr-2"
-										style={{ color }}
-									/>
-									{info?.generalInfo?.birthday}
-								</p>
-								<p>
-									<TransgenderOutlined
-										fontSize="small"
-										className="mr-2"
-										style={{ color }}
-									/>
-									{info?.generalInfo?.gender}
-								</p>
-								<p>
-									<PlaceOutlined
-										fontSize="small"
-										className="mr-2"
-										style={{ color }}
-									/>
-									{info?.generalInfo?.location}
-								</p>
+								<PrivateInfo
+									info={info?.generalInfo?.email}
+									icon={
+										<EmailOutlined
+											fontSize="small"
+											className="mr-2"
+											style={{ color }}
+										/>
+									}
+									label="Email"
+								/>
+								<PrivateInfo
+									icon={
+										<SmartphoneOutlined
+											fontSize="small"
+											className="mr-2"
+											style={{ color }}
+										/>
+									}
+									info={info?.generalInfo?.phone}
+									label="Số điện thoại"
+								/>
+								<PrivateInfo
+									info={info?.generalInfo?.birthday}
+									icon={
+										<CalendarMonthOutlined
+											fontSize="small"
+											className="mr-2"
+											style={{ color }}
+										/>
+									}
+									label="Ngày sinh"
+								/>
+								<PrivateInfo
+									icon={
+										<TransgenderOutlined
+											fontSize="small"
+											className="mr-2"
+											style={{ color }}
+										/>
+									}
+									info={info?.generalInfo?.gender}
+									label="Giới tính"
+								/>
+								<PrivateInfo
+									icon={
+										<PlaceOutlined
+											fontSize="small"
+											className="mr-2"
+											style={{ color }}
+										/>
+									}
+									info={info?.generalInfo?.location}
+									label="Địa chỉ"
+								/>
 							</Stack>
 						</CvEditLayout>
 					</Col>
@@ -154,26 +162,11 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								HOẠT ĐỘNG
 							</div>
 							<div className="py-4 px-2">
-								{isEmpty(info?.activity) ? (
-									<NoDataYet />
-								) : (
-									<Stack gap={1}>
-										{info?.activity?.map((item, i) => (
-											<CvEditDeleteLayout
-												key={i}
-												onEdit={() =>
-													onEditSection(item, CV_MODAL_TYPES.activity)
-												}
-												onDelete={() =>
-													onDeleteSection(item?.id, CV_MODAL_TYPES.activity)
-												}
-											>
-												<strong>{item?.title}</strong>
-												<ShowDescription description={item?.description} />
-											</CvEditDeleteLayout>
-										))}
-									</Stack>
-								)}
+								<Activity
+									info={info?.activity}
+									onEdit={onEditSection}
+									onDelete={onDeleteSection}
+								/>
 							</div>
 						</CvAddLayout>
 					</Col>
@@ -189,26 +182,10 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								KỸ NĂNG
 							</div>
 							<div className="py-4 px-2">
-								{!info?.softSkill?.description &&
-								isEmpty(info?.softSkill?.items) ? (
-									<NoDataYet />
-								) : (
-									<>
-										<Stack gap={1}>
-											{info?.softSkill?.items?.map((item, i) => (
-												<p key={i}>
-													<StarFilled className="mr-2" style={{ color }} />
-													{item?.name}
-												</p>
-											))}
-										</Stack>
-										<div className="mt-1">
-											<ShowDescription
-												description={info?.softSkill?.description}
-											/>
-										</div>
-									</>
-								)}
+								<Skill
+									info={info?.softSkill}
+									icon={<StarFilled style={{ color }} />}
+								/>
 							</div>
 						</CvEditLayout>
 					</Col>
@@ -350,26 +327,9 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 							<div className="border-b-[3px] pb-1 border-white text-white text-xl font-bold">
 								TIN HỌC
 							</div>
-							<Row gutter={[6, 6]} className="py-4 text-white">
-								{isEmpty(info?.itSkill) ? (
-									<NoDataYet />
-								) : (
-									<>
-										{info.itSkill.map((item, i) => (
-											<Fragment key={i}>
-												<Col span={10}>{item?.name}</Col>
-												<Flex>
-													<Rate
-														value={item?.star}
-														disabled
-														style={{ color: "white" }}
-													/>
-												</Flex>
-											</Fragment>
-										))}
-									</>
-								)}
-							</Row>
+							<div className="py-4 text-white">
+								<RateInfo info={info?.itSkill} iconColor="#fff" />
+							</div>
 						</CvEditLayout>
 					</Col>
 					<Col span={12}>
@@ -380,26 +340,9 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 							<div className="border-b-[3px] pb-1 border-white text-white text-xl font-bold">
 								NGOẠI NGỮ
 							</div>
-							<Row gutter={[6, 6]} className="py-4 text-white">
-								{isEmpty(info?.languageSkill) ? (
-									<NoDataYet />
-								) : (
-									<>
-										{info.languageSkill.map((item, i) => (
-											<Fragment key={i}>
-												<Col span={10}>{item?.name}</Col>
-												<Flex>
-													<Rate
-														value={item?.star}
-														disabled
-														style={{ color: "white" }}
-													/>
-												</Flex>
-											</Fragment>
-										))}
-									</>
-								)}
-							</Row>
+							<div className="py-4 text-white">
+								<RateInfo info={info?.languageSkill} color="#fff" />
+							</div>
 						</CvEditLayout>
 					</Col>
 				</Row>
