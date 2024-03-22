@@ -3,13 +3,12 @@ import {
 	Adjust,
 	CalendarMonthOutlined,
 	EmailOutlined,
-	PhotoCamera,
 	PlaceOutlined,
 	SmartphoneOutlined,
 	TransgenderOutlined,
 } from "@mui/icons-material";
 import { Stack } from "@mui/system";
-import { Col, Image, Row } from "antd";
+import { Col, Row } from "antd";
 import { isEmpty } from "lodash";
 import ShowDescription from "src/commons/ShowDescription";
 import { CV_MODAL_TYPES } from "src/constants/cv";
@@ -17,14 +16,15 @@ import CvAddLayout from "../Common/CvAddLayout";
 import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
+import AvatarImage from "../Components/Generalnfo/AvatarImage";
 import Fullname from "../Components/Generalnfo/Fullname";
 import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
 import WorkTitle from "../Components/Generalnfo/WorkTitle";
 import Activity from "../Components/OtherInfo/Activity";
 import Career from "../Components/OtherInfo/Career";
+import Education from "../Components/OtherInfo/Education";
 import RateInfo from "../Components/OtherInfo/RateInfo";
 import Skill from "../Components/OtherInfo/Skill";
-import AvatarImage from "../Components/Generalnfo/AvatarImage";
 
 const color = "#B31312";
 
@@ -224,33 +224,7 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 												</div>
 												<div className="border-l-2 pl-4 pb-4">
 													<p>{item?.period}</p>
-													<p className="mt-2">
-														<strong className="uppercase">
-															{item?.certification}
-														</strong>
-													</p>
-													<p className="mt-1">
-														<strong className="mr-1">
-															Trường, nơi đào tạo:
-														</strong>
-														{item?.school}
-													</p>
-													<p className="mt-1">
-														<strong className="mr-1">Xếp loại:</strong>
-														{item?.degree}
-													</p>
-													<p className="mt-1">
-														<strong className="mr-1">Khoa:</strong>
-														{item?.class}
-													</p>
-													<p className="mt-1">
-														<strong className="mr-1">Ngành:</strong>
-														{item?.major}
-													</p>
-													<p className="mt-1">
-														<strong className="mr-1">Mô tả:</strong>
-														{item?.description}
-													</p>
+													{<Education info={item} />}
 												</div>
 											</div>
 										</CvEditDeleteLayout>

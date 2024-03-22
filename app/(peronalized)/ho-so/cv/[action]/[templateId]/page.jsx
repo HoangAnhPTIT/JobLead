@@ -17,6 +17,7 @@ import NotFound from "src/commons/NotFound";
 import CvTemplateLayout from "src/components/CvTemplate/Common/CvTemplateLayout";
 import Cv1 from "src/components/CvTemplate/Templates/Cv1";
 import Cv2 from "src/components/CvTemplate/Templates/Cv2";
+import Cv3 from "src/components/CvTemplate/Templates/Cv3";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
 import { CV_ACTIONS, CV_MODAL_TYPES, CV_TEMPLATES } from "src/constants/cv";
 import routeMap from "src/constants/routeMap";
@@ -103,6 +104,8 @@ const PersonalCv = () => {
 				return <Cv1 {...props} />;
 			case CV_TEMPLATES.cv2:
 				return <Cv2 {...props} />;
+			case CV_TEMPLATES.cv3:
+				return <Cv3 {...props} />;
 			default:
 				return null;
 		}

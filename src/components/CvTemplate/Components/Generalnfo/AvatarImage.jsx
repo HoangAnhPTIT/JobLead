@@ -1,7 +1,12 @@
 import { PhotoCamera } from "@mui/icons-material";
 import { Image } from "antd";
 
-const AvatarImage = ({ avatar, size = 150, css = "" }) => {
+const AvatarImage = ({
+	avatar,
+	size = 150,
+	css = "",
+	defaultColor = "#111",
+}) => {
 	return avatar ? (
 		<Image
 			src={avatar}
@@ -12,7 +17,7 @@ const AvatarImage = ({ avatar, size = 150, css = "" }) => {
 			className={css}
 		/>
 	) : (
-		<PhotoCamera style={{ width: size, height: size }} />
+		<PhotoCamera style={{ width: size, height: size, color: defaultColor }} />
 	);
 };
 

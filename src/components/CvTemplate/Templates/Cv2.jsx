@@ -21,6 +21,9 @@ import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
 import Career from "../Components/OtherInfo/Career";
 import RateInfo from "../Components/OtherInfo/RateInfo";
 import Skill from "../Components/OtherInfo/Skill";
+import Education from "../Components/OtherInfo/Education";
+import Fullname from "../Components/Generalnfo/Fullname";
+import WorkTitle from "../Components/Generalnfo/WorkTitle";
 
 const color = "#009ce0";
 
@@ -43,22 +46,8 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 						itemType={CV_MODAL_TYPES.generalInfo}
 						setModalType={setModalType}
 					>
-						<div className="text-3xl">
-							{info?.generalInfo?.fullName ? (
-								<span>{info?.generalInfo?.fullName}</span>
-							) : (
-								<span className="text-placeholder">Tên của bạn</span>
-							)}
-						</div>
-						<div className="text-lg text-33">
-							{info?.generalInfo?.workTitle ? (
-								<span>{info?.generalInfo?.workTitle}</span>
-							) : (
-								<span className="text-placeholder">
-									Vị trí công việc bạn muốn ứng tuyển
-								</span>
-							)}
-						</div>
+						<Fullname fullName={info?.generalInfo?.fullName} css="text-white" />
+						<WorkTitle workTitle={info?.generalInfo?.workTitle} css="text-33" />
 						<div className="mt-4 grid grid-cols-2 gap-1">
 							<PrivateInfo
 								icon={
@@ -172,33 +161,7 @@ const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 														>
 															{item?.period}
 														</p>
-														<p className="mt-2">
-															<strong className="uppercase">
-																{item?.certification}
-															</strong>
-														</p>
-														<p className="mt-1">
-															<strong className="mr-1">
-																Trường, nơi đào tạo:
-															</strong>
-															{item?.school}
-														</p>
-														<p className="mt-1">
-															<strong className="mr-1">Xếp loại:</strong>
-															{item?.degree}
-														</p>
-														<p className="mt-1">
-															<strong className="mr-1">Khoa:</strong>
-															{item?.class}
-														</p>
-														<p className="mt-1">
-															<strong className="mr-1">Ngành:</strong>
-															{item?.major}
-														</p>
-														<p className="mt-1">
-															<strong className="mr-1">Mô tả:</strong>
-															{item?.description}
-														</p>
+														{<Education info={item} />}
 													</div>
 												</div>
 											</CvEditDeleteLayout>
