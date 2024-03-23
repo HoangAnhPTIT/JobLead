@@ -74,17 +74,25 @@ const CvPage = () => {
 											</div>
 										</div>
 										<div className="flex gap-5">
-											<Button size="small" variant="outlined">
+											<Button
+												size="small"
+												variant="outlined"
+												onClick={() =>
+													window.open(
+														`${routeMap.file}${routeMap.cv}${routeMap.detail}/${item?.templateCode}`
+													)
+												}
+											>
 												<RemoveRedEyeOutlined
 													fontSize="small"
 													className="mr-1"
 												/>
 												Xem
 											</Button>
-											<Button size="small" variant="outlined">
+											{/* <Button size="small" variant="outlined">
 												<DownloadOutlined fontSize="small" className="mr-1" />{" "}
 												Tải xuống
-											</Button>
+											</Button> */}
 											<Button
 												size="small"
 												variant="outlined"

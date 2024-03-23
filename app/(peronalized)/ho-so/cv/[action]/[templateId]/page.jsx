@@ -133,6 +133,22 @@ const PersonalCv = () => {
 		);
 	}
 
+	if (action === CV_ACTIONS.view && templateId) {
+		return (
+			<div className="bg-33 py-5">
+				<div className="max-w-[860px] mx-auto">
+					<ShowCV
+						info={info}
+						setModalType={setModalType}
+						setDataSelected={setDataSelected}
+						onEditSection={onEditSection}
+						onDeleteSection={onDeleteSection}
+					/>
+				</div>
+			</div>
+		);
+	}
+
 	return <NotFound />;
 };
 
