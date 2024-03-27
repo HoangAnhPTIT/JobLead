@@ -1,12 +1,11 @@
 "use client";
 import {
 	BorderColorOutlined,
-	DownloadOutlined,
 	RemoveRedEyeOutlined,
 	ScheduleOutlined,
 } from "@mui/icons-material";
 import { Button, Grid, Stack } from "@mui/material";
-import { Image } from "antd";
+import { Col, Image, Modal, Row } from "antd";
 import dayjs from "dayjs";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/navigation";
@@ -18,9 +17,16 @@ import FileLayout from "src/components/Files/FileLayout";
 import { imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 
+const templates = ["1", "2", "3"];
+
 const CvPage = () => {
 	const router = useRouter();
 	const [cvList, setCvList] = useState();
+	const [showTemplateList, setShowTemplateList] = useState(false);
+
+	const onChangeShowModal = () => {
+		setShowTemplateList(!showTemplateList);
+	};
 
 	useEffect(() => {
 		const getCvList = async () => {
@@ -39,9 +45,7 @@ const CvPage = () => {
 						<Button
 							variant="contained"
 							className="!bg-secondary"
-							onClick={() =>
-								router.push(`${routeMap.file}${routeMap.cv}/basic`)
-							}
+							onClick={() => setShowTemplateList(true)}
 						>
 							Thêm mới CV
 						</Button>
@@ -116,6 +120,29 @@ const CvPage = () => {
 					</Stack>
 				</Grid>
 			</Grid>
+			<Modal
+				title="Chọn mẫu CV"
+				open={showTemplateList}
+				onCancel={onChangeShowModal}
+				footer={false}
+			>
+				<Row gutter={[16]}>
+					{templates.map((item, i) => (
+						<Col span={8} key={i}>
+							<div
+								className="shadow h-[120px] cursor-pointer"
+								onClick={() =>
+									router.push(
+										`${routeMap.file}${routeMap.cv}${routeMap.edit}/${item}`
+									)
+								}
+							>
+								Mẫu {item}
+							</div>
+						</Col>
+					))}
+				</Row>
+			</Modal>
 		</FileLayout>
 	);
 };
