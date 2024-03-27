@@ -106,6 +106,10 @@ const PersonalCv = () => {
 				return <Cv2 {...props} />;
 			case CV_TEMPLATES.cv3:
 				return <Cv3 {...props} />;
+			case CV_TEMPLATES.basic:
+				return <Cv3 {...props} />;
+			case CV_TEMPLATES.pro:
+				return <Cv2 {...props} />;
 			default:
 				return null;
 		}

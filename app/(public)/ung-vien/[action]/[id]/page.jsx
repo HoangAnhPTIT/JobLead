@@ -57,7 +57,8 @@ const CandidateDetailPage = () => {
 		[CV_TEMPLATES.cv1]: <Cv1 info={candidateInfo} />,
 		[CV_TEMPLATES.cv2]: <Cv2 info={candidateInfo} />,
 		[CV_TEMPLATES.cv3]: <Cv3 info={candidateInfo} />,
-		// [CV_TEMPLATES.basic]: <Cv1 info={candidateInfo} />,
+		[CV_TEMPLATES.basic]: <Cv3 info={candidateInfo} />,
+		[CV_TEMPLATES.pro]: <Cv2 info={candidateInfo} />,
 	};
 
 	if (action === CV_ACTIONS.view) {
