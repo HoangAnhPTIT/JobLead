@@ -36,7 +36,7 @@ const SearchBox = ({ setFilterData }) => {
 						<SelectAntd
 							form={Form}
 							allowClear
-							name="workLocationId"
+							name="cityId"
 							placeholder="Tất cả địa điểm"
 							list={entities?.WorkLocation}
 						/>

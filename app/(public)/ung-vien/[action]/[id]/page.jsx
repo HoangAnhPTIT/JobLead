@@ -24,6 +24,7 @@ const CandidateDetailPage = () => {
 	const [candidateInfo, setCandidateInfo] = useState();
 	const [cvTemplate, setCvTemplate] = useState();
 	const [indexTemplate, setIndexTemplate] = useState(0);
+	const [originalData, setOriginalData] = useState(null);
 
 	const getCandidateInfo = async () => {
 		dispatch(updateLoading(true));
@@ -33,6 +34,7 @@ const CandidateDetailPage = () => {
 			});
 			if (response.status === 200) {
 				const genData = convertCandidateInfo(response.data);
+				setOriginalData(response.data);
 				setCandidateInfo(genData);
 				setCvTemplate(response?.data?.cvs?.[0].templateCode);
 				setIndexTemplate(1);
@@ -76,6 +78,7 @@ const CandidateDetailPage = () => {
 						setIndexTemplate={setIndexTemplate}
 						cvTemplate={cvTemplate}
 						setCvTemplate={setCvTemplate}
+						originalData={originalData}
 					/>
 				</div>
 			</div>

@@ -83,7 +83,7 @@ const PersonalCv = () => {
 					toast.error(response?.message);
 				}
 				if (cvInfoResponse.status === 200) {
-					setCvInfo(response?.data);
+					setCvInfo(cvInfoResponse.data);
 				} else {
 					toast.error(response?.message);
 				}

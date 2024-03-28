@@ -67,7 +67,7 @@ const CandidateSearch = () => {
 						<Grid item xs={3}>
 							<SelectFilter
 								control={control}
-								name="workLocationId"
+								name="cityId"
 								placeholder="Địa điểm"
 								list={entities?.WorkLocation}
 							/>

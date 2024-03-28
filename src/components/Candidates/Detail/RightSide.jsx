@@ -4,7 +4,6 @@ import {
 	ArrowForwardOutlined,
 	Download,
 	Email,
-	KeyboardArrowLeft,
 	Save,
 	Visibility,
 } from "@mui/icons-material";
@@ -34,19 +33,26 @@ const getTimeBefore = (milisecondsBefore) => {
 		: secondsBefore;
 
 	return (
-		(days && `${days} ngày `) +
-		(hours && `${hours} giờ `) +
-		(minutes && `${minutes} phút `) +
+		(days > 0 ? `${days} ngày ` : "") +
+		(hours > 0 ? `${hours} giờ ` : "") +
+		(minutes > 0 ? `${minutes} phút ` : "") +
 		`${seconds} giây`
 	);
 };
 
-const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
+const RightSide = ({
+	info,
+	getData,
+	cvTemplate,
+	setCvTemplate,
+	originalData,
+}) => {
 	const dispatch = useAppDispatch();
 
 	const indexTemplate =
-		1 + info?.cvs?.findIndex((item) => item?.templateCode === cvTemplate);
-	const amountCv = info?.cvs?.length || 0;
+		1 +
+		originalData?.cvs?.findIndex((item) => item?.templateCode === cvTemplate);
+	const amountCv = originalData?.cvs?.length || 0;
 
 	const confirm = ({ content, onOk }) => {
 		Modal.confirm({
@@ -62,14 +68,14 @@ const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
 
 	const onViewCandidate = () => {
 		confirm({
-			content: `Bạn có muốn sử dụng ${info?.viewPoint} điểm để xem thông tin ứng viên?`,
+			content: `Bạn có muốn sử dụng ${originalData?.viewPoint} điểm để xem thông tin ứng viên?`,
 			onOk: async () => {
 				dispatch(updateLoading(true));
 				try {
 					const res = await httpAuthPost({
 						endpoint: apiCompanyViewCandidate,
 						data: {
-							candidateId: info?.id,
+							candidateId: originalData?.id,
 						},
 					});
 					if (res.status === 200) {
@@ -140,12 +146,12 @@ const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
 
 	const onPrev = () => {
 		indexTemplate > 1 &&
-			setCvTemplate(info?.cvs?.[indexTemplate - 2]?.templateCode);
+			setCvTemplate(originalData?.cvs?.[indexTemplate - 2]?.templateCode);
 	};
 	const onNext = () => {
 		indexTemplate < amountCv &&
 			indexTemplate > 0 &&
-			setCvTemplate(info?.cvs?.[indexTemplate]?.templateCode);
+			setCvTemplate(originalData?.cvs?.[indexTemplate]?.templateCode);
 	};
 
 	return (
@@ -153,21 +159,21 @@ const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
 			<div className="pb-2 border-b text-center text-xl uppercase font-semibold">
 				Bạn có muốn
 			</div>
-			{!info?.isViewed && (
+			{!originalData?.isViewed && (
 				<div
 					className="py-2 px-1 border-b cursor-pointer"
 					onClick={onViewCandidate}
 				>
 					<Visibility fontSize="small" /> Xem thông tin liên hệ
 					<span className="text-white rounded bg-yellow3 text-xs px-1 py-0.5 float-right">
-						{info?.viewPoint || 0}đ
+						{originalData?.viewPoint || 0}đ
 					</span>
 				</div>
 			)}
 			<div className="py-2 px-1 border-b cursor-pointer" onClick={onSendEmail}>
 				<Email fontSize="small" /> Email mời ứng tuyển
 				<span className="text-white rounded bg-yellow3 text-xs px-1 py-0.5 float-right">
-					{info?.emailPoint || 0}đ
+					{originalData?.emailPoint || 0}đ
 				</span>
 			</div>
 			<div className="py-2 px-1 border-b cursor-pointer" onClick={onSaveCv}>
@@ -178,7 +184,7 @@ const RightSide = ({ info, getData, cvTemplate, setCvTemplate }) => {
 			</div>
 			<div className="py-2 px-1 border-b text-center">
 				Cập nhật lần cuối:{" "}
-				{getTimeBefore(dayjs() - dayjs(info?.lastUpdatedDate))} trước
+				{getTimeBefore(dayjs() - dayjs(originalData?.lastUpdatedDate))} trước
 			</div>
 			<div className="flex justify-around mt-10">
 				<Button

@@ -172,6 +172,7 @@ const JobSearch = () => {
 										allowClear
 										placeholder="Mức lương"
 										list={entities?.Salary}
+										size="large"
 									/>
 								</div>
 								<div>

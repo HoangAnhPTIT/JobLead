@@ -70,10 +70,10 @@ const CreateJobContent = () => {
 		};
 		const getCompanyInfo = async () => {
 			const response = await httpAuthGet({ endpoint: apiCompanyContact });
-			response?.data && form.setFieldValue("contact", response?.data);
+			response?.data && form.setFieldValue("contactInfo", response?.data);
 		};
 		getServices();
-		getCompanyInfo();
+		!id && getCompanyInfo();
 		form.setFieldValue("jobInfo", { isHasCommission: false });
 	}, []);
 
@@ -164,6 +164,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name={["jobInfo", "levelId"]}
+										size="large"
 										label="Cấp bậc"
 										placeholder="Chọn cấp bậc"
 										list={entities?.Level}
@@ -174,6 +175,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name={["jobInfo", "typeOfWorkId"]}
+										size="large"
 										label="Loại hình công việc"
 										placeholder="Chọn loại hình công việc"
 										list={entities?.TypeOfWork}
@@ -184,6 +186,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name={["jobInfo", "salaryId"]}
+										size="large"
 										label="Mức lương"
 										placeholder="Chọn mức lương"
 										list={entities?.Salary}
@@ -203,6 +206,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name={["jobInfo", "workLocationId"]}
+										size="large"
 										label="Địa điểm làm việc"
 										placeholder="Chọn địa điểm làm việc"
 										list={entities?.WorkLocation}
@@ -213,6 +217,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name={["jobInfo", "careerId"]}
+										size="large"
 										label="Ngành nghề"
 										placeholder="Chọn ngành nghề"
 										list={entities?.Career}
@@ -276,6 +281,7 @@ const CreateJobContent = () => {
 										<SelectAntd
 											form={Form}
 											name={["jobRequirement", "experienceId"]}
+											size="large"
 											label="Kinh nghiệm"
 											placeholder="Chọn kinh nghiệm"
 											list={entities?.Experience}
@@ -286,6 +292,7 @@ const CreateJobContent = () => {
 										<SelectAntd
 											form={Form}
 											name={["jobRequirement", "degreeId"]}
+											size="large"
 											label="Bằng cấp"
 											placeholder="Chọn bằng cấp"
 											list={entities?.Degree}
@@ -296,6 +303,7 @@ const CreateJobContent = () => {
 										<SelectAntd
 											form={Form}
 											name={["jobRequirement", "genderId"]}
+											size="large"
 											label="Giới tính"
 											placeholder="Chọn giới tính"
 											list={entities?.Gender}
@@ -315,6 +323,7 @@ const CreateJobContent = () => {
 										<SelectAntd
 											form={Form}
 											name={["jobRequirement", "languageId"]}
+											size="large"
 											label="Ngôn ngữ hồ sơ"
 											placeholder="Chọn ngôn ngữ hồ sơ"
 											list={entities?.Language}
@@ -416,6 +425,7 @@ const CreateJobContent = () => {
 									<SelectAntd
 										form={Form}
 										name="services"
+										size="large"
 										label="Services"
 										mode="multiple"
 										placeholder="Chọn services"

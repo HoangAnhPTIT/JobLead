@@ -23,8 +23,8 @@ const ModalSave = ({ data, modalType, closeModal }) => {
 			const values = await form.validateFields();
 			const response = data?.id
 				? await httpAuthPut({
-						endpoint: apiCv,
-						data: { id: data?.id, ...values, templateCode: templateId },
+						endpoint: `${apiCv}/${templateId}`,
+						data: values,
 				  })
 				: await httpAuthPost({
 						endpoint: apiCv,

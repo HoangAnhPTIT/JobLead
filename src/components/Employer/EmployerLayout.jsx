@@ -8,6 +8,7 @@ import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCompanyInfo } from "src/apis/apiEndpoint";
 import EmployerMenu from "src/components/Employer/Menu";
 import { USER_ROLE } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 
 const SupportBanner = () => {
 	const css = "text-primary font-semibold mx-2";
@@ -33,7 +34,7 @@ const SupportBanner = () => {
 				<p>
 					CSKH:<span className={css}>Ms Thảo Nhi</span>- Email:
 					<span className={css}>timviec247@gmail.com</span>- Hotline:
-					<span className="css">0123456789</span>
+					<span className={css}>0123456789</span>
 				</p>
 			</div>
 		</div>
@@ -62,7 +63,12 @@ const EmployerLayout = ({ children }) => {
 				<div className="grid gap-5" style={{ gridTemplateColumns: "20% 80%" }}>
 					<div>
 						<div className="pb-5 bg-white">
-							<div className="bg-secondary text-white text-center p-2">
+							<div
+								className="bg-secondary text-white text-center p-2 cursor-pointer"
+								onClick={() =>
+									router.push(`${routeMap.employer}${routeMap.createJob}`)
+								}
+							>
 								<p className="font-semibold text-[15px]">
 									<FileUpload /> Đăng tin tuyển dụng
 								</p>

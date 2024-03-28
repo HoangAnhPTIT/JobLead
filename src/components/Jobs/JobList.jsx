@@ -22,6 +22,7 @@ const JobList = ({ jobList, majorList }) => {
 	};
 
 	const currentPage = Number(searchParams.get("page")) || 1;
+	console.log("jobList", jobList);
 
 	return (
 		<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto my-5">
