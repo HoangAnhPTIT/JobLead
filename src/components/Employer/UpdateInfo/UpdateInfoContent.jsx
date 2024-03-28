@@ -3,6 +3,7 @@ import { KeyOutlined } from "@mui/icons-material";
 import { Button, Col, Form, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
@@ -15,20 +16,18 @@ import {
 import ImageInput from "src/commons/AntdForm/ImageInput";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import EmployerBanner from "../EmployerBanner";
 
 const UpdateInfoContent = () => {
+	const router = useRouter();
 	const [form] = Form.useForm();
-	const [formPw] = Form.useForm();
 	const dispatch = useAppDispatch();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [info, setInfo] = useState();
-	const [showModal, setShowModal] = useState(false);
 
-	const handleChangePassword = () => {};
 	const onSubmit = async () => {
 		dispatch(updateLoading(true));
-		``;
 		try {
 			const values = await form.validateFields();
 			const payload = { ...info, ...values };
@@ -78,7 +77,9 @@ const UpdateInfoContent = () => {
 							<Input size="large" disabled value={info?.email} />
 							<p
 								className="mt-3 text-gray-400 hover:underline cursor-pointer flex items-center w-fit"
-								onClick={() => setShowModal(true)}
+								onClick={() =>
+									router.push(`${routeMap.employer}${routeMap.changePassword}`)
+								}
 							>
 								<KeyOutlined fontSize="small" className="mr-2" />
 								Đổi mật khẩu
