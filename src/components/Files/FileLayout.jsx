@@ -31,17 +31,21 @@ const FileLayout = ({ children }) => {
 				<div className="grid gap-5" style={{ gridTemplateColumns: "20% 80%" }}>
 					<div>
 						<div className="bg-white pt-5 pb-0 text-center">
-							<Avatar
-								size={100}
-								src={
-									<Image
-										src={data?.avatar}
-										alt={data?.fullName}
-										preview={false}
-									/>
-								}
-								shape="circle"
-							/>
+							{data?.avatar ? (
+								<Avatar
+									size={100}
+									src={
+										<Image
+											src={data?.avatar}
+											alt={data?.name}
+											preview={false}
+										/>
+									}
+									shape="circle"
+								/>
+							) : (
+								<Avatar size={100} shape="circle" />
+							)}
 							<p className="text-33 text-lg font-semibold pb-5">
 								{data?.fullName}
 							</p>

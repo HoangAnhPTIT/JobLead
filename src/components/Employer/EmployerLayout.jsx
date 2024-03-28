@@ -69,17 +69,21 @@ const EmployerLayout = ({ children }) => {
 								<i className="text-[13px]">Cách nhanh nhất để tìm ứng viên</i>
 							</div>
 							<div className="pt-3 text-center">
-								<Avatar
-									size={100}
-									src={
-										<Image
-											src={data?.avatar}
-											alt={data?.name}
-											preview={false}
-										/>
-									}
-									shape="circle"
-								/>
+								{data?.avatar ? (
+									<Avatar
+										size={100}
+										src={
+											<Image
+												src={data?.avatar}
+												alt={data?.name}
+												preview={false}
+											/>
+										}
+										shape="circle"
+									/>
+								) : (
+									<Avatar size={100} shape="circle" />
+								)}
 								<p className="text-33 text-lg font-semibold">{data?.name}</p>
 							</div>
 							<div className="pt-2 px-8 text-99">

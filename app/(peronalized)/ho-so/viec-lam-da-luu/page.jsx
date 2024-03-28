@@ -12,105 +12,134 @@ import {
 } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet } from "src/apis/apiAuthCaller";
+import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateSaveJobs } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
-const columns = [
-	{
-		title: "Vị trí / Công ty",
-		dataIndex: "",
-		key: "name",
-		render: (value) => (
-			<div>
-				<span
-					className="link"
-					onClick={() =>
-						window.open(
-							`${routeMap.job}${routeMap.detail}/${value?.jobInfo?.slug}`
-						)
-					}
-				>
-					{value?.jobInfo?.jobName}
-				</span>
-				<span className="mx-1">/</span>
-				<span
-					className="link"
-					onClick={() =>
-						window.open(`${routeMap.company}/${value?.companyInfo?.id}`)
-					}
-				>
-					{value?.companyInfo?.name}
-				</span>
-			</div>
-		),
-	},
-	{
-		title: "Địa điểm",
-		dataIndex: "jobInfo",
-		key: "location",
-		render: (value) => value?.location,
-	},
-	{
-		title: "Mức lương",
-		dataIndex: "jobInfo",
-		key: "salary",
-		render: (value) => value?.salary,
-	},
-	{
-		title: "Ngày lưu",
-		dataIndex: "createdDate",
-		key: "createdDate",
-		render: (value) => getDate(value),
-	},
-	{
-		title: "Hành động",
-		dataIndex: "",
-		key: "action",
-		width: 100,
-		render: (record) => (
-			<div className="text-center">
-				<Tooltip title="Bỏ lưu công việc">
-					<DeleteOutline
-						fontSize="small"
-						className="text-red-600 cursor-pointer"
-					/>
-				</Tooltip>
-			</div>
-		),
-	},
-];
-
 const SavedJobPage = () => {
+	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const [data, setData] = useState();
 	const [filter, setFilter] = useState({});
+
+	const getData = async () => {
+		dispatch(updateLoading(true));
+		const res = await httpAuthGet({
+			endpoint: apiCandidateSaveJobs,
+			params: { ...filter, page: 1, size: 1000 },
+		});
+		if (res?.status === 200) {
+			setData(res.data);
+		} else {
+			toast.error(errorMessage);
+		}
+		dispatch(updateLoading(false));
+	};
 
 	const onSubmit = () => {
 		const values = form.getFieldsValue();
 		setFilter(values);
 	};
 
-	useEffect(() => {
-		const getData = async () => {
+	const onUnsave = useCallback(
+		async (id) => {
 			dispatch(updateLoading(true));
-			const res = await httpAuthGet({
-				endpoint: apiCandidateSaveJobs,
-				params: { ...filter, page: 1, size: 1000 },
-			});
-			if (res?.status === 200) {
-				setData(res.data);
-			} else {
-				toast.error(errorMessage);
+			try {
+				const res = await httpAuthDelete({
+					endpoint: `${apiCandidateSaveJobs}/${id}`,
+				});
+				if (res?.status === 200) {
+					toast.success("Bỏ lưu việc làm thành công");
+					getData();
+				} else {
+					toast.error(errorMessage);
+				}
+			} catch {
+				/* empty */
+			} finally {
+				dispatch(updateLoading(false));
 			}
-			dispatch(updateLoading(false));
-		};
+		},
+		[dispatch, router]
+	);
+
+	const columns = useMemo(
+		() => [
+			{
+				title: "Vị trí / Công ty",
+				dataIndex: "",
+				key: "name",
+				render: (value) => (
+					<div>
+						<span
+							className="link"
+							onClick={() =>
+								window.open(
+									`${routeMap.job}${routeMap.detail}/${value?.jobInfo?.slug}`
+								)
+							}
+						>
+							{value?.jobInfo?.jobName}
+						</span>
+						<span className="mx-1">/</span>
+						<span
+							className="link"
+							onClick={() =>
+								window.open(`${routeMap.company}/${value?.companyInfo?.id}`)
+							}
+						>
+							{value?.companyInfo?.name}
+						</span>
+					</div>
+				),
+			},
+			{
+				title: "Địa điểm",
+				dataIndex: "jobInfo",
+				key: "location",
+				render: (value) => value?.location,
+			},
+			{
+				title: "Mức lương",
+				dataIndex: "jobInfo",
+				key: "salary",
+				render: (value) => value?.salary,
+			},
+			{
+				title: "Ngày lưu",
+				dataIndex: "createdDate",
+				key: "createdDate",
+				render: (value) => getDate(value),
+			},
+			{
+				title: "Hành động",
+				dataIndex: "jobInfo",
+				key: "action",
+				width: 100,
+				render: (record) => (
+					<div className="text-center">
+						<Tooltip title="Bỏ lưu công việc">
+							<DeleteOutline
+								fontSize="small"
+								className="text-red-600 cursor-pointer"
+								onClick={() => onUnsave(record?.jobId)}
+							/>
+						</Tooltip>
+					</div>
+				),
+			},
+		],
+		[onUnsave]
+	);
+
+	useEffect(() => {
 		getData();
 	}, [dispatch, filter]);
 

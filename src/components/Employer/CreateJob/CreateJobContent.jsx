@@ -39,7 +39,7 @@ const CreateJobContent = () => {
 				},
 			};
 			const response = id
-				? await httpAuthPut({ endpoint: apiJob, data: { id, ...bodyData } })
+				? await httpAuthPut({ endpoint: `${apiJob}/${id}`, data: bodyData })
 				: await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
 				toast.success("Đăng tin tuyển dụng thành công");

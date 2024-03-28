@@ -9,10 +9,8 @@ import {
 	Public,
 	QueryBuilderOutlined,
 } from "@mui/icons-material";
-import { Col, Image, Row } from "antd";
+import { Col, Image, Row, Tooltip } from "antd";
 import classNames from "classnames";
-import dayjs from "dayjs";
-import { useAppSelector } from "lib/hooks";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -25,7 +23,6 @@ import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const CompanyDetail = () => {
-	const { today } = useAppSelector((state) => state.time);
 	const { id } = useParams();
 	const [companyInfo, setCompanyInfo] = useState();
 	const [jobList, setJobList] = useState();
@@ -112,10 +109,9 @@ const CompanyDetail = () => {
 													href={`${routeMap.job}${routeMap.detail}/${item?.slug}`}
 												>
 													<div className={classNames("font-semibold flex")}>
-														<div className="three-dot">{item?.name}</div>
-														{/* <div className="w-[164px]">
-															<Expired />
-														</div> */}
+														<Tooltip title={item?.name}>
+															<div className="three-dot">{item?.name}</div>
+														</Tooltip>
 													</div>
 												</Link>
 												<Row gutter={[8, 4]}>

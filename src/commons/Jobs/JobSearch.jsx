@@ -101,6 +101,7 @@ const JobSearch = () => {
 								placeholder="Ngành nghề"
 								valueKey="slug"
 								list={entities?.Career}
+								size="large"
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
@@ -111,6 +112,7 @@ const JobSearch = () => {
 								placeholder="Địa điểm"
 								list={entities?.WorkLocation}
 								valueKey="slug"
+								size="large"
 							/>
 						</Grid>
 						<Grid item>
@@ -150,6 +152,7 @@ const JobSearch = () => {
 										allowClear
 										placeholder="Vị trí"
 										list={entities?.Level}
+										size="large"
 									/>
 								</div>
 								<div>
@@ -158,6 +161,7 @@ const JobSearch = () => {
 										name="experienceId"
 										allowClear
 										placeholder="Kinh nghiệm"
+										size="large"
 										list={entities?.Experience}
 									/>
 								</div>
@@ -176,6 +180,7 @@ const JobSearch = () => {
 										name="typeOfWorkId"
 										allowClear
 										placeholder="Loại hình công việc"
+										size="large"
 										list={entities?.TypeOfWork}
 									/>
 								</div>
@@ -185,6 +190,7 @@ const JobSearch = () => {
 										name="genderId"
 										allowClear
 										placeholder="Giới tính"
+										size="large"
 										list={entities?.Gender}
 									/>
 								</div>
