@@ -12,8 +12,11 @@ import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import ImageFull from "src/commons/Image";
 import ApproveRule from "./ApproveRule";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import routeMap from "src/constants/routeMap";
 
 const CreateJobContent = () => {
+	const router = useRouter();
 	const { entities } = useAppSelector((state) => state.entity);
 	const [serviceList, setServiceList] = useState([]);
 	const dispatch = useAppDispatch();
@@ -35,15 +38,21 @@ const CreateJobContent = () => {
 							values?.jobRequirement?.submitDeadline
 						).format("YYYY-MM-DD"),
 					},
-					contactInfo: values?.contact,
+					contactInfo: values?.contactInfo,
 				},
 			};
 			const response = id
 				? await httpAuthPut({ endpoint: `${apiJob}/${id}`, data: bodyData })
 				: await httpAuthPost({ endpoint: apiJob, data: bodyData });
 			if (response?.status === 200) {
-				toast.success("Đăng tin tuyển dụng thành công");
-				form.resetFields();
+				toast.success(
+					id
+						? "Cập nhật tin tuyển dụng thành công"
+						: "Đăng tin tuyển dụng thành công"
+				);
+				id
+					? router.push(`${routeMap.employer}${routeMap.postList}`)
+					: form.resetFields();
 			}
 		} catch (error) {
 			console.log(error);
@@ -102,7 +111,7 @@ const CreateJobContent = () => {
 						requestDocumentAttachment:
 							data?.jobRequirement?.requestDocumentAttachment,
 					},
-					contact: data?.contactInfo,
+					contactInfo: data?.contactInfo,
 				};
 				form.setFieldsValue(formData);
 			} catch {
@@ -358,7 +367,7 @@ const CreateJobContent = () => {
 								<Row gutter={[16, 16]}>
 									<Col span={24}>
 										<Form.Item
-											name={["contact", "fullName"]}
+											name={["contactInfo", "contact"]}
 											label="Người liên hệ"
 											rules={[{ required: true }]}
 										>
@@ -370,7 +379,7 @@ const CreateJobContent = () => {
 									</Col>
 									<Col span={12}>
 										<Form.Item
-											name={["contact", "email"]}
+											name={["contactInfo", "email"]}
 											label="Email liên hệ"
 											rules={[{ required: true }]}
 										>
@@ -379,7 +388,7 @@ const CreateJobContent = () => {
 									</Col>
 									<Col span={12}>
 										<Form.Item
-											name={["contact", "phone"]}
+											name={["contactInfo", "phone"]}
 											label="Số điện thoại liên hệ"
 											rules={[{ required: true }]}
 										>
@@ -388,7 +397,7 @@ const CreateJobContent = () => {
 									</Col>
 									<Col span={24}>
 										<Form.Item
-											name={["contact", "address"]}
+											name={["contactInfo", "workLocation"]}
 											label="Địa điểm làm việc"
 											rules={[{ required: true }]}
 										>

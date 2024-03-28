@@ -2,7 +2,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Image, Modal, Upload } from "antd";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpAuthDelete, httpAuthPost } from "src/apis/apiAuthCaller";
+import { errorMessage } from "src/constants/common";
 
 const getBase64 = (file) =>
 	new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ const getBase64 = (file) =>
 		reader.onload = () => resolve(reader.result);
 		reader.onerror = (error) => reject(error);
 	});
-const ImageInput = ({ imageUrl, apiUpdate, reload }) => {
+const ImageInput = ({ imageUrl, apiUpdate, apiDelete, reload }) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState("");
 	const [fileList, setFileList] = useState([]);
@@ -27,6 +28,19 @@ const ImageInput = ({ imageUrl, apiUpdate, reload }) => {
 	};
 
 	const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+
+	const onDelete = async () => {
+		try {
+			const response = await httpAuthDelete({ endpoint: apiDelete });
+			if (response.status === 200) {
+				toast.success("Xoá ảnh thành công");
+			} else {
+				toast.error(response?.message);
+			}
+		} catch {
+			toast.error(errorMessage);
+		}
+	};
 
 	const uploadButton = (
 		<button
@@ -81,6 +95,7 @@ const ImageInput = ({ imageUrl, apiUpdate, reload }) => {
 						toast(res.message);
 					}
 				}}
+				onRemove={onDelete}
 			>
 				{fileList.length > 0 ? null : uploadButton}
 			</Upload>

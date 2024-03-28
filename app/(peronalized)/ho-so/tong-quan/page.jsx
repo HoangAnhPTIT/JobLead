@@ -110,8 +110,8 @@ const jobSavedColumns = [
 		render: (value) => (
 			<div className="flex gap-4">
 				<Image
-					src={value?.company?.avatar}
-					alt={value?.company?.name}
+					src={value?.companyInfo?.avatar}
+					alt={value?.companyInfo?.name}
 					width={40}
 					height={40}
 					preview={false}
@@ -120,18 +120,20 @@ const jobSavedColumns = [
 					<p
 						className="text-[15px] link font-semibold"
 						onClick={() =>
-							window.open(`${routeMap.job}${routeMap.detail}/${value?.jobId}`)
+							window.open(
+								`${routeMap.job}${routeMap.detail}/${value?.jobInfo?.slug}`
+							)
 						}
 					>
-						{value?.jobName}
+						{value?.jobInfo?.jobName}
 					</p>
 					<p
 						className="text-sm text-99 link"
 						onClick={() =>
-							window.open(`${routeMap.company}/${value?.company?.id}`)
+							window.open(`${routeMap.company}/${value?.companyInfo?.id}`)
 						}
 					>
-						{value?.company?.name}
+						{value?.companyInfo?.name}
 					</p>
 				</div>
 			</div>
@@ -139,27 +141,27 @@ const jobSavedColumns = [
 	},
 	{
 		title: "Địa điểm",
-		dataIndex: "location",
+		dataIndex: "jobInfo",
 		key: "location",
 		render: (value) => (
 			<div className="text-center text-99 text-sm">
 				<p>
 					<FmdGood fontSize="small" />
 				</p>
-				<p>{value}</p>
+				<p>{value?.location}</p>
 			</div>
 		),
 	},
 	{
 		title: "Mức lương",
-		dataIndex: "salary",
+		dataIndex: "jobInfo",
 		key: "salary",
 		render: (value) => (
 			<div className="text-center text-secondary text-sm">
 				<p>
 					<PaidOutlined fontSize="small" />
 				</p>
-				<p>{value}</p>
+				<p>{value?.salary}</p>
 			</div>
 		),
 	},
@@ -214,9 +216,17 @@ const DashboardPage = () => {
 			});
 			const appliedRes = await httpAuthGet({
 				endpoint: apiCandidateApplication,
+				params: {
+					page: 1,
+					size: 4,
+				},
 			});
 			const savedRes = await httpAuthGet({
 				endpoint: apiCandidateSaveJobs,
+				params: {
+					page: 1,
+					size: 4,
+				},
 			});
 
 			if (appliedRes?.status === 200) {
@@ -225,7 +235,7 @@ const DashboardPage = () => {
 				toast.error(errorMessage);
 			}
 			if (savedRes?.status === 200) {
-				setSavedJobs(savedRes?.data?.jobs);
+				setSavedJobs(savedRes?.data?.savedJob);
 			} else {
 				toast.error(errorMessage);
 			}

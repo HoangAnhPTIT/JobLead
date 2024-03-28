@@ -1,6 +1,7 @@
 "use client";
 import {
 	BorderColorOutlined,
+	EditOutlined,
 	RemoveRedEyeOutlined,
 	ScheduleOutlined,
 } from "@mui/icons-material";
@@ -108,7 +109,7 @@ const CvPage = () => {
 													)
 												}
 											>
-												<BorderColorOutlined /> Sửa
+												<EditOutlined /> Sửa
 											</Button>
 										</div>
 									</div>

@@ -20,7 +20,7 @@ const SearchBox = ({ setFilterData }) => {
 				<Row gutter={[16, 8]}>
 					<Col span={8}>
 						<Form.Item name="q">
-							<Input size="large" placeholder="Tiêu đề công việc" allowClear />
+							<Input placeholder="Tiêu đề công việc" allowClear />
 						</Form.Item>
 					</Col>
 					<Col span={8}>

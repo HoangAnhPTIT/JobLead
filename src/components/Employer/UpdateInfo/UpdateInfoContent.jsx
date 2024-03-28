@@ -9,7 +9,9 @@ import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPut } from "src/apis/apiAuthCaller";
 import {
 	apiCompany,
+	apiCompanyAvatar,
 	apiCompanyInfo,
+	apiCompanyProfile,
 	apiCompanyUploadAvatar,
 	apiCompanyUploadProfile,
 } from "src/apis/apiEndpoint";
@@ -182,6 +184,7 @@ const UpdateInfoContent = () => {
 						<ImageInput
 							imageUrl={info?.avatar}
 							apiUpdate={apiCompanyUploadAvatar}
+							apiDelete={apiCompanyAvatar}
 							reload={getData}
 						/>
 					</div>
@@ -190,6 +193,7 @@ const UpdateInfoContent = () => {
 						<ImageInput
 							imageUrl={info?.profile}
 							apiUpdate={apiCompanyUploadProfile}
+							apiDelete={apiCompanyProfile}
 							reload={getData}
 						/>
 					</div>

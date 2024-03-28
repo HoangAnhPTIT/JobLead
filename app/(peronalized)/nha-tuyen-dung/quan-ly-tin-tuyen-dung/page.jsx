@@ -92,6 +92,7 @@ const PostListPage = () => {
 							</Col>
 							<Col span={10}>
 								<SelectAntd
+									size="large"
 									form={Form}
 									placeholder="Tất cả tuyển dụng"
 									allowClear
