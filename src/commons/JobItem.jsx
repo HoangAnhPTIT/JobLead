@@ -58,13 +58,13 @@ const JobItem = ({ item, showExpire = false }) => {
 				height={60}
 				alt={item?.company?.name || ""}
 			/>
-			<div className="text-sm w-[calc(100%-72px)]">
+			<div className="text-sm w-[calc(100%-108px)]">
 				<Link
 					href={`${routeMap.job}${routeMap.detail}/${
 						item?.slug || item?.id || item?.jobId
 					}`}
 				>
-					<span
+					<div
 						className={classNames([
 							"three-dot font-bold",
 							item?.type === JOB_PRIORITY.HOT ? "text-secondary" : "text-55",
@@ -74,7 +74,7 @@ const JobItem = ({ item, showExpire = false }) => {
 							<i className="text-secondary ">(Gấp) </i>
 						)}
 						<span>{item?.jobName}</span>
-					</span>
+					</div>
 				</Link>
 				<div>
 					<Link href={`${routeMap.company}/${item?.company?.id}`}>

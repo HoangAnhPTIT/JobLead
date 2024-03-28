@@ -31,32 +31,36 @@ const columns = [
 				<span
 					className="link"
 					onClick={() =>
-						window.open(`${routeMap.job}${routeMap.detail}/${value?.slug}`)
+						window.open(
+							`${routeMap.job}${routeMap.detail}/${value?.jobInfo?.slug}`
+						)
 					}
 				>
-					{value?.jobName}
+					{value?.jobInfo?.jobName}
 				</span>
 				<span className="mx-1">/</span>
 				<span
 					className="link"
 					onClick={() =>
-						window.open(`${routeMap.company}/${value?.company?.id}`)
+						window.open(`${routeMap.company}/${value?.companyInfo?.id}`)
 					}
 				>
-					{value?.company?.name}
+					{value?.companyInfo?.name}
 				</span>
 			</div>
 		),
 	},
 	{
 		title: "Địa điểm",
-		dataIndex: "location",
+		dataIndex: "jobInfo",
 		key: "location",
+		render: (value) => value?.location,
 	},
 	{
 		title: "Mức lương",
-		dataIndex: "salary",
+		dataIndex: "jobInfo",
 		key: "salary",
+		render: (value) => value?.salary,
 	},
 	{
 		title: "Ngày lưu",
@@ -158,7 +162,7 @@ const SavedJobPage = () => {
 					size="small"
 					bordered
 					columns={columns}
-					dataSource={data?.jobs || []}
+					dataSource={data?.savedJob || []}
 				/>
 			</div>
 		</FileLayout>

@@ -5,10 +5,7 @@ import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthPost, httpAuthPut } from "src/apis/apiAuthCaller";
-import {
-	apiCandidateEducation,
-	apiCandidateExperience,
-} from "src/apis/apiEndpoint";
+import { apiCandidateExperience } from "src/apis/apiEndpoint";
 import { updateSuccessMessage } from "src/constants/common";
 import { CV_MODAL_TYPES } from "src/constants/cv";
 
@@ -38,11 +35,11 @@ const ModalExperience = ({ data, modalType, closeModal }) => {
 						data: { id: data?.id, ...values },
 				  })
 				: await httpAuthPost({
-						endpoint: apiCandidateEducation,
+						endpoint: apiCandidateExperience,
 						data: values,
 				  });
 
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			}

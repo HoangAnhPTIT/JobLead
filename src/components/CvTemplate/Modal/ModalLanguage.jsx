@@ -47,7 +47,7 @@ const ModalLanguage = ({ data, modalType, closeModal }) => {
 				endpoint: apiCandidateLanguageSkill,
 				data: payloadValidated,
 			});
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			}

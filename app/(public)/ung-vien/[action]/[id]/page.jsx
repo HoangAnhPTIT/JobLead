@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidate } from "src/apis/apiEndpoint";
+import LoadingComponent from "src/commons/LoadingComponent";
 import NotFound from "src/commons/NotFound";
 import RightSide from "src/components/Candidates/Detail/RightSide";
 import Cv1 from "src/components/CvTemplate/Templates/Cv1";
@@ -66,7 +67,7 @@ const CandidateDetailPage = () => {
 			<div className="bg-bgContainer">
 				<div className="w-xlContent mx-auto grid grid-cols-[67%_33%] gap-5">
 					<div className="max-h-[calc(100vh-64px)] overflow-y-auto pt-4">
-						{templates[cvTemplate]}
+						<LoadingComponent>{templates[cvTemplate]}</LoadingComponent>
 					</div>
 					<RightSide
 						info={candidateInfo}

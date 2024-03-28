@@ -28,7 +28,7 @@ const ModalActivity = ({ data, modalType, closeModal }) => {
 						endpoint: apiCandidateActivity,
 						data: values,
 				  });
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			} else {

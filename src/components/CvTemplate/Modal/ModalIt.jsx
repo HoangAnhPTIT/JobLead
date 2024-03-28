@@ -47,7 +47,7 @@ const ModalIt = ({ data, modalType, closeModal }) => {
 				endpoint: apiCandidateItSkill,
 				data: payloadValidated,
 			});
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			}

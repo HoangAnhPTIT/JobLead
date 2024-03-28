@@ -33,7 +33,7 @@ const ModalEducation = ({ data, modalType, closeModal }) => {
 						data: values,
 				  });
 
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			}

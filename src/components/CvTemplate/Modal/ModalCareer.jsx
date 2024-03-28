@@ -22,7 +22,7 @@ const ModalCareer = ({ data, modalType, closeModal }) => {
 				endpoint: apiCandidateCareerGoal,
 				data: values,
 			});
-			if (response.success) {
+			if (response.status === 200) {
 				toast.success(updateSuccessMessage);
 				closeModal();
 			}

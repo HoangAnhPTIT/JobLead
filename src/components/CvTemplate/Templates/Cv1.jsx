@@ -314,7 +314,7 @@ const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 								NGOẠI NGỮ
 							</div>
 							<div className="py-4 text-white">
-								<RateInfo info={info?.languageSkill} color="#fff" />
+								<RateInfo info={info?.languageSkill} iconColor="#fff" />
 							</div>
 						</CvEditLayout>
 					</Col>

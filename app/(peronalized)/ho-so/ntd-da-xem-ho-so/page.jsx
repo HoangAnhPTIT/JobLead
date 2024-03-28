@@ -2,30 +2,35 @@
 import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateCompanyViewProfile } from "src/apis/apiEndpoint";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const columns = [
 	{
 		title: "Công ty",
-		dataIndex: "candidateInfo",
+		dataIndex: "company",
 		key: "name",
-		render: (value) => value?.name,
+		render: (value) => (
+			<Link href={`${routeMap.company}/${value?.id}`}>{value?.name}</Link>
+		),
 	},
 	{
 		title: "Địa chỉ",
-		dataIndex: "point",
-		key: "point",
+		dataIndex: "company",
+		key: "location",
+		render: (value) => value?.address,
 	},
 	{
 		title: "Ngày xem",
-		dataIndex: "viewedDate",
-		key: "viewedDate",
+		dataIndex: "viewDate",
+		key: "viewDate",
 		render: (value) => getDate(value),
 	},
 ];
