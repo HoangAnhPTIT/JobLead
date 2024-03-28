@@ -17,6 +17,7 @@ import {
 	Logout,
 	MenuOutlined,
 	MiscellaneousServicesOutlined,
+	PasswordOutlined,
 	SettingsOutlined,
 	SnippetFolderOutlined,
 	TextSnippet,
@@ -90,6 +91,11 @@ const userMenu = {
 			label: "Việc làm đã lưu",
 			link: `${routeMap.file}${routeMap.savedJob}`,
 		},
+		{
+			icon: <PasswordOutlined />,
+			label: "Đổi mật khẩu",
+			link: `${routeMap.file}${routeMap.changePassword}`,
+		},
 	],
 	[USER_ROLE.employer]: [
 		{
@@ -111,6 +117,11 @@ const userMenu = {
 			icon: <MiscellaneousServicesOutlined />,
 			label: "Quản lý dịch vụ",
 			link: `${routeMap.employer}${routeMap.packageManage}`,
+		},
+		{
+			icon: <PasswordOutlined />,
+			label: "Đổi mật khẩu",
+			link: `${routeMap.employer}${routeMap.changePassword}`,
 		},
 	],
 };

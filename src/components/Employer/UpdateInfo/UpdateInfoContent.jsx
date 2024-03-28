@@ -1,6 +1,6 @@
 "use client";
 import { KeyOutlined } from "@mui/icons-material";
-import { Button, Col, Form, Image, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useEffect, useState } from "react";
@@ -15,7 +15,6 @@ import {
 import ImageInput from "src/commons/AntdForm/ImageInput";
 import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import { errorMessage, updateSuccessMessage } from "src/constants/common";
-import ModalChangePassword from "./ModalChangePassword";
 import EmployerBanner from "../EmployerBanner";
 
 const UpdateInfoContent = () => {
@@ -85,10 +84,6 @@ const UpdateInfoContent = () => {
 								Đổi mật khẩu
 							</p>
 						</div>
-						<ModalChangePassword
-							open={showModal}
-							onCancel={() => setShowModal(false)}
-						/>
 					</div>
 					<Form form={form} layout="vertical" className="w-full">
 						<div className="p-5 bg-white mb-5">

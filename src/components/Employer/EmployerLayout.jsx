@@ -1,6 +1,6 @@
 "use client";
 import { FileUpload } from "@mui/icons-material";
-import { Avatar, Image } from "antd";
+import { Avatar, Divider, Image } from "antd";
 import { useAppSelector } from "lib/hooks";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,6 +8,37 @@ import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCompanyInfo } from "src/apis/apiEndpoint";
 import EmployerMenu from "src/components/Employer/Menu";
 import { USER_ROLE } from "src/constants/common";
+
+const SupportBanner = () => {
+	const css = "text-primary font-semibold mx-2";
+	return (
+		<div className="p-3 border border-primary mb-5 text-center text-base text-33 bg-white">
+			<div>
+				<p>
+					Quý khách đang sử dụng tài khoản MIỄN PHÍ bị giới hạn quyền lợi đăng
+					tin.
+				</p>
+				<p>
+					Hãy tham gia gói
+					<span className={css}>Dịch vụ đăng tin</span>
+					để tuyển dụng nhanh và hiệu quả với các quyền lợi hấp dẫn.
+				</p>
+			</div>
+			<Divider className="!my-3" />
+			<div>
+				<p>
+					Để được hỗ trợ, vui lòng liên hệ chuyên viên đang chăm sóc tài khoản
+					của Quý khách
+				</p>
+				<p>
+					CSKH:<span className={css}>Ms Thảo Nhi</span>- Email:
+					<span className={css}>timviec247@gmail.com</span>- Hotline:
+					<span className="css">0123456789</span>
+				</p>
+			</div>
+		</div>
+	);
+};
 
 const EmployerLayout = ({ children }) => {
 	const router = useRouter();
@@ -67,7 +98,10 @@ const EmployerLayout = ({ children }) => {
 						</div>
 						<EmployerMenu />
 					</div>
-					<div>{children}</div>
+					<div>
+						<SupportBanner />
+						{children}
+					</div>
 				</div>
 			</div>
 		</div>

@@ -24,6 +24,7 @@ const routeMap = {
 	viewedByEmployer: "/ntd-da-xem-ho-so",
 	edit: "/chinh-sua",
 	notFound: "/404",
+	changePassword: "/doi-mat-khau",
 };
 
 export default routeMap;
