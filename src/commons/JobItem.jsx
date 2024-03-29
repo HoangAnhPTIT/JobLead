@@ -103,8 +103,11 @@ const JobItem = ({ item, showExpire = false }) => {
 					</div>
 				</Link>
 				<div>
-					<Link href={`${routeMap.company}/${item?.company?.id}`}>
-						<span className="uppercase text-99 three-dot">
+					<Link
+						href={`${routeMap.company}/${item?.company?.id}`}
+						className="inline-flex max-w-full"
+					>
+						<span className="uppercase text-99 three-dot ">
 							{item?.company?.name}
 						</span>
 					</Link>
@@ -124,7 +127,7 @@ const JobItem = ({ item, showExpire = false }) => {
 						className="flex items-center three-dot"
 					>
 						<PlaceOutlined style={{ fontSize: 16 }} />
-						<span className="text-55 ml-1">{item?.location}</span>
+						<span className="text-55 ml-1 three-dot">{item?.location}</span>
 					</Grid>
 					{showExpire && (
 						<Grid item xs={4} className="flex items-center">

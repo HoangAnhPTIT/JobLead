@@ -7,7 +7,9 @@ import {
 } from "@mui/icons-material";
 import Stars from "@mui/icons-material/Stars";
 import { Grid } from "@mui/material";
+import { cookies } from "next/headers";
 import Image from "next/image";
+import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { httpGet } from "src/apis/apiCaller";
 import {
 	apiCompany,
@@ -31,12 +33,16 @@ import {
 	COMPONENT_LAYOUT,
 	COMPONENT_SIZE,
 	imageError,
+	token,
 } from "src/constants/common";
 import routeMap, { jobTypeRouteMap } from "src/constants/routeMap";
 import { WIDTH_CONTENT } from "src/constants/screen";
 
 const HomePage = async () => {
-	const jobResponse = await httpGet(apiHome);
+	const cookieStore = cookies();
+	const TOKEN = cookieStore.get(token)?.value;
+
+	const jobResponse = await httpAuthGet({ endpoint: apiHome, TOKEN });
 	const jobByLocationResponse = await httpGet(apiJobByLocation);
 	const jobByCareerResponse = await httpGet(apiJobByCareer);
 	const companiesResponse = await httpGet(apiCompany);
