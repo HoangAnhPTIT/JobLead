@@ -13,8 +13,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCandidateSaveJob } from "src/apis/apiEndpoint";
+import { httpAuthDelete, httpAuthPost } from "src/apis/apiAuthCaller";
+import {
+	apiCandidateSaveJob,
+	apiCandidateSaveJobs,
+} from "src/apis/apiEndpoint";
 import Expired from "src/commons/Expired";
 import { USER_ROLE, errorMessage, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
@@ -36,6 +39,26 @@ function JobGeneralInfo({ data }) {
 			});
 			if (res?.status === 200) {
 				toast.success("Lưu việc làm thành công");
+				router.refresh();
+			} else {
+				toast.error(errorMessage);
+			}
+		} catch {
+			/* empty */
+		} finally {
+			dispatch(updateLoading(false));
+		}
+	};
+
+	const onUnsave = async (e) => {
+		e.preventDefault();
+		dispatch(updateLoading(true));
+		try {
+			const res = await httpAuthDelete({
+				endpoint: `${apiCandidateSaveJobs}/${data?.id}`,
+			});
+			if (res?.status === 200) {
+				toast.success("Bỏ lưu việc làm thành công");
 				router.refresh();
 			} else {
 				toast.error(errorMessage);
@@ -90,7 +113,7 @@ function JobGeneralInfo({ data }) {
 				</div>
 				{userInfo?.role !== USER_ROLE.employer && (
 					<div className="flex gap-2">
-						{!data?.saved ? (
+						{!data?.isSaved ? (
 							<Button
 								type="primary"
 								ghost
@@ -105,7 +128,7 @@ function JobGeneralInfo({ data }) {
 								type="primary"
 								size="middle"
 								icon={<FavoriteOutlined fontSize="small" />}
-								onClick={onSave}
+								onClick={onUnsave}
 							>
 								Bỏ lưu công việc
 							</Button>

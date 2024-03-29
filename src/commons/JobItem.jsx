@@ -15,8 +15,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCandidateSaveJob } from "src/apis/apiEndpoint";
+import { httpAuthDelete, httpAuthPost } from "src/apis/apiAuthCaller";
+import {
+	apiCandidateSaveJob,
+	apiCandidateSaveJobs,
+} from "src/apis/apiEndpoint";
 import { USER_ROLE, errorMessage, imageError } from "src/constants/common";
 import { JOB_PRIORITY } from "src/constants/job";
 import routeMap from "src/constants/routeMap";
@@ -50,6 +53,29 @@ const JobItem = ({ item, showExpire = false }) => {
 			toast.error("Bạn phải đăng nhập để lưu việc làm");
 		}
 	};
+
+	const onUnsave = async (e) => {
+		if (isLogin) {
+			e.preventDefault();
+			dispatch(updateLoading(true));
+			try {
+				const res = await httpAuthDelete({
+					endpoint: `${apiCandidateSaveJobs}/${item?.id || item?.jobId}`,
+				});
+				if (res?.status === 200) {
+					toast.success("Bỏ lưu việc làm thành công");
+					router.refresh();
+				} else {
+					toast.error(errorMessage);
+				}
+			} catch {
+				/* empty */
+			} finally {
+				dispatch(updateLoading(false));
+			}
+		}
+	};
+
 	return (
 		<div className="flex gap-3">
 			<Image
@@ -112,8 +138,8 @@ const JobItem = ({ item, showExpire = false }) => {
 			</div>
 			{userInfo?.role !== USER_ROLE.employer && (
 				<div className="cursor-pointer">
-					{item?.saved ? (
-						<FavoriteOutlined className="text-primary" onClick={onSave} />
+					{item?.isSaved ? (
+						<FavoriteOutlined className="text-primary" onClick={onUnsave} />
 					) : (
 						<FavoriteBorderOutlined className="text-primary" onClick={onSave} />
 					)}

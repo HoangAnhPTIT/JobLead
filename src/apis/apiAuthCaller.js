@@ -138,10 +138,8 @@ export async function apiCaller({
 
 	try {
 		const response = await instance(axiosConfig);
-		console.log("axiosConfig", axiosConfig);
 		return response.data;
 	} catch (error) {
-		console.log("axiosConfig", axiosConfig);
 		const err = error?.response?.data;
 		if (
 			err?.errorCode?.toLowerCase()?.includes("token") &&
@@ -220,7 +218,7 @@ const refreshTokenAndRetry = async () => {
 	}
 };
 
-export const getLocalAccessToken = async () => {
+export const getLocalAccessToken = () => {
 	const tokenCookie = Cookies.get(token);
 
 	return tokenCookie || "";

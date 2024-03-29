@@ -13,7 +13,6 @@ import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 import ItemCate from "../Home/ItemCate";
 
 const JobList = ({ jobList, majorList }) => {
-	console.log("jobList", jobList);
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
