@@ -55,7 +55,7 @@ const CreateJobContent = () => {
 					: form.resetFields();
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		} finally {
 			dispatch(updateLoading(false));
 		}

@@ -40,7 +40,7 @@ const UpdateInfoContent = () => {
 				toast.error(errorMessage);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		} finally {
 			dispatch(updateLoading(false));
 		}

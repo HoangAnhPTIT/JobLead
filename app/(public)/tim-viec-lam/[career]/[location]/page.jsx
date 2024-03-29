@@ -1,8 +1,10 @@
 import { concat } from "lodash";
-import React from "react";
-import { httpGet, httpPost } from "src/apis/apiCaller";
+import { cookies } from "next/headers";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
+import { httpGet } from "src/apis/apiCaller";
 import { apiJob, apiJobByCareer, apiJobByLocation } from "src/apis/apiEndpoint";
 import JobLayout from "src/components/Jobs/JobLayout";
+import { token } from "src/constants/common";
 import { paramValue } from "src/helper/format";
 
 export const generateStaticParams = async () => {
@@ -26,6 +28,8 @@ export const generateStaticParams = async () => {
 const JobFilterPage = async ({ params, searchParams }) => {
 	const { career, location } = params;
 	const { page, ...rest } = searchParams;
+	const cookieStore = cookies();
+	const TOKEN = cookieStore.get(token).value;
 
 	const payload = {
 		careerId: paramValue(career),
@@ -34,11 +38,15 @@ const JobFilterPage = async ({ params, searchParams }) => {
 		...rest,
 	};
 
-	const hotJobResponse = await httpPost(`${apiJob}/filter`, payload);
+	const jobResponse = await httpAuthPost({
+		endpoint: `${apiJob}/filter`,
+		data: payload,
+		TOKEN,
+	});
 
 	const majorResponse = await httpGet(`${apiJob}/count/career`);
 
-	const jobInfo = hotJobResponse?.data || [];
+	const jobInfo = jobResponse?.data || [];
 	const majorList = majorResponse?.data || [];
 
 	return <JobLayout jobInfo={jobInfo} majorList={majorList} />;

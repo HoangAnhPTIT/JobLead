@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
 import { expiresTime, refreshToken, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { deleteAllCookies } from "src/helper/common";
@@ -111,6 +110,7 @@ export async function apiCaller({
 	params,
 	responseType = "json",
 	contentType = "application/json",
+	TOKEN,
 }) {
 	let headers = {
 		// Accept: "*",
@@ -119,7 +119,7 @@ export async function apiCaller({
 	};
 
 	// Lấy token từ localStorage hoặc nơi lưu trữ tương tự
-	const accessToken = getLocalAccessToken();
+	const accessToken = TOKEN || getLocalAccessToken();
 
 	// Thêm token vào header Authorization
 	if (accessToken) {
@@ -138,8 +138,10 @@ export async function apiCaller({
 
 	try {
 		const response = await instance(axiosConfig);
+		console.log("axiosConfig", axiosConfig);
 		return response.data;
 	} catch (error) {
+		console.log("axiosConfig", axiosConfig);
 		const err = error?.response?.data;
 		if (
 			err?.errorCode?.toLowerCase()?.includes("token") &&
@@ -152,9 +154,11 @@ export async function apiCaller({
 				window.location.href = routeMap.login;
 			}, 1000);
 		} else {
-			toast.error(err?.title);
+			console.error("error when call api", err);
+			// toast.error(err?.title);
 		}
-		return err;
+
+		// return err;
 	}
 }
 
@@ -216,8 +220,9 @@ const refreshTokenAndRetry = async () => {
 	}
 };
 
-export const getLocalAccessToken = () => {
+export const getLocalAccessToken = async () => {
 	const tokenCookie = Cookies.get(token);
+
 	return tokenCookie || "";
 };
 
