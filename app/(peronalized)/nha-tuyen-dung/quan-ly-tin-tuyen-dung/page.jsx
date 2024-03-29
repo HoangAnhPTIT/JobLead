@@ -128,11 +128,16 @@ const PostListPage = () => {
 											key={i}
 											className="flex gap-5 border-b py-4 relative group"
 										>
-											<div className="border border-primary rounded flex flex-col justify-center items-center p-4">
-												<p className="text-2xl text-primary font-semibold">
-													{post?.numOfApplication}
+											<div>
+												<div className="border border-primary rounded flex flex-col justify-center items-center p-4">
+													<p className="text-2xl text-primary font-semibold">
+														{post?.numOfApplication}
+													</p>
+													<p className="font-semibold text-base">Ứng viên</p>
+												</div>
+												<p className="border-[1.5px] rounded border-green-500 text-green-500 w-fit px-1.5 mt-2 mx-auto uppercase text-[13px]">
+													Đã duyệt
 												</p>
-												<p className="font-semibold text-base">Ứng viên</p>
 											</div>
 											<div>
 												<Link
@@ -257,10 +262,7 @@ const PostListPage = () => {
 											href={`${routeMap.candidate}${routeMap.detail}/${item?.candidate?.candidateId}`}
 											key={i}
 										>
-											<div
-												className="flex gap-3 p-3 w-full border-b hover:bg-blue2"
-												key={i}
-											>
+											<div className="flex gap-3 p-3 w-full border-b hover:bg-blue2">
 												<div className="w-[40px]">
 													<Image
 														preview={false}

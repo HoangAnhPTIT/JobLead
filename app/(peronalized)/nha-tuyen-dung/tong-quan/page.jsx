@@ -4,6 +4,7 @@ import { Table } from "antd";
 import classNames from "classnames";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
@@ -14,6 +15,7 @@ import {
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
+import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const columns = [
@@ -36,9 +38,16 @@ const columns = [
 	},
 ];
 
-const ViewItem = ({ icon, bgIcon, amount, title }) => {
+const ViewItem = ({ icon, bgIcon, amount, title, link }) => {
+	const router = useRouter();
 	return (
-		<div className="shadow p-5 flex gap-5 bg-white">
+		<div
+			className={classNames(
+				"shadow p-5 flex gap-5 bg-white",
+				link && "cursor-pointer"
+			)}
+			onClick={() => link && router.push(link)}
+		>
 			<div
 				className={classNames(
 					"rounded-full w-[50px] h-[50px] flex justify-center items-center",
@@ -94,18 +103,21 @@ const DashboardPage = () => {
 						amount={generalInfo?.postedCount || 0}
 						icon={<Work style={{ color: "#feaa2f" }} />}
 						bgIcon="bg-[#ffedd2]"
+						link={`${routeMap.employer}${routeMap.postList}`}
 					/>
 					<ViewItem
 						title="Hồ sơ ứng tuyển"
 						amount={generalInfo?.applicationCount || 0}
 						icon={<HistoryEdu style={{ color: "#01c0c8" }} />}
 						bgIcon="bg-[#ccf2f4]"
+						link={`${routeMap.employer}${routeMap.appliedUser}`}
 					/>
 					<ViewItem
 						title="Hồ sơ đã lưu"
 						amount={generalInfo?.saveApplicantCount || 0}
 						icon={<ContactPage style={{ color: "#00c292" }} />}
 						bgIcon="bg-[#ccf3e9]"
+						link={`${routeMap.employer}${routeMap.savedUser}`}
 					/>
 					<ViewItem
 						title="Lượt xem hồ sơ"

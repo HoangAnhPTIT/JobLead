@@ -6,73 +6,69 @@ import {
 	SnippetFolderOutlined,
 	TaskOutlined,
 } from "@mui/icons-material";
-import {
-	Box,
-	List,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-} from "@mui/material";
+import { Box } from "@mui/material";
+import { Menu } from "antd";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
-		link: routeMap.dashboard,
+		key: routeMap.dashboard,
 		name: "Tổng quan",
-		icon: <SettingsOutlined />,
+		icon: <SettingsOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.cv,
+		key: routeMap.cv,
 		name: "CV",
-		icon: <DescriptionOutlined />,
+		icon: <DescriptionOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.appliedJob,
+		key: routeMap.appliedJob,
 		name: "Việc làm đã ứng tuyển",
-		icon: <TaskOutlined />,
+		icon: <TaskOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.savedJob,
+		key: routeMap.savedJob,
 		name: "Việc làm đã lưu",
-		icon: <SnippetFolderOutlined />,
+		icon: <SnippetFolderOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.viewedByEmployer,
+		key: routeMap.viewedByEmployer,
 		name: "NTD đã xem hồ sơ",
-		icon: <HowToRegOutlined />,
+		icon: <HowToRegOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.setupJobSuggestions,
+		key: routeMap.setupJobSuggestions,
 		name: "Cài đặt gợi ý việc làm",
-		icon: <SettingsSuggestOutlined />,
+		icon: <SettingsSuggestOutlined style={{ fontSize: "18px" }} />,
 	},
 ];
 
 const FileMenu = () => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const [selectedKeys, setSelectedKeys] = useState([]);
 
 	const handleClick = (link) => {
 		router.push(`${routeMap.file}${link}`);
 	};
 
+	useEffect(() => {
+		const countCharOfCut = routeMap.employer.length;
+		const endpath = pathname.slice(countCharOfCut);
+		setSelectedKeys([endpath]);
+	}, [pathname]);
+
 	return (
 		<div>
 			<Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-				<List component="nav" aria-label="main mailbox folders">
-					{items?.map((item, i) => (
-						<ListItemButton
-							selected={pathname.includes(item?.link)}
-							onClick={() => handleClick(item?.link || "/")}
-							key={i}
-							className="h-10 gap-3"
-						>
-							<ListItemIcon className="w-6 !min-w-0">{item?.icon}</ListItemIcon>
-							<ListItemText primary={item?.name} />
-						</ListItemButton>
-					))}
-				</List>
+				<Menu
+					items={items}
+					style={{ fontSize: "15px" }}
+					selectedKeys={selectedKeys}
+					onClick={(e) => handleClick(e.key)}
+				/>
 			</Box>
 		</div>
 	);

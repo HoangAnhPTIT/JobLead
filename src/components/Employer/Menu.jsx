@@ -9,88 +9,85 @@ import {
 	SettingsOutlined,
 	StarOutline,
 } from "@mui/icons-material";
-import {
-	Box,
-	List,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-} from "@mui/material";
+import { Box } from "@mui/material";
+import { Menu } from "antd";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
-		link: routeMap.dashboard,
-		name: "Tổng quan",
-		icon: <SettingsOutlined />,
+		key: routeMap.dashboard,
+		label: "Tổng quan",
+		icon: <SettingsOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.searchCandidate,
-		name: "Tìm ứng viên",
-		icon: <SearchOutlined />,
+		key: routeMap.searchCandidate,
+		label: "Tìm ứng viên",
+		icon: <SearchOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.createJob,
-		name: "Đăng tin tuyển dụng",
-		icon: <FileUploadOutlined />,
+		key: routeMap.createJob,
+		label: "Đăng tin tuyển dụng",
+		icon: <FileUploadOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.postList,
-		name: "Quản lý tin tuyển dụng",
-		icon: <DnsOutlined />,
+		key: routeMap.postList,
+		label: "Quản lý tin tuyển dụng",
+		icon: <DnsOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.savedUser,
-		name: "Hồ sơ đã lưu",
-		icon: <StarOutline />,
+		key: routeMap.savedUser,
+		label: "Hồ sơ đã lưu",
+		icon: <StarOutline style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.appliedUser,
-		name: "Hồ sơ đã ứng tuyển",
-		icon: <NoteAddOutlined />,
+		key: routeMap.appliedUser,
+		label: "Hồ sơ đã ứng tuyển",
+		icon: <NoteAddOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.viewedUser,
-		name: "Hồ sơ đã xem",
-		icon: <CheckOutlined />,
+		key: routeMap.viewedUser,
+		label: "Hồ sơ đã xem",
+		icon: <CheckOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.packageManage,
-		name: "Quản lý dịch vụ",
-		icon: <MiscellaneousServicesOutlined />,
+		key: routeMap.packageManage,
+		label: "Quản lý dịch vụ",
+		icon: <MiscellaneousServicesOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
-		link: routeMap.companyInfo,
-		name: "Thông tin công ty",
-		icon: <HomeRepairServiceOutlined />,
+		key: routeMap.companyInfo,
+		label: "Thông tin công ty",
+		icon: <HomeRepairServiceOutlined style={{ fontSize: "18px" }} />,
+		selected: true,
 	},
 ];
 
 const EmployerMenu = () => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const [selectedKeys, setSelectedKeys] = useState([]);
 
 	const handleClick = (link) => {
 		router.push(`${routeMap.employer}${link}`);
 	};
 
+	useEffect(() => {
+		const countCharOfCut = routeMap.employer.length;
+		const endpath = pathname.slice(countCharOfCut);
+		setSelectedKeys([endpath]);
+	}, [pathname]);
+
 	return (
 		<div>
 			<Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-				<List component="nav" aria-label="main mailbox folders">
-					{items?.map((item, i) => (
-						<ListItemButton
-							selected={pathname.includes(item?.link)}
-							onClick={() => handleClick(item?.link || "/")}
-							key={i}
-							className="h-10 gap-3"
-						>
-							<ListItemIcon className="w-6 !min-w-0">{item?.icon}</ListItemIcon>
-							<ListItemText primary={item?.name} />
-						</ListItemButton>
-					))}
-				</List>
+				<Menu
+					items={items}
+					style={{ fontSize: "15px" }}
+					selectedKeys={selectedKeys}
+					onClick={(e) => handleClick(e.key)}
+				/>
 			</Box>
 		</div>
 	);
