@@ -85,19 +85,10 @@ const PostListPage = () => {
 				<div>
 					<Form form={form}>
 						<Row gutter={16}>
-							<Col span={10}>
+							<Col span={20}>
 								<Form.Item name="q">
 									<Input size="large" placeholder="Tiêu đề công việc" />
 								</Form.Item>
-							</Col>
-							<Col span={10}>
-								<SelectAntd
-									size="large"
-									form={Form}
-									placeholder="Tất cả tuyển dụng"
-									allowClear
-									list={[]}
-								/>
 							</Col>
 							<Col span={4}>
 								<Button

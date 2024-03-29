@@ -27,7 +27,7 @@ const CandidateSearch = () => {
 	const onSubmit = (values) => {
 		dispatch(updateLoading(true));
 		try {
-			router.push(genUrlParams(pathname, values));
+			router.push(genUrlParams(pathname, { ...values, page: 1 }));
 		} catch (error) {
 			toast.error(error.message || error);
 		} finally {

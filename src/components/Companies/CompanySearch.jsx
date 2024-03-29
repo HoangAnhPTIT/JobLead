@@ -1,17 +1,23 @@
 "use client";
 import { Search } from "@mui/icons-material";
 import { Button, Grid, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import routeMap from "src/constants/routeMap";
 
 const CompanySearch = () => {
 	const router = useRouter();
-	const [q, setQ] = useState("");
+	const [searchValue, setSearchValue] = useState("");
+	const searchParams = useSearchParams();
 
 	const onSubmit = () => {
-		router.push(`${routeMap.company}?q=${q}`);
+		router.push(`${routeMap.company}?q=${searchValue}`);
 	};
+
+	useEffect(() => {
+		const q = searchParams.getAll("q");
+		setSearchValue(q);
+	}, [searchParams]);
 
 	return (
 		<div className="w-lgContent mx-auto py-5 bg-white">
@@ -22,8 +28,8 @@ const CompanySearch = () => {
 						size="small"
 						autoComplete="off"
 						placeholder="Nhập tên công ty muốn tìm kiếm"
-						value={q}
-						onChange={(e) => setQ(e.target.value)}
+						value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
 						onKeyDown={(e) => e.key === "Enter" && onSubmit()}
 					/>
 				</Grid>

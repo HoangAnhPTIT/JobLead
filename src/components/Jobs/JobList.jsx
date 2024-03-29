@@ -9,7 +9,7 @@ import ImageFull from "src/commons/Image";
 import JobItem from "src/commons/JobItem";
 import Nodata from "src/commons/Nodata";
 import routeMap from "src/constants/routeMap";
-import { genUrlParams } from "src/helper/format";
+import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 import ItemCate from "../Home/ItemCate";
 
 const JobList = ({ jobList, majorList }) => {
@@ -18,11 +18,12 @@ const JobList = ({ jobList, majorList }) => {
 	const pathname = usePathname();
 
 	const onChangePage = async (page) => {
-		router.push(genUrlParams(pathname, { page }));
+		const searchParamsObject =
+			searchParams.toString() && convertSearchParamsToObject(searchParams);
+		router.push(genUrlParams(pathname, { ...searchParamsObject, page }));
 	};
 
 	const currentPage = Number(searchParams.get("page")) || 1;
-	console.log("jobList", jobList);
 
 	return (
 		<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto my-5">

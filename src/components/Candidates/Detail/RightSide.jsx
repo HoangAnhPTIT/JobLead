@@ -184,7 +184,13 @@ const RightSide = ({
 			</div>
 			<div className="py-2 px-1 border-b text-center">
 				Cập nhật lần cuối:{" "}
-				{getTimeBefore(dayjs() - dayjs(originalData?.lastUpdatedDate))} trước
+				<span>
+					{originalData?.lastUpdatedDate
+						? `${getTimeBefore(
+								dayjs() - dayjs(originalData?.lastUpdatedDate)
+						  )} trước`
+						: "__"}
+				</span>
 			</div>
 			<div className="flex justify-around mt-10">
 				<Button
