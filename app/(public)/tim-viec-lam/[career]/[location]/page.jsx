@@ -1,7 +1,7 @@
 import { concat } from "lodash";
 import { cookies } from "next/headers";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { httpGet, httpPost } from "src/apis/apiCaller";
+import { httpGet } from "src/apis/apiCaller";
 import { apiJob, apiJobByCareer, apiJobByLocation } from "src/apis/apiEndpoint";
 import JobLayout from "src/components/Jobs/JobLayout";
 import { token } from "src/constants/common";
@@ -29,7 +29,7 @@ const JobFilterPage = async ({ params, searchParams }) => {
 	const { career, location } = params;
 	const { page, ...rest } = searchParams;
 	const cookieStore = cookies();
-	const TOKEN = cookieStore.get(token).value;
+	const TOKEN = cookieStore.get(token)?.value;
 
 	const payload = {
 		careerId: paramValue(career),

@@ -27,26 +27,30 @@ import ModalApplyJob from "./ModalApplyJob";
 function JobGeneralInfo({ data }) {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const { userInfo } = useAppSelector((state) => state.user);
+	const { userInfo, isLogin } = useAppSelector((state) => state.user);
 	const [showModal, setShowModal] = useState(false);
 
 	const onSave = async (e) => {
 		e.preventDefault();
-		dispatch(updateLoading(true));
-		try {
-			const res = await httpAuthPost({
-				endpoint: `${apiCandidateSaveJob}/${data?.id || data?.jobId}`,
-			});
-			if (res?.status === 200) {
-				toast.success("Lưu việc làm thành công");
-				router.refresh();
-			} else {
-				toast.error(errorMessage);
+		if (isLogin) {
+			dispatch(updateLoading(true));
+			try {
+				const res = await httpAuthPost({
+					endpoint: `${apiCandidateSaveJob}/${data?.id || data?.jobId}`,
+				});
+				if (res?.status === 200) {
+					toast.success("Lưu việc làm thành công");
+					router.refresh();
+				} else {
+					toast.error(errorMessage);
+				}
+			} catch {
+				/* empty */
+			} finally {
+				dispatch(updateLoading(false));
 			}
-		} catch {
-			/* empty */
-		} finally {
-			dispatch(updateLoading(false));
+		} else {
+			toast.error("Bạn phải đăng nhập để thực hiện tính năng này");
 		}
 	};
 
@@ -67,6 +71,14 @@ function JobGeneralInfo({ data }) {
 			/* empty */
 		} finally {
 			dispatch(updateLoading(false));
+		}
+	};
+
+	const onApply = () => {
+		if (isLogin) {
+			setShowModal(true);
+		} else {
+			toast.error("Bạn phải đăng nhập để thực hiện tính năng này");
 		}
 	};
 
@@ -137,7 +149,7 @@ function JobGeneralInfo({ data }) {
 							type="primary"
 							size="middle"
 							icon={<RememberMe fontSize="small" />}
-							onClick={() => setShowModal(true)}
+							onClick={onApply}
 						>
 							Ứng tuyển ngay
 						</Button>

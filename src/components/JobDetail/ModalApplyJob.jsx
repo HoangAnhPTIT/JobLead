@@ -11,7 +11,6 @@ import {
 	apiCandidate,
 	apiCandidateApplyJob,
 	apiCandidateCv,
-	apiCandidateInfo,
 } from "src/apis/apiEndpoint";
 import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
@@ -19,6 +18,7 @@ import routeMap from "src/constants/routeMap";
 const ModalApplyJob = ({ data, showModal, setShowModal }) => {
 	const dispatch = useAppDispatch();
 	const { isLoading } = useAppSelector((state) => state.loading);
+	const { isLogin } = useAppSelector((state) => state.user);
 	const [cvList, setCvList] = useState(null);
 	const [cvSelected, setCvSelected] = useState(null);
 	const [form] = Form.useForm();
@@ -60,28 +60,30 @@ const ModalApplyJob = ({ data, showModal, setShowModal }) => {
 	};
 
 	useEffect(() => {
-		dispatch(updateLoading(true));
-		try {
-			const getCvList = async () => {
-				const response = await httpAuthGet({ endpoint: apiCandidateCv });
-				setCvList(response?.data);
-			};
-			const getInfo = async () => {
-				const response = await httpAuthGet({ endpoint: apiCandidate });
-				form.setFieldsValue({
-					phone: response?.data?.phone,
-					email: response?.data?.email,
-				});
-			};
-			getCvList();
-			getInfo();
-		} catch (error) {
-			console.error(error);
-			toast.error(error.message || error);
-		} finally {
-			dispatch(updateLoading(false));
+		if (isLogin) {
+			dispatch(updateLoading(true));
+			try {
+				const getCvList = async () => {
+					const response = await httpAuthGet({ endpoint: apiCandidateCv });
+					setCvList(response?.data);
+				};
+				const getInfo = async () => {
+					const response = await httpAuthGet({ endpoint: apiCandidate });
+					form.setFieldsValue({
+						phone: response?.data?.phone,
+						email: response?.data?.email,
+					});
+				};
+				getCvList();
+				getInfo();
+			} catch (error) {
+				console.error(error);
+				toast.error(error.message || error);
+			} finally {
+				dispatch(updateLoading(false));
+			}
 		}
-	}, [dispatch, form]);
+	}, [dispatch, form, isLogin]);
 
 	return (
 		<Modal
