@@ -1,15 +1,6 @@
 "use client";
 import { DeleteOutline } from "@mui/icons-material";
-import {
-	Button,
-	Col,
-	DatePicker,
-	Form,
-	Input,
-	Row,
-	Table,
-	Tooltip,
-} from "antd";
+import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useRouter } from "next/navigation";
@@ -17,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateSaveJobs } from "src/apis/apiEndpoint";
+import PopconfirmDelete from "src/commons/PopConfirmDelete";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
@@ -67,7 +59,7 @@ const SavedJobPage = () => {
 				dispatch(updateLoading(false));
 			}
 		},
-		[dispatch, router]
+		[dispatch]
 	);
 
 	const columns = useMemo(
@@ -125,13 +117,12 @@ const SavedJobPage = () => {
 				width: 100,
 				render: (record) => (
 					<div className="text-center">
-						<Tooltip title="Bỏ lưu công việc">
+						<PopconfirmDelete onDelete={() => onUnsave(record?.jobId)}>
 							<DeleteOutline
 								fontSize="small"
 								className="text-red-600 cursor-pointer"
-								onClick={() => onUnsave(record?.jobId)}
 							/>
-						</Tooltip>
+						</PopconfirmDelete>
 					</div>
 				),
 			},

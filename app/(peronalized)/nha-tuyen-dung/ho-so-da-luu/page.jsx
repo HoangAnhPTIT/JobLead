@@ -4,62 +4,19 @@ import { Button, Col, DatePicker, Form, Image, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyApplicantSaved } from "src/apis/apiEndpoint";
+import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
+import {
+	apiCompanyApplicantSave,
+	apiCompanyApplicantSaved,
+} from "src/apis/apiEndpoint";
+import PopconfirmDelete from "src/commons/PopConfirmDelete";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage, imageDefault } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
-
-const columns = [
-	{
-		title: "Họ tên",
-		key: "name",
-		render: (record) => (
-			<Link
-				href={`${routeMap.candidate}${routeMap.detail}/${record?.candidateId}`}
-			>
-				<div className="flex gap-3">
-					<Image
-						preview={false}
-						src={record?.avatar || imageDefault}
-						width={40}
-						height={40}
-						alt={record?.fullName}
-						className="object-contain rounded-full border"
-					/>
-					<div>
-						<p className="text-primary text-base">{record.fullName}</p>
-						<p className="text-33">{record.workTitle}</p>
-					</div>
-				</div>
-			</Link>
-		),
-	},
-	{
-		title: "Ngày lưu",
-		dataIndex: "savedDate",
-		key: "savedDate",
-		render: (value) => getDate(value),
-	},
-	{
-		title: "Hành động",
-		dataIndex: "x",
-		key: "action",
-		width: 150,
-		render: () => (
-			<div className="text-center">
-				<DeleteOutline
-					fontSize="small"
-					className="text-secondary cursor-pointer"
-				/>
-			</div>
-		),
-	},
-];
 
 const FileSavedPage = () => {
 	const dispatch = useAppDispatch();
@@ -67,25 +24,96 @@ const FileSavedPage = () => {
 	const [data, setData] = useState();
 	const [filter, setFilter] = useState({});
 
+	const getData = async () => {
+		dispatch(updateLoading(true));
+		const res = await httpAuthGet({
+			endpoint: apiCompanyApplicantSaved,
+			params: filter,
+		});
+		if (res?.status === 200) {
+			setData(res.data);
+		} else {
+			toast.error(errorMessage);
+		}
+		dispatch(updateLoading(false));
+	};
+
 	const onSubmit = () => {
 		const values = form.getFieldsValue();
 		setFilter(values);
 	};
 
-	useEffect(() => {
-		const getData = async () => {
+	const onUnsave = useCallback(
+		async (id) => {
 			dispatch(updateLoading(true));
-			const res = await httpAuthGet({
-				endpoint: apiCompanyApplicantSaved,
-				params: filter,
-			});
-			if (res?.status === 200) {
-				setData(res.data);
-			} else {
-				toast.error(errorMessage);
+			try {
+				const res = await httpAuthDelete({
+					endpoint: `${apiCompanyApplicantSaved}/${id}`,
+				});
+				if (res?.status === 200) {
+					toast.success("Bỏ lưu hồ sơ thành công");
+					getData();
+				} else {
+					toast.error(errorMessage);
+				}
+			} catch {
+				/* empty */
+			} finally {
+				dispatch(updateLoading(false));
 			}
-			dispatch(updateLoading(false));
-		};
+		},
+		[dispatch]
+	);
+
+	const columns = [
+		{
+			title: "Họ tên",
+			key: "name",
+			render: (record) => (
+				<Link
+					href={`${routeMap.candidate}${routeMap.detail}/${record?.candidateId}`}
+				>
+					<div className="flex gap-3">
+						<Image
+							preview={false}
+							src={record?.avatar || imageDefault}
+							width={40}
+							height={40}
+							alt={record?.fullName}
+							className="object-contain rounded-full border"
+						/>
+						<div>
+							<p className="text-primary text-base">{record.fullName}</p>
+							<p className="text-33">{record.workTitle}</p>
+						</div>
+					</div>
+				</Link>
+			),
+		},
+		{
+			title: "Ngày lưu",
+			dataIndex: "savedDate",
+			key: "savedDate",
+			render: (value) => getDate(value),
+		},
+		{
+			title: "Hành động",
+			key: "action",
+			width: 150,
+			render: (value) => (
+				<div className="text-center">
+					<PopconfirmDelete onDelete={() => onUnsave(value?.id)}>
+						<DeleteOutline
+							fontSize="small"
+							className="text-secondary cursor-pointer"
+						/>
+					</PopconfirmDelete>
+				</div>
+			),
+		},
+	];
+
+	useEffect(() => {
 		getData();
 	}, [dispatch, filter]);
 

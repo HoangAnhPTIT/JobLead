@@ -15,32 +15,32 @@ import routeMap from "src/constants/routeMap";
 const items = [
 	{
 		key: routeMap.dashboard,
-		name: "Tổng quan",
+		label: "Tổng quan",
 		icon: <SettingsOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.cv,
-		name: "CV",
+		label: "CV",
 		icon: <DescriptionOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.appliedJob,
-		name: "Việc làm đã ứng tuyển",
+		label: "Việc làm đã ứng tuyển",
 		icon: <TaskOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.savedJob,
-		name: "Việc làm đã lưu",
+		label: "Việc làm đã lưu",
 		icon: <SnippetFolderOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.viewedByEmployer,
-		name: "NTD đã xem hồ sơ",
+		label: "NTD đã xem hồ sơ",
 		icon: <HowToRegOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.setupJobSuggestions,
-		name: "Cài đặt gợi ý việc làm",
+		label: "Cài đặt gợi ý việc làm",
 		icon: <SettingsSuggestOutlined style={{ fontSize: "18px" }} />,
 	},
 ];
@@ -55,7 +55,7 @@ const FileMenu = () => {
 	};
 
 	useEffect(() => {
-		const countCharOfCut = routeMap.employer.length;
+		const countCharOfCut = routeMap.file.length;
 		const endpath = pathname.slice(countCharOfCut);
 		setSelectedKeys([endpath]);
 	}, [pathname]);

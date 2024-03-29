@@ -1,6 +1,7 @@
 "use client";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useParams } from "next/navigation";
+import PopconfirmDelete from "src/commons/PopConfirmDelete";
 import { CV_ACTIONS } from "src/constants/cv";
 
 const CvEditDeleteLayout = ({ onEdit, onDelete, children }) => {
@@ -12,10 +13,13 @@ const CvEditDeleteLayout = ({ onEdit, onDelete, children }) => {
 			{isEdit && (
 				<div className="absolute top-1 right-1 hidden text-lg text-green-500 group-hover/child:block z-10">
 					<EditOutlined onClick={onEdit} className="cursor-pointer" />
-					<DeleteOutlined
-						onClick={onDelete}
-						className="!text-secondary ml-1 cursor-pointer"
-					/>
+					<PopconfirmDelete
+						onDelete={onDelete}
+						title="Xóa thông tin"
+						description="Bạn muốn xóa thông tin này?"
+					>
+						<DeleteOutlined className="!text-secondary ml-1 cursor-pointer" />
+					</PopconfirmDelete>
 				</div>
 			)}
 			{children}
