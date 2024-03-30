@@ -1,7 +1,7 @@
 "use client";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useParams } from "next/navigation";
-import PopconfirmDelete from "src/commons/PopConfirmDelete";
+import PopconfirmDelete from "src/commons/PopconfirmDelete";
 import { CV_ACTIONS } from "src/constants/cv";
 
 const CvEditDeleteLayout = ({ onEdit, onDelete, children }) => {

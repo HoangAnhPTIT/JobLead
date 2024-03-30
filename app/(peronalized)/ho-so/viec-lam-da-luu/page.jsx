@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCandidateSaveJobs } from "src/apis/apiEndpoint";
-import PopconfirmDelete from "src/commons/PopConfirmDelete";
+import PopconfirmDelete from "src/commons/PopconfirmDelete";
 import FileLayout from "src/components/Files/FileLayout";
 import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";

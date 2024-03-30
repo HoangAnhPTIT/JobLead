@@ -11,7 +11,7 @@ import {
 	apiCompanyApplicantSave,
 	apiCompanyApplicantSaved,
 } from "src/apis/apiEndpoint";
-import PopconfirmDelete from "src/commons/PopConfirmDelete";
+import PopconfirmDelete from "src/commons/PopconfirmDelete";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage, imageDefault } from "src/constants/common";
