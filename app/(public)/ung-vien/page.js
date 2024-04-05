@@ -41,7 +41,7 @@ const CandidatesPage = () => {
 					const params = getParams();
 					const res = await httpAuthPost({
 						endpoint: apiCandidateExpectationSearch,
-						params,
+						data: params,
 					});
 					setCandidates(res?.data);
 				} catch (error) {

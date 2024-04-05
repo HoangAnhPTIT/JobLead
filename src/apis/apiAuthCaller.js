@@ -138,6 +138,7 @@ export async function apiCaller({
 
 	try {
 		const response = await instance(axiosConfig);
+
 		return response.data;
 	} catch (error) {
 		const err = error?.response?.data;
