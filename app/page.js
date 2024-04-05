@@ -132,7 +132,7 @@ const HomePage = async () => {
 							<Category
 								title={jobData?.[3]?.serviceName}
 								icon={<BorderColor />}
-								contentClass="!p-0 min-h-[475px] max-h-[503px] overflow-y-auto"
+								contentClass="!p-0 min-h-[475px] max-h-[544px] overflow-y-auto"
 								layout={COMPONENT_LAYOUT.vertical}
 								extra={`${routeMap.job}${
 									jobTypeRouteMap?.[jobData?.[3]?.serviceCode || "SEARCH"]

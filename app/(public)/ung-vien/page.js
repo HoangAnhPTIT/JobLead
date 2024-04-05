@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpPost } from "src/apis/apiCaller";
+import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCandidateExpectationSearch } from "src/apis/apiEndpoint";
 import ImageFull from "src/commons/Image";
 import Banner from "src/components/Candidates/Banner";
@@ -39,7 +39,10 @@ const CandidatesPage = () => {
 				try {
 					dispatch(updateLoading(true));
 					const params = getParams();
-					const res = await httpPost(apiCandidateExpectationSearch, params);
+					const res = await httpAuthPost({
+						endpoint: apiCandidateExpectationSearch,
+						params,
+					});
 					setCandidates(res?.data);
 				} catch (error) {
 					toast.error(error.message || error || errorMessage);

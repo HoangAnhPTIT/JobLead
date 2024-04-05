@@ -156,7 +156,7 @@ export async function apiCaller({
 			// toast.error(err?.title);
 		}
 
-		// return err;
+		return err;
 	}
 }
 

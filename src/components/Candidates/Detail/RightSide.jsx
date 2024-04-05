@@ -10,7 +10,7 @@ import {
 import { Button, Modal } from "antd";
 import dayjs from "dayjs";
 import { updateLoading } from "lib/features/loadingSlice";
-import { useAppDispatch } from "lib/hooks";
+import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import {
@@ -126,7 +126,7 @@ const RightSide = ({
 		try {
 			const res = await httpAuthPost({
 				endpoint: apiCompanyApplicantSave,
-				data: { applicantId: info?.userId },
+				data: { applicantId: originalData?.userId },
 			});
 			if (res.status === 200) {
 				toast.success("Lưu CV thành công");
