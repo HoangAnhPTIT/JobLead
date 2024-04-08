@@ -1,25 +1,33 @@
 import {
 	BankOutlined,
+	CloseCircleOutlined,
 	DownCircleOutlined,
-	RightOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
 import { EmailOutlined, PhoneOutlined } from "@mui/icons-material";
-import { Collapse, Form, Input } from "antd";
+import { Button, Collapse, Form, Input } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { isEmpty } from "lodash";
 import { formatNumber } from "src/helper/format";
 import styles from "./styles.module.scss";
-import { isEmpty } from "lodash";
 
-const Cart = ({ packages }) => {
-	const [showBox, setShowBox] = useState(false);
+const Cart = ({ cart, setCart }) => {
+	const packages = Object.values(cart);
+
+	const totalPrice =
+		packages?.reduce((price, item) => price + item?.price?.discounted, 0) || 0;
+
+	const onRemove = (type) => {
+		const newCart = { ...cart };
+		delete newCart[type];
+		setCart(newCart);
+	};
 
 	const userInfoItem = {
 		key: 2,
 		label: "Nhập thông tin khách hàng",
 		children: (
-			<div className="px-3">
+			<div className="">
 				<Form>
 					<Form.Item name="name">
 						<Input
@@ -56,29 +64,44 @@ const Cart = ({ packages }) => {
 	const items = [
 		{
 			key: "1",
-			label: <div className="">Gói dịch vụ đã chọn</div>,
+			label: (
+				<div className="">
+					Gói dịch vụ đã chọn
+					<span className="text-white rounded-full bg-yellow3 font-semibold ml-1 px-1.5">
+						{packages?.length}
+					</span>
+				</div>
+			),
 			children: (
 				<div>
-					<div className="grid grid-cols-1 ">
+					<div className="grid grid-cols-1 p-3 gap-3 max-h-[400px] overflow-y-auto">
 						{isEmpty(packages) ? (
-							<div className="px-5 py-3 text-99 text-lg">
+							<div className="text-99 text-lg">
 								Bạn chưa thêm gói dịch vụ nào
 							</div>
 						) : (
 							packages?.map((item, i) => (
-								<div key={i} className="p-3 bg-[#f1f1f1]">
+								<div
+									key={i}
+									className="p-3 pr-6 bg-[#f1f1f1] relative text-[15px]"
+								>
 									<p>{item?.title}</p>
 									<p>
 										Giá:
-										<span className="font-semibold ml-2">
-											{formatNumber(item?.price)} đ
+										<span className="font-semibold ml-1">
+											{formatNumber(item?.price?.discounted)} đ
 										</span>
 									</p>
+									<CloseCircleOutlined
+										className="absolute right-2 top-2 !text-secondary"
+										fontSize="12"
+										onClick={() => onRemove(item?.type)}
+									/>
 								</div>
 							))
 						)}
 					</div>
-					<div>
+					<div className="border-t mx-3">
 						<Collapse
 							items={[userInfoItem]}
 							rootClassName={styles.userInfo}
@@ -86,13 +109,24 @@ const Cart = ({ packages }) => {
 							bordered={false}
 						/>
 					</div>
-					<div className="bg-bgContainer p-3 border-t-2">
-						<span className="text-primary font-semibold mr-2">
-							{packages?.length} gói:
-						</span>
-						<span className="text-secondary font-bold">
-							{formatNumber(12345)} đ
-						</span>
+					<div className="bg-bgContainer px-3 py-2.5   border-t-2 flex justify-between items-center">
+						<div>
+							<span className="text-primary font-semibold mr-1">
+								{packages?.length} gói:
+							</span>
+							<span className="text-[#e50303] font-bold">
+								{formatNumber(totalPrice)} đ
+							</span>
+						</div>
+						<div>
+							<Button
+								type="primary"
+								danger
+								className="!font-semibold !bg-secondary"
+							>
+								Mua ngay
+							</Button>
+						</div>
 					</div>
 				</div>
 			),

@@ -1,15 +1,27 @@
 import { CheckOutlined } from "@mui/icons-material";
 import { Button, Col, Collapse, Popover, Row, Select, Table } from "antd";
 import { formatNumber } from "src/helper/format.js";
-import { discountInfo, packageInfo, posts, weeks } from "./packageInfo.js";
-import { useState } from "react";
+import {
+	discountInfo,
+	getDiscountPercent,
+	packageInfo,
+	packagePrice,
+	posts,
+	weeks,
+} from "./packageInfo.js";
+import { useEffect, useState } from "react";
 
 const text = "heelo";
 
 const DiscountInfo = () => {
 	const columns = [
 		{ key: "amount", dataIndex: "amount", title: "Số lượng" },
-		{ key: "percent", dataIndex: "percent", title: "Chiết khấu" },
+		{
+			key: "percent",
+			dataIndex: "percent",
+			title: "Chiết khấu",
+			render: (value) => `${value}%`,
+		},
 	];
 
 	return (
@@ -32,48 +44,74 @@ const Info = ({ text }) => {
 	);
 };
 
-const CategoryPost = ({ info, title }) => {
+const CategoryPost = ({ info, title, type, setCart }) => {
 	const [post, setPost] = useState(1);
 	const [week, setWeek] = useState(2);
+	const [price, setPrice] = useState({ original: 0, discounted: 0 });
 
 	const onAdd = () => {
-		console.log("value", post, week);
+		setCart((prev) => ({
+			...prev,
+			[type]: {
+				post,
+				week,
+				title,
+				type,
+				price,
+			},
+		}));
 	};
 
+	useEffect(() => {
+		const newPrice = {
+			original: post * week * packagePrice,
+			discounted: Math.round(
+				post * week * packagePrice * getDiscountPercent(post)
+			),
+		};
+		setPrice(newPrice);
+	}, [post, week]);
+
 	return (
-		<Row gutter={[32, 16]}>
-			<Col span={12}>
+		<Row gutter={[32, 32]}>
+			<Col span={24} md={12}>
 				{info?.intro?.map((item, i) => (
 					<Info text={item} key={i} />
 				))}
+				<p className="font-semibold text-[15px] my-2">ĐẶC BIỆT</p>
+				{info?.special?.map((item, i) => (
+					<Info text={item} key={i} />
+				))}
 			</Col>
-			<Col span={12}>
-				<div className="flex gap-4 border-b pb-5">
-					<Select className="flex-1" value={post} onChange={setPost}>
-						{posts.map((item, i) => (
-							<Select.Option key={i} value={item}>
-								<span>{item} tin</span>
-							</Select.Option>
-						))}
-					</Select>
-					<Select
-						className="flex-1"
-						defaultValue={2}
-						value={week}
-						onChange={setWeek}
-					>
-						{weeks.map((item, i) => (
-							<Select.Option key={i} value={item}>
-								<span>{item} tuần</span>
-							</Select.Option>
-						))}
-					</Select>
+			<Col span={24} md={12}>
+				<div className="flex gap-4 border-b pb-5 flex-col md:flex-row">
+					<div className="flex gap-4">
+						<Select className="flex-1" value={post} onChange={setPost}>
+							{posts.map((item, i) => (
+								<Select.Option key={i} value={item}>
+									<span>{item} tin</span>
+								</Select.Option>
+							))}
+						</Select>
+						<Select
+							className="flex-1"
+							defaultValue={2}
+							value={week}
+							onChange={setWeek}
+						>
+							{weeks.map((item, i) => (
+								<Select.Option key={i} value={item}>
+									<span>{item} tuần</span>
+								</Select.Option>
+							))}
+						</Select>
+					</div>
 					<div className="text-right min-w-[80px] md:min-w-[100px] lg:min-w-[120px]">
 						<div className="text-[#e50303] font-bold">
-							{formatNumber(1234)} đ
+							{formatNumber(price.discounted)} đ
 						</div>
 						<div className="line-through text-99 text-xs">
-							{formatNumber(12345)} đ
+							{formatNumber(price.original)} đ
 						</div>
 						<Button type="primary" className="mt-2" onClick={onAdd}>
 							Thêm
@@ -81,7 +119,7 @@ const CategoryPost = ({ info, title }) => {
 					</div>
 				</div>
 				<Popover placement="bottom" content={<DiscountInfo />} trigger="click">
-					<p className="underline hover:cursor-pointer text-base hover:text-99 w-fit mt-5">
+					<p className="underline underline-offset-4 hover:cursor-pointer text-base hover:text-99 w-fit mt-3 md:mt-5">
 						Chương trình chiết khấu
 					</p>
 				</Popover>
@@ -96,7 +134,7 @@ const Promotion = () => (
 	</span>
 );
 
-const PostInHome = () => {
+const PostInHome = ({ setCart }) => {
 	const itemsNest = [
 		{
 			key: "1",
@@ -106,7 +144,14 @@ const PostInHome = () => {
 					<Promotion />
 				</p>
 			),
-			children: <CategoryPost info={packageInfo?.home?.home} />,
+			children: (
+				<CategoryPost
+					info={packageInfo?.home?.home}
+					type="home"
+					title="Gói đăng tin box VIỆC LÀM HOT"
+					setCart={setCart}
+				/>
+			),
 		},
 		{
 			key: "2",
@@ -116,7 +161,14 @@ const PostInHome = () => {
 					<Promotion />
 				</span>
 			),
-			children: <p>{text}</p>,
+			children: (
+				<CategoryPost
+					info={packageInfo?.home?.hot}
+					type="hot"
+					title="Gói đăng tin box VIỆC LÀM HẤP DẪN"
+					setCart={setCart}
+				/>
+			),
 		},
 		{
 			key: "3",
@@ -126,7 +178,14 @@ const PostInHome = () => {
 					<Promotion />
 				</span>
 			),
-			children: <p>{text}</p>,
+			children: (
+				<CategoryPost
+					info={packageInfo?.home?.highSalary}
+					type="highSalary"
+					title="Gói đăng tin box VIỆC LÀM LƯƠNG CAO"
+					setCart={setCart}
+				/>
+			),
 		},
 		{
 			key: "4",
@@ -136,7 +195,14 @@ const PostInHome = () => {
 					<Promotion />
 				</span>
 			),
-			children: <p>{text}</p>,
+			children: (
+				<CategoryPost
+					info={packageInfo?.home?.trending?.trending}
+					type="trending"
+					title="Gói đăng tin box VIỆC LÀM TIÊU ĐIỂM"
+					setCart={setCart}
+				/>
+			),
 		},
 	];
 

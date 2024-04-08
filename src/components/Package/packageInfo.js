@@ -1,32 +1,50 @@
 export const posts = [
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
-
 export const weeks = [2, 3, 4, 8];
+export const packagePrice = 4_600_000;
 
 export const discountInfo = [
 	{
 		amount: 1,
-		percent: "50%",
+		percent: 50,
 	},
 	{
 		amount: 2,
-		percent: "55%",
+		percent: 55,
 	},
 	{
 		amount: "3-5",
-		percent: "60%",
+		percent: 60,
 	},
 	{
 		amount: "6-10",
-		percent: "65%",
+		percent: 65,
 	},
 	{
 		amount: "Trên 10",
-		percent: "70%",
+		percent: 70,
 	},
 ];
 
+export const getDiscountPercent = (amount) => {
+	const discount = discountInfo.find((info) => {
+		if (typeof info.amount === "number") {
+			return amount === info.amount;
+		} else if (typeof info.amount === "string") {
+			const range = info.amount.split("-");
+			const lowerBound = parseInt(range[0]);
+			const upperBound = parseInt(range[1]);
+			if (range.length === 1) {
+				return amount >= lowerBound;
+			} else {
+				return amount >= lowerBound && amount <= upperBound;
+			}
+		}
+	});
+
+	return discount ? 1 - discount.percent / 100 : 0;
+};
 export const packageInfo = {
 	home: {
 		home: {
