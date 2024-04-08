@@ -11,6 +11,7 @@ module.exports = {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic":
 					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+				package: "url('/images/package.jpg')",
 			},
 			colors: {
 				footer: "#666",
@@ -35,6 +36,7 @@ module.exports = {
 				yellow1: "#f3c01a",
 				yellow2: "#fdd33a",
 				yellow3: "#ffc107",
+				yellow4: "#f29901",
 				555552: "#555552",
 				placeholder: "#BBBBBB",
 				ff: "#fff",
