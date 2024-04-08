@@ -1,7 +1,7 @@
 export const posts = [
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
-export const weeks = [2, 3, 4, 8];
+export const weeks = [1, 2, 3, 4, 8];
 export const packagePrice = 4_600_000;
 
 export const discountInfo = [
@@ -26,6 +26,53 @@ export const discountInfo = [
 		percent: 70,
 	},
 ];
+
+export const textEffect = [
+	{
+		label: "Box việc làm hot",
+		value: "box VIỆC LÀM HOT",
+		price: 440_000,
+	},
+	{
+		label: "Box việc làm lương cao",
+		value: "box VIỆC LÀM LƯƠNG CAO",
+		price: 250_000,
+	},
+	{
+		label: "Box việc làm hấp dẫn",
+		value: "box VIỆC LÀM HẤP DẪN",
+		price: 390_000,
+	},
+	{
+		label: "Box việc làm tiêu điểm",
+		value: "box VIỆC LÀM TIÊU ĐIỂM",
+		price: 190_000,
+	},
+	{
+		label: "Trang ngành",
+		value: "trang ngành",
+		price: 300_000,
+	},
+];
+
+export const effectInfo = {
+	hot: {
+		title: "NHÃN HOT",
+		detail: 'Tiêu đề tin được đính kèm nhãn "HOT"',
+	},
+	urgent: {
+		title: "TEXT GẤP",
+		detail: 'Tiêu đề tin được đính kèm text "Gấp"',
+	},
+	red: {
+		title: "ĐỎ ĐẬM",
+		detail: 'Tin được bôi màu "Đỏ Đậm"',
+	},
+	background: {
+		title: "NỀN XANH",
+		detail: 'Tin được thêm "Nền Xanh"',
+	},
+};
 
 export const getDiscountPercent = (amount) => {
 	const discount = discountInfo.find((info) => {

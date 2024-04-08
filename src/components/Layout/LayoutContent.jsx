@@ -72,6 +72,7 @@ const menuItems = [
 	},
 	{ label: "Công ty", link: routeMap.company, role: USER_ROLE.all },
 	{ label: "Ứng viên", link: routeMap.candidate, role: USER_ROLE.employer },
+	{ label: "Bảng giá", link: routeMap.package, role: USER_ROLE.all },
 ];
 
 const userMenu = {

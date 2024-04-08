@@ -25,6 +25,7 @@ const routeMap = {
 	edit: "/chinh-sua",
 	notFound: "/404",
 	changePassword: "/doi-mat-khau",
+	package: "/bang-gia",
 };
 
 export default routeMap;
