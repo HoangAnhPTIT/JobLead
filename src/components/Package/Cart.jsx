@@ -83,7 +83,7 @@ const Cart = ({ cart, setCart }) => {
 							packages?.map((item, i) => (
 								<div
 									key={i}
-									className="p-3 pr-6 bg-[#f1f1f1] relative text-[15px]"
+									className="pl-3 py-1 pr-7 bg-[#f1f1f1] relative text-[15px]"
 								>
 									<p>{item?.title}</p>
 									<p>
@@ -93,7 +93,7 @@ const Cart = ({ cart, setCart }) => {
 										</span>
 									</p>
 									<CloseCircleOutlined
-										className="absolute right-2 top-2 !text-secondary"
+										className="absolute right-2 top-2 !text-primary"
 										fontSize="12"
 										onClick={() => onRemove(item?.type)}
 									/>

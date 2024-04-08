@@ -55,7 +55,7 @@ const CategoryPost = ({ info, title, type, setCart }) => {
 			[type]: {
 				post,
 				week,
-				title,
+				title: `${title} - ${week} tuần - ${post} tin`,
 				type,
 				price,
 			},
@@ -197,7 +197,7 @@ const PostInHome = ({ setCart }) => {
 			),
 			children: (
 				<CategoryPost
-					info={packageInfo?.home?.trending?.trending}
+					info={packageInfo?.home?.trending}
 					type="trending"
 					title="Gói đăng tin box VIỆC LÀM TIÊU ĐIỂM"
 					setCart={setCart}
@@ -223,9 +223,19 @@ const PostInHome = ({ setCart }) => {
 		{
 			key: "2",
 			label: (
-				<span className="font-semibold text-primary">ĐĂNG TIN TRANG NGÀNH</span>
+				<span className="font-semibold text-primary">
+					ĐĂNG TIN TRANG NGÀNH
+					<Promotion />
+				</span>
 			),
-			children: <p>{text}</p>,
+			children: (
+				<CategoryPost
+					info={packageInfo?.home?.category}
+					type="category"
+					title="Gói ưu tiên trang ngành"
+					setCart={setCart}
+				/>
+			),
 		},
 		{
 			key: "3",

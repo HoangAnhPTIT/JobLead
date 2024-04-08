@@ -97,5 +97,16 @@ export const packageInfo = {
 				"Chiết khấu thêm 10% cho lần tái ký",
 			],
 		},
+		category: {
+			intro: [
+				"Tin tuyển dụng nằm ở Top đầu tại “Trang Ngành”, tiếp cận với 100% Ứng viên tìm kiếm công việc theo ngành nghề",
+				"Hiển thị trong TOP đề xuất việc làm liên quan",
+				"Tin được tự động đẩy lên đầu trang 1 lần/ngày",
+			],
+			special: [
+				"Tin sẽ được bảo lưu 6 tháng",
+				"Chiết khấu thêm 10% cho lần tái ký",
+			],
+		},
 	},
 };
