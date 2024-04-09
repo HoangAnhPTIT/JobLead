@@ -29,26 +29,31 @@ export const discountInfo = [
 
 export const textEffect = [
 	{
+		id: "hot",
 		label: "Box việc làm hot",
 		value: "box VIỆC LÀM HOT",
 		price: 440_000,
 	},
 	{
+		id: "highSalary",
 		label: "Box việc làm lương cao",
 		value: "box VIỆC LÀM LƯƠNG CAO",
 		price: 250_000,
 	},
 	{
+		id: "urgent",
 		label: "Box việc làm hấp dẫn",
 		value: "box VIỆC LÀM HẤP DẪN",
 		price: 390_000,
 	},
 	{
+		id: "trending",
 		label: "Box việc làm tiêu điểm",
 		value: "box VIỆC LÀM TIÊU ĐIỂM",
 		price: 190_000,
 	},
 	{
+		id: "category",
 		label: "Trang ngành",
 		value: "trang ngành",
 		price: 300_000,
@@ -59,18 +64,22 @@ export const effectInfo = {
 	hot: {
 		title: "NHÃN HOT",
 		detail: 'Tiêu đề tin được đính kèm nhãn "HOT"',
+		content: `Hiệu ứng nhãn "HOT"`,
 	},
 	urgent: {
 		title: "TEXT GẤP",
 		detail: 'Tiêu đề tin được đính kèm text "Gấp"',
+		content: `Hiệu ứng text "Gấp"`,
 	},
 	red: {
 		title: "ĐỎ ĐẬM",
 		detail: 'Tin được bôi màu "Đỏ Đậm"',
+		content: `Hiệu ứng "Đỏ đậm"`,
 	},
 	background: {
 		title: "NỀN XANH",
 		detail: 'Tin được thêm "Nền Xanh"',
+		content: `Hiệu ứng "Nền xanh"`,
 	},
 };
 

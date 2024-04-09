@@ -3,14 +3,16 @@ import {
 	Button,
 	Col,
 	Collapse,
+	Divider,
 	Popover,
 	Row,
 	Select,
 	Table,
-	Divider,
 } from "antd";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
 import { formatNumber } from "src/helper/format.js";
-import { DownOutlined } from "@ant-design/icons";
+import EffectPackage from "./EffectPackage.jsx";
 import {
 	discountInfo,
 	effectInfo,
@@ -18,13 +20,8 @@ import {
 	packageInfo,
 	packagePrice,
 	posts,
-	textEffect,
 	weeks,
 } from "./packageInfo.js";
-import { useEffect, useState } from "react";
-import classNames from "classnames";
-
-const text = "heelo";
 
 const DiscountInfo = () => {
 	const columns = [
@@ -138,75 +135,6 @@ const CategoryPost = ({ info, title, type, setCart }) => {
 				</Popover>
 			</Col>
 		</Row>
-	);
-};
-
-const EffectPackage = ({ info }) => {
-	const { title, detail } = info;
-	const [post, setPost] = useState(1);
-	const [week, setWeek] = useState(1);
-	const [effectPrice, setEffectPrice] = useState(0);
-	const [price, setPrice] = useState(0);
-
-	useEffect(() => {
-		const newPrice = effectPrice ? post * week * effectPrice : 0;
-		setPrice(newPrice);
-	}, [post, effectPrice, week]);
-
-	return (
-		<div className="flex flex-col lg:flex-row justify-between">
-			<div className="text-33 text-[15px]">
-				<h1 className="font-semibold">{title}</h1>
-				<h3 className="my-2">{detail}</h3>
-			</div>
-			<div className="flex gap-5 items-center flex-col md:flex-row md:justify-between">
-				<div className="flex gap-5 w-full">
-					<Select
-						onChange={setEffectPrice}
-						className="w-[180px]"
-						allowClear
-						placeholder="Chọn hiệu ứng"
-					>
-						{textEffect.map((item, i) => (
-							<Select.Option key={i} value={item.price}>
-								{item.label}
-							</Select.Option>
-						))}
-					</Select>
-					<Select
-						className="flex-1 min-w-[80px]"
-						value={post}
-						onChange={setPost}
-					>
-						{posts.map((item, i) => (
-							<Select.Option key={i} value={item}>
-								<span>{item} tin</span>
-							</Select.Option>
-						))}
-					</Select>
-					<Select
-						className="flex-1"
-						defaultValue={2}
-						value={week}
-						onChange={setWeek}
-					>
-						{weeks.map((item, i) => (
-							<Select.Option key={i} value={item}>
-								<span>{item} tuần</span>
-							</Select.Option>
-						))}
-					</Select>
-				</div>
-				<div className="flex gap-5 w-full justify-end">
-					<div className="text-secondary font-bold min-w-[90px] text-right">
-						{formatNumber(price)} đ
-					</div>
-					<Button type="primary" className="w-[70px]" disabled={!(price > 0)}>
-						Thêm
-					</Button>
-				</div>
-			</div>
-		</div>
 	);
 };
 
@@ -334,13 +262,29 @@ const PostInHome = ({ setCart }) => {
 			),
 			children: (
 				<div>
-					<EffectPackage info={effectInfo.hot} />
+					<EffectPackage
+						info={effectInfo.hot}
+						setCart={setCart}
+						type="hotEffect"
+					/>
 					<Divider className="!my-4" />
-					<EffectPackage info={effectInfo.urgent} />
+					<EffectPackage
+						info={effectInfo.urgent}
+						setCart={setCart}
+						type="urgentEffect"
+					/>
 					<Divider className="!my-4" />
-					<EffectPackage info={effectInfo.red} />
+					<EffectPackage
+						info={effectInfo.red}
+						setCart={setCart}
+						type="redEffect"
+					/>
 					<Divider className="!my-4" />
-					<EffectPackage info={effectInfo.background} />
+					<EffectPackage
+						info={effectInfo.background}
+						setCart={setCart}
+						type="backgroundEffect"
+					/>
 				</div>
 			),
 		},
