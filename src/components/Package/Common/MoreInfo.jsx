@@ -1,10 +1,9 @@
-import React from "react";
+import { Image } from "antd";
+import classNames from "classnames";
 import { imageDefault } from "src/constants/common";
 import { responsiveContent } from "src/constants/css";
-import { Image } from "antd";
+import { FreeMode, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, FreeMode } from "swiper/modules";
-import classNames from "classnames";
 
 const bankColor = "#e02329";
 

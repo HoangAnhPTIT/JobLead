@@ -3,10 +3,12 @@ import { CaretRightFilled, EditOutlined } from "@ant-design/icons";
 import { Button, Tabs } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
-import Cart from "src/components/Package/Cart";
-import MoreInfo from "src/components/Package/MoreInfo";
-import PostInHome from "src/components/Package/PostInHome";
-import SupportInfo from "src/components/Package/SupportInfo";
+import Cart from "src/components/Package/Common/Cart";
+import MoreInfo from "src/components/Package/Common/MoreInfo";
+import SupportInfo from "src/components/Package/Common/SupportInfo";
+import CandidatePackage from "src/components/Package/TabComponent/TabCandidate/CandidatePackage";
+import FeaturedCompany from "src/components/Package/TabComponent/TabFeaturedCompany/FeaturedCompany";
+import PostInHome from "src/components/Package/TabComponent/TabHome/PostInHome";
 import { responsiveContent } from "src/constants/css";
 
 const PackagePage = () => {
@@ -25,19 +27,19 @@ const PackagePage = () => {
 					TÌM KIẾM CV ỨNG VIÊN / KHÁCH HÀNG TIỀM NĂNG
 				</span>
 			),
-			children: "Content of Tab Pane 2",
+			children: <CandidatePackage setCart={setCart} />,
 		},
 		{
 			key: "3",
 			label: (
-				<span className="font-semibold">COMBO ĐĂN TIN & LỌC CV TIẾT KIỆM</span>
+				<span className="font-semibold">COMBO ĐĂNG TIN & LỌC CV TIẾT KIỆM</span>
 			),
 			children: "Content of Tab Pane 3",
 		},
 		{
 			key: "4",
 			label: <span className="font-semibold">CÔNG TY NỔI BẬT</span>,
-			children: "Content of Tab Pane 3",
+			children: <FeaturedCompany setCart={setCart} />,
 		},
 	];
 

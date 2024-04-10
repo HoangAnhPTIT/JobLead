@@ -1,4 +1,4 @@
-import { ArrowForwardIos, CheckOutlined } from "@mui/icons-material";
+import { ArrowForwardIos } from "@mui/icons-material";
 import {
 	Button,
 	Col,
@@ -12,7 +12,8 @@ import {
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { formatNumber } from "src/helper/format.js";
-import EffectPackage from "./EffectPackage.jsx";
+import Discount from "../../Common/Discount.jsx";
+import InfoText from "../../Common/InfoText.jsx";
 import {
 	discountInfo,
 	effectInfo,
@@ -21,7 +22,8 @@ import {
 	packagePrice,
 	posts,
 	weeks,
-} from "./packageInfo.js";
+} from "../../packageInfo.js";
+import EffectPackage from "./EffectPackage.jsx";
 
 const DiscountInfo = () => {
 	const columns = [
@@ -42,15 +44,6 @@ const DiscountInfo = () => {
 			size="small"
 			bordered
 		/>
-	);
-};
-
-const Info = ({ text }) => {
-	return (
-		<div className="flex text-[15px]">
-			<CheckOutlined className="text-yellow3 mr-2" />
-			<div>{text}</div>
-		</div>
 	);
 };
 
@@ -86,11 +79,11 @@ const CategoryPost = ({ info, title, type, setCart }) => {
 		<Row gutter={[32, 32]}>
 			<Col span={24} md={12}>
 				{info?.intro?.map((item, i) => (
-					<Info text={item} key={i} />
+					<InfoText text={item} key={i} />
 				))}
 				<p className="font-semibold text-[15px] my-2">ĐẶC BIỆT</p>
 				{info?.special?.map((item, i) => (
-					<Info text={item} key={i} />
+					<InfoText text={item} key={i} />
 				))}
 			</Col>
 			<Col span={24} md={12}>
@@ -138,11 +131,7 @@ const CategoryPost = ({ info, title, type, setCart }) => {
 	);
 };
 
-const Promotion = () => (
-	<span className="bg-yellow4 border-yellow4 rounded-full ml-2 text-white px-2 py-[3px] text-xs">
-		Khuyễn mãi 50%
-	</span>
-);
+const Promotion = () => <Discount amount="50%" />;
 
 const PostInHome = ({ setCart }) => {
 	const homeItems = [

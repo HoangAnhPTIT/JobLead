@@ -9,7 +9,7 @@ import { Button, Collapse, Form, Input } from "antd";
 import classNames from "classnames";
 import { isEmpty } from "lodash";
 import { formatNumber } from "src/helper/format";
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 const Cart = ({ cart, setCart }) => {
 	const packages = Object.values(cart);

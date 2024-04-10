@@ -1,6 +1,6 @@
 import { Button, Select } from "antd";
 import { useEffect, useMemo, useState } from "react";
-import { posts, textEffect, weeks } from "./packageInfo";
+import { posts, textEffect, weeks } from "../../packageInfo";
 import { formatNumber } from "src/helper/format";
 
 const EffectPackage = ({ info, setCart, type }) => {
@@ -9,7 +9,6 @@ const EffectPackage = ({ info, setCart, type }) => {
 	const [week, setWeek] = useState(1);
 	const [price, setPrice] = useState(0);
 	const [effectIdSelected, setEffectIdSelected] = useState(null);
-	console.log("effectIdSelected", effectIdSelected);
 
 	const effectSelected = useMemo(
 		() => textEffect.find((item) => item.id === effectIdSelected),
