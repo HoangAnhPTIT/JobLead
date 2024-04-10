@@ -10,8 +10,15 @@ import classNames from "classnames";
 import { isEmpty } from "lodash";
 import { formatNumber } from "src/helper/format";
 import styles from "../styles.module.scss";
+import { useAppSelector } from "lib/hooks";
+import { useEffect } from "react";
+import { USER_ROLE } from "src/constants/common";
+import { httpAuthGet } from "src/apis/apiAuthCaller";
+import { apiCompanyContact, apiCompanyInfo } from "src/apis/apiEndpoint";
 
 const Cart = ({ cart, setCart }) => {
+	const [form] = Form.useForm();
+	const { userInfo } = useAppSelector((state) => state.user);
 	const packages = Object.values(cart);
 
 	const totalPrice =
@@ -23,13 +30,27 @@ const Cart = ({ cart, setCart }) => {
 		setCart(newCart);
 	};
 
+	useEffect(() => {
+		if (userInfo.role === USER_ROLE.employer) {
+			try {
+				const getData = async () => {
+					const response = await httpAuthGet({ endpoint: apiCompanyContact });
+					form.setFieldsValue(response.data);
+				};
+				getData();
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}, [form, userInfo.role]);
+
 	const userInfoItem = {
 		key: 2,
 		label: "Nhập thông tin khách hàng",
 		children: (
 			<div className="">
-				<Form>
-					<Form.Item name="name">
+				<Form form={form}>
+					<Form.Item name="contact">
 						<Input
 							prefix={<UserOutlined className="!text-lg !text-99 mr-1" />}
 							placeholder="Người liên hệ"

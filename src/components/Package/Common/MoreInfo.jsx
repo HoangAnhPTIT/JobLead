@@ -11,21 +11,24 @@ const domain_name = process.env.DOMAIN_NAME;
 
 const feedbacks = [
 	{
-		avatar: "",
+		avatar:
+			"https://timviec.com.vn/storage/avatars/1280118/m7w9gx7pu7Rm4K2XZlF1HpD2Dtuzg5KlrMb651BQ.png",
 		name: "Chu Ánh Tuyết",
 		company: "SAPPORO VIETNAM",
 		feedback: `" Chất lượng hồ sơ ứng viên của gói TVCV3 rất tốt, chỉ sau 1 tuần tuyển dụng trên ${domain_name}, tôi đã đạt được hiệu quả mong muốn. Ngoài ra chất lượng chăm sóc khách hàng rất tốt, nhân viên tư vấn nhiệt tình và có tâm. Cảm ơn ${domain_name}! "`,
 		color: "#6730e3",
 	},
 	{
-		avatar: "",
+		avatar:
+			"https://recruitment-storage.hn.ss.bfcplatform.vn/VDJSV2_photo-1555530740-3d67fab132ae.jfif",
 		name: "Nguyễn Hoàng Tôn",
 		company: "AMBITION VIETNAM",
 		feedback: `" Tôi rất hài lòng với chất lượng gói TVCV1 trên website ${domain_name}, vừa tiết kiệm chi phí, vừa nhanh  hóng hiệu quả. Chắc chắn đây sẽ là lựa chọn đầu tiên của tôi mỗi khi có nhu cầu tuyển dụng. "`,
 		color: "#74bb04",
 	},
 	{
-		avatar: "",
+		avatar:
+			"https://timviec.com.vn/storage/avatars/1166121/HSiQrM61ySCo9Vcn00OimxLdp6wsAdR6SFwKx14l.png",
 		name: "Hoàng Thu Ngân",
 		company: "AnTechCo",
 		feedback: `" ${domain_name} có nguồn CV đa dạng, số lượng ứng viên truy cập mỗi ngày khá
@@ -33,7 +36,8 @@ const feedbacks = [
 		color: "#fea31e",
 	},
 	{
-		avatar: "",
+		avatar:
+			"https://timviec.com.vn/storage/avatars/1280046/Vzbl0EjKgJzAFSeupkaPc5WHn9toUw6gp6ObFKig.png",
 		name: "Trương Văn Ngã",
 		company: "Kim Tinh Group",
 		feedback: `" Anh rất hài lòng về lượng hồ sơ ứng viên bất động sản bên em, dùng xong gói
