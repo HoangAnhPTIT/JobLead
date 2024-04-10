@@ -4,6 +4,7 @@ import { Button, Tabs } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 import Cart from "src/components/Package/Cart";
+import MoreInfo from "src/components/Package/MoreInfo";
 import PostInHome from "src/components/Package/PostInHome";
 import { responsiveContent } from "src/constants/css";
 
@@ -77,6 +78,7 @@ const PackagePage = () => {
 			<div className={classNames(responsiveContent, "mt-5")}>
 				<Tabs defaultActiveKey="1" items={items} />
 			</div>
+			<MoreInfo />
 			<Cart cart={cart} setCart={setCart} />
 		</div>
 	);

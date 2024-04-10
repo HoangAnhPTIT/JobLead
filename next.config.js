@@ -4,6 +4,7 @@ const path = require("path");
 const nextConfig = {
 	env: {
 		BASE_URL: "https://api.tuyendung247.vn/api/v1",
+		DOMAIN_NAME: "tuyendung247.vn",
 	},
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],
