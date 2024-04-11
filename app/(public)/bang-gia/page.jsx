@@ -7,6 +7,7 @@ import Cart from "src/components/Package/Common/Cart";
 import MoreInfo from "src/components/Package/Common/MoreInfo";
 import SupportInfo from "src/components/Package/Common/SupportInfo";
 import CandidatePackage from "src/components/Package/TabComponent/TabCandidate/CandidatePackage";
+import ComboPackage from "src/components/Package/TabComponent/TabCombo/ComboPackage";
 import FeaturedCompany from "src/components/Package/TabComponent/TabFeaturedCompany/FeaturedCompany";
 import PostInHome from "src/components/Package/TabComponent/TabHome/PostInHome";
 import { responsiveContent } from "src/constants/css";
@@ -34,7 +35,7 @@ const PackagePage = () => {
 			label: (
 				<span className="font-semibold">COMBO ĐĂNG TIN & LỌC CV TIẾT KIỆM</span>
 			),
-			children: "Content of Tab Pane 3",
+			children: <ComboPackage setCart={setCart} />,
 		},
 		{
 			key: "4",

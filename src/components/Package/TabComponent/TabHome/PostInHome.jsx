@@ -214,7 +214,7 @@ const PostInHome = ({ setCart }) => {
 			children: (
 				<Collapse
 					defaultActiveKey="1"
-					expandIconPosition="end"
+					expandIconPosition="right"
 					items={homeItems}
 					expandIcon={({ isActive }) => (
 						<ArrowForwardIos
@@ -283,7 +283,7 @@ const PostInHome = ({ setCart }) => {
 		<div className="border p-5">
 			<Collapse
 				defaultActiveKey={["1"]}
-				expandIconPosition="end"
+				expandIconPosition="right"
 				items={items}
 				expandIcon={({ isActive }) => (
 					<ArrowForwardIos

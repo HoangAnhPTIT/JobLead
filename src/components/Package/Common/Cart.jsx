@@ -14,7 +14,7 @@ import { useAppSelector } from "lib/hooks";
 import { useEffect } from "react";
 import { USER_ROLE } from "src/constants/common";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyContact, apiCompanyInfo } from "src/apis/apiEndpoint";
+import { apiCompanyContact } from "src/apis/apiEndpoint";
 
 const Cart = ({ cart, setCart }) => {
 	const [form] = Form.useForm();
@@ -31,7 +31,7 @@ const Cart = ({ cart, setCart }) => {
 	};
 
 	useEffect(() => {
-		if (userInfo.role === USER_ROLE.employer) {
+		if (userInfo?.role === USER_ROLE.employer) {
 			try {
 				const getData = async () => {
 					const response = await httpAuthGet({ endpoint: apiCompanyContact });
@@ -42,7 +42,7 @@ const Cart = ({ cart, setCart }) => {
 				console.error(error);
 			}
 		}
-	}, [form, userInfo.role]);
+	}, [form, userInfo?.role]);
 
 	const userInfoItem = {
 		key: 2,
