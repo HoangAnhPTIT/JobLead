@@ -26,6 +26,7 @@ const routeMap = {
 	notFound: "/404",
 	changePassword: "/doi-mat-khau",
 	package: "/bang-gia",
+	potentialClients: "/khach-hang-tiem-nang",
 };
 
 export default routeMap;
