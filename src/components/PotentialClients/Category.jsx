@@ -26,7 +26,7 @@ const Category = ({ title, list, count }) => {
 				{count > 0 ? (
 					<Row gutter={16} className="p-5">
 						{list?.map((item, i) => (
-							<Col span={12} key={i}>
+							<Col xs={24} md={12} key={i}>
 								<div className="p-3 border flex gap-5">
 									<div>
 										<Avatar

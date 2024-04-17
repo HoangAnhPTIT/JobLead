@@ -1,4 +1,5 @@
 "use client";
+import { Spin } from "antd";
 import classNames from "classnames";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -24,31 +25,41 @@ const PotentialClients = () => {
 	const searchParams = useSearchParams();
 	const [customers, setCustomers] = useState();
 	const [count, setCount] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getData = async () => {
-			const searchParamValues =
-				searchParams.toString() && convertSearchParamsToObject(searchParams);
-			const response = await httpAuthGet({
-				endpoint: apiCustomer,
-				params: {
-					...searchParamValues,
-					limit: 20,
-					page: searchParamValues?.page || 1,
-				},
-			});
-			setCustomers(response?.data?.customers);
-			setCount(response?.data?.count);
+			setLoading(true);
+			try {
+				const searchParamValues =
+					searchParams.toString() && convertSearchParamsToObject(searchParams);
+				const response = await httpAuthGet({
+					endpoint: apiCustomer,
+					params: {
+						...searchParamValues,
+						limit: 20,
+						page: searchParamValues?.page || 1,
+					},
+				});
+				setCustomers(response?.data?.customers);
+				setCount(response?.data?.count);
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
 		};
 		getData();
 	}, [searchParams]);
 
 	return (
-		<div className={classNames(responsiveContent, "py-5")}>
-			<SearchBox />
-			<Breadcrumb items={breadcrum} />
-			<Category title="Khách hàng tiềm năng" list={customers} count={count} />
-		</div>
+		<Spin spinning={loading}>
+			<div className={classNames(responsiveContent, "py-5")}>
+				<SearchBox />
+				<Breadcrumb items={breadcrum} />
+				<Category title="Khách hàng tiềm năng" list={customers} count={count} />
+			</div>
+		</Spin>
 	);
 };
 
