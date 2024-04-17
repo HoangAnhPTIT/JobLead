@@ -57,3 +57,7 @@ export const apiCvTemplate = `${apiCv}/template`;
 export const apiUser = "/User";
 export const apiUserViewJob = `${apiUser}/view/job`;
 export const apiUserChangePassword = `${apiUser}/change-password`;
+
+export const apiCategory = "/Category";
+export const apiProvince = "/Address/Provinces";
+export const apiCustomer = "/Customer";
