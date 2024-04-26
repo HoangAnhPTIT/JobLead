@@ -92,10 +92,10 @@ const EmployerLayout = ({ children }) => {
 								)}
 								<p className="text-33 text-lg font-semibold">{data?.name}</p>
 							</div>
-							<div className="pt-2 px-8 text-99">
-								<p>
-									<span className="mr-5">
-										Điểm: <strong className="text-secondary">0</strong>
+							<div className="pt-2 px-6 text-99">
+								<p className="flex justify-between">
+									<span>
+										Điểm: <strong className="text-secondary">{data?.point}</strong>
 									</span>
 									<span className="mr-5">
 										Điểm tặng: <strong className="text-secondary">0</strong>
