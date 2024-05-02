@@ -9,6 +9,8 @@ import {
 } from "@mui/icons-material";
 import { Button, Modal } from "antd";
 import dayjs from "dayjs";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks";
 import { toast } from "react-toastify";
@@ -141,7 +143,63 @@ const RightSide = ({
 	};
 
 	const onDownload = async () => {
-		toast.info(developingMessage);
+		const printDocument = () => {
+			// const input = document.getElementById("cv");
+			// const inputHeight = input.offsetHeight;
+			// const inputWidth = input.offsetWidth;
+
+			// html2canvas(input, {
+			// 	scale: 2,
+			// 	windowWidth: inputWidth,
+			// 	windowHeight: inputHeight,
+			// 	scrollX: -window.scrollX,
+			// 	scrollY: -window.scrollY,
+			// 	x: input.offsetLeft,
+			// 	y: input.offsetTop,
+			// }).then((canvas) => {
+			// 	const imgData = canvas.toDataURL("image/png", 1.0);
+			// 	const pdf = new jsPDF({
+			// 		orientation: "p",
+			// 		unit: "px",
+			// 		format: [inputWidth, inputHeight],
+			// 	});
+
+			// 	const imgProps = pdf.getImageProperties(imgData);
+			// 	const pdfWidth = pdf.internal.pageSize.getWidth();
+			// 	const pdfHeight = pdf.internal.pageSize.getHeight();
+			// 	let heightLeft = imgProps.height;
+
+			// 	let position = 0;
+			// 	pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
+			// 	heightLeft -= pdfHeight;
+
+			// 	while (heightLeft >= 0) {
+			// 		position = heightLeft - imgProps.height;
+			// 		pdf.addPage();
+			// 		pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
+			// 		heightLeft -= pdfHeight;
+			// 	}
+
+			// 	pdf.save("download.pdf");
+			// });
+			const input = document.getElementById("cv");
+			html2canvas(input, {
+				useCORS: true,
+				scale: 2, // Higher scale for better resolution
+			}).then((canvas) => {
+				const imgData = canvas.toDataURL("image/jpeg", 1.0); // High-quality JPEG
+				const pdf = new jsPDF({
+					orientation: "p",
+					unit: "px",
+					format: [canvas.width, canvas.height],
+				});
+
+				pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
+				pdf.save("download.pdf");
+			});
+		};
+		printDocument();
+		// toast.info(developingMessage);
 	};
 
 	const onPrev = () => {

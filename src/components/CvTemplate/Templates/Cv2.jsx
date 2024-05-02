@@ -17,19 +17,19 @@ import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
 import AvatarImage from "../Components/Generalnfo/AvatarImage";
+import Fullname from "../Components/Generalnfo/Fullname";
 import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
+import WorkTitle from "../Components/Generalnfo/WorkTitle";
 import Career from "../Components/OtherInfo/Career";
+import Education from "../Components/OtherInfo/Education";
 import RateInfo from "../Components/OtherInfo/RateInfo";
 import Skill from "../Components/OtherInfo/Skill";
-import Education from "../Components/OtherInfo/Education";
-import Fullname from "../Components/Generalnfo/Fullname";
-import WorkTitle from "../Components/Generalnfo/WorkTitle";
 
 const color = "#009ce0";
 
 const Cv2 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 	return (
-		<div className="bg-white">
+		<div id="cv" className="bg-white">
 			<Row className="bg-[#d3f2ff] border-b-[10px] border-b-primary p-5">
 				<Col span={8}>
 					<div className="flex justify-center">

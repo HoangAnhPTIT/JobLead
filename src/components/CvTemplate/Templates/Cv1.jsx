@@ -30,7 +30,7 @@ const color = "#B31312";
 
 const Cv1 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 	return (
-		<div className="bg-white">
+		<div id="cv" className="bg-white">
 			<div
 				className="text-white h-[290px] px-5 py-10 flex"
 				style={{ background: color }}

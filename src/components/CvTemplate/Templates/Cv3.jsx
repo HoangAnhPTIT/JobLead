@@ -1,4 +1,3 @@
-import { StarFilled } from "@ant-design/icons";
 import {
 	BorderColor,
 	CalendarMonth,
@@ -12,6 +11,7 @@ import {
 	School,
 	TransgenderOutlined,
 } from "@mui/icons-material";
+import { Stack } from "@mui/material";
 import { Col, Row } from "antd";
 import { isEmpty } from "lodash";
 import ShowDescription from "src/commons/ShowDescription";
@@ -21,20 +21,19 @@ import CvEditDeleteLayout from "../Common/CvEditDeleteLayout";
 import CvEditLayout from "../Common/CvEditLayout";
 import NoDataYet from "../Common/NoDataYet";
 import AvatarImage from "../Components/Generalnfo/AvatarImage";
+import Fullname from "../Components/Generalnfo/Fullname";
 import PrivateInfo from "../Components/Generalnfo/PrivateInfo";
+import WorkTitle from "../Components/Generalnfo/WorkTitle";
 import Career from "../Components/OtherInfo/Career";
+import Education from "../Components/OtherInfo/Education";
 import RateInfo from "../Components/OtherInfo/RateInfo";
 import Skill from "../Components/OtherInfo/Skill";
-import Education from "../Components/OtherInfo/Education";
-import Fullname from "../Components/Generalnfo/Fullname";
-import WorkTitle from "../Components/Generalnfo/WorkTitle";
-import { Stack } from "@mui/material";
 
 const color = "#009ce0";
 
 const Cv3 = ({ info, onEditSection, onDeleteSection, setModalType }) => {
 	return (
-		<div className="bg-white p-5">
+		<div id="cv" className="bg-white p-5">
 			<Row gutter={60}>
 				<Col span={13}>
 					<div className="px-14">
