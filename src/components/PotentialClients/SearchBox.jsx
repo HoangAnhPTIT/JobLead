@@ -1,7 +1,7 @@
 "use client";
 import { SearchOutlined } from "@mui/icons-material";
 import { Button, Col, Form, Input, Row, Select, TreeSelect } from "antd";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCategory, apiProvince } from "src/apis/apiEndpoint";
@@ -16,6 +16,7 @@ const SearchBox = () => {
 	const [form] = Form.useForm();
 	const pathname = usePathname();
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
 	const categoriesFiltered = useMemo(
 		() => categories?.filter((item) => !item?.parentId),
@@ -38,6 +39,11 @@ const SearchBox = () => {
 		};
 		getData();
 	}, []);
+
+	useEffect(() => {
+		const categoryId = searchParams.get("categoryId");
+		form.setFieldValue("categoryId", categoryId);
+	}, [form, searchParams]);
 
 	return (
 		<div>

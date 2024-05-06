@@ -20,7 +20,7 @@ export const apiCompanyViewCandidate = `${apiCompany}/view/candidate`;
 export const apiCompanyApplicantSave = `${apiCompany}/applicant/save`;
 export const apiCompanyApplicantSaved = `${apiCompany}/applicant/saved`;
 export const apiCompanyGeneralInfo = `${apiCompany}/generalInfo`;
-export const apiCompanyGetServices = `${apiCompany}/services`
+export const apiCompanyGetServices = `${apiCompany}/services`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";
@@ -60,5 +60,6 @@ export const apiUserViewJob = `${apiUser}/view/job`;
 export const apiUserChangePassword = `${apiUser}/change-password`;
 
 export const apiCategory = "/Category";
+export const apiFilterCategory = `${apiCategory}/filter`;
 export const apiProvince = "/Address/Provinces";
 export const apiCustomer = "/Customer";
