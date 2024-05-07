@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { httpAuthPut } from "src/apis/apiAuthCaller";
 import { apiCandidateLanguageSkill } from "src/apis/apiEndpoint";
 import { updateSuccessMessage } from "src/constants/common";
-import { CV_MODAL_TYPES, IT_SKILLS, LANGUAGES } from "src/constants/cv";
+import { CV_MODAL_TYPES, LANGUAGES } from "src/constants/cv";
 
 const ModalLanguage = ({ data, modalType, closeModal }) => {
 	const { isLoading } = useAppSelector((state) => state.loading);
