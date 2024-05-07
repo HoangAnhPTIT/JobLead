@@ -173,11 +173,11 @@ const LayoutContent = ({ children }) => {
 
 	useEffect(() => {
 		isLogin && PageOutSide.includes(pathname) && router.push("/");
-	}, [pathname, isLogin]);
+	}, [pathname, isLogin, router]);
 
 	useEffect(() => {
 		!isEmpty(entities) && dispatch(setEntities(entities));
-	}, [entities]);
+	}, [dispatch, entities]);
 
 	useEffect(() => {
 		setShowMenu(false);

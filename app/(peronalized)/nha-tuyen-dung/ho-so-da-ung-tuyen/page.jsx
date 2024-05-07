@@ -63,7 +63,7 @@ const columns = [
 		dataIndex: "",
 		key: "action",
 		width: 100,
-		render: (record) => (
+		render: () => (
 			<div className="flex gap-3 justify-center">
 				<Tooltip title="Duyệt">
 					<Check fontSize="small" className="text-green-500 cursor-pointer" />

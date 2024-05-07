@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { updateLoading } from "lib/features/loadingSlice";
-import { useAppDispatch, useAppSelector } from "lib/hooks";
+import { useAppDispatch } from "lib/hooks";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import {

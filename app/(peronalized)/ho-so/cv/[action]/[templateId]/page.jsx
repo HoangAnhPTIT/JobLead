@@ -1,7 +1,7 @@
 "use client";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";

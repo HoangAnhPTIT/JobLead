@@ -7,10 +7,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
-import {
-	apiCompanyApplicantSave,
-	apiCompanyApplicantSaved,
-} from "src/apis/apiEndpoint";
+import { apiCompanyApplicantSaved } from "src/apis/apiEndpoint";
 import PopconfirmDelete from "src/commons/PopconfirmDelete";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";

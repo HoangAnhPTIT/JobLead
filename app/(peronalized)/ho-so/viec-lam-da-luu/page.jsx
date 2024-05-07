@@ -3,7 +3,6 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Button, Col, DatePicker, Form, Input, Row, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthDelete, httpAuthGet } from "src/apis/apiAuthCaller";
@@ -15,7 +14,6 @@ import routeMap from "src/constants/routeMap";
 import { getDate } from "src/helper/format";
 
 const SavedJobPage = () => {
-	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const [data, setData] = useState();

@@ -14,7 +14,6 @@ import {
 	apiCompanyApplicationGeneralInfo,
 	apiCompanyJobs,
 } from "src/apis/apiEndpoint";
-import SelectAntd from "src/commons/AntdForm/SelectAntd";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { NO_DATA, errorMessage } from "src/constants/common";
