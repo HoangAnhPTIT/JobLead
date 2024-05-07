@@ -26,6 +26,7 @@ const columns = [
 		title: "Giới tính",
 		dataIndex: "gender",
 		key: "gender",
+		render: (value) => value?.name,
 	},
 	{
 		title: "Số điện thoại",

@@ -13,7 +13,7 @@ export const USER_ROLE = {
 	guest: "guest",
 	candidate: "Candidate",
 	employer: "Employer",
-	admin: "admin",
+	admin: "Admin",
 	all: "all",
 };
 

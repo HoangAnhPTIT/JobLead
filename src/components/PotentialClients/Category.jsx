@@ -1,19 +1,14 @@
 "use client";
-import { ExclamationCircleOutlined, UserOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Pagination } from "@mui/material";
-import { Avatar, Button, Col, Image, Modal, Row, Spin } from "antd";
+import { Button, Col, Image, Modal, Row, Spin } from "antd";
 import { isEmpty } from "lodash";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
-import {
-	apiPotentialCustomer,
-	apiCustomer,
-	apiFilterCategory,
-} from "src/apis/apiEndpoint";
+import { apiFilterCategory, apiPotentialCustomer } from "src/apis/apiEndpoint";
 import Nodata from "src/commons/Nodata";
-import { imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 import { Pagination as SwiperPagination } from "swiper/modules";
@@ -178,7 +173,7 @@ const Category = ({ title, list, count }) => {
 											</p>
 											<p>
 												<span>
-													<strong>Giới tính:</strong> {item?.gender}
+													<strong>Giới tính:</strong> {item?.gender?.name}
 												</span>
 											</p>
 											<p>
@@ -228,7 +223,7 @@ const Category = ({ title, list, count }) => {
 						<div className="">
 							<ItemInfo label="Họ tên" value={itemSelected?.name} />
 							<ItemInfo label="Tuổi" value={itemSelected?.age} />
-							<ItemInfo label="Giới tính" value={itemSelected?.gender} />
+							<ItemInfo label="Giới tính" value={itemSelected?.gender?.name} />
 							<ItemInfo label="Số điện thoại" value={itemSelected?.phone} />
 							<ItemInfo label="Email" value={itemSelected?.email} />
 							<ItemInfo label="Địa chỉ" value={itemSelected?.address} />

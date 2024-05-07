@@ -27,6 +27,8 @@ const routeMap = {
 	changePassword: "/doi-mat-khau",
 	package: "/bang-gia",
 	potentialClients: "/khach-hang-tiem-nang",
+	customer: "/khach-hang",
+	admin: "/admin",
 };
 
 export default routeMap;
