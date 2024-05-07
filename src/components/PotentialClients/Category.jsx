@@ -236,11 +236,13 @@ const Category = ({ title, list, count }) => {
 							<ItemInfo label="Đường/Số nhà" value={itemSelected?.street} />
 							<ItemInfo label="MetaData" value={""} />
 						</div>
-						<div className="text-center mt-5">
-							<Button danger onClick={onConfirmBuy}>
-								Xem thông tin chi tiết
-							</Button>
-						</div>
+						{!itemSelected?.isViewed && (
+							<div className="text-center mt-5">
+								<Button danger onClick={onConfirmBuy}>
+									Xem thông tin chi tiết
+								</Button>
+							</div>
+						)}
 						{contextHolder}
 					</Spin>
 				</Modal>
