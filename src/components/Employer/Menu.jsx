@@ -1,4 +1,5 @@
 import {
+	BubbleChartOutlined,
 	CheckOutlined,
 	DnsOutlined,
 	FileUploadOutlined,
@@ -50,6 +51,11 @@ const items = [
 		key: routeMap.viewedUser,
 		label: "Hồ sơ đã xem",
 		icon: <CheckOutlined style={{ fontSize: "18px" }} />,
+	},
+	{
+		key: routeMap.potentialClients,
+		label: "Khách hàng tiềm năng",
+		icon: <BubbleChartOutlined style={{ fontSize: "18px" }} />,
 	},
 	{
 		key: routeMap.packageManage,

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import {
-	apiBuyCustomerInfo,
+	apiPotentialCustomer,
 	apiCustomer,
 	apiFilterCategory,
 } from "src/apis/apiEndpoint";
@@ -64,7 +64,7 @@ const Category = ({ title, list, count }) => {
 		setLoading(true);
 		try {
 			const response = await httpAuthPost({
-				endpoint: apiBuyCustomerInfo,
+				endpoint: apiPotentialCustomer,
 				data: { CustomerId: itemSelected?.id },
 			});
 			if (response?.status === 200) {
