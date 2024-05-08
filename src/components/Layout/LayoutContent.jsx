@@ -197,6 +197,7 @@ const LayoutContent = ({ children }) => {
 						autoClose={3000}
 						theme="light"
 						className={styles.toastCustom}
+						style={{ zIndex: 999999999 }}
 					/>
 					<div
 						className={classNames([

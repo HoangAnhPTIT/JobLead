@@ -9,19 +9,21 @@ import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiFilterCategory, apiPotentialCustomer } from "src/apis/apiEndpoint";
 import Nodata from "src/commons/Nodata";
+import { errorMessage } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 import { Pagination as SwiperPagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const categoryIdDefault = "00000000-0000-0000-0000-000000000000";
+const infoDetail = (info) => info || "__";
 
 const ItemInfo = ({ label, value }) => {
 	return (
 		<Row gutter={16} className="my-1 border-b">
 			<Col span={8}>{label}</Col>
 			<Col span={16}>
-				<span className="text-base">{value}</span>
+				<span className="text-base">{infoDetail(value)}</span>
 			</Col>
 		</Row>
 	);
@@ -35,7 +37,18 @@ const Category = ({ title, list, count }) => {
 	const [itemSelected, setItemSelected] = useState();
 	const [categories, setCategories] = useState();
 	const [loading, setLoading] = useState(false);
-	console.log("itemSelected", itemSelected);
+
+	const getData = async () => {
+		const categoryResponse = await httpAuthGet({
+			endpoint: apiFilterCategory,
+			params: {
+				parentId: searchParams.get("categoryId") || categoryIdDefault,
+				size: 12,
+				page: searchParams.get("page") || 1,
+			},
+		});
+		setCategories(categoryResponse?.data?.categories);
+	};
 
 	const onChangePage = async (page) => {
 		const searchParamsObject =
@@ -64,11 +77,13 @@ const Category = ({ title, list, count }) => {
 			});
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
+				setItemSelected(response?.data);
+				getData();
 			} else {
 				toast.error(response?.message);
 			}
 		} catch {
-			//
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -86,17 +101,6 @@ const Category = ({ title, list, count }) => {
 	};
 
 	useEffect(() => {
-		const getData = async () => {
-			const categoryResponse = await httpAuthGet({
-				endpoint: apiFilterCategory,
-				params: {
-					parentId: searchParams.get("categoryId") || categoryIdDefault,
-					size: 12,
-					page: searchParams.get("page") || 1,
-				},
-			});
-			setCategories(categoryResponse?.data?.categories);
-		};
 		getData();
 	}, [searchParams]);
 
@@ -155,39 +159,44 @@ const Category = ({ title, list, count }) => {
 				</div>
 				<div className="border">
 					{count > 0 ? (
-						<Row gutter={16} className="p-5">
+						<Row gutter={[16, 16]} className="p-5">
 							{list?.map((item, i) => (
 								<Col xs={12} md={8} key={i}>
 									<div
-										className="p-3 border flex gap-5 cursor-pointer"
+										className="p-3 shadow flex gap-5 cursor-pointer"
 										onClick={() => onSelectItem(item)}
 									>
 										<div>
 											<h3 className="font-semibold text-base underline underline-offset-4">
-												{item?.name}
+												{infoDetail(item?.name)}
 											</h3>
 											<p>
 												<span className="mr-2">
-													<strong>Tuổi:</strong> {item?.age}
+													<strong className="mr-2">Tuổi:</strong>
+													{infoDetail(item?.age)}
 												</span>
 											</p>
 											<p>
 												<span>
-													<strong>Giới tính:</strong> {item?.gender?.name}
+													<strong className="mr-2">Giới tính:</strong>
+													{infoDetail(item?.gender?.name)}
 												</span>
 											</p>
 											<p>
 												<span className="mr-2">
-													<strong>Sdt:</strong> {item?.phone}
+													<strong className="mr-2">Sdt:</strong>
+													{infoDetail(item?.phone)}
 												</span>
 											</p>
 											<p>
 												<span>
-													<strong>Email:</strong> {item?.email}
+													<strong className="mr-2">Email:</strong>
+													{infoDetail(item?.email)}
 												</span>
 											</p>
 											<p>
-												<strong>Tỉnh/TP:</strong> {item?.province?.name}
+												<strong className="mr-2">Tỉnh/TP:</strong>
+												{infoDetail(item?.province?.name)}
 											</p>
 										</div>
 									</div>
@@ -234,7 +243,7 @@ const Category = ({ title, list, count }) => {
 							/>
 							<ItemInfo label="Xã/Phường" value={itemSelected?.ward?.name} />
 							<ItemInfo label="Đường/Số nhà" value={itemSelected?.street} />
-							<ItemInfo label="MetaData" value={""} />
+							{/* <ItemInfo label="MetaData" value={""} /> */}
 						</div>
 						{!itemSelected?.isViewed && (
 							<div className="text-center mt-5">
