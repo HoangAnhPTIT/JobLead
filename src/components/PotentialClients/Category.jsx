@@ -47,7 +47,7 @@ const Category = ({ title, list, count, reloadList }) => {
 				page: searchParams.get("page") || 1,
 			},
 		});
-		setCategories(categoryResponse?.data?.categories);
+		setCategories(categoryResponse?.data);
 	};
 
 	const onChangePage = async (page) => {
