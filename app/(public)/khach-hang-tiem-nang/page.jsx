@@ -26,7 +26,7 @@ const PotentialClients = () => {
 	const [customers, setCustomers] = useState();
 	const [count, setCount] = useState(0);
 	const [loading, setLoading] = useState(false);
-
+	const [toggleReload, setToggleReload] = useState(false)
 	useEffect(() => {
 		const getData = async () => {
 			setLoading(true);
@@ -50,14 +50,17 @@ const PotentialClients = () => {
 			}
 		};
 		getData();
-	}, [searchParams]);
+	}, [searchParams, toggleReload]);
 
 	return (
 		<Spin spinning={loading}>
-			<div className={classNames(responsiveContent, "py-5")}>
+			<div className={classNames("py-5")}>
 				<SearchBox />
 				<Breadcrumb items={breadcrum} />
-				<Category title="Khách hàng tiềm năng" list={customers} count={count} />
+				<Category title={<div className="flex justify-between">
+					<p>Khách hàng tiềm năng</p>
+					<p className="cursor-pointer">Mua tất cả</p>
+				</div>} list={customers} count={count} reloadList={() => setToggleReload(!toggleReload)} />
 			</div>
 		</Spin>
 	);
