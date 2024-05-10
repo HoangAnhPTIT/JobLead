@@ -8,7 +8,6 @@ import { apiCustomer } from "src/apis/apiEndpoint";
 import Breadcrumb from "src/commons/Breadcrumb";
 import Category from "src/components/PotentialClients/Category";
 import SearchBox from "src/components/PotentialClients/SearchBox";
-import { responsiveContent } from "src/constants/css";
 import { convertSearchParamsToObject } from "src/helper/format";
 
 const breadcrum = [
@@ -21,12 +20,14 @@ const breadcrum = [
 	},
 ];
 
+const pageSize = 18;
+
 const PotentialClients = () => {
 	const searchParams = useSearchParams();
 	const [customers, setCustomers] = useState();
 	const [count, setCount] = useState(0);
 	const [loading, setLoading] = useState(false);
-	const [toggleReload, setToggleReload] = useState(false)
+	const [toggleReload, setToggleReload] = useState(false);
 	useEffect(() => {
 		const getData = async () => {
 			setLoading(true);
@@ -37,7 +38,7 @@ const PotentialClients = () => {
 					endpoint: apiCustomer,
 					params: {
 						...searchParamValues,
-						limit: 20,
+						size: pageSize,
 						page: searchParamValues?.page || 1,
 					},
 				});
@@ -54,13 +55,21 @@ const PotentialClients = () => {
 
 	return (
 		<Spin spinning={loading}>
-			<div className={classNames("py-5")}>
+			<div className={classNames("p-5")}>
 				<SearchBox />
 				<Breadcrumb items={breadcrum} />
-				<Category title={<div className="flex justify-between">
-					<p>Khách hàng tiềm năng</p>
-					<p className="cursor-pointer">Mua tất cả</p>
-				</div>} list={customers} count={count} reloadList={() => setToggleReload(!toggleReload)} />
+				<Category
+					title={
+						<div className="flex justify-between">
+							<p>Khách hàng tiềm năng</p>
+							<p className="cursor-pointer">Mua tất cả</p>
+						</div>
+					}
+					list={customers}
+					count={count}
+					pageSize={pageSize}
+					reloadList={() => setToggleReload(!toggleReload)}
+				/>
 			</div>
 		</Spin>
 	);
