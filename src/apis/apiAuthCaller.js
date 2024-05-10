@@ -221,7 +221,6 @@ const refreshTokenAndRetry = async () => {
 
 export const getLocalAccessToken = () => {
 	const tokenCookie = Cookies.get(token);
-
 	return tokenCookie || "";
 };
 

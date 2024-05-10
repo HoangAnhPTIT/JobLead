@@ -249,7 +249,10 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 							<ItemInfo label="Xã/Phường" value={itemSelected?.ward?.name} />
 							<ItemInfo label="Đường/Số nhà" value={itemSelected?.street} />
 							{/* <ItemInfo label="MetaData" value={""} /> */}
-							<ItemInfo label="Thông tin khác" />
+							<ItemInfo
+								label="Thông tin khác"
+								value={itemSelected?.otherInfo}
+							/>
 						</div>
 						{!itemSelected?.isViewed && (
 							<div className="text-center mt-5">

@@ -68,9 +68,14 @@ const columns = [
 	},
 	{
 		title: "MetaData",
-		dataIndex: "metaDatas",
-		key: "metaDatas",
+		dataIndex: "metaData",
+		key: "metaData",
 		render: () => "",
+	},
+	{
+		title: "Thông tin khác",
+		dataIndex: "otherInfo",
+		key: "otherInfo",
 	},
 	{
 		title: "Ngày mua",
