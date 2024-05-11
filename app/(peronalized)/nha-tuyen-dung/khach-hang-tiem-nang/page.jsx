@@ -1,11 +1,12 @@
 "use client";
-import { Table } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
+import { Table, Button } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiPotentialCustomer } from "src/apis/apiEndpoint";
+import { apiCaller, httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
+import { apiCompanyExportCustomer, apiPotentialCustomer } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -111,15 +112,40 @@ const ViewedCandidatePage = () => {
 		getData();
 	}, [dispatch]);
 
+	const exportCustomer = () => {
+		const handler = async () => {
+			const data = await httpAuthPost({ endpoint: apiCompanyExportCustomer, responseType: "blob" })
+			const url = window.URL.createObjectURL(
+				new Blob([data], {
+					type: data?.type,
+				})
+			);
+			const a = document.createElement("a");
+			a.style.display = "none";
+			a.href = url;
+			a.download = "customers.xlsx";
+			document.body.appendChild(a);
+			a.click();
+		
+			window.URL.revokeObjectURL(url);
+			document.body.removeChild(a);
+		}
+
+		handler()
+	}
+
 	return (
 		<EmployerLayout>
 			<div>
 				<EmployerBanner />
 			</div>
 			<div>
-				<p className="text-lg my-5">
-					Danh sách thông tin khách hàng tiềm năng đã mua
-				</p>
+				<div className="flex justify-between items-center">
+					<p className="text-lg my-5">
+						Danh sách thông tin khách hàng tiềm năng đã mua
+					</p>
+					<Button type="primary" icon={<DownloadOutlined />} onClick={exportCustomer}>Xuất dữ liệu</Button>
+				</div>
 				<Table
 					size="small"
 					scroll={{ x: 1500 }}

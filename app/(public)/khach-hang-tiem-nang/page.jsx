@@ -20,7 +20,7 @@ const breadcrum = [
 	},
 ];
 
-const pageSize = 18;
+const pageSize = 30;
 
 const PotentialClients = () => {
 	const searchParams = useSearchParams();
@@ -57,12 +57,15 @@ const PotentialClients = () => {
 		<Spin spinning={loading}>
 			<div className={classNames("p-5")}>
 				<SearchBox />
-				<Breadcrumb items={breadcrum} />
+				<Breadcrumb extendClass={"ml-1"} items={breadcrum} />
 				<Category
 					title={
 						<div className="flex justify-between">
 							<p>Khách hàng tiềm năng</p>
-							<p className="cursor-pointer">Mua tất cả</p>
+							<div className="flex">
+							<p className="cursor-pointer pr-6">Mua tất cả</p>
+							<p className="cursor-pointer">Mua bộ khách hàng này</p>
+							</div>
 						</div>
 					}
 					list={customers}

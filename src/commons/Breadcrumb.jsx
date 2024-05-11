@@ -2,11 +2,11 @@ import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
 
-const Breadcrumb = ({ seperator = ">", items }) => {
+const Breadcrumb = ({ seperator = ">", items, extendClass }) => {
 	const isNotEnd = (index) => index !== items?.length - 1;
 
 	return (
-		<div className="w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto py-3">
+		<div className={`w-full sm:w-smContent md:w-mdContent lg:w-lgContent xl:w-xlContent mx-auto py-3 ${extendClass}`}>
 			{items?.map((item, i) => (
 				<span
 					key={i}

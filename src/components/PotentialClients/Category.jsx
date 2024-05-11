@@ -17,6 +17,7 @@ import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiFilterCategory, apiPotentialCustomer } from "src/apis/apiEndpoint";
 import Nodata from "src/commons/Nodata";
 import { errorMessage } from "src/constants/common";
+import { POINT_DEFINE } from "src/constants/pointDefine";
 import routeMap from "src/constants/routeMap";
 import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 import { Pagination as SwiperPagination } from "swiper/modules";
@@ -101,7 +102,7 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 		modal.confirm({
 			title: "Xác nhận mua thông tin",
 			icon: <ExclamationCircleOutlined />,
-			content: "Bạn đồng ý sử dụng điểm để xem thông tin chi tiết khách hàng?",
+			content: `Bạn đồng ý sử dụng ${POINT_DEFINE.buyCustomer} điểm để xem thông tin chi tiết khách hàng?`,
 			okText: "Đồng ý",
 			cancelText: "Hủy",
 			onOk: onBuyInfo,
@@ -112,11 +113,11 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 		getData();
 	}, [searchParams]);
 
-	const ItemInfoList = ({ icon, text }) => {
+	const ItemInfoList = ({ icon, text, extendClass }) => {
 		return (
 			<div className="flex items-center mt-4 text-gray-700">
 				{icon}
-				<p className="px-2 text-sm three-dot">{infoDetail(text)}</p>
+				<p className={`px-2 text-sm three-dot ${extendClass}`}>{infoDetail(text)}</p>
 			</div>
 		);
 	};
@@ -159,7 +160,7 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 										alt={item?.name || ""}
 										preview={false}
 									/>
-									<div className="text-center text-sm mt-2 text-primary absolute bottom-0 left-0 bg-gray-50 w-full py-2">
+									<div className="text-center text-sm mt-2 text-primary absolute bottom-0 left-0 bg-opacity-75 bg-gray-50 w-full py-2">
 										<strong className="text-base">{item?.name}</strong>
 										<p>Phân loại con: {item?.numOfChild}</p>
 										<p>Số khách hàng: {item?.numOfCustomer}</p>
@@ -181,11 +182,12 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 								<Col span={4} key={i}>
 									<div
 										className="flex gap-3 cursor-pointer"
-										onClick={() => onSelectItem(item)}
+										onClick={() => onSelectItem(item)}  
+
 									>
-										<div className="max-w-sm bg-white border rounded-lg overflow-hidden mb-4 flex-1">
+										<div style={{borderColor: "rgb(0 145 206 / var(--tw-bg-opacity)"}} className="max-w-sm bg-white border rounded-lg overflow-hidden mb-4 flex-1">
 											<div className="py-4 px-6">
-												<h1 className="text-2xl font-semibold text-gray-800 three-dot">
+												<h1 className={`text-2xl font-semibold text-gray-800 three-dot ${!item?.isViewed && "text-rose-300"}`}>
 													{infoDetail(item?.name)}
 												</h1>
 												<ItemInfoList
@@ -196,8 +198,8 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 													icon={<CalendarMonth />}
 													text={item?.age}
 												/>
-												<ItemInfoList icon={<Call />} text={item?.phone} />
-												<ItemInfoList icon={<Email />} text={item?.email} />
+												<ItemInfoList icon={<Call />} extendClass={!item?.isViewed && "text-rose-300" } text={item?.phone} />
+												<ItemInfoList icon={<Email />} extendClass={!item?.isViewed && "text-rose-300" } text={item?.email} />
 												<ItemInfoList
 													icon={<FmdGood />}
 													text={item?.province?.name}
