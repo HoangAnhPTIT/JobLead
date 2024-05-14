@@ -5,7 +5,7 @@ import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
-import { apiCompanyViewCandidate } from "src/apis/apiEndpoint";
+import { apiCompanyGetBoughtObject } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -14,13 +14,13 @@ import { getDate } from "src/helper/format";
 const columns = [
 	{
 		title: "Họ tên",
-		dataIndex: "candidateInfo",
+		dataIndex: "candidate",
 		key: "name",
 		render: (value) => value?.name,
 	},
 	{
 		title: "Thông tin liên hệ",
-		dataIndex: "candidateInfo",
+		dataIndex: "candidate",
 		key: "info",
 		render: (value) => (
 			<div>
@@ -33,7 +33,7 @@ const columns = [
 		title: "Điểm",
 		dataIndex: "point",
 		key: "point",
-	},
+	},	
 	{
 		title: "Ngày xem",
 		dataIndex: "viewedDate",
@@ -72,11 +72,11 @@ const ViewedCandidatePage = () => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiCompanyViewCandidate,
+				endpoint: apiCompanyGetBoughtObject,
 				params: filter,
 			});
 			if (res?.status === 200) {
-				setData(res.data);
+				setData(res.data.data);
 			} else {
 				toast.error(errorMessage);
 			}

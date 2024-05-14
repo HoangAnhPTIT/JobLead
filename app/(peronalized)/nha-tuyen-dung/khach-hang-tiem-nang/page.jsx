@@ -5,8 +5,8 @@ import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { apiCaller, httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCompanyExportCustomer, apiPotentialCustomer } from "src/apis/apiEndpoint";
+import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
+import { apiCompanyExportCustomer, apiCompanyGetBoughtObject } from "src/apis/apiEndpoint";
 import EmployerBanner from "src/components/Employer/EmployerBanner";
 import EmployerLayout from "src/components/Employer/EmployerLayout";
 import { errorMessage } from "src/constants/common";
@@ -87,6 +87,7 @@ const columns = [
 ];
 
 const ViewedCandidatePage = () => {
+	const [filter, setFilter] = useState({ objectType: 1 });
 	const dispatch = useAppDispatch();
 	const [data, setData] = useState();
 
@@ -94,7 +95,8 @@ const ViewedCandidatePage = () => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiPotentialCustomer,
+				endpoint: apiCompanyGetBoughtObject,
+				params: filter
 			});
 			if (res?.status === 200) {
 				const convertData = res?.data?.data?.map((item) => ({
@@ -126,7 +128,7 @@ const ViewedCandidatePage = () => {
 			a.download = "customers.xlsx";
 			document.body.appendChild(a);
 			a.click();
-		
+
 			window.URL.revokeObjectURL(url);
 			document.body.removeChild(a);
 		}

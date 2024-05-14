@@ -17,8 +17,9 @@ import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import {
 	apiCompanyApplicantSave,
-	apiCompanyViewCandidate,
+	apiCompanyBuyObject,
 } from "src/apis/apiEndpoint";
+import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { developingMessage, errorMessage } from "src/constants/common";
 
 const getTimeBefore = (milisecondsBefore) => {
@@ -75,9 +76,10 @@ const RightSide = ({
 				dispatch(updateLoading(true));
 				try {
 					const res = await httpAuthPost({
-						endpoint: apiCompanyViewCandidate,
+						endpoint: apiCompanyBuyObject,
 						data: {
-							candidateId: originalData?.id,
+							objectId: originalData?.id,
+							objectType: BUY_OBJECT_TYPE.CANDIDATE
 						},
 					});
 					if (res.status === 200) {

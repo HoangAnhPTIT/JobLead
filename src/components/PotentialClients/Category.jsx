@@ -14,8 +14,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiFilterCategory, apiPotentialCustomer } from "src/apis/apiEndpoint";
+import { apiCompanyBuyObject, apiFilterCategory } from "src/apis/apiEndpoint";
 import Nodata from "src/commons/Nodata";
+import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
 import { POINT_DEFINE } from "src/constants/pointDefine";
 import routeMap from "src/constants/routeMap";
@@ -81,8 +82,11 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 		setLoading(true);
 		try {
 			const response = await httpAuthPost({
-				endpoint: apiPotentialCustomer,
-				data: { CustomerId: itemSelected?.id },
+				endpoint: apiCompanyBuyObject,
+				data: {
+					objectId: itemSelected?.id,
+					objectType: BUY_OBJECT_TYPE.CUSTOMER
+				}
 			});
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
@@ -182,10 +186,10 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 								<Col span={4} key={i}>
 									<div
 										className="flex gap-3 cursor-pointer"
-										onClick={() => onSelectItem(item)}  
+										onClick={() => onSelectItem(item)}
 
 									>
-										<div style={{borderColor: "rgb(0 145 206 / var(--tw-bg-opacity)"}} className="max-w-sm bg-white border rounded-lg overflow-hidden mb-4 flex-1">
+										<div style={{ borderColor: "rgb(0 145 206 / var(--tw-bg-opacity)" }} className="max-w-sm bg-white border rounded-lg overflow-hidden mb-4 flex-1">
 											<div className="py-4 px-6">
 												<h1 className={`text-2xl font-semibold text-gray-800 three-dot ${!item?.isViewed && "text-rose-300"}`}>
 													{infoDetail(item?.name)}
@@ -198,8 +202,8 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 													icon={<CalendarMonth />}
 													text={item?.age}
 												/>
-												<ItemInfoList icon={<Call />} extendClass={!item?.isViewed && "text-rose-300" } text={item?.phone} />
-												<ItemInfoList icon={<Email />} extendClass={!item?.isViewed && "text-rose-300" } text={item?.email} />
+												<ItemInfoList icon={<Call />} extendClass={!item?.isViewed && "text-rose-300"} text={item?.phone} />
+												<ItemInfoList icon={<Email />} extendClass={!item?.isViewed && "text-rose-300"} text={item?.email} />
 												<ItemInfoList
 													icon={<FmdGood />}
 													text={item?.province?.name}
