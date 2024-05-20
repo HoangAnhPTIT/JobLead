@@ -288,7 +288,6 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 					scroll={{ x: 2000 }}
 					pagination={false}
 					bordered
-					size="small"
 					rowSelection={{ selectedRowKeys, onChange: setSelectedRowKeys }}
 				/>
 				<div className="mt-5">

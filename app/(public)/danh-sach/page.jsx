@@ -55,7 +55,7 @@ const PotentialClients = () => {
 
 	return (
 		<Spin spinning={loading}>
-			<div className={classNames("p-5")}>
+			<div>
 				<SearchBox />
 				<Breadcrumb extendClass={"ml-1"} items={breadcrum} />
 				<Category

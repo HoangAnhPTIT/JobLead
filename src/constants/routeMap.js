@@ -29,6 +29,7 @@ const routeMap = {
 	potentialClients: "/khach-hang-tiem-nang",
 	customer: "/khach-hang",
 	admin: "/admin",
+	list: "/danh-sach",
 };
 
 export default routeMap;

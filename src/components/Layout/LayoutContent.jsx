@@ -7,8 +7,13 @@ import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
+import {
+	AreaChartOutlined,
+	LoadingOutlined,
+	TeamOutlined,
+} from "@ant-design/icons";
 import {
 	BorderColor,
 	DescriptionOutlined,
@@ -23,6 +28,7 @@ import {
 	TextSnippet,
 } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
+import { Layout, Menu, Spin } from "antd";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
@@ -32,10 +38,10 @@ import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { deleteAllCookies } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
-import SuspenseLoading from "./SuspenseLoading";
 import styles from "./styles.module.scss";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import SideMenu from "./SideMenu";
+
+const { Sider, Content } = Layout;
 
 const theme = createTheme({
 	breakpoints: {
@@ -266,6 +272,15 @@ const LayoutContent = ({ children }) => {
 															</Grid>
 														)
 												)}
+												<Grid item xs={12} lg="auto">
+													<div
+														className={classNames([
+															"bg-secondary text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+														])}
+													>
+														Khách hàng tiềm năng
+													</div>
+												</Grid>
 											</Grid>
 										</Grid>
 										{isLogin === false && (
@@ -349,9 +364,14 @@ const LayoutContent = ({ children }) => {
 							/>
 						</div>
 					</div>
-					<Suspense fallback={<SuspenseLoading />}>
-						<div className="mt-[64px]">{children}</div>
-					</Suspense>
+					<Layout className="mt-16">
+						<Sider width={300}>
+							<SideMenu />
+						</Sider>
+						<Content className="h-[calc(100vh-64px)] overflow-y-auto p-5">
+							{children}
+						</Content>
+					</Layout>
 				</Spin>
 			</div>
 		</ThemeProvider>

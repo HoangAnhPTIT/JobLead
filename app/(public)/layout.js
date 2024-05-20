@@ -1,13 +1,5 @@
-import React from "react";
-import FooterLayout from "src/components/Layout/Footer";
-
 const PublicLayout = ({ children }) => {
-	return (
-		<>
-			{children}
-			<FooterLayout />
-		</>
-	);
+	return <div className="p-1">{children}</div>;
 };
 
 export default PublicLayout;
