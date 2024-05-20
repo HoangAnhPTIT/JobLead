@@ -29,6 +29,7 @@ const employerIntro = [
 	"Tăng hiệu quả 4 - 5 lần so với các phương thức tuyển dụng khác",
 	"+2,000 lượt xem trung bình cho 1 việc làm",
 ];
+const domain = process.env.DOMAIN_URL;
 
 const Employer = () => {
 	const dispatch = useAppDispatch();
@@ -41,11 +42,25 @@ const Employer = () => {
 			if (response?.status === 200) {
 				Cookies.set(token, response?.tokenLogin?.token, {
 					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
 				});
 				Cookies.set(refreshToken, response?.tokenLogin?.refreshToken, {
 					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
 				});
-				Cookies.set(loggedIn, true, { expires: expiresTime });
+				Cookies.set(loggedIn, true, {
+					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
+				});
 				dispatch(setIsLogin(true));
 				window.location.href = "/";
 			} else {

@@ -293,18 +293,20 @@ const LayoutContent = ({ children }) => {
 											>
 												<Grid container>
 													<Grid item xs={12} lg="auto">
-														<Link href={routeMap.login}>
-															<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
-																<span className="text-sm">Đăng nhập</span>
-															</div>
-														</Link>
+														<div
+															className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer"
+															onClick={() => redirectMenu(routeMap.login)}
+														>
+															<span className="text-sm">Đăng nhập</span>
+														</div>
 													</Grid>
 													<Grid item xs={12} lg="auto">
-														<Link href={routeMap.register}>
-															<div className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer">
-																<span className="text-sm te">Đăng ký</span>
-															</div>
-														</Link>
+														<div
+															className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer"
+															onClick={() => redirectMenu(routeMap.register)}
+														>
+															<span className="text-sm te">Đăng ký</span>
+														</div>
 													</Grid>
 												</Grid>
 											</Grid>

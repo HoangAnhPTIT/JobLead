@@ -28,6 +28,8 @@ const candidateIntro = [
 	"Nâng cao cơ hội tìm việc với chương trình ứng viên năng động",
 ];
 
+const domain = process.env.DOMAIN_URL;
+
 const Candidate = () => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
@@ -39,11 +41,25 @@ const Candidate = () => {
 			if (response?.status === 200) {
 				Cookies.set("token", response?.tokenLogin?.token, {
 					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
 				});
 				Cookies.set("refreshToken", response?.tokenLogin?.refreshToken, {
 					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
 				});
-				Cookies.set(loggedIn, true, { expires: expiresTime });
+				Cookies.set(loggedIn, true, {
+					expires: expiresTime,
+					domain,
+					path: "/",
+					secure: true,
+					sameSite: "None",
+				});
 				dispatch(setIsLogin(true));
 				window.location.href = "/";
 			} else {
