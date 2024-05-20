@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.BASE_URL;
+axios.defaults.baseURL = process.env.API_URL;
 
 export const httpPost = async (endpoint, data = {}) => {
 	try {

@@ -1,21 +1,23 @@
 "use client";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
-	CalendarMonth,
-	Call,
-	Email,
-	FmdGood,
-	Transgender,
-} from "@mui/icons-material";
+	EditOutlined,
+	EnvironmentOutlined,
+	ExclamationCircleOutlined,
+	EyeFilled,
+	EyeOutlined,
+	MailOutlined,
+	PhoneOutlined,
+	TeamOutlined,
+	UserOutlined,
+} from "@ant-design/icons";
 import { Pagination } from "@mui/material";
-import { Button, Col, Image, Modal, Row, Spin } from "antd";
+import { Button, Col, Image, Modal, Row, Spin, Table } from "antd";
 import { isEmpty } from "lodash";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCompanyBuyObject, apiFilterCategory } from "src/apis/apiEndpoint";
-import Nodata from "src/commons/Nodata";
 import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
 import { POINT_DEFINE } from "src/constants/pointDefine";
@@ -38,7 +40,7 @@ const ItemInfo = ({ label, value }) => {
 	);
 };
 
-const Category = ({ title, list, count, reloadList, pageSize }) => {
+const Category = ({ list, count, reloadList, pageSize }) => {
 	const [modal, contextHolder] = Modal.useModal();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
@@ -46,6 +48,7 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 	const [itemSelected, setItemSelected] = useState();
 	const [categories, setCategories] = useState();
 	const [loading, setLoading] = useState(false);
+	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
 	const getData = async () => {
 		const categoryResponse = await httpAuthGet({
@@ -85,8 +88,8 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 				endpoint: apiCompanyBuyObject,
 				data: {
 					objectId: itemSelected?.id,
-					objectType: BUY_OBJECT_TYPE.CUSTOMER
-				}
+					objectType: BUY_OBJECT_TYPE.CUSTOMER,
+				},
 			});
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
@@ -113,18 +116,111 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 		});
 	};
 
+	const columns = useMemo(
+		() => [
+			{
+				key: "name",
+				dataIndex: "name",
+				title: "Họ tên",
+				render: (value) => (
+					<>
+						<UserOutlined /> {value}
+					</>
+				),
+			},
+			{
+				key: "age",
+				dataIndex: "age",
+				title: "Tuổi",
+				render: (value) => <>{value}</>,
+			},
+			{
+				key: "gender",
+				dataIndex: "gender",
+				title: "Giới tính",
+				render: (value) => <>{value.name}</>,
+			},
+			{
+				key: "phone",
+				dataIndex: "phone",
+				title: "Só điện thoại",
+				render: (value) => (
+					<>
+						<PhoneOutlined /> {value}
+					</>
+				),
+			},
+			{
+				key: "email",
+				dataIndex: "email",
+				title: "Email",
+				render: (value) => (
+					<>
+						<MailOutlined /> {value}
+					</>
+				),
+			},
+			{
+				key: "address",
+				dataIndex: "address",
+				title: "Địa chỉ",
+				render: (value) => (
+					<>
+						<EnvironmentOutlined /> {value}
+					</>
+				),
+			},
+			{
+				key: "province",
+				dataIndex: "province",
+				title: "Tỉnh/TP",
+				render: (value) => <>{value.name}</>,
+			},
+			{
+				key: "district",
+				dataIndex: "district",
+				title: "Quận/Huyện",
+				render: (value) => <>{value.name}</>,
+			},
+			{
+				key: "ward",
+				dataIndex: "ward",
+				title: "Xã/Phường",
+				render: (value) => <>{value.name}</>,
+			},
+			{
+				key: "street",
+				dataIndex: "street",
+				title: "Đường/Số nhà",
+				render: (value) => <>{value}</>,
+			},
+			{
+				key: "otherInfo",
+				dataIndex: "otherInfo",
+				title: "Thông tin khác",
+				render: (value) => <>{value}</>,
+			},
+			{
+				key: "action",
+				title: "Hành động",
+				fixed: "right",
+				width: 110,
+				render: (record) => (
+					<div
+						className="cursor-pointer text-primary hover:text-secondary text-center"
+						onClick={() => onSelectItem(record)}
+					>
+						<EyeOutlined /> Xem
+					</div>
+				),
+			},
+		],
+		[]
+	);
+
 	useEffect(() => {
 		getData();
 	}, [searchParams]);
-
-	const ItemInfoList = ({ icon, text, extendClass }) => {
-		return (
-			<div className="flex items-center mt-4 text-gray-700">
-				{icon}
-				<p className={`px-2 text-sm three-dot ${extendClass}`}>{infoDetail(text)}</p>
-			</div>
-		);
-	};
 
 	return (
 		<div>
@@ -159,10 +255,11 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 								>
 									<Image
 										src={item?.thumbnail}
-										width={200}
+										width="auto"
 										height={200}
 										alt={item?.name || ""}
 										preview={false}
+										className="object-cover"
 									/>
 									<div className="text-center text-sm mt-2 text-primary absolute bottom-0 left-0 bg-opacity-75 bg-gray-50 w-full py-2">
 										<strong className="text-base">{item?.name}</strong>
@@ -175,49 +272,25 @@ const Category = ({ title, list, count, reloadList, pageSize }) => {
 					</Swiper>
 				</div>
 			)}
-			<div className="">
-				<div className="px-3 py-2 bg-primary text-white font-semibold text-lg">
-					{title}
+			<div className="border p-5 pt-2">
+				<div className="px-3 py-2 font-semibold text-lg mb-2">
+					<div className="flex justify-between">
+						<p>Danh sách khách hàng tiềm năng</p>
+						<div className="flex gap-3">
+							<Button className="cursor-pointer pr-6">Mua tất cả</Button>
+							<Button className="cursor-pointer">Mua bộ khách hàng này</Button>
+						</div>
+					</div>
 				</div>
-				<div className="border">
-					{count > 0 ? (
-						<Row gutter={16} className="p-5">
-							{list?.map((item, i) => (
-								<Col span={4} key={i}>
-									<div
-										className="flex gap-3 cursor-pointer"
-										onClick={() => onSelectItem(item)}
-
-									>
-										<div style={{ borderColor: "rgb(0 145 206 / var(--tw-bg-opacity)" }} className="max-w-sm bg-white border rounded-lg overflow-hidden mb-4 flex-1">
-											<div className="py-4 px-6">
-												<h1 className={`text-2xl font-semibold text-gray-800 three-dot ${!item?.isViewed && "text-rose-300"}`}>
-													{infoDetail(item?.name)}
-												</h1>
-												<ItemInfoList
-													icon={<Transgender />}
-													text={item?.gender?.name}
-												/>
-												<ItemInfoList
-													icon={<CalendarMonth />}
-													text={item?.age}
-												/>
-												<ItemInfoList icon={<Call />} extendClass={!item?.isViewed && "text-rose-300"} text={item?.phone} />
-												<ItemInfoList icon={<Email />} extendClass={!item?.isViewed && "text-rose-300"} text={item?.email} />
-												<ItemInfoList
-													icon={<FmdGood />}
-													text={item?.province?.name}
-												/>
-											</div>
-										</div>
-									</div>
-								</Col>
-							))}
-						</Row>
-					) : (
-						<Nodata />
-					)}
-				</div>
+				<Table
+					columns={columns}
+					dataSource={list}
+					scroll={{ x: 2000 }}
+					pagination={false}
+					bordered
+					size="small"
+					rowSelection={{ selectedRowKeys, onChange: setSelectedRowKeys }}
+				/>
 				<div className="mt-5">
 					{count > 0 && (
 						<Pagination

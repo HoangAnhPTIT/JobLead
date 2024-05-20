@@ -59,15 +59,6 @@ const PotentialClients = () => {
 				<SearchBox />
 				<Breadcrumb extendClass={"ml-1"} items={breadcrum} />
 				<Category
-					title={
-						<div className="flex justify-between">
-							<p>Khách hàng tiềm năng</p>
-							<div className="flex">
-							<p className="cursor-pointer pr-6">Mua tất cả</p>
-							<p className="cursor-pointer">Mua bộ khách hàng này</p>
-							</div>
-						</div>
-					}
 					list={customers}
 					count={count}
 					pageSize={pageSize}

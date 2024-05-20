@@ -183,6 +183,10 @@ const LayoutContent = ({ children }) => {
 		setShowMenu(false);
 	}, [pathname]);
 
+	const redirectMenu = (pathname) => {
+		window.location.href = `${process.env.DOMAIN_URL}${pathname}`;
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<div className="layout">
@@ -249,17 +253,16 @@ const LayoutContent = ({ children }) => {
 														(item?.role === USER_ROLE.all ||
 															item?.role === userInfo?.role) && (
 															<Grid item xs={12} lg="auto" key={i}>
-																<Link href={item?.link}>
-																	<div
-																		className={classNames([
-																			"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
-																			item?.link === pathname &&
-																				"bg-secondary text-white",
-																		])}
-																	>
-																		{item?.label}
-																	</div>
-																</Link>
+																<div
+																	className={classNames([
+																		"hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
+																		item?.link === pathname &&
+																			"bg-secondary text-white",
+																	])}
+																	onClick={() => redirectMenu(item?.link)}
+																>
+																	{item?.label}
+																</div>
 															</Grid>
 														)
 												)}
@@ -316,9 +319,7 @@ const LayoutContent = ({ children }) => {
 														<Stack>
 															{userMenu?.[userInfo?.role]?.map((item, i) => (
 																<div
-																	onClick={() => {
-																		router.push(item?.link);
-																	}}
+																	onClick={() => redirectMenu(item.link)}
 																	className="text-sm hover:text-primary p-2 border-b hover:bg-ee"
 																	key={i}
 																>
@@ -330,7 +331,7 @@ const LayoutContent = ({ children }) => {
 																onClick={handleLogout}
 																className="text-sm hover:text-primary p-2 hover:bg-ee"
 															>
-																<Logout />{" "}
+																<Logout />
 																<span className="ml-2">Đăng xuất</span>
 															</div>
 														</Stack>
