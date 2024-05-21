@@ -62,16 +62,6 @@ const columns = [
 		),
 	},
 	{
-		title: "Địa chỉ",
-		dataIndex: "address",
-		key: "address",
-		render: (value) => (
-			<>
-				<EnvironmentOutlined /> {value}
-			</>
-		),
-	},
-	{
 		title: "Tỉnh/TP",
 		dataIndex: "province",
 		key: "province",
@@ -95,10 +85,14 @@ const columns = [
 		key: "street",
 	},
 	{
-		title: "MetaData",
-		dataIndex: "metaData",
-		key: "metaData",
-		render: () => "",
+		title: "Địa chỉ",
+		dataIndex: "address",
+		key: "address",
+		render: (value) => (
+			<>
+				<EnvironmentOutlined /> {value}
+			</>
+		),
 	},
 	{
 		title: "Thông tin khác",

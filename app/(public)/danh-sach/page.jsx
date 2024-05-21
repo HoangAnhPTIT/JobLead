@@ -4,20 +4,9 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiCustomer } from "src/apis/apiEndpoint";
-import Breadcrumb from "src/commons/Breadcrumb";
 import Category from "src/components/PotentialClients/Category";
 import SearchBox from "src/components/PotentialClients/SearchBox";
 import { convertSearchParamsToObject } from "src/helper/format";
-
-const breadcrum = [
-	{
-		title: "Trang chủ",
-		href: "/",
-	},
-	{
-		title: "Khách hàng tiềm năng",
-	},
-];
 
 const pageSize = 30;
 
@@ -56,7 +45,6 @@ const PotentialClients = () => {
 		<Spin spinning={loading}>
 			<div>
 				<SearchBox />
-				<Breadcrumb extendClass={"ml-1"} items={breadcrum} />
 				<Category
 					list={customers}
 					count={count}

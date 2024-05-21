@@ -140,7 +140,7 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 			{
 				key: "phone",
 				dataIndex: "phone",
-				title: "Só điện thoại",
+				title: "Số điện thoại",
 				render: (value) => (
 					<>
 						<PhoneOutlined /> {value}
