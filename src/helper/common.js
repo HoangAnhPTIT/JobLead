@@ -16,4 +16,16 @@ export function deleteAllCookies() {
 		path: "/",
 		domain,
 	});
+	Cookies.remove(token, {
+		path: "/",
+		domain: `lead.${domain}`,
+	});
+	Cookies.remove(refreshToken, {
+		path: "/",
+		domain: `lead.${domain}`,
+	});
+	Cookies.remove(loggedIn, {
+		path: "/",
+		domain: `lead.${domain}`,
+	});
 }
