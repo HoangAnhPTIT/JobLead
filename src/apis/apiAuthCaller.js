@@ -9,7 +9,7 @@ import {
 	apiRefreshToken,
 } from "./apiEndpoint";
 
-const domain = process.env.DOMAIN_URL;
+const domain = process.env.DOMAIN_NAME;
 const baseURL = process.env.API_URL;
 // const baseURL =
 // 	"https://bcd8-2402-800-73e4-54a5-310f-99ff-1eae-feb2.ngrok-free.app";

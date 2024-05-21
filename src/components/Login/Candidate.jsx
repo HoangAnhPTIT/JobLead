@@ -28,7 +28,7 @@ const candidateIntro = [
 	"Nâng cao cơ hội tìm việc với chương trình ứng viên năng động",
 ];
 
-const domain = process.env.DOMAIN_URL;
+const domain = process.env.DOMAIN_NAME;
 
 const Candidate = () => {
 	const { register, handleSubmit } = useForm();

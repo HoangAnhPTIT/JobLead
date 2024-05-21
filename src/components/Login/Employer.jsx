@@ -29,7 +29,7 @@ const employerIntro = [
 	"Tăng hiệu quả 4 - 5 lần so với các phương thức tuyển dụng khác",
 	"+2,000 lượt xem trung bình cho 1 việc làm",
 ];
-const domain = process.env.DOMAIN_URL;
+const domain = process.env.DOMAIN_NAME;
 
 const Employer = () => {
 	const dispatch = useAppDispatch();
