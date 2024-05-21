@@ -38,6 +38,8 @@ import styles from "./styles.module.scss";
 
 const { Sider, Content } = Layout;
 
+const domain = process.env.DOMAIN_URL;
+
 const theme = createTheme({
 	breakpoints: {
 		values: {
@@ -145,7 +147,7 @@ const LayoutContent = ({ children }) => {
 
 	const handleLogout = async () => {
 		dispatch(logout());
-		window.location.href = "/";
+		window.location.href = domain;
 	};
 
 	useEffect(() => {
