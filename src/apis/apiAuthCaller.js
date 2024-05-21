@@ -206,14 +206,14 @@ const refreshTokenAndRetry = async () => {
 						domain: `lead.${domain}`,
 						path: "/",
 						secure: true,
-						sameSite: "None",
+						sameSite: "Lax",
 					});
 					Cookies.set(refreshToken, newDataToken.refreshToken, {
 						expires: expiresTime,
 						domain: `lead.${domain}`,
 						path: "/",
 						secure: true,
-						sameSite: "None",
+						sameSite: "Lax",
 					});
 				} else {
 					deleteAllCookies();
