@@ -1,13 +1,10 @@
 "use client";
 import {
-	EditOutlined,
 	EnvironmentOutlined,
 	ExclamationCircleOutlined,
-	EyeFilled,
 	EyeOutlined,
 	MailOutlined,
 	PhoneOutlined,
-	TeamOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
 import { Pagination } from "@mui/material";

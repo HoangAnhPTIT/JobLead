@@ -5,15 +5,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import {
-	AreaChartOutlined,
-	LoadingOutlined,
-	TeamOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 import {
 	BorderColor,
 	DescriptionOutlined,
@@ -28,7 +23,7 @@ import {
 	TextSnippet,
 } from "@mui/icons-material";
 import { viVN } from "@mui/material/locale";
-import { Layout, Menu, Spin } from "antd";
+import { Layout, Spin } from "antd";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { setEntities } from "lib/features/entitySlice";
@@ -38,8 +33,8 @@ import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
 import { deleteAllCookies } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
-import styles from "./styles.module.scss";
 import SideMenu from "./SideMenu";
+import styles from "./styles.module.scss";
 
 const { Sider, Content } = Layout;
 
