@@ -5,7 +5,6 @@ import {
 	EyeOutlined,
 	MailOutlined,
 	PhoneOutlined,
-	UserOutlined,
 } from "@ant-design/icons";
 import { Pagination } from "@mui/material";
 import { Button, Col, Image, Modal, Row, Spin, Table } from "antd";
@@ -26,6 +25,51 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const categoryIdDefault = "00000000-0000-0000-0000-000000000000";
 const infoDetail = (info) => info || "__";
+
+// const mockData = [
+// 	{
+// 		id: 1,
+// 		name: "hh",
+// 		age: "12",
+// 		gender: null,
+// 		phone: 123,
+// 		email: "abc@xyz.com",
+// 		province: null,
+// 		district: null,
+// 		ward: null,
+// 		street: null,
+// 		address: "234 hbt",
+// 		createdDate: null,
+// 	},
+// 	{
+// 		id: 2,
+// 		name: "hh",
+// 		age: "12",
+// 		gender: null,
+// 		phone: 123,
+// 		email: "abc@xyz.com",
+// 		province: null,
+// 		district: null,
+// 		ward: null,
+// 		street: null,
+// 		address: "234 hbt",
+// 		createdDate: null,
+// 	},
+// 	{
+// 		id: 3,
+// 		name: "hh",
+// 		age: "12",
+// 		gender: null,
+// 		phone: 123,
+// 		email: "abc@xyz.com",
+// 		province: null,
+// 		district: null,
+// 		ward: null,
+// 		street: null,
+// 		address: "234 hbt",
+// 		createdDate: null,
+// 	},
+// ];
 
 const ItemInfo = ({ label, value }) => {
 	return (
@@ -120,6 +164,7 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				key: "name",
 				dataIndex: "name",
 				title: "Họ tên",
+				ellipsis: true,
 				render: (value) => (
 					<div className="flex gap-2 items-center">
 						<Image
@@ -139,17 +184,20 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				dataIndex: "age",
 				title: "Tuổi",
 				render: (value) => <>{value}</>,
+				ellipsis: true,
 			},
 			{
 				key: "gender",
 				dataIndex: "gender",
 				title: "Giới tính",
-				render: (value) => <>{value.name}</>,
+				ellipsis: true,
+				render: (value) => <>{value?.name}</>,
 			},
 			{
 				key: "phone",
 				dataIndex: "phone",
 				title: "Só điện thoại",
+				ellipsis: true,
 				render: (value) => (
 					<>
 						<PhoneOutlined /> {value}
@@ -160,6 +208,7 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				key: "email",
 				dataIndex: "email",
 				title: "Email",
+				ellipsis: true,
 				render: (value) => (
 					<>
 						<MailOutlined /> {value}
@@ -170,6 +219,7 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				key: "address",
 				dataIndex: "address",
 				title: "Địa chỉ",
+				ellipsis: true,
 				render: (value) => (
 					<>
 						<EnvironmentOutlined /> {value}
@@ -180,24 +230,27 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				key: "province",
 				dataIndex: "province",
 				title: "Tỉnh/TP",
-				render: (value) => <>{value.name}</>,
+				render: (value) => <>{value?.name}</>,
 			},
 			{
 				key: "district",
 				dataIndex: "district",
 				title: "Quận/Huyện",
-				render: (value) => <>{value.name}</>,
+				ellipsis: true,
+				render: (value) => <>{value?.name}</>,
 			},
 			{
 				key: "ward",
 				dataIndex: "ward",
 				title: "Xã/Phường",
-				render: (value) => <>{value.name}</>,
+				ellipsis: true,
+				render: (value) => <>{value?.name}</>,
 			},
 			{
 				key: "street",
 				dataIndex: "street",
 				title: "Đường/Số nhà",
+				ellipsis: true,
 				render: (value) => <>{value}</>,
 			},
 			{
@@ -212,11 +265,13 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				fixed: "right",
 				width: 110,
 				render: (record) => (
-					<div
-						className="cursor-pointer text-primary hover:text-secondary text-center"
-						onClick={() => onSelectItem(record)}
-					>
-						<EyeOutlined /> Xem
+					<div className="flex justify-center">
+						<div
+							className="cursor-pointer rounded bg-viewBg text-view px-1.5 py-0.5 hover:text-white hover:bg-view w-min"
+							onClick={() => onSelectItem(record)}
+						>
+							<EyeOutlined />
+						</div>
 					</div>
 				),
 			},
@@ -227,10 +282,6 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 	useEffect(() => {
 		getData();
 	}, [searchParams]);
-
-	const onSelectChange = (newSelectedRowKeys) => {
-		setSelectedRowKeys(newSelectedRowKeys);
-	};
 
 	return (
 		<div>
@@ -287,7 +338,12 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 					<div className="flex justify-between items-center">
 						<p className="border-l-4 border-primary pl-2">Leads</p>
 						<div className="flex gap-3">
-							<Button className="cursor-pointer pr-6">Mua tất cả</Button>
+							<Button
+								className="cursor-pointer pr-6"
+								disabled={isEmpty(selectedRowKeys)}
+							>
+								Mua tất cả
+							</Button>
 							<Button className="cursor-pointer">Mua bộ khách hàng này</Button>
 						</div>
 					</div>
@@ -297,7 +353,8 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 					dataSource={list}
 					scroll={{ x: 2000 }}
 					pagination={false}
-					rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+					rowSelection={{ selectedRowKeys, onChange: setSelectedRowKeys }}
+					rowKey="id"
 				/>
 				<div className="mt-1 rounded-b-lg bg-white">
 					<Pagination

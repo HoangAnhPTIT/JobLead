@@ -367,7 +367,7 @@ const LayoutContent = ({ children }) => {
 						<Sider width={300}>
 							<SideMenu />
 						</Sider>
-						<Content className="h-[calc(100vh-64px)] overflow-y-auto p-5">
+						<Content className="h-[calc(100vh-64px)] overflow-y-auto p-5 bg-bgContainer">
 							{children}
 						</Content>
 					</Layout>

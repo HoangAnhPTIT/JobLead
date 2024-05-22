@@ -4,9 +4,8 @@ import {
 	EnvironmentOutlined,
 	MailOutlined,
 	PhoneOutlined,
-	UserOutlined,
 } from "@ant-design/icons";
-import { Table, Button, Pagination, Image } from "antd";
+import { Button, Image, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
@@ -186,12 +185,7 @@ const Leads = () => {
 					</Button>
 				</div>
 			</div>
-			<Table
-				size="small"
-				scroll={{ x: 1500 }}
-				columns={columns}
-				dataSource={data}
-			/>
+			<Table scroll={{ x: 1500 }} columns={columns} dataSource={data} />
 			<div className="mt-1 rounded-b-lg bg-white">
 				{/* <Pagination
 						count={Math.ceil(count / pageSize)}

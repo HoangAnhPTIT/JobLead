@@ -58,6 +58,15 @@ module.exports = {
 				bgTextCopy: "#fafafa",
 				blue1: "#9bd6f0",
 				blue2: "#d3f2ff",
+
+				successColor: "#26bf94",
+				successBg: "#26bf941a",
+				view: "rgb(245,184,73)",
+				viewBg: "rgb(245,184,73, 0.1)",
+				edit: "rgb(73,182,245)",
+				editBg: "rgb(73,182,245, 0.1)",
+				delete: "rgb(230,83,60)",
+				deleteBg: "rgb(230,83,60,0.1)",
 			},
 			width: {
 				xlContent: "1170px",
