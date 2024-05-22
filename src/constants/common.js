@@ -38,3 +38,4 @@ export const ACTION_TYPES = {
 };
 
 export const NO_DATA = "Không có dữ liệu";
+export const categoryIdDefault = "00000000-0000-0000-0000-000000000000";

@@ -1,4 +1,10 @@
 export const BUY_OBJECT_TYPE = {
 	CANDIDATE: 0,
-  CUSTOMER: 1
+	CUSTOMER: 1,
+};
+
+export const BUY_MODE = {
+	BUY_SINGLE: 0,
+	BUY_MULTIPLE: 1,
+	BUY_BY_CATEGORY_ID: 2,
 };

@@ -5,6 +5,7 @@ import {
 	MailOutlined,
 	PhoneOutlined,
 } from "@ant-design/icons";
+import { Pagination } from "@mui/material";
 import { Button, Image, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
@@ -15,15 +16,19 @@ import {
 	apiCompanyExportCustomer,
 	apiCompanyGetBoughtObject,
 } from "src/apis/apiEndpoint";
-import { avtRandom } from "src/constants/avatar";
+import { avt } from "src/constants/avatar";
 import { errorMessage } from "src/constants/common";
 import { getDate } from "src/helper/format";
+
+const pageSize = 10;
 
 const columns = [
 	{
 		title: "Họ tên",
 		dataIndex: "name",
 		key: "name",
+		width: 220,
+		ellipsis: true,
 		render: (value) => (
 			<div className="flex gap-2 items-center">
 				<Image
@@ -31,7 +36,7 @@ const columns = [
 					alt=""
 					width={28}
 					height={28}
-					src={avtRandom}
+					src={avt[Math.floor(Math.random() * avt.length)]}
 					className="rounded-full"
 				/>
 				<div>{value}</div>
@@ -42,20 +47,25 @@ const columns = [
 		title: "Tuổi",
 		dataIndex: "age",
 		key: "age",
+		ellipsis: true,
+		width: 80,
 	},
 	{
 		title: "Giới tính",
 		dataIndex: "gender",
 		key: "gender",
+		ellipsis: true,
+		width: 100,
 		render: (value) => value?.name,
 	},
 	{
 		title: "Số điện thoại",
 		dataIndex: "phone",
 		key: "phone",
+		ellipsis: true,
 		render: (value) => (
 			<div className="flex gap-2">
-				<PhoneOutlined />
+				<PhoneOutlined className="text-base" />
 				<div>{value}</div>
 			</div>
 		),
@@ -64,9 +74,10 @@ const columns = [
 		title: "Email",
 		dataIndex: "email",
 		key: "email",
+		ellipsis: true,
 		render: (value) => (
 			<div className="flex gap-2">
-				<MailOutlined />
+				<MailOutlined className="text-base" />
 				<div>{value}</div>
 			</div>
 		),
@@ -75,32 +86,37 @@ const columns = [
 		title: "Tỉnh/TP",
 		dataIndex: "province",
 		key: "province",
+		ellipsis: true,
 		render: (value) => value?.name,
 	},
 	{
 		title: "Quận/Huyện",
 		dataIndex: "district",
 		key: "district",
+		ellipsis: true,
 		render: (value) => value?.name,
 	},
 	{
 		title: "Xã/Phường",
 		dataIndex: "ward",
 		key: "ward",
+		ellipsis: true,
 		render: (value) => value?.name,
 	},
 	{
 		title: "Đường/Số nhà",
 		dataIndex: "street",
 		key: "street",
+		ellipsis: true,
 	},
 	{
 		title: "Địa chỉ",
 		dataIndex: "address",
 		key: "address",
+		ellipsis: true,
 		render: (value) => (
 			<div className="flex gap-2">
-				<EnvironmentOutlined />
+				<EnvironmentOutlined className="text-base" />
 				<div>{value}</div>
 			</div>
 		),
@@ -109,6 +125,7 @@ const columns = [
 		title: "Thông tin khác",
 		dataIndex: "otherInfo",
 		key: "otherInfo",
+		ellipsis: true,
 	},
 	{
 		title: "Ngày mua",
@@ -122,13 +139,15 @@ const Leads = () => {
 	const [filter, setFilter] = useState({ objectType: 1 });
 	const dispatch = useAppDispatch();
 	const [data, setData] = useState();
+	const [count, setCount] = useState(0);
+	const [page, setPage] = useState(1);
 
 	useEffect(() => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
 				endpoint: apiCompanyGetBoughtObject,
-				params: filter,
+				params: { ...filter, page, size: pageSize },
 			});
 			if (res?.status === 200) {
 				const convertData = res?.data?.data?.map((item) => ({
@@ -138,13 +157,14 @@ const Leads = () => {
 					customerId: item?.customerId,
 				}));
 				setData(convertData);
+				setCount(res?.data?.count);
 			} else {
 				toast.error(errorMessage);
 			}
 			dispatch(updateLoading(false));
 		};
 		getData();
-	}, [dispatch]);
+	}, [dispatch, filter, page]);
 
 	const exportCustomer = () => {
 		const handler = async () => {
@@ -185,14 +205,19 @@ const Leads = () => {
 					</Button>
 				</div>
 			</div>
-			<Table scroll={{ x: 1500 }} columns={columns} dataSource={data} />
-			<div className="mt-1 rounded-b-lg bg-white">
-				{/* <Pagination
-						count={Math.ceil(count / pageSize)}
-						page={searchParams.get("page") || 1}
-						onChange={(e, page) => onChangePage(page)}
-						className="flex justify-center"
-					/> */}
+			<Table
+				scroll={{ x: 2000 }}
+				columns={columns}
+				dataSource={data}
+				pagination={false}
+			/>
+			<div className="mt-1 py-1 rounded-b-lg bg-white">
+				<Pagination
+					count={Math.ceil(count / pageSize)}
+					page={page}
+					onChange={(e, page) => setPage(page)}
+					className="flex justify-center"
+				/>
 			</div>
 		</div>
 	);

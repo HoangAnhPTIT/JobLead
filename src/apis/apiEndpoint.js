@@ -21,10 +21,10 @@ export const apiCompanyApplicantSave = `${apiCompany}/applicant/save`;
 export const apiCompanyApplicantSaved = `${apiCompany}/applicant/saved`;
 export const apiCompanyGeneralInfo = `${apiCompany}/generalInfo`;
 export const apiCompanyGetServices = `${apiCompany}/services`;
-export const apiCompanyExportCustomer = `${apiCompany}/export/customer`
-export const apiCompanyGetBoughtObject = `${apiCompany}/bought`
-export const apiCompanyBuyObject = `${apiCompany}/buy`
-
+export const apiCompanyExportCustomer = `${apiCompany}/export/customer`;
+export const apiCompanyGetBoughtObject = `${apiCompany}/bought`;
+export const apiCompanyBuyObject = `${apiCompany}/buy`;
+export const apiCompanyPrebuy = `${apiCompany}/prebuy/calc/points`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

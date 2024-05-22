@@ -10,20 +10,16 @@ const domain = process.env.DOMAIN_NAME;
 const subDomain = process.env.SUB_DOMAIN_NAME;
 
 export const setCookie = (name, value) => {
-	Cookies.set(name, value, {
-		expires: expiresTime,
-		domain,
-		path: "/",
-		secure: true,
-		sameSite: "None",
-	});
-
+	console.log("name, value", name, value);
 	Cookies.set(name, value, {
 		expires: expiresTime,
 		domain: subDomain,
 		path: "/",
 		secure: true,
 		sameSite: "Lax",
+	});
+	Cookies.set(name, value, {
+		expires: expiresTime,
 	});
 };
 
