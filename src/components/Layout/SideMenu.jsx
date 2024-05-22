@@ -1,19 +1,18 @@
-import { AreaChartOutlined, TeamOutlined } from "@ant-design/icons";
+import { HomeOutlined, TeamOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 import routeMap from "src/constants/routeMap";
 
 const items = [
 	{
-		key: routeMap.list,
-		icon: <TeamOutlined />,
-		label: "Danh sách khách hàng",
+		key: routeMap.dashboard,
+		icon: <HomeOutlined className="!text-base" />,
+		label: "Dashboard",
 	},
 	{
-		key: routeMap.dashboard,
-		icon: <AreaChartOutlined />,
-		label: "Dashboard",
+		key: routeMap.list,
+		icon: <TeamOutlined className="!text-base" />,
+		label: "Lead Generation",
 	},
 ];
 
@@ -23,11 +22,11 @@ const SideMenu = () => {
 
 	return (
 		<Menu
-			theme="dark"
 			mode="inline"
 			defaultSelectedKeys={[pathname]}
 			items={items}
 			onClick={(e) => router.push(e?.key)}
+			className="!text-menuColor !text-base"
 		/>
 	);
 };

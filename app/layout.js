@@ -31,7 +31,8 @@ const RootLayout = ({ children }) => {
 								theme={{
 									token: {
 										colorPrimary: primaryColor,
-										borderRadius: 4,
+										borderRadius: 8,
+										fontSizeIcon: 14,
 									},
 									components: {
 										Form: {
@@ -46,11 +47,13 @@ const RootLayout = ({ children }) => {
 											borderRadius: 3,
 										},
 										Table: {
-											headerBg: primaryColor,
-											headerColor: "#fff",
+											headerBg: "#fff",
+											headerColor: "#333336",
+											headerSplitColor: "#fff",
+											headerBorderRadius: 0,
 										},
 										Checkbox: {
-											borderRadius: 0,
+											borderRadius: 2,
 										},
 										Modal: {
 											wireframe: true,

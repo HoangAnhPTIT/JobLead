@@ -1,15 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { expiresTime, refreshToken, token } from "src/constants/common";
+import { refreshToken, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { deleteAllCookies } from "src/helper/common";
+import { deleteAllCookies, setCookie } from "src/helper/common";
 import {
 	apiLoginCandidate,
 	apiLoginEmployer,
 	apiRefreshToken,
 } from "./apiEndpoint";
 
-const domain = process.env.DOMAIN_NAME;
 const baseURL = process.env.API_URL;
 // const baseURL =
 // 	"https://bcd8-2402-800-73e4-54a5-310f-99ff-1eae-feb2.ngrok-free.app";
@@ -186,35 +185,8 @@ const refreshTokenAndRetry = async () => {
 				const response = await instance(axiosConfigRefesh);
 				if (response?.status === 200) {
 					const newDataToken = response.data.tokenModel;
-					Cookies.set(token, newDataToken.accessToken, {
-						expires: expiresTime,
-						domain,
-						path: "/",
-						secure: true,
-						sameSite: "None",
-					});
-					Cookies.set(refreshToken, newDataToken.refreshToken, {
-						expires: expiresTime,
-						domain,
-						path: "/",
-						secure: true,
-						sameSite: "None",
-					});
-
-					Cookies.set(token, newDataToken.accessToken, {
-						expires: expiresTime,
-						domain: `lead.${domain}`,
-						path: "/",
-						secure: true,
-						sameSite: "Lax",
-					});
-					Cookies.set(refreshToken, newDataToken.refreshToken, {
-						expires: expiresTime,
-						domain: `lead.${domain}`,
-						path: "/",
-						secure: true,
-						sameSite: "Lax",
-					});
+					setCookie(token, newDataToken.accessToken);
+					setCookie(refreshToken, newDataToken.refreshToken);
 				} else {
 					deleteAllCookies();
 					setTimeout(() => {

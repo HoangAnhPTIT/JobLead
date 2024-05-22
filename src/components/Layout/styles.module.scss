@@ -48,3 +48,27 @@
 		}
 	}
 }
+
+.layout {
+	:global {
+		.ant-layout-sider {
+			background: #111c43 !important;
+		}
+		.ant-menu {
+			background: #111c43 !important;
+			padding: 10px !important;
+		}
+		.ant-menu-item {
+			padding: 12px !important;
+
+			&.ant-menu-item-selected {
+				color: #fff !important;
+				background-color: rgba(255, 255, 255, 0.05) !important;
+			}
+		}
+		.ant-menu-item:not(.ant-menu-item-selected):hover {
+			color: #fff !important;
+			background-color: rgba(255, 255, 255, 0.05) !important;
+		}
+	}
+}
