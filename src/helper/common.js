@@ -1,31 +1,39 @@
 import Cookies from "js-cookie";
-import { loggedIn, refreshToken, token } from "src/constants/common";
+import {
+	expiresTime,
+	loggedIn,
+	refreshToken,
+	token,
+} from "src/constants/common";
 
 const domain = process.env.DOMAIN_NAME;
+const subDomain = process.env.SUB_DOMAIN_NAME;
+
+export const setCookie = (name, value) => {
+	Cookies.set(name, value, {
+		expires: expiresTime,
+		domain,
+		path: "/",
+		secure: true,
+		sameSite: "None",
+	});
+
+	Cookies.set(name, value, {
+		expires: expiresTime,
+		domain: subDomain,
+		path: "/",
+		secure: true,
+		sameSite: "Lax",
+	});
+};
+
+export const removeCookie = (name) => {
+	Cookies.remove(name, { domain, path: "/" });
+	Cookies.remove(name, { domain: subDomain, path: "/" });
+};
 
 export function deleteAllCookies() {
-	Cookies.remove(token, {
-		path: "/",
-		domain,
-	});
-	Cookies.remove(refreshToken, {
-		path: "/",
-		domain,
-	});
-	Cookies.remove(loggedIn, {
-		path: "/",
-		domain,
-	});
-	Cookies.remove(token, {
-		path: "/",
-		domain: `lead.${domain}`,
-	});
-	Cookies.remove(refreshToken, {
-		path: "/",
-		domain: `lead.${domain}`,
-	});
-	Cookies.remove(loggedIn, {
-		path: "/",
-		domain: `lead.${domain}`,
-	});
+	removeCookie(token);
+	removeCookie(refreshToken);
+	removeCookie(loggedIn);
 }

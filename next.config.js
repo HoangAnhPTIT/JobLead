@@ -5,6 +5,7 @@ const nextConfig = {
 	env: {
 		API_URL: "https://api.tuyendung247.vn/api/v1",
 		DOMAIN_NAME: "tuyendung247.vn",
+		SUB_DOMAIN_NAME: "lead.tuyendung247.vn",
 		DOMAIN_URL: "https://tuyendung247.vn",
 	},
 	sassOptions: {
