@@ -6,7 +6,7 @@ import {
 	PhoneOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
-import { Table, Button } from "antd";
+import { Table, Button, Pagination, Image } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ import {
 	apiCompanyExportCustomer,
 	apiCompanyGetBoughtObject,
 } from "src/apis/apiEndpoint";
+import { avtRandom } from "src/constants/avatar";
 import { errorMessage } from "src/constants/common";
 import { getDate } from "src/helper/format";
 
@@ -25,9 +26,17 @@ const columns = [
 		dataIndex: "name",
 		key: "name",
 		render: (value) => (
-			<>
-				<UserOutlined /> {value}
-			</>
+			<div className="flex gap-2 items-center">
+				<Image
+					preview={false}
+					alt=""
+					width={28}
+					height={28}
+					src={avtRandom}
+					className="rounded-full"
+				/>
+				<div>{value}</div>
+			</div>
 		),
 	},
 	{
@@ -46,9 +55,10 @@ const columns = [
 		dataIndex: "phone",
 		key: "phone",
 		render: (value) => (
-			<>
-				<PhoneOutlined /> {value}
-			</>
+			<div className="flex gap-2">
+				<PhoneOutlined />
+				<div>{value}</div>
+			</div>
 		),
 	},
 	{
@@ -56,19 +66,10 @@ const columns = [
 		dataIndex: "email",
 		key: "email",
 		render: (value) => (
-			<>
-				<MailOutlined /> {value}
-			</>
-		),
-	},
-	{
-		title: "Địa chỉ",
-		dataIndex: "address",
-		key: "address",
-		render: (value) => (
-			<>
-				<EnvironmentOutlined /> {value}
-			</>
+			<div className="flex gap-2">
+				<MailOutlined />
+				<div>{value}</div>
+			</div>
 		),
 	},
 	{
@@ -95,10 +96,15 @@ const columns = [
 		key: "street",
 	},
 	{
-		title: "MetaData",
-		dataIndex: "metaData",
-		key: "metaData",
-		render: () => "",
+		title: "Địa chỉ",
+		dataIndex: "address",
+		key: "address",
+		render: (value) => (
+			<div className="flex gap-2">
+				<EnvironmentOutlined />
+				<div>{value}</div>
+			</div>
+		),
 	},
 	{
 		title: "Thông tin khác",
@@ -113,7 +119,7 @@ const columns = [
 	},
 ];
 
-const PotentialClients = () => {
+const Leads = () => {
 	const [filter, setFilter] = useState({ objectType: 1 });
 	const dispatch = useAppDispatch();
 	const [data, setData] = useState();
@@ -167,28 +173,35 @@ const PotentialClients = () => {
 	};
 
 	return (
-		<div className="border rounded bg-white p-5">
-			<div className="flex justify-between items-center">
-				<p className="text-lg my-5">
-					Danh sách thông tin khách hàng tiềm năng đã mua
-				</p>
-				<Button
-					type="primary"
-					icon={<DownloadOutlined />}
-					onClick={exportCustomer}
-				>
-					Xuất dữ liệu
-				</Button>
+		<div className="">
+			<div className="p-3 font-semibold text-base border-b rounded-t-lg bg-white">
+				<div className="flex justify-between items-center">
+					<p className="border-l-4 border-primary pl-2">Leads</p>
+					<Button
+						type="primary"
+						icon={<DownloadOutlined />}
+						onClick={exportCustomer}
+					>
+						Xuất dữ liệu
+					</Button>
+				</div>
 			</div>
 			<Table
 				size="small"
 				scroll={{ x: 1500 }}
-				bordered
 				columns={columns}
 				dataSource={data}
 			/>
+			<div className="mt-1 rounded-b-lg bg-white">
+				{/* <Pagination
+						count={Math.ceil(count / pageSize)}
+						page={searchParams.get("page") || 1}
+						onChange={(e, page) => onChangePage(page)}
+						className="flex justify-center"
+					/> */}
+			</div>
 		</div>
 	);
 };
 
-export default PotentialClients;
+export default Leads;

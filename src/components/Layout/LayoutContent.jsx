@@ -31,7 +31,7 @@ import { isEmpty } from "lodash";
 import { ToastContainer } from "react-toastify";
 import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { deleteAllCookies } from "src/helper/common";
+import { deleteAllCookies, redirectTo } from "src/helper/common";
 import useEntities from "src/hooks/useEntities";
 import SideMenu from "./SideMenu";
 import styles from "./styles.module.scss";
@@ -175,8 +175,8 @@ const LayoutContent = ({ children }) => {
 	}, []);
 
 	useEffect(() => {
-		isLogin && PageOutSide.includes(pathname) && router.push("/");
-	}, [pathname, isLogin, router]);
+		isLogin && PageOutSide.includes(pathname);
+	}, [pathname, isLogin]);
 
 	useEffect(() => {
 		!isEmpty(entities) && dispatch(setEntities(entities));
@@ -223,7 +223,7 @@ const LayoutContent = ({ children }) => {
 								<Grid item xs={12} lg="auto">
 									<div
 										className="cursor-pointer p-3 lg:p-0 w-fit"
-										onClick={() => router.push("/")}
+										onClick={() => redirectTo("")}
 									>
 										<Image
 											src={"https://placehold.co/112x41.png" || imageError}
@@ -363,7 +363,7 @@ const LayoutContent = ({ children }) => {
 							/>
 						</div>
 					</div>
-					<Layout className="mt-16">
+					<Layout className={classNames("mt-16", styles.layout)}>
 						<Sider width={300}>
 							<SideMenu />
 						</Sider>

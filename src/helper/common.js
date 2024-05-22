@@ -37,3 +37,7 @@ export function deleteAllCookies() {
 	removeCookie(refreshToken);
 	removeCookie(loggedIn);
 }
+
+export const redirectTo = (pathname) => {
+	window.location.href = `${process.env.DOMAIN_URL}${pathname}`;
+};

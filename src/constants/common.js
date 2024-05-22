@@ -17,7 +17,7 @@ export const USER_ROLE = {
 	all: "all",
 };
 
-export const primaryColor = "#0091ce";
+export const primaryColor = "#906AE2";
 
 export const token = "token";
 export const refreshToken = "refreshToken";

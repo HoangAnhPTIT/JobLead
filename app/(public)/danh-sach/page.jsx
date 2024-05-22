@@ -1,5 +1,5 @@
 "use client";
-import { Spin } from "antd";
+import { Image, Spin } from "antd";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
@@ -55,8 +55,16 @@ const PotentialClients = () => {
 	return (
 		<Spin spinning={loading}>
 			<div>
-				<SearchBox />
-				<Breadcrumb extendClass={"ml-1"} items={breadcrum} />
+				<Image
+					src={"https://placehold.co/1170x220.png"}
+					width="auto"
+					height={220}
+					alt=""
+					preview={false}
+				/>
+				<div className="mt-5">
+					<SearchBox />
+				</div>
 				<Category
 					list={customers}
 					count={count}

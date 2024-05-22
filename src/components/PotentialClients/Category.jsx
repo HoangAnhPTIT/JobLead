@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCompanyBuyObject, apiFilterCategory } from "src/apis/apiEndpoint";
+import { avtRandom } from "src/constants/avatar";
 import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
 import { POINT_DEFINE } from "src/constants/pointDefine";
@@ -120,9 +121,17 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 				dataIndex: "name",
 				title: "Họ tên",
 				render: (value) => (
-					<>
-						<UserOutlined /> {value}
-					</>
+					<div className="flex gap-2 items-center">
+						<Image
+							preview={false}
+							alt=""
+							width={28}
+							height={28}
+							src={avtRandom}
+							className="rounded-full"
+						/>
+						<div>{value}</div>
+					</div>
 				),
 			},
 			{
@@ -219,6 +228,10 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 		getData();
 	}, [searchParams]);
 
+	const onSelectChange = (newSelectedRowKeys) => {
+		setSelectedRowKeys(newSelectedRowKeys);
+	};
+
 	return (
 		<div>
 			{!isEmpty(categories) && (
@@ -269,10 +282,10 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 					</Swiper>
 				</div>
 			)}
-			<div className="border p-5 pt-2">
-				<div className="px-3 py-2 font-semibold text-lg mb-2">
-					<div className="flex justify-between">
-						<p>Danh sách khách hàng tiềm năng</p>
+			<div className="">
+				<div className="p-3 font-semibold text-base border-b rounded-t-lg bg-white">
+					<div className="flex justify-between items-center">
+						<p className="border-l-4 border-primary pl-2">Leads</p>
 						<div className="flex gap-3">
 							<Button className="cursor-pointer pr-6">Mua tất cả</Button>
 							<Button className="cursor-pointer">Mua bộ khách hàng này</Button>
@@ -284,18 +297,15 @@ const Category = ({ list, count, reloadList, pageSize }) => {
 					dataSource={list}
 					scroll={{ x: 2000 }}
 					pagination={false}
-					bordered
-					rowSelection={{ selectedRowKeys, onChange: setSelectedRowKeys }}
+					rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
 				/>
-				<div className="mt-5">
-					{count > 0 && (
-						<Pagination
-							count={Math.ceil(count / pageSize)}
-							page={searchParams.get("page") || 1}
-							onChange={(e, page) => onChangePage(page)}
-							className="flex justify-center"
-						/>
-					)}
+				<div className="mt-1 rounded-b-lg bg-white">
+					<Pagination
+						count={Math.ceil(count / pageSize)}
+						page={searchParams.get("page") || 1}
+						onChange={(e, page) => onChangePage(page)}
+						className="flex justify-center"
+					/>
 				</div>
 				<Modal
 					open={Boolean(itemSelected)}
