@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Modal, Row, Spin } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
 import { apiCompanyBuyObject, apiCompanyPrebuy } from "src/apis/apiEndpoint";
@@ -29,6 +29,7 @@ const InfoModal = ({
 	reload,
 }) => {
 	const [modal, contextHolder] = Modal.useModal();
+	const [isViewed, setIsViewed] = useState(false);
 
 	const onBuyInfo = async () => {
 		setLoading(true);
@@ -44,6 +45,7 @@ const InfoModal = ({
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
 				setItemSelected(response?.data);
+				setIsViewed(true);
 				reload();
 			} else {
 				toast.error(response?.message);
@@ -88,6 +90,7 @@ const InfoModal = ({
 
 	const onCloseModal = () => {
 		setItemSelected(null);
+		setIsViewed(false);
 	};
 
 	return (
@@ -117,7 +120,7 @@ const InfoModal = ({
 					{/* <ItemInfo label="MetaData" value={""} /> */}
 					<ItemInfo label="Thông tin khác" value={itemSelected?.otherInfo} />
 				</div>
-				{!itemSelected?.isViewed && (
+				{!isViewed && (
 					<div className="text-center mt-5">
 						<Button danger onClick={onConfirmBuy}>
 							Xem thông tin chi tiết
