@@ -15,7 +15,7 @@ const CategorySlider = () => {
 	const searchParams = useSearchParams();
 
 	const onSelectCategory = (id) => {
-		router.push(`${routeMap.potentialClients}?categoryId=${id}`);
+		router.push(`${routeMap.list}?categoryId=${id}`);
 	};
 
 	useEffect(() => {
