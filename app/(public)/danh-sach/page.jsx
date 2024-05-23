@@ -1,6 +1,7 @@
 "use client";
 import { Image } from "antd";
 import Category from "src/components/PotentialClients/Category";
+import CategorySlider from "src/components/PotentialClients/CategorySlider";
 import SearchBox from "src/components/PotentialClients/SearchBox";
 
 const PotentialClients = () => {
@@ -8,7 +9,7 @@ const PotentialClients = () => {
 		<div>
 			<Image
 				src={"https://placehold.co/1170x220.png"}
-				width="auto"
+				width="100%"
 				height={220}
 				alt=""
 				preview={false}
@@ -16,6 +17,7 @@ const PotentialClients = () => {
 			<div className="mt-5">
 				<SearchBox />
 			</div>
+			<CategorySlider />
 			<Category />
 		</div>
 	);

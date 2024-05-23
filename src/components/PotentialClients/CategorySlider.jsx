@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import routeMap from "src/constants/routeMap";
 import { httpAuthGet } from "src/apis/apiAuthCaller";
 import { apiFilterCategory } from "src/apis/apiEndpoint";
-import { Image } from "antd";
+import { Card, Image } from "antd";
 import { categoryIdDefault } from "src/constants/common";
 
 const CategorySlider = () => {
@@ -35,10 +35,7 @@ const CategorySlider = () => {
 
 	return (
 		!isEmpty(categories) && (
-			<div>
-				<div className="px-3 py-2 bg-primary text-white font-semibold text-lg">
-					Phân loại
-				</div>
+			<Card title="Phân loại" className="!my-5" bodyStyle={{ padding: 10 }}>
 				<Swiper
 					modules={[SwiperPagination]}
 					slidesPerView={5}
@@ -55,7 +52,7 @@ const CategorySlider = () => {
 						},
 					}}
 					pagination={{ clickable: true }}
-					className="pt-2 pb-9 px-5 border mb-5"
+					className="pb-9"
 				>
 					{categories?.map((item, i) => (
 						<SwiperSlide key={i}>
@@ -80,7 +77,7 @@ const CategorySlider = () => {
 						</SwiperSlide>
 					))}
 				</Swiper>
-			</div>
+			</Card>
 		)
 	);
 };

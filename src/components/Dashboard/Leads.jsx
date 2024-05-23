@@ -17,6 +17,7 @@ import {
 	apiCompanyGetBoughtObject,
 } from "src/apis/apiEndpoint";
 import { avt } from "src/constants/avatar";
+import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
 import { getDate } from "src/helper/format";
 
@@ -146,7 +147,7 @@ const Leads = () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
 				endpoint: apiCompanyGetBoughtObject,
-				params: { page, size: pageSize },
+				params: { objectType: BUY_OBJECT_TYPE.CUSTOMER, page, size: pageSize },
 			});
 			if (res?.status === 200) {
 				const convertData = res?.data?.data?.map((item) => ({

@@ -9,7 +9,7 @@ import { Pagination } from "@mui/material";
 import { Button, Image, Modal, Spin, Table } from "antd";
 import { isEmpty } from "lodash";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import {
@@ -20,7 +20,6 @@ import {
 import { avt } from "src/constants/avatar";
 import { BUY_MODE, BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { categoryIdDefault, errorMessage } from "src/constants/common";
-import { POINT_DEFINE } from "src/constants/pointDefine";
 import { convertSearchParamsToObject, genUrlParams } from "src/helper/format";
 
 const pageSize = 10;
@@ -34,6 +33,7 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 	const [loading, setLoading] = useState(false);
 	const [customers, setCustomers] = useState();
 	const [count, setCount] = useState(0);
+	const categoryId = searchParams.get("categoryId");
 
 	const onChangePage = async (page) => {
 		const searchParamsObject =
@@ -260,7 +260,7 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 				endpoint: apiCompanyPrebuy,
 				data: {
 					objectType: BUY_OBJECT_TYPE.CUSTOMER,
-					categoryId: searchParams.get("categoryId") || categoryIdDefault,
+					categoryId,
 					buyMode: BUY_MODE.BUY_BY_CATEGORY_ID,
 				},
 			});
@@ -327,7 +327,11 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 						>
 							Mua tất cả
 						</Button>
-						<Button className="cursor-pointer" onClick={onConfirmBuyCategory}>
+						<Button
+							className="cursor-pointer"
+							onClick={onConfirmBuyCategory}
+							disabled={!categoryId}
+						>
 							Mua bộ khách hàng này
 						</Button>
 					</div>
