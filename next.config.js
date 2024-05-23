@@ -7,9 +7,9 @@ const nextConfig = {
 		DOMAIN_NAME: "tuyendung247.vn",
 		SUB_DOMAIN_NAME: "lead.tuyendung247.vn",
 		DOMAIN_URL: "https://tuyendung247.vn",
-		// DOMAIN_NAME: "localhost:3000/",
-		// SUB_DOMAIN_NAME: "lead.localhost:3000/",
-		// DOMAIN_URL: "http://localhost:3000/",
+		// DOMAIN_NAME: "localhost:3000",
+		// SUB_DOMAIN_NAME: "lead.localhost:3000",
+		// DOMAIN_URL: "http://localhost:3000",
 	},
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],

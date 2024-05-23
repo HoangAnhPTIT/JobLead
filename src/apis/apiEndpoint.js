@@ -68,3 +68,6 @@ export const apiFilterCategory = `${apiCategory}/filter`;
 export const apiProvince = "/Address/Provinces";
 export const apiCustomer = "/Customer";
 export const apiPotentialCustomer = "/Company/view/customer";
+
+export const apiDashboard = "/Dashboard";
+export const apiPointReport = `${apiDashboard}/Report/used-point`;

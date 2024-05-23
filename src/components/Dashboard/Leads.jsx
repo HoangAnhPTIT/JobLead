@@ -136,7 +136,6 @@ const columns = [
 ];
 
 const Leads = () => {
-	const [filter, setFilter] = useState({ objectType: 1 });
 	const dispatch = useAppDispatch();
 	const [data, setData] = useState();
 	const [count, setCount] = useState(0);
@@ -147,7 +146,7 @@ const Leads = () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
 				endpoint: apiCompanyGetBoughtObject,
-				params: { ...filter, page, size: pageSize },
+				params: { page, size: pageSize },
 			});
 			if (res?.status === 200) {
 				const convertData = res?.data?.data?.map((item) => ({
@@ -164,7 +163,7 @@ const Leads = () => {
 			dispatch(updateLoading(false));
 		};
 		getData();
-	}, [dispatch, filter, page]);
+	}, [dispatch, page]);
 
 	const exportCustomer = () => {
 		const handler = async () => {
@@ -196,11 +195,7 @@ const Leads = () => {
 			<div className="p-3 font-semibold text-base border-b rounded-t-lg bg-white">
 				<div className="flex justify-between items-center">
 					<p className="border-l-4 border-primary pl-2">Leads</p>
-					<Button
-						type="primary"
-						icon={<DownloadOutlined />}
-						onClick={exportCustomer}
-					>
+					<Button danger icon={<DownloadOutlined />} onClick={exportCustomer}>
 						Xuất dữ liệu
 					</Button>
 				</div>

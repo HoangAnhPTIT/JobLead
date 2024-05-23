@@ -22,7 +22,7 @@ module.exports = {
 				bgEmployer: "#EBEFF3",
 				primary: "#906AE2",
 				hover: "#845adfe6",
-				textPrimary: "#333336",
+				textPrimary: "#333335",
 				secondary: "#fc205c",
 				third: "#d00",
 				f0: "#f0f0f0",
