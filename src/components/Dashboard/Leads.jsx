@@ -6,7 +6,7 @@ import {
 	PhoneOutlined,
 } from "@ant-design/icons";
 import { Pagination } from "@mui/material";
-import { Button, Image, Table } from "antd";
+import { Button, Image, Table, Tooltip } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
 import { useEffect, useState } from "react";
@@ -115,11 +115,14 @@ const columns = [
 		dataIndex: "address",
 		key: "address",
 		ellipsis: true,
+		width: 600,
 		render: (value) => (
-			<div className="flex gap-2">
-				<EnvironmentOutlined className="text-base" />
-				<div>{value}</div>
-			</div>
+			<Tooltip title={value}>
+				<div className="flex gap-2">
+					<EnvironmentOutlined className="text-base" />
+					<div className="three-dot">{value}</div>
+				</div>
+			</Tooltip>
 		),
 	},
 	{
@@ -202,7 +205,7 @@ const Leads = () => {
 				</div>
 			</div>
 			<Table
-				scroll={{ x: 2000 }}
+				scroll={{ x: 3000 }}
 				columns={columns}
 				dataSource={data}
 				pagination={false}
