@@ -182,7 +182,7 @@ const LayoutContent = ({ children }) => {
 	}, [pathname]);
 
 	const redirectMenu = (pathname) => {
-		window.location.href = `${process.env.DOMAIN_URL}${pathname}`;
+		window.open(`${process.env.DOMAIN_URL}${pathname}`);
 	};
 
 	return (

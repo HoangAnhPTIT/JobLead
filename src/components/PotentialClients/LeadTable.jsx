@@ -211,7 +211,6 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 			});
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
-				setItemSelected(response?.data);
 				getData();
 			} else {
 				toast.error(response?.message);

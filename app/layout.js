@@ -14,8 +14,8 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-	title: "Tìm việc làm",
-	description: "Tìm việc làm",
+	title: "Khách hàng tiềm năng",
+	description: "Khách hàng tiềm năng",
 };
 
 const RootLayout = ({ children }) => {
