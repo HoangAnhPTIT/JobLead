@@ -17,7 +17,7 @@ const PotentialClients = () => {
 			<div className="mt-5">
 				<SearchBox />
 			</div>
-			<CategorySlider />
+			{/* <CategorySlider /> */}
 			<Category />
 		</div>
 	);

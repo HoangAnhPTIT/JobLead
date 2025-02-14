@@ -3,10 +3,10 @@ const path = require("path");
 
 const nextConfig = {
 	env: {
-		API_URL: "https://api.tuyendung247.vn/api/v1",
-		DOMAIN_NAME: "tuyendung247.vn",
-		SUB_DOMAIN_NAME: "lead.tuyendung247.vn",
-		DOMAIN_URL: "https://tuyendung247.vn",
+		API_URL: "https://apituyendung.vietmedia.online/api/v1",
+		DOMAIN_NAME: "vietmedia.online",
+		SUB_DOMAIN_NAME: "lead.vietmedia.online",
+		DOMAIN_URL: "https://vietmedia.online",
 		// DOMAIN_NAME: "localhost:3000",
 		// SUB_DOMAIN_NAME: "lead.localhost:3000",
 		// DOMAIN_URL: "http://localhost:3000",

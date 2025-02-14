@@ -16,6 +16,7 @@ import {
 	apiCompanyBuyObject,
 	apiCompanyPrebuy,
 	apiCustomer,
+	apiFilterLead,
 } from "src/apis/apiEndpoint";
 import { avt } from "src/constants/avatar";
 import { BUY_MODE, BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
@@ -182,15 +183,16 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 			const searchParamValues =
 				searchParams.toString() && convertSearchParamsToObject(searchParams);
 			const response = await httpAuthGet({
-				endpoint: apiCustomer,
+				endpoint: apiFilterLead,
 				params: {
 					...searchParamValues,
 					size: pageSize,
 					page: searchParamValues?.page || 1,
 				},
 			});
-			setCustomers(response?.data?.customers);
-			setCount(response?.data?.count);
+			console.log('response', response)
+			setCustomers(response?.data?.items);
+			setCount(response?.data?.totalCount);
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -321,7 +323,8 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 					<div className="flex gap-3">
 						<Button
 							className="cursor-pointer pr-6"
-							disabled={isEmpty(selectedRowKeys)}
+							// disabled={isEmpty(selectedRowKeys)}
+							disabled
 							onClick={onConfirmBuy}
 						>
 							Mua tất cả
@@ -329,7 +332,8 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 						<Button
 							className="cursor-pointer"
 							onClick={onConfirmBuyCategory}
-							disabled={!categoryId}
+							// disabled={!categoryId}
+							disabled
 						>
 							Mua bộ khách hàng này
 						</Button>

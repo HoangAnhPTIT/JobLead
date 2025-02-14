@@ -25,6 +25,7 @@ export const apiCompanyExportCustomer = `${apiCompany}/export/customer`;
 export const apiCompanyGetBoughtObject = `${apiCompany}/bought`;
 export const apiCompanyBuyObject = `${apiCompany}/buy`;
 export const apiCompanyPrebuy = `${apiCompany}/prebuy/calc/points`;
+export const apiCompanyPurchaseLead = `${apiCompany}/purchase/lead`;
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";
@@ -63,10 +64,11 @@ export const apiUser = "/User";
 export const apiUserViewJob = `${apiUser}/view/job`;
 export const apiUserChangePassword = `${apiUser}/change-password`;
 
-export const apiCategory = "/Category";
+export const apiCategory = "/LeadCategory";
 export const apiFilterCategory = `${apiCategory}/filter`;
 export const apiProvince = "/Address/Provinces";
-export const apiCustomer = "/Customer";
+export const apiCustomer = "/Lead";
+export const apiFilterLead = "/Lead/filter";
 export const apiPotentialCustomer = "/Company/view/customer";
 
 export const apiDashboard = "/Dashboard";

@@ -3,7 +3,7 @@ import { Button, Col, Modal, Row, Spin } from "antd";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthPost } from "src/apis/apiAuthCaller";
-import { apiCompanyBuyObject, apiCompanyPrebuy } from "src/apis/apiEndpoint";
+import { apiCompanyPurchaseLead, apiCompanyPrebuy } from "src/apis/apiEndpoint";
 import { BUY_MODE, BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
 import { POINT_DEFINE } from "src/constants/pointDefine";
@@ -29,23 +29,16 @@ const InfoModal = ({
 	reload,
 }) => {
 	const [modal, contextHolder] = Modal.useModal();
-	const [isViewed, setIsViewed] = useState(false);
 
 	const onBuyInfo = async () => {
 		setLoading(true);
 		try {
 			const response = await httpAuthPost({
-				endpoint: apiCompanyBuyObject,
-				data: {
-					objectIds: [itemSelected?.id],
-					objectType: BUY_OBJECT_TYPE.CUSTOMER,
-					buyMode: BUY_MODE.BUY_SINGLE,
-				},
+				endpoint: apiCompanyPurchaseLead +"/" + itemSelected?.id,
 			});
 			if (response?.status === 200) {
 				toast.success("Mua thông tin thành công");
 				setItemSelected(response?.data);
-				setIsViewed(true);
 				reload();
 			} else {
 				toast.error(response?.message);
@@ -59,14 +52,6 @@ const InfoModal = ({
 
 	const onConfirmBuy = async () => {
 		try {
-			const response = await httpAuthPost({
-				endpoint: apiCompanyPrebuy,
-				data: {
-					objectIds: [itemSelected?.id],
-					objectType: BUY_OBJECT_TYPE.CUSTOMER,
-					buyMode: BUY_MODE.BUY_SINGLE,
-				},
-			});
 			modal.confirm({
 				title: "Xác nhận mua thông tin",
 				icon: <ExclamationCircleOutlined />,
@@ -74,7 +59,7 @@ const InfoModal = ({
 					<span>
 						Bạn đồng ý sử dụng
 						<strong className="mx-2 text-primary">
-							{response?.data?.points || 0} point(s)
+							20 point(s)
 						</strong>
 						để xem thông tin chi tiết khách hàng?
 					</span>
@@ -90,7 +75,6 @@ const InfoModal = ({
 
 	const onCloseModal = () => {
 		setItemSelected(null);
-		setIsViewed(false);
 	};
 
 	return (
@@ -120,7 +104,7 @@ const InfoModal = ({
 					{/* <ItemInfo label="MetaData" value={""} /> */}
 					<ItemInfo label="Thông tin khác" value={itemSelected?.otherInfo} />
 				</div>
-				{!isViewed && (
+				{!itemSelected?.isViewed && (
 					<div className="text-center mt-5">
 						<Button danger onClick={onConfirmBuy}>
 							Xem thông tin chi tiết
