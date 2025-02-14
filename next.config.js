@@ -6,7 +6,7 @@ const nextConfig = {
 		API_URL: "https://apituyendung.vietmedia.online/api/v1",
 		DOMAIN_NAME: "vietmedia.online",
 		SUB_DOMAIN_NAME: "lead.vietmedia.online",
-		DOMAIN_URL: "https://vietmedia.online",
+		DOMAIN_URL: "https://tuyendung.vietmedia.online",
 		// DOMAIN_NAME: "localhost:3000",
 		// SUB_DOMAIN_NAME: "lead.localhost:3000",
 		// DOMAIN_URL: "http://localhost:3000",
