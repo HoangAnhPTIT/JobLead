@@ -26,6 +26,10 @@ export const apiCompanyGetBoughtObject = `${apiCompany}/bought`;
 export const apiCompanyBuyObject = `${apiCompany}/buy`;
 export const apiCompanyPrebuy = `${apiCompany}/prebuy/calc/points`;
 export const apiCompanyPurchaseLead = `${apiCompany}/purchase/lead`;
+export const apiCompanyGetLeads = `${apiCompany}/leads`;
+export const apiCompanyExportLeads = `${apiCompany}/leads/export`;
+export const apiCompanyGetUsedPointChart = `${apiCompany}/leads/used-point-chart`;
+
 
 export const apiEntity = "/StaticEntity";
 export const apiAuthen = "/Authenticate";

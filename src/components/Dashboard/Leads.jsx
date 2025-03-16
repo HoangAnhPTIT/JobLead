@@ -2,142 +2,25 @@
 import {
 	DownloadOutlined,
 	EnvironmentOutlined,
+	EyeOutlined,
 	MailOutlined,
 	PhoneOutlined,
 } from "@ant-design/icons";
 import { Pagination } from "@mui/material";
-import { Button, Image, Table, Tooltip } from "antd";
+import { Button, Image, Table } from "antd";
 import { updateLoading } from "lib/features/loadingSlice";
 import { useAppDispatch } from "lib/hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpAuthGet, httpAuthPost } from "src/apis/apiAuthCaller";
 import {
 	apiCompanyExportCustomer,
-	apiCompanyGetBoughtObject,
+	apiCompanyExportLeads,
+	apiCompanyGetLeads,
 } from "src/apis/apiEndpoint";
-import { avt } from "src/constants/avatar";
-import { BUY_OBJECT_TYPE } from "src/constants/buyObjectType";
 import { errorMessage } from "src/constants/common";
-import { getDate } from "src/helper/format";
 
 const pageSize = 10;
-
-const columns = [
-	{
-		title: "Họ tên",
-		dataIndex: "name",
-		key: "name",
-		width: 220,
-		ellipsis: true,
-		render: (value) => (
-			<div className="flex gap-2 items-center">
-				<Image
-					preview={false}
-					alt=""
-					width={28}
-					height={28}
-					src={avt[Math.floor(Math.random() * avt.length)]}
-					className="rounded-full"
-				/>
-				<div>{value}</div>
-			</div>
-		),
-	},
-	{
-		title: "Tuổi",
-		dataIndex: "age",
-		key: "age",
-		ellipsis: true,
-		width: 80,
-	},
-	{
-		title: "Giới tính",
-		dataIndex: "gender",
-		key: "gender",
-		ellipsis: true,
-		width: 100,
-		render: (value) => value?.name,
-	},
-	{
-		title: "Số điện thoại",
-		dataIndex: "phone",
-		key: "phone",
-		ellipsis: true,
-		render: (value) => (
-			<div className="flex gap-2">
-				<PhoneOutlined className="text-base" />
-				<div>{value}</div>
-			</div>
-		),
-	},
-	{
-		title: "Email",
-		dataIndex: "email",
-		key: "email",
-		ellipsis: true,
-		render: (value) => (
-			<div className="flex gap-2">
-				<MailOutlined className="text-base" />
-				<div>{value}</div>
-			</div>
-		),
-	},
-	{
-		title: "Tỉnh/TP",
-		dataIndex: "province",
-		key: "province",
-		ellipsis: true,
-		render: (value) => value?.name,
-	},
-	{
-		title: "Quận/Huyện",
-		dataIndex: "district",
-		key: "district",
-		ellipsis: true,
-		render: (value) => value?.name,
-	},
-	{
-		title: "Xã/Phường",
-		dataIndex: "ward",
-		key: "ward",
-		ellipsis: true,
-		render: (value) => value?.name,
-	},
-	{
-		title: "Đường/Số nhà",
-		dataIndex: "street",
-		key: "street",
-		ellipsis: true,
-	},
-	{
-		title: "Địa chỉ",
-		dataIndex: "address",
-		key: "address",
-		ellipsis: true,
-		width: 600,
-		render: (value) => (
-			<Tooltip title={value}>
-				<div className="flex gap-2">
-					<EnvironmentOutlined className="text-base" />
-					<div className="three-dot">{value}</div>
-				</div>
-			</Tooltip>
-		),
-	},
-	{
-		title: "Thông tin khác",
-		dataIndex: "otherInfo",
-		key: "otherInfo",
-		ellipsis: true,
-	},
-	{
-		title: "Ngày mua",
-		dataIndex: "createdDate",
-		key: "createdDate",
-		render: (value) => getDate(value),
-	},
-];
 
 const Leads = () => {
 	const dispatch = useAppDispatch();
@@ -145,22 +28,143 @@ const Leads = () => {
 	const [count, setCount] = useState(0);
 	const [page, setPage] = useState(1);
 
+
+	const columns = useMemo(
+		() => [
+			{
+				key: "name",
+				dataIndex: "",
+				title: "Họ tên",
+				ellipsis: true,
+				width: 250,
+				render: (record) => (
+					<div className="flex gap-2 items-center">
+						<Image
+							preview={false}
+							alt=""
+							width={28}
+							height={28}
+							src={record?.avt}
+							className="rounded-full"
+						/>
+						<div>{record?.name}</div>
+					</div>
+				),
+			},
+			{
+				key: "age",
+				dataIndex: "age",
+				title: "Tuổi",
+				ellipsis: true,
+				width: 80,
+				render: (value) => <>{value}</>,
+			},
+			{
+				key: "gender",
+				dataIndex: "gender",
+				title: "Giới tính",
+				ellipsis: true,
+				width: 100,
+				render: (value) => <>{value?.name}</>,
+			},
+			{
+				key: "phone",
+				dataIndex: "phone",
+				title: "Số điện thoại",
+				ellipsis: true,
+				render: (value) => (
+					<div className="flex gap-2">
+						<PhoneOutlined className="text-base" />
+						<div>{value}</div>
+					</div>
+				),
+			},
+			{
+				key: "email",
+				dataIndex: "email",
+				title: "Email",
+				ellipsis: true,
+				render: (value) => (
+					<div className="flex gap-2">
+						<MailOutlined className="text-base" />
+						<div>{value}</div>
+					</div>
+				),
+			},
+			{
+				key: "address",
+				dataIndex: "address",
+				title: "Địa chỉ",
+				ellipsis: true,
+				render: (value) => (
+					<div className="flex gap-2">
+						<EnvironmentOutlined className="text-base" />
+						<div>{value}</div>
+					</div>
+				),
+			},
+			{
+				key: "province",
+				dataIndex: "province",
+				title: "Tỉnh/TP",
+				render: (value) => <>{value?.name}</>,
+			},
+			{
+				key: "district",
+				dataIndex: "district",
+				title: "Quận/Huyện",
+				ellipsis: true,
+				render: (value) => <>{value?.name}</>,
+			},
+			{
+				key: "ward",
+				dataIndex: "ward",
+				title: "Xã/Phường",
+				ellipsis: true,
+				render: (value) => <>{value?.name}</>,
+			},
+			{
+				key: "street",
+				dataIndex: "street",
+				title: "Đường/Số nhà",
+				ellipsis: true,
+				render: (value) => <>{value}</>,
+			},
+			{
+				key: "otherInfo",
+				dataIndex: "otherInfo",
+				title: "Thông tin khác",
+				render: (value) => <>{value}</>,
+			},
+			// {
+			// 	key: "action",
+			// 	title: "Hành động",
+			// 	fixed: "right",
+			// 	width: 110,
+			// 	render: (record) => (
+			// 		<div className="flex justify-center">
+			// 			<div
+			// 				className="cursor-pointer rounded bg-viewBg text-view px-1.5 py-0.5 hover:text-white hover:bg-view w-min"
+			// 				// onClick={() => setItemSelected(record)}
+			// 			>
+			// 				<EyeOutlined />
+			// 			</div>
+			// 		</div>
+			// 	),
+			// },
+		],
+		[]
+	);
+
 	useEffect(() => {
 		const getData = async () => {
 			dispatch(updateLoading(true));
 			const res = await httpAuthGet({
-				endpoint: apiCompanyGetBoughtObject,
-				params: { objectType: BUY_OBJECT_TYPE.CUSTOMER, page, size: pageSize },
+				endpoint: apiCompanyGetLeads,
 			});
 			if (res?.status === 200) {
-				const convertData = res?.data?.data?.map((item) => ({
-					createdDate: item?.createdDate,
-					...item?.customer,
-					id: item?.id,
-					customerId: item?.customerId,
-				}));
-				setData(convertData);
-				setCount(res?.data?.count);
+				setData(res?.data?.items);
+				setCount(res?.data?.totalCount);
 			} else {
 				toast.error(errorMessage);
 			}
@@ -171,10 +175,11 @@ const Leads = () => {
 
 	const exportCustomer = () => {
 		const handler = async () => {
-			const data = await httpAuthPost({
-				endpoint: apiCompanyExportCustomer,
+			const data = await httpAuthGet({
+				endpoint: apiCompanyExportLeads,
 				responseType: "blob",
 			});
+			console.log(data)
 			const url = window.URL.createObjectURL(
 				new Blob([data], {
 					type: data?.type,

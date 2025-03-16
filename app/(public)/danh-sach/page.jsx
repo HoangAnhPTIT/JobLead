@@ -8,9 +8,7 @@ const PotentialClients = () => {
 	return (
 		<div>
 			<Image
-				src={"https://placehold.co/1170x220.png"}
-				width="100%"
-				height={220}
+				src={"/images/Hilead logo be.png"}
 				alt=""
 				preview={false}
 			/>
