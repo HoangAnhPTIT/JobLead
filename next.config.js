@@ -4,7 +4,7 @@ const path = require("path");
 const nextConfig = {
 	reactStrictMode: false,
 	env: {
-		API_URL: "https://api.timviec247.vn/api/v1",
+		API_URL: "https://localhost:7234/api/v1",
 		DOMAIN_NAME: "timviec247.vn",
 		SUB_DOMAIN_NAME: "lead.timviec247.vn",
 		DOMAIN_URL: "https://timviec247.vn",

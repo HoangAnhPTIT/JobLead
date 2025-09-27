@@ -1,3 +1,5 @@
+'use client';
+
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ConfigProvider } from "antd";
@@ -7,18 +9,30 @@ import { Roboto } from "next/font/google";
 import LayoutContent from "src/components/Layout/LayoutContent";
 import { primaryColor } from "src/constants/common";
 import StoreProvider from "./StoreProvider";
+import { usePathname } from "next/navigation";
+import LayoutTopContent from "src/components/Layout/LayoutTopContent";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "700", "900"],
 	subsets: ["latin"],
 });
 
-export const metadata = {
-	title: "Khách hàng tiềm năng",
-	description: "Khách hàng tiềm năng",
-};
+// export const metadata = {
+// 	title: "Khách hàng tiềm năng",
+// 	description: "Khách hàng tiềm năng",
+// };
 
 const RootLayout = ({ children }) => {
+	const pathname = usePathname();
+
+	// Choose layout based on route
+	const getLayout = () => {
+		if (pathname === "/dang-nhap" || pathname === "/dang-ky") {
+			return <LayoutTopContent>{children}</LayoutTopContent>;
+		}
+		return <LayoutContent>{children}</LayoutContent>;
+	};
+
 	return (
 		<html>
 			<head></head>
@@ -61,7 +75,7 @@ const RootLayout = ({ children }) => {
 									},
 								}}
 							>
-								<LayoutContent>{children}</LayoutContent>
+								{getLayout()}
 							</ConfigProvider>
 						</AntdRegistry>
 					</AppRouterCacheProvider>

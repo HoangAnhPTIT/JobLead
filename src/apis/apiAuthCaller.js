@@ -188,13 +188,13 @@ const refreshTokenAndRetry = async () => {
 				} else {
 					deleteAllCookies();
 					setTimeout(() => {
-						window.location.href = "https://timviec247.vn/dang-nhap";
+						// window.location.href = "https://timviec247.vn/dang-nhap";
 					}, 1000);
 				}
 			} catch (error) {
 				deleteAllCookies();
 				setTimeout(() => {
-					window.location.href = "https://timviec247.vn/dang-nhap";
+					// window.location.href = "https://timviec247.vn/dang-nhap";
 				}, 1000);
 			}
 
@@ -202,7 +202,7 @@ const refreshTokenAndRetry = async () => {
 		} else {
 			deleteAllCookies();
 			setTimeout(() => {
-				window.location.href = "https://timviec247.vn/dang-nhap";
+				// window.location.href = "https://timviec247.vn/dang-nhap";
 			}, 1000);
 		}
 	} catch (error) {
