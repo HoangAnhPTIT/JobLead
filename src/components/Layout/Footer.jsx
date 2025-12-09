@@ -1,8 +1,8 @@
-import { Email, FmdGood, PhoneEnabled } from "@mui/icons-material";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { imageError } from "src/constants/common";
+import MIcon from "src/components/common/MIcon";
 import Counter from "./Counter";
 import styles from "./styles.module.scss";
 
@@ -183,17 +183,17 @@ const FooterLayout = () => {
 						</div>
 						<strong>{companyInfo.name}</strong>
 						<div className="mt-1">
-							<FmdGood style={{ fontSize: 18 }} />
+							<MIcon name="fmd_good" className="text-[18px]" />
 							<strong> Địa chỉ: </strong>
 							<span>{companyInfo.address}</span>
 						</div>
 						<div className="mt-1">
-							<PhoneEnabled style={{ fontSize: 18 }} />
+							<MIcon name="phone_enabled" className="text-[18px]" />
 							<strong> Số điện thoại: </strong>
 							<span>{companyInfo.phone}</span>
 						</div>
 						<div className="mt-1">
-							<Email style={{ fontSize: 18 }} />
+							<MIcon name="mail" className="text-[18px]" />
 							<strong> Email: </strong>
 							<span>{companyInfo.email}</span>
 						</div>

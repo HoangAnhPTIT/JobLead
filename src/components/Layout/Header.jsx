@@ -1,83 +1,68 @@
 
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { Grid, Stack } from "@mui/material";
 import classNames from "classnames";
 import { logout, setIsLogin, setUserInfo } from "lib/features/userSlice";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import {
-  BorderColor,
-  DescriptionOutlined,
-  DnsOutlined,
-  KeyboardArrowDown,
-  Logout,
-  MenuOutlined,
-  MiscellaneousServicesOutlined,
-  PasswordOutlined,
-  SettingsOutlined,
-  SnippetFolderOutlined,
-  TextSnippet,
-} from "@mui/icons-material";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
+import { USER_ROLE, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { deleteAllCookies, redirectTo } from "src/helper/common";
+import { redirectTo } from "src/helper/common";
+import { getSessionFromCookies } from "src/services/authService";
+import MIcon from "src/components/common/MIcon";
 import styles from "./styles.module.scss";
 
-const domain = process.env.DOMAIN_URL;
+const domain = `https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
 
 
 
 const userMenu = {
   [USER_ROLE.candidate]: [
     {
-      icon: <TextSnippet />,
+      icon: <MIcon name="text_snippet" />,
       label: "Quản lý hồ sơ",
       link: `${routeMap.file}${routeMap.dashboard}`,
     },
     {
-      icon: <DescriptionOutlined />,
+      icon: <MIcon name="description" />,
       label: "Danh sách CV",
       link: `${routeMap.file}${routeMap.cv}`,
     },
     {
-      icon: <SnippetFolderOutlined />,
+      icon: <MIcon name="snippet_folder" />,
       label: "Việc làm đã lưu",
       link: `${routeMap.file}${routeMap.savedJob}`,
     },
     {
-      icon: <PasswordOutlined />,
+      icon: <MIcon name="password" />,
       label: "Đổi mật khẩu",
       link: `${routeMap.file}${routeMap.changePassword}`,
     },
   ],
   [USER_ROLE.employer]: [
     {
-      icon: <SettingsOutlined />,
+      icon: <MIcon name="settings" />,
       label: "Thông tin chung",
       link: `${routeMap.employer}${routeMap.dashboard}`,
     },
     {
-      icon: <BorderColor />,
+      icon: <MIcon name="border_color" />,
       label: "Đăng tin tuyển dụng",
       link: `${routeMap.employer}${routeMap.createJob}`,
     },
     {
-      icon: <DnsOutlined />,
+      icon: <MIcon name="dns" />,
       label: "Quản lý tin tuyển dụng",
       link: `${routeMap.employer}${routeMap.postList}`,
     },
     {
-      icon: <MiscellaneousServicesOutlined />,
+      icon: <MIcon name="miscellaneous_services" />,
       label: "Quản lý dịch vụ",
       link: `${routeMap.employer}${routeMap.packageManage}`,
     },
     {
-      icon: <PasswordOutlined />,
+      icon: <MIcon name="password" />,
       label: "Đổi mật khẩu",
       link: `${routeMap.employer}${routeMap.changePassword}`,
     },
@@ -112,30 +97,14 @@ export default function Header() {
   };
 
   const redirectMenu = (pathname) => {
-    window.open(`${process.env.DOMAIN_URL}${pathname}`);
+    window.open(`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${pathname}`);
   };
 
   useEffect(() => {
-    const isLogin = Cookies.get(loggedIn)
-      ? JSON?.parse(Cookies.get(loggedIn))
-      : false;
-    dispatch(setIsLogin(isLogin));
-    if (isLogin) {
-      const tokenCookie = Cookies.get(token);
-      const decodeToken = jwtDecode(tokenCookie);
-      const userInfo = {
-        userId: decodeToken.userId,
-        email:
-          decodeToken[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-          ],
-        role: decodeToken[
-          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        ],
-      };
-      dispatch(setUserInfo(userInfo));
-    } else {
-      deleteAllCookies();
+    const session = getSessionFromCookies();
+    dispatch(setIsLogin(session.isLoggedIn));
+    if (session.isLoggedIn) {
+      dispatch(setUserInfo(session.userInfo));
     }
   }, []);
 
@@ -147,14 +116,8 @@ export default function Header() {
       ])}
     >
       <div className="relative w-full">
-        <Grid
-          container
-          alignItems="center"
-          alignContent="center"
-          spacing={{ xs: 0, lg: 1 }}
-          className="text-33"
-        >
-          <Grid item xs={12} lg="auto">
+        <div className="flex items-center text-33">
+          <div className="w-full lg:w-auto">
             <div
               className="cursor-pointer p-3 lg:p-0 w-fit"
               onClick={() => redirectTo("")}
@@ -166,30 +129,21 @@ export default function Header() {
                 height={41}
               />
             </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            lg="auto"
+          </div>
+          <div
             className={classNames(
-              "!flex-1 w-full left-0 lg:left-auto absolute top-16 lg:relative lg:top-0 bg-white lg:!visible",
+              "flex-1 w-full left-0 lg:left-auto absolute top-16 lg:relative lg:top-0 bg-white lg:!visible",
               showMenu ? "visible" : "invisible"
             )}
           >
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={{ xs: 0, lg: 2 }}
-              className="w-full"
-            >
-              <Grid item xs={12} lg="auto">
-                <Grid container>
+            <div className="flex justify-between items-center w-full">
+              <div className="w-full lg:w-auto">
+                <div className="flex">
                   {menuItems?.map(
                     (item, i) =>
                       (item?.role === USER_ROLE.all ||
                         item?.role === userInfo?.role) && (
-                        <Grid item xs={12} lg="auto" key={i}>
+                        <div key={i} className="w-full lg:w-auto">
                           <div
                             className={classNames([
                               "hover:bg-secondary hover:text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
@@ -199,10 +153,10 @@ export default function Header() {
                           >
                             {item?.label}
                           </div>
-                        </Grid>
+                        </div>
                       )
                   )}
-                  <Grid item xs={12} lg="auto">
+                  <div className="w-full lg:w-auto">
                     <div
                       className={classNames([
                         "bg-secondary text-white px-4 uppercase font-semibold cursor-pointer text-xs h-16 flex items-center",
@@ -210,39 +164,33 @@ export default function Header() {
                     >
                       Khách hàng tiềm năng
                     </div>
-                  </Grid>
-                </Grid>
-              </Grid>
+                  </div>
+                </div>
+              </div>
               {isLogin === false && (
-                <Grid
-                  item
-                  xs={12}
-                  lg="auto"
-                  className="text-white font-semibold"
-                  justify="center"
-                >
-                  <Grid container>
-                    <Grid item xs={12} lg="auto">
+                <div className="w-full lg:w-auto text-white font-semibold">
+                  <div className="flex">
+                    <div className="w-full lg:w-auto">
                       <div
                         className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer"
                         onClick={() => redirectMenu(routeMap.login)}
                       >
                         <span className="text-sm">Đăng nhập</span>
                       </div>
-                    </Grid>
-                    <Grid item xs={12} lg="auto">
+                    </div>
+                    <div className="w-full lg:w-auto">
                       <div
                         className="hover:bg-secondary hover:text-white px-4 lg:px-2 font-semibold text-33 cursor-pointer"
                         onClick={() => redirectMenu(routeMap.register)}
                       >
                         <span className="text-sm te">Đăng ký</span>
                       </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                    </div>
+                  </div>
+                </div>
               )}
               {isLogin && (
-                <Grid item xs={12} lg="auto">
+                <div className="w-full lg:w-auto">
                   <div
                     className={classNames(
                       "hover:bg-secondary hover:text-white text-33 cursor-pointer relative px-4 lg:px-2",
@@ -255,7 +203,7 @@ export default function Header() {
                         styles.item
                       )}
                     >
-                      Tài khoản <KeyboardArrowDown />
+                      Tài khoản <MIcon name="keyboard_arrow_down" />
                     </div>
                     <div
                       className={classNames(
@@ -263,7 +211,7 @@ export default function Header() {
                         styles.accMenu
                       )}
                     >
-                      <Stack>
+                      <div>
                         {userMenu?.[userInfo?.role]?.map((item, i) => (
                           <div
                             onClick={() => redirectMenu(item.link)}
@@ -278,20 +226,20 @@ export default function Header() {
                           onClick={handleLogout}
                           className="text-sm hover:text-primary p-2 hover:bg-ee"
                         >
-                          <Logout />
+                          <MIcon name="logout" />
                           <span className="ml-2">Đăng xuất</span>
                         </div>
-                      </Stack>
+                      </div>
                     </div>
                   </div>
-                </Grid>
+                </div>
               )}
-            </Grid>
-          </Grid>
-        </Grid>
-        <MenuOutlined
-          fontSize="large"
-          className="absolute top-4 right-3 cursor-pointer lg:!hidden"
+            </div>
+          </div>
+        </div>
+        <MIcon
+          name="menu"
+          className="absolute top-4 right-3 cursor-pointer lg:!hidden text-[28px]"
           onClick={() => setShowMenu(!showMenu)}
         />
       </div>

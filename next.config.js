@@ -3,17 +3,6 @@ const path = require("path");
 
 const nextConfig = {
 	reactStrictMode: false,
-	env: {
-		API_URL: "https://localhost:7234/api/v1",
-		DOMAIN_NAME: "timviec247.vn",
-		SUB_DOMAIN_NAME: "http://localhost:3000",
-		DOMAIN_URL: "http://localhost:3000",
-
-		// API_URL: "https://localhost:7234/api/v1",
-		// DOMAIN_NAME: "localhost:3000",
-		// SUB_DOMAIN_NAME: "lead.localhost:3000",
-		// DOMAIN_URL: "http://localhost:3000",
-	},
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],
 	},
