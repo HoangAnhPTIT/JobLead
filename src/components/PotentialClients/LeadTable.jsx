@@ -123,13 +123,6 @@ const LeadTable = ({ setItemSelected, triggerReload }) => {
 				render: (value) => <>{value?.name}</>,
 			},
 			{
-				key: "district",
-				dataIndex: "district",
-				title: "Quận/Huyện",
-				ellipsis: true,
-				render: (value) => <>{value?.name}</>,
-			},
-			{
 				key: "ward",
 				dataIndex: "ward",
 				title: "Xã/Phường",

@@ -7,11 +7,11 @@ import SearchBox from "src/components/PotentialClients/SearchBox";
 const PotentialClients = () => {
 	return (
 		<div>
-			<Image
+			{/* <Image
 				src={"/images/Hilead logo be.png"}
 				alt=""
 				preview={false}
-			/>
+			/> */}
 			<div className="mt-5">
 				<SearchBox />
 			</div>

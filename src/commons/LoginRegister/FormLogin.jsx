@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 
 import { notification, Button, Form, Input, Card, Checkbox } from 'antd'
+import Image from 'next/image'
 
 function FormLogin() {
-  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
-  const openSuccessNotification = (description, key) => {
-    notification.success({
-      key,
-      message: 'Login success message',
-      description
-    })
-  }
-
-  const openErrorNotification = (description, key) => {
-    notification.error({
-      key,
-      message: 'Có lỗi xẩy ra',
-      description
-    })
-  }
 
   async function handleLogin(userLogin) {
     // setIsLoading(true)
@@ -40,71 +24,65 @@ function FormLogin() {
   }
 
   return (
-    <>
-      <Card
-        className='border  p-3 tablet:p-0 card-login'
-        title={
-          <div className="flex justify-between">
-            <div className="flex items-center border-r border-gray-400 pr-2">
-              <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="mr-3 h-6 sm:h-9"
-                alt="Flowbite Logo"
-              />
-              <span className="self-center text-sm font-semibold whitespace-nowrap text-black dark:text-white">
-                HiLead
-              </span>
-            </div>
-            <div>Đăng nhập</div>
-          </div>
-        }
+    <Card
+      className='border  p-3 tablet:p-0 card-login'
+      title={
+        <div className="flex justify-between">
+          <Image
+            src={"/images/Hilead logo be.png"}
+            alt="logo"
+            width={112}
+            height={41}
+          />
+          <div>Đăng nhập</div>
+        </div>
+      }
+    >
+      <Form
+        name="basic"
+        initialValues={{ remember: true }}
+        onFinish={handleLogin}
+        autoComplete="off"
+        className="w-full"
+        layout="vertical"
+        requiredMark={false}
       >
-        <Form
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={handleLogin}
-          autoComplete="off"
+        <Form.Item
+          label="Tên đăng nhập"
+          name="email"
+          rules={[
+            { required: true, message: 'Vui lòng nhập tên đăng nhập!' },
+            {
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Tên đăng nhập không hợp lệ'
+            }
+          ]}
           className="w-full"
-          layout="vertical"
-          requiredMark={false}
         >
-          <Form.Item
-            label="Tên đăng nhập"
-            name="email"
-            rules={[
-              { required: true, message: 'Vui lòng nhập tên đăng nhập!' },
-              {
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Tên đăng nhập không hợp lệ'
-              }
-            ]}
-            className="w-full"
-          >
-            <Input size="large" className="w-full" />
-          </Form.Item>
+          <Input size="large" className="w-full" />
+        </Form.Item>
 
-          <Form.Item
-            label="Mật khẩu"
-            name="password"
-            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+        <Form.Item
+          label="Mật khẩu"
+          name="password"
+          rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+        >
+          <Input.Password size="large" />
+        </Form.Item>
+        <Form.Item><div className='w-full flex justify-between'><Checkbox>Lưu tài khoản</Checkbox> <div className="hover:underline cursor-pointer text-sky-500">Quên mật khẩu?</div></div></Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="w-full rounded-3xl"
+            size="large"
+            loading={isLoading}
           >
-            <Input.Password size="large" />
-          </Form.Item>
-          <Form.Item><div className='w-full flex justify-between'><Checkbox>Lưu tài khoản</Checkbox> <div className="hover:underline cursor-pointer text-sky-500">Quên mật khẩu?</div></div></Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="w-full rounded-3xl"
-              size="large"
-              loading={isLoading}
-            >
-              Đăng nhập
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
-    </>
+            Đăng nhập
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
   )
 }
 
