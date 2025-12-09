@@ -21,14 +21,13 @@ import {
   SnippetFolderOutlined,
   TextSnippet,
 } from "@mui/icons-material";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import { USER_ROLE, imageError, loggedIn, token } from "src/constants/common";
+import { USER_ROLE, imageError } from "src/constants/common";
 import routeMap from "src/constants/routeMap";
-import { deleteAllCookies, redirectTo } from "src/helper/common";
+import { redirectTo } from "src/helper/common";
+import { getSessionFromCookies } from "src/services/authService";
 import styles from "./styles.module.scss";
 
-const domain = process.env.DOMAIN_URL;
+const domain = `https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
 
 
 
@@ -112,30 +111,14 @@ export default function Header() {
   };
 
   const redirectMenu = (pathname) => {
-    window.open(`${process.env.DOMAIN_URL}${pathname}`);
+    window.open(`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${pathname}`);
   };
 
   useEffect(() => {
-    const isLogin = Cookies.get(loggedIn)
-      ? JSON?.parse(Cookies.get(loggedIn))
-      : false;
-    dispatch(setIsLogin(isLogin));
-    if (isLogin) {
-      const tokenCookie = Cookies.get(token);
-      const decodeToken = jwtDecode(tokenCookie);
-      const userInfo = {
-        userId: decodeToken.userId,
-        email:
-          decodeToken[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-          ],
-        role: decodeToken[
-          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        ],
-      };
-      dispatch(setUserInfo(userInfo));
-    } else {
-      deleteAllCookies();
+    const session = getSessionFromCookies();
+    dispatch(setIsLogin(session.isLoggedIn));
+    if (session.isLoggedIn) {
+      dispatch(setUserInfo(session.userInfo));
     }
   }, []);
 

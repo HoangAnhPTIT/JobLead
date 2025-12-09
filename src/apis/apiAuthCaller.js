@@ -9,7 +9,7 @@ import {
 	apiRefreshToken,
 } from "./apiEndpoint";
 
-const baseURL = process.env.API_URL;
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const instance = axios.create({
 	baseURL,
